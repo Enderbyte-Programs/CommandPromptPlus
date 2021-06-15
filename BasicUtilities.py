@@ -127,11 +127,41 @@ def reload():
         error(2)
     else:
         sys.exit()
+try:
+    f = open('bday.txt','r')
+    x = f.readlines()
+    mt = x[0]
+    dy = x[1]
+except:
+    print('Warning: Bday file unreadable or missing',end='\r')
+else:
+    t = datetime.datetime.now()
+    p = t.month
+    o = t.day
+    try:
+        mt = int(mt)
+        dy = int(dy)
+    except:
+        print('Warning: Bday file cannot be converted to type <int>.',end='\r')
+    else:
+        try:
+            l = datetime.datetime(2021,mt,dy,0,0,0)
+        except:
+            print('Warning: Bday out of range',end='\r')
+        else:
+            if mt == p and dy ==o:
+                print("Happy birthday to you!")
+                print("Happy birthday to you!")
+                print("Happy birthday, dear User")
+                print("Happy birthday to you!")
+                print("")
+                print('press enter to continue to the command menu')
+                input()
 
 print("***************",end='\n')
 sleep(0.5)
 print("Welcome to BasicUtilities")
-print("Version 2.1.2")
+print("Version 2.1.3")
 while xae == True:
     crashed = False
     print("")
@@ -184,7 +214,37 @@ while xae == True:
         print("pre-uninstall: Get rid of the files that the uninstall can't uninstall. This will destroy appdata.txt and saved drawings still in this directory.")
         print("cpg: Play the Cartesian Plane Game")
         print("colour: Find a colour")
+        print("bday: Input your birthday to get a surprise on startup when it matches")
         print("There are also some easter egg commands :)")
+        
+    elif command == 'bday':
+        print('What month is your birthday on?')
+        mt = input()
+        try:
+            mt = int(mt)
+        except:
+            error(1)
+        else:
+            print("What day?")
+            dy = input()
+            try:
+                dy = int(dy)
+            except:
+                error(1)
+            else:
+                mt = str(mt)
+                dy = str(dy)
+                mt = mt + '\n'
+                try:
+                    f = open('bday.txt','x')
+                    f.write(mt)
+                    f.write(dy)
+                except:
+                    f = open('bday.txt','w')
+                    f.write(mt)
+                    f.write(dy)
+                finally:
+                    f.close()
         
     elif command == 'colour' or command == 'color':
         try:
@@ -1412,8 +1472,8 @@ while xae == True:
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print("Started on April 14, 2021")
-        print("2316 lines of code")
-        print("Almost 80000 chracters")
+        print("2376 lines of code")
+        print("Over 81000 chracters")
 
     elif command == "prank":
         def prank():
