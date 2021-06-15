@@ -40,9 +40,6 @@ import sys
 print("***********----",end="\r")
 from tkinter import messagebox
 print("************---",end='\r')
-
-
-newwindow = True
 sw = False
 gamees_played = 0
 gamees_won = 0
@@ -134,7 +131,7 @@ def reload():
 print("***************",end='\n')
 sleep(0.5)
 print("Welcome to BasicUtilities")
-print("Version 2.1.1")
+print("Version 2.1.2")
 while xae == True:
     crashed = False
     print("")
@@ -186,6 +183,87 @@ while xae == True:
         print("uninstall: Uninstall this program completely")
         print("pre-uninstall: Get rid of the files that the uninstall can't uninstall. This will destroy appdata.txt and saved drawings still in this directory.")
         print("cpg: Play the Cartesian Plane Game")
+        print("colour: Find a colour")
+        print("There are also some easter egg commands :)")
+        
+    elif command == 'colour' or command == 'color':
+        try:
+            s = turtle.getscreen()
+            t = turtle.Turtle()
+        except:
+            s = turtle.getscreen()
+            t = turtle.Turtle()
+        def colourchange():
+            global txt
+            global txt1
+            global txt2
+            res = txt.get()
+            res1 = txt1.get()
+            res2 = txt2.get()
+            efyi = True
+            while efyi == True:
+                try:
+                    a = int(res)
+                except:
+                    error(1)
+                    break
+                
+                try:
+                    b = int(res1)
+                except:
+                    error(1)
+                    break
+                try:
+                    c = int(res2)
+                except:
+                    error(1)
+                    break       
+                wx = turtle.Screen()
+                wx.colormode(255)
+                try:
+                    turtle.Screen().bgcolor(a,b,c)
+                except:
+                    error(0)
+                    error(5)
+                finally:
+                    break
+        def bby():
+            ct.destroy()
+            try:
+                turtle.bye()
+            except:
+                error(0)
+        ct = Tk()
+        ct.title('Window')
+        txt = Entry(ct,width=10)
+        txt.grid(column=0,row=0)
+        txt1 = Entry(ct,width=10)
+        txt1.grid(column=1,row=0)
+        txt2 = Entry(ct,width=10)
+        txt2.grid(column=2,row=0)
+        btn = Button(ct,text='Generate colour',command=colourchange,bg='green')
+        btn.grid(column=1,row=1)
+        lbl = Label(ct,text='Please enter values between 0 and 255')
+        lbl.grid(column=1,row=2)
+        btn1 = Button(ct,text='Exit',command=bby,bg='red')
+        btn1.grid(column=2,row=1)
+        ct.mainloop()
+        
+    elif command == 'clean your room':
+        messagebox.showerror('Error','Computers cannot clean their rooms')
+    elif command == 'ur mom':
+        print("ohhhhhhhhhhhhhhhhhhhhhhh")
+    elif command == 'spam':
+        for i in range(20):
+            try:
+                os.startfile('error.vbs')
+            except:
+                error(2)
+                break
+            else:
+                c = random.randint(3,13)
+                c = c/10
+                sleep(c)
 
     elif command == 'cpg':
         print("To return to the command menu, make sure all other Tk windows are closed.")
@@ -197,7 +275,10 @@ while xae == True:
 
         def bb():
             ct.destroy()
-            turtle.bye()
+            try:
+                turtle.bye()
+            except:
+                error(0)
         def go():
             global txt
             global abh
@@ -223,8 +304,8 @@ while xae == True:
 
         def undo():
             t.undo()
-                    
-        
+
+
         try:
             s = turtle.getscreen()
             t = turtle.Turtle()
@@ -235,7 +316,7 @@ while xae == True:
         b = random.randint(-200,200)
         t.penup()
         t.goto(a,b)
-        
+
         t.stamp()
         abh = t.pos()
         print("Go to",abh)
@@ -257,7 +338,7 @@ while xae == True:
         btn4 = Button(ct,text='Undo',command=undo,bg='yellow')
         btn4.grid(column=0,row=2)
         ct.mainloop()
-        
+
     elif command == 'pre-uninstall':
         try:
             os.startfile('pre-uninstall.bat')
@@ -366,12 +447,12 @@ while xae == True:
         newwindow()
         print("How many seconds?")
         sc_tm = input()
-        
+
         paused = False
         def tmmain():
             global sc_tm
             global paused
-            while sc_tm > 0 and paused == False:                               
+            while sc_tm > 0 and paused == False:
                 try:
                     lbl.configure(text=sc_tm)
                 except:
@@ -440,7 +521,7 @@ while xae == True:
             btn25 = Button(tm,text='Reset',command=tmreset,bg='blue')
             btn25.grid(column=3,row=1)
             tm.mainloop()
-            
+
 
     elif command == 'draw':
         newwindow()
@@ -604,7 +685,7 @@ while xae == True:
             window.destroy()
             turtle.bye()
             tcrash = True
-            
+
 
         lbl = Label(window,text='Lets Draw',font=("Arial Bold",12))
         lbl.grid(column=0,row=0)
@@ -725,7 +806,7 @@ while xae == True:
         print("error 7: Turtle error")
 
     elif command == "sw":
-        
+
         newwindow()
         print("Please look at the Tkinter window")
         def swmain():
@@ -759,7 +840,7 @@ while xae == True:
             btn3['state'] = "disabled"
             th0 = threading.Thread(target=swcount)
             th0.start()
-            
+
 
         def swcount():
             global lbl
@@ -792,9 +873,9 @@ while xae == True:
                 lbl.configure(text=tcount)
             except:
                 error(0)
-            
-        
-               
+
+
+
         tcount = 0
         paused = False
         swmain()
@@ -818,7 +899,7 @@ while xae == True:
                     break
         th = threading.Thread(target=timer)
         th.start()
-        
+
         while correct < 10:
             n1 = random.randint(1,12)
             n2 = random.randint(1,12)
@@ -871,7 +952,7 @@ while xae == True:
         print("**: Exponents, command usage: 10 ** 3")
         print("// Floor Division, command usage: 93 // 12")
         print("() Parentheses, used to execute some math first. Example: (12+6)/3")
-              
+
 
     elif command == "calc":
         print("Please type the full equation here.")
@@ -1176,7 +1257,7 @@ while xae == True:
             print("The area is",area)
             print("The perimeter is",perimeter)
             apvrec = False
-        
+
     elif command == "apv cir":
         apvcir = True
         while apvcir == True:
@@ -1240,7 +1321,7 @@ while xae == True:
                 error(1)
                 break
             volume = height * width
-            
+
             volume = volume * depth
             print("Volume is",volume)
             apvrecp = False
@@ -1270,7 +1351,7 @@ while xae == True:
                 error(1)
                 break
             volume = height * width
-            
+
             volume = volume * depth
             volume = volume / 2
             print("Volume is",volume)
@@ -1315,8 +1396,8 @@ while xae == True:
             volume = volume * pi
             print("Volume is",volume)
             spvsph = False
-            
-            
+
+
     elif command == "contact":
         print("Email: enderbyte09@gmail.com")
         print("Discord: Enderbyte09#0542")
@@ -1331,9 +1412,9 @@ while xae == True:
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print("Started on April 14, 2021")
-        print("2235 lines of code")
-        print("Over 78000 chracters")
-        
+        print("2316 lines of code")
+        print("Almost 80000 chracters")
+
     elif command == "prank":
         def prank():
             x = random.randint(1,4)
@@ -1364,7 +1445,7 @@ while xae == True:
             error(2)
     elif command == "game":
         newwindow()
-            
+
         total_money = 500
         times_played = 0
         print("What is your name?")
@@ -1389,7 +1470,7 @@ while xae == True:
                 print("do you want to open vault",vaults,"? (y/n)")
                 openvault = input()
                 if openvault == "y":
-        
+
                     moneyadd = random.choice(possible)
                     print("Vault",vaults,"has",moneyadd,"in it.")
                     print("")
@@ -1462,10 +1543,10 @@ while xae == True:
         print("-----")
         print(filler,adjec1,adjec2,noun1)
         print("-----")
-        
+
     elif command == "reload":
         reload()
-                
+
     elif command == "meter":
         newwindow()
         while True:
@@ -1512,7 +1593,7 @@ while xae == True:
                 error(6)
         else:
             error(6)
-        
+
     elif command == "logoff":
         logoff = True
         while logoff == True:
@@ -1533,7 +1614,7 @@ while xae == True:
                 break
             finally:
                 restart = False
-                
+
     elif command == "rng":
         afghs = True
         while afghs == True:
@@ -1543,7 +1624,7 @@ while xae == True:
             if u == False:
                 error(1)
                 break
-                
+
             botrand = int(botrand)
             print("Highest number?")
             toprand = input()
@@ -1573,7 +1654,7 @@ while xae == True:
             if m == False:
                 error(1)
                 break
-            g = int(g) 
+            g = int(g)
             print("Month?")
             h = input()
             n = h.isnumeric()
@@ -1673,7 +1754,7 @@ while xae == True:
                     crashed = True
                     asdfgh = False
                     break
-                
+
             for i in range(1,5):
                 if crashed == False:
                     playsound("warning.mp3")
@@ -1759,7 +1840,7 @@ while xae == True:
                     crashed = True
                     tgy = False
                     break
-                    
+
                 difference = d0 - d1
                 total_seconds = difference.total_seconds()
                 total_min = total_seconds / 60
@@ -1779,7 +1860,7 @@ while xae == True:
                 sleep(1)
             if crashed == True:
                 break
-                
+
     elif command == "lag":
         qwe = datetime.datetime.now()
         qwer = qwe.second
@@ -1810,7 +1891,7 @@ while xae == True:
             noscreen = False
             ttotal = 0
             while True:
-                
+
                 qwe = datetime.datetime.now()
                 qwer = qwe.second
                 if qwer > 57:
@@ -1855,7 +1936,7 @@ while xae == True:
                 print("Your average computer lag is",avglag,"milliseconds")
                 print("Your computer is",averagelag,"milliseconds behind.")
                 print("")
-    
+
     elif command == "avg":
         nums = 0
         total = 0
@@ -1882,13 +1963,13 @@ while xae == True:
                     crashed = True
                 if crashed == False:
                     nums = nums + addnum
-                    
+
                     total = total + 1
             elif adddata == "n":
                 isdone = True
         if crashed == False:
-        
-            try:    
+
+            try:
                 avg = nums / total
                 print("Your average is",avg)
                 print("")
@@ -1897,7 +1978,7 @@ while xae == True:
 
         else:
             print("Because YOU messed up, YOU have to start OVER AGAIN.")
-        
+
     elif command == "m8b":
         paty = ("Yes","It is certain","Outlook Good","No","Not a chance","My sources say no","Concentrate and ask again","BasicUtilities.exe has stopped working. Please try again later.")
         print("What do you want to ask The Magic 8 ball?")
@@ -1913,7 +1994,7 @@ while xae == True:
         print("snl bot: Have a bot play Snakes and Ladders for you. Does not count for points.")
         print("snl stats: View your snakes and ladders statistics.")
         print("-Exiting to the command menu does not lose your statistics, however, closing this program will.-")
-        
+
     elif command == "snl manual":
         names = ("Jim","Bob","Joe","Jeff","George","Sally","Emily","Doge","Tim","Bottomhead","Ruby")
         opponent = random.choice(names)
@@ -2100,132 +2181,132 @@ while xae == True:
             diceroll = random.randint(1,6)
             print("you rolled a",diceroll,"!")
             square = square + diceroll
- 
+
             print("You landed on square",square)
             print("")
             if square == 3:
                 print("You landed on a ladder square!")
                 square = 35
-                
+
                 print("You climbed to square",square)
             elif square == 15:
                 print("You landed on a secret ladder square!")
                 square = 65
-                
+
                 print("You climbed to square",square)
             elif square == 23:
                 print("You landed on a secret snake square!")
                 square = 2
-              
+
                 print("You slid to square",square)
             elif square == 29:
                 print("You landed on a ladder square!")
                 square = 71
-               
+
                 print("You climbed to square",square)
             elif square == 54:
                 print("You landed on a ladder square!")
                 square = 84
-               
+
                 print("You climbed to square",square)
             elif square == 63:
                 print("You landed on a snake square!")
                 square = 22
-               
+
                 print("You slid to square",square)
             elif square == 78:
                 print("You landed on a snake square!")
                 square = 36
-              
+
                 print("You slid to square",square)
             elif square == 80:
                 print("You landed on a ladder square!")
                 square = 100
-               
+
                 print("You climbed to square",square)
             elif square == 89:
                 print("You landed on a snake square!")
                 square = 72
-               
+
                 print("You slid to square",square)
             elif square == 94:
                 print("You landed on a snake square!")
                 square = 27
-              
+
                 print("You slid to square",square)
             elif square == 99:
                 print("You landed on a snake square!")
                 square = 21
-             
+
                 print("You slid to square",square)
             if square > 99:
                 break
             print("It is now",opponent,"'s turn!")
             opponent_diceroll = random.randint(1,6)
-          
+
             print(opponent,"rolled a",opponent_diceroll)
             opponent_square = opponent_square + opponent_diceroll
-          
+
             #todo 1.8 fix this
             print(opponent,"landed on square",opponent_square)
             if opponent_square == 3:
                 print(opponent,"landed on a ladder square!")
                 opponent_square = 35
-              
+
                 print(opponent,"climbed to square",opponent_square)
             elif opponent_square == 15:
                 print(opponent,"landed on a secret ladder square!")
                 opponent_square = 65
-              
+
                 print(opponent,"climbed to square",opponent_square)
             elif opponent_square == 23:
                 print(opponent," landed on a secret snake square!")
                 opponent_square = 2
-             
+
                 print(opponent,"slid to square",opponent_square)
             elif opponent_square == 29:
                 print(opponent,"landed on a ladder square!")
                 opponent_square = 71
-               
+
                 print(opponent,"climbed to square",opponent_square)
             elif opponent_square == 54:
                 print(opponent,"landed on a ladder square!")
                 opponent_square = 84
-               
+
                 print(opponent,"climbed to square",opponent_square)
             elif opponent_square == 63:
                 print(opponent,"landed on a snake square!")
                 opponent_square = 22
-                
+
                 print(opponent,"slid to square",opponent_square)
             elif opponent_square == 78:
                 print(opponent,"landed on a snake square!")
                 opponent_square = 36
-              
+
                 print(opponent,"slid to square",opponent_square)
             elif opponent_square == 80:
                 print(opponent,"landed on a ladder square!")
                 opponent_square = 100
-               
+
                 print(opponent,"climbed to square",opponent_square)
             elif opponent_square == 89:
                 print(opponent,"landed on a snake square!")
                 opponent_square = 72
-             
+
                 print(opponent,"slid to square",opponent_square)
             elif opponent_square == 94:
                 print(opponent,"landed on a snake square!")
                 opponent_square = 27
-              
+
                 print(opponent,"slid to square",opponent_square)
             elif opponent_square == 99:
                 print(opponent,"landed on a snake square!")
                 opponent_square = 21
-                
+
                 print(opponent,"slid to square",opponent_square)
         if square > 99:
             print("You Won!")
-          
+
         if opponent_square > 99:
             print(opponent,"won!")
 
