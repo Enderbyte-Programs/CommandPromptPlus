@@ -233,28 +233,31 @@ while xae == True:
 
         print(enc,"is your encoded script")
         print("Size:",len(enc),"bytes")
-        print("What file do you want it to be written to?")
-        fex = input()
-        fex = fex + '.bu'
-        try:
-            f = open(fex,'x')
-            f.write(enc)
-            f.close()
-            print("written to",fex)
-        except:
-            f = open(fex,'w')
-            f.write(enc)
-            f.close()
-            print("written to",fex)
+        print("Do you want to write this to a file?(y/n)")
+        sda = input()
+        if sda == 'y':
+            print("What file do you want it to be written to? No extension needed.")
+            fex = input()
+            fex = fex + '.bu'
+            try:
+                f = open(fex,'x')
+                f.write(enc)
+                f.close()
+                print("written to",fex)
+            except:
+                f = open(fex,'w')
+                f.write(enc)
+                f.close()
+                print("written to",fex)
             
     elif command == 'translate':
-        print("Translate from what file?")
+        print("Translate from what file? Encoded message files usually have a .bu file extension. You don't need to put the file extension here.")
         fex = input()
         fex = fex + '.bu'
         try:
             f = open(fex,'r')
             mes = f.read()
-            print("endcoded message is",len(mes),"bytes")
+            print("encoded message is",len(mes),"bytes")
         except:
             error(1)
         else:
@@ -266,6 +269,22 @@ while xae == True:
         .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('P(WS)',' ')
         print(tra,'is the translation')
         print('size:',len(tra),'bytes')
+        print("Do you want to write this to a txt file?(y/n)")
+        wt = input()
+        if wt == 'y':
+            print("What should the fle name be? (no extension needed)")
+            fex = input()
+            fex = fex + '.txt'
+            try:
+                f = open(fex,'x')
+                f.write(tra)
+                f.close()
+                print("written to",fex)
+            except:
+                f = open(fex,'w')
+                f.write(tra)
+                f.close()
+                print("written to",fex)
     elif command == 'bday':
         print('What month is your birthday on?')
         mt = input()
