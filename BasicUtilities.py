@@ -215,7 +215,33 @@ while xae == True:
         print("cpg: Play the Cartesian Plane Game")
         print("colour: Find a colour")
         print("bday: Input your birthday to get a surprise on startup when it matches")
+        print("encode: encode stuff so no one can read it")
+        print("translate: Translate files back to readable")
         print("There are also some easter egg commands :)")
+        
+    elif command == 'encode':
+        print("Input unencrypted message")
+        um = input()
+        string = um.lower()
+        enc = string.replace('a','x').replace('b','y').replace('c','z').replace('d','a').replace('e','j')\
+        .replace('f','g').replace('g','b').replace('h','l').replace('i','k').replace('j','m').replace('k','l')\
+        .replace('m','n').replace('n','m').replace('o','q').replace('p','r').replace('q','t').replace('r','s')\
+        .replace('s','o').replace('t','w').replace('u','c').replace('v','u').replace('w','e').replace('x','d')\
+        .replace('y','f').replace('z','i').replace('0','9').replace('1','8').replace('2','7').replace('3','6')\
+        .replace('4','5').replace('5','4').replace('6','3').replace('7','2').replace('8','1').replace('9','0')
+
+        print(enc,"is your encoded script")
+        print("What file do you want it to be written to?")
+        fex = input()
+        fex = fex + '.bu'
+        try:
+            f = open(fex,'x')
+            f.write(enc)
+            f.close()
+        except:
+            f = open(fex,'w')
+            f.write(enc)
+            f.close()
         
     elif command == 'bday':
         print('What month is your birthday on?')
@@ -1162,7 +1188,7 @@ while xae == True:
             numbers = ["1","2","3","4","5","6","7","8","9","0"]
             symbols = ["!","@","#","$","%","^","&","*","'"]
             password = ["","","","","","","","","","","","","","","","","","","","","","","","",""]
-            chgx = [0,0,0,1,1,2]
+            chgx = [0,0,0,1,2]
             characters = 0
             for i in range(hmchar):
                 chgxy = random.choice(chgx)
