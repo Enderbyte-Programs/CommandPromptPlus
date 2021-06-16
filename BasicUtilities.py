@@ -222,15 +222,17 @@ while xae == True:
     elif command == 'encode':
         print("Input unencrypted message.")
         um = input()
+        print("Message has a size of",len(um),"bytes")
         string = um.lower()
-        enc = string.replace('a','[]').replace('b','a').replace('c','b').replace('d','c').replace('e','d')\
-        .replace('f','e').replace('g','f').replace('h','g').replace('i','h').replace('j','i').replace('k','j').replace('l','k')\
-        .replace('m','l').replace('n','m').replace('o','n').replace('p','o').replace('q','p').replace('r','q')\
-        .replace('s','r').replace('t','s').replace('u','t').replace('v','u').replace('w','v').replace('x','w')\
-        .replace('y','x').replace('z','y').replace('0','/num/').replace('1','0').replace('2','1').replace('3','2')\
-        .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8')
+        enc = string.replace('a','NJ').replace('b','MPE').replace('c','CEXC').replace('d','QUIE').replace('e','*U&P/HTPS')\
+        .replace('f','XML').replace('g','MDD').replace('h','BU#').replace('i','NNQP').replace('j','DYE').replace('k','AVOO').replace('l','AXZ')\
+        .replace('m','LOL').replace('n','/-/').replace('o','NYX').replace('p','VAN').replace('q','FKUWEUI').replace('r','QYIF')\
+        .replace('s','GHQ[W]').replace('t','CUED').replace('u','MOM').replace('v','OTW').replace('w','BITLY').replace('x','ENDER')\
+        .replace('y','EXE').replace('z','GLHAC.P').replace('0','NULL').replace('1','0').replace('2','1').replace('3','2')\
+        .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8').replace(' ','P(WS)')
 
         print(enc,"is your encoded script")
+        print("Size:",len(enc),"bytes")
         print("What file do you want it to be written to?")
         fex = input()
         fex = fex + '.bu'
@@ -252,16 +254,18 @@ while xae == True:
         try:
             f = open(fex,'r')
             mes = f.read()
+            print("endcoded message is",len(mes),"bytes")
         except:
             error(1)
         else:
-            tra = mes.replace('y','z').replace('x','y').replace('w','x').replace('v','w').replace('u','v')\
-        .replace('t','u').replace('s','t').replace('r','s').replace('q','r').replace('p','q').replace('o','p')\
-        .replace('n','o').replace('m','n').replace('l','m').replace('k','l').replace('j','k').replace('i','j')\
-        .replace('h','i').replace('g','h').replace('f','g').replace('e','f').replace('d','e').replace('c','d')\
-        .replace('b','c').replace('a','b').replace('[]','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
-        .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('/num/','0')
+            tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
+        .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
+        .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
+        .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
+        .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+        .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('P(WS)',' ')
         print(tra,'is the translation')
+        print('size:',len(tra),'bytes')
     elif command == 'bday':
         print('What month is your birthday on?')
         mt = input()
@@ -519,6 +523,7 @@ while xae == True:
 
     elif command == 'conv len i-y':
         conv('inches','yards',"/48")
+                    
 
     elif command == 'conv len c-y':
         conv('centimeters','yards','*0.010936')
