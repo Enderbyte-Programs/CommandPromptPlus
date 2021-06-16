@@ -161,7 +161,7 @@ else:
 print("***************",end='\n')
 sleep(0.5)
 print("Welcome to BasicUtilities")
-print("Version 2.1.3")
+print("Version 2.2")
 while xae == True:
     crashed = False
     print("")
@@ -220,15 +220,15 @@ while xae == True:
         print("There are also some easter egg commands :)")
         
     elif command == 'encode':
-        print("Input unencrypted message")
+        print("Input unencrypted message.")
         um = input()
         string = um.lower()
-        enc = string.replace('a','x').replace('b','y').replace('c','z').replace('d','a').replace('e','j')\
-        .replace('f','g').replace('g','b').replace('h','l').replace('i','k').replace('j','m').replace('k','l')\
-        .replace('m','n').replace('n','m').replace('o','q').replace('p','r').replace('q','t').replace('r','s')\
-        .replace('s','o').replace('t','w').replace('u','c').replace('v','u').replace('w','e').replace('x','d')\
-        .replace('y','f').replace('z','i').replace('0','9').replace('1','8').replace('2','7').replace('3','6')\
-        .replace('4','5').replace('5','4').replace('6','3').replace('7','2').replace('8','1').replace('9','0')
+        enc = string.replace('a','[]').replace('b','a').replace('c','b').replace('d','c').replace('e','d')\
+        .replace('f','e').replace('g','f').replace('h','g').replace('i','h').replace('j','i').replace('k','j').replace('l','k')\
+        .replace('m','l').replace('n','m').replace('o','n').replace('p','o').replace('q','p').replace('r','q')\
+        .replace('s','r').replace('t','s').replace('u','t').replace('v','u').replace('w','v').replace('x','w')\
+        .replace('y','x').replace('z','y').replace('0','/num/').replace('1','0').replace('2','1').replace('3','2')\
+        .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8')
 
         print(enc,"is your encoded script")
         print("What file do you want it to be written to?")
@@ -238,11 +238,30 @@ while xae == True:
             f = open(fex,'x')
             f.write(enc)
             f.close()
+            print("written to",fex)
         except:
             f = open(fex,'w')
             f.write(enc)
             f.close()
-        
+            print("written to",fex)
+            
+    elif command == 'translate':
+        print("Translate from what file?")
+        fex = input()
+        fex = fex + '.bu'
+        try:
+            f = open(fex,'r')
+            mes = f.read()
+        except:
+            error(1)
+        else:
+            tra = mes.replace('y','z').replace('x','y').replace('w','x').replace('v','w').replace('u','v')\
+        .replace('t','u').replace('s','t').replace('r','s').replace('q','r').replace('p','q').replace('o','p')\
+        .replace('n','o').replace('m','n').replace('l','m').replace('k','l').replace('j','k').replace('i','j')\
+        .replace('h','i').replace('g','h').replace('f','g').replace('e','f').replace('d','e').replace('c','d')\
+        .replace('b','c').replace('a','b').replace('[]','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+        .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('/num/','0')
+        print(tra,'is the translation')
     elif command == 'bday':
         print('What month is your birthday on?')
         mt = input()
@@ -1491,14 +1510,15 @@ while xae == True:
     elif command == "credits":
         print("Basic Utilities (c) 2021 Enderbyte09")
         print("Installer by Inno Setup")
-        print("Coded in Python 3.9.2 and 3.9.5; compiled in Pyinstaller 4.3")
+        print("Coded in Python 3.7.3, 3.9.2 and 3.9.5; compiled in Pyinstaller 4.3")
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
+        print("And Thonny for Raspberry Pi")
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print("Started on April 14, 2021")
-        print("2376 lines of code")
+        print("2421 lines of code")
         print("Over 81000 chracters")
 
     elif command == "prank":
