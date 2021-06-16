@@ -1,0 +1,9 @@
+Basic Utilities License
+If you agree to the following terms and conditions, press 'next'.
+
+By installing this software on to your device you agree to the following Terms and Conditions:
+
+1: You may view and edit the source code, but please do not sell it for any money.
+2: I am not responsible for any damage to your device caused by this program. 
+	2a[note]: This is not malware. This is just in case you run out of memory 
+from leaving it on for too long or something.

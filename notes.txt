@@ -1,0 +1,20 @@
+Thank you for installing Basic Utilities 2.1.3!
+
+Extra information:
+It is reccomended that you uninstall this program from the program itself. There are some files that the uninstaller does not
+get rid of. However, pre-uninstall.bat takes care of those.
+
+What is new in this update (detailed)?
+
+Added a Birthday Feature.
+Users enter in ytheir birthmonth and day.
+On startup, Basic Utilities checks its files to see if your birthday matches.
+If it does, we wish you a Happy Birthday.
+Modified pre-uninstall to support bday
+
+Also I will try out the Github New Release thing
+
+Fixed bugs:
+
+[BU-0019] Program crashes on startup if it lacks write permissions
+
