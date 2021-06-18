@@ -20,9 +20,10 @@ print("*****----------",end="\r")
 import datetime
 
 print("******---------",end="\r")
-
-from playsound import playsound
-
+try:
+    from playsound import playsound
+except:
+    messagebox.showwarning('Warning','Your device does not support playsound. Some features may be broken')
 print("*******--------",end="\r")
 
 import turtle
@@ -46,6 +47,7 @@ gamees_won = 0
 pi = 3.14
 xae = True
 tcrash = False
+cmd_run = 0
 print("*************--",end="\r")
 try:
     f = open("appdata.txt","r")
@@ -127,6 +129,11 @@ def reload():
         error(2)
     else:
         sys.exit()
+def startsound():
+    try:
+        playsound('startup.mp3')
+    except:
+        print('',end='\r')
 try:
     f = open('bday.txt','r')
     x = f.readlines()
@@ -159,9 +166,11 @@ else:
                 input()
 
 print("***************",end='\n')
+ss_po = threading.Thread(target=startsound)
+ss_po.start()
 sleep(0.5)
 print("Welcome to BasicUtilities")
-print("Version 2.2")
+print("Version 2.2.1")
 while xae == True:
     crashed = False
     print("")
@@ -217,7 +226,52 @@ while xae == True:
         print("bday: Input your birthday to get a surprise on startup when it matches")
         print("encode: encode stuff so no one can read it")
         print("translate: Translate files back to readable")
+        print('notifs: Change your commmand-running notification settings.')
         print("There are also some easter egg commands :)")
+        
+    elif command == 'notifs':
+        def nn():
+            global nf
+            try:
+                f = open('notifs.txt','w')
+                f.write('0')
+            except:
+                f = open('notifs.txt','x')
+                f.write('0')
+            f.close()
+            nf.destroy()
+        def cn():
+            global nf
+            try:
+                f = open('notifs.txt','w')
+                f.write('1')
+            except:
+                f = open('notifs.txt','x')
+                f.write('1')
+            finally:
+                f.close()
+            nf.destroy()
+        def mn():
+            global nf
+            try:
+                f = open('notifs.txt','w')
+                f.write('2')
+            except:
+                f = open('notifs.txt','x')
+                f.write('2')
+            f.close()
+            nf.destroy()
+        nf = Tk()
+        nf.title('Notifications settings')
+        lbl = Label(nf,text='Select your notification settings')
+        lbl.grid(column=1,row=0)
+        btn = Button(nf,text='no notifications',command=nn)
+        btn.grid(column=0,row=1)
+        btn = Button(nf,text='console notifications',command=cn)
+        btn.grid(column=1,row=1)
+        btn = Button(nf,text='messagebox notifications (default)',command=mn)
+        btn.grid(column=2,row=1)
+        nf.mainloop()
         
     elif command == 'encode':
         print("Input unencrypted message.")
@@ -229,7 +283,7 @@ while xae == True:
         .replace('m','LOL').replace('n','/-/').replace('o','NYX').replace('p','VAN').replace('q','FKUWEUI').replace('r','QYIF')\
         .replace('s','GHQ[W]').replace('t','CUED').replace('u','MOM').replace('v','OTW').replace('w','BITLY').replace('x','ENDER')\
         .replace('y','EXE').replace('z','GLHAC.P').replace('0','NULL').replace('1','0').replace('2','1').replace('3','2')\
-        .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8').replace(' ','P(WS)')
+        .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8').replace(' ','PWSAC')
 
         print(enc,"is your encoded script")
         print("Size:",len(enc),"bytes")
@@ -266,7 +320,7 @@ while xae == True:
         .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
         .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
         .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
-        .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('P(WS)',' ')
+        .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
         print(tra,'is the translation')
         print('size:',len(tra),'bytes')
         print("Do you want to write this to a txt file?(y/n)")
@@ -380,7 +434,7 @@ while xae == True:
     elif command == 'clean your room':
         messagebox.showerror('Error','Computers cannot clean their rooms')
     elif command == 'ur mom':
-        print("ohhhhhhhhhhhhhhhhhhhhhhh")
+       messagebox.showerror('Error','Shut up, you inmature child')
     elif command == 'spam':
         for i in range(20):
             try:
@@ -539,10 +593,30 @@ while xae == True:
         print("conv len y-i: yards to inches")
         print("conv len y-m: yards to meters")
         print("conv len y-c: yards to centimeters")
+        print('conv len cmd: Access the new length converter command menu')
 
     elif command == 'conv len i-y':
         conv('inches','yards',"/48")
-                    
+    elif command == 'conv len cmd':
+        xay = True
+        while xay == True:
+            print('-----Length Converter Command Menu-----')
+            print('Type your command under here and press enter')
+            mxe = input()
+            if mxe == 'help' or mxe =='?':
+                print('-----Commands List for Conv Len-----')
+                print('help: Shows this list')
+                print('cmd: Go to the command menu')
+                print('km-mi: kilometres to miles')
+                print('mi-km: miles to kilometres')
+            elif mxe == 'cmd':
+                break
+            elif mxe == 'km-mi':
+                conv('kilometres','miles','/1.609')
+            elif mxe == 'mi-km':
+                conv('miles','kilometres','*1.609')
+            else:
+                messagebox.showwarning('Warning','Unrecognised command. Type help for the list.')
 
     elif command == 'conv len c-y':
         conv('centimeters','yards','*0.010936')
@@ -1538,12 +1612,14 @@ while xae == True:
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
-        print("And Thonny for Raspberry Pi")
+        print("And Thonny for Raspberry Pi 4")
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
+        print('Sound Air Horn from SoundBible')
+        print('Sound "Windows Xp Boot" from Instant Sounds')
         print("Started on April 14, 2021")
-        print("2421 lines of code")
-        print("Over 81000 chracters")
+        print("2549 lines of code")
+        print("Alot of chracters")
 
     elif command == "prank":
         def prank():
@@ -1568,6 +1644,8 @@ while xae == True:
         pr.mainloop()
     elif command == "stop":
         xae = False
+        sys.exit()
+        break
     elif command == "stopall":
         try:
             os.startfile("stop.bat")
@@ -2441,5 +2519,31 @@ while xae == True:
             print(opponent,"won!")
 
     else:
-        print("Error: Unrecognized command. type 'help' for the commands list.")
+        messagebox.showwarning('Warning',"You typed in an unrecognised command.\n If you want the commands list, dismiss this message and run the command '?' or 'help'")
 #Whew! That's a lot of code!
+#Wait! There is more!
+    cmd_run = cmd_run + 1
+    try:
+        f = open('notifs.txt','r')
+        xlm = f.read()
+    except:
+        f = open('notifs.txt','x')
+        f.write('2')
+        xlm = '2'
+    xmls = str(cmd_run)
+    if xlm == '0':
+        pqie = 2009
+    elif xlm == '1':
+        print('You have run',cmd_run,'commands this session')
+    elif xlm == '2':
+
+        xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
+        messagebox.showinfo('Analytics Reporter',xls)
+    else:
+        f = open('notifs.txt','w')
+        f.write('2')
+        
+        xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
+        messagebox.showinfo('Analytics Reporter',xls)
+    f.close()
+#NOW were done        
