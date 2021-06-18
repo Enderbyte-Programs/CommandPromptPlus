@@ -1,46 +1,23 @@
-print("---------------",end='\r')
-print("*--------------",end="\r")
+print('Basic Utilities 2.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('')
+print('preparing libraries ...',end='\r')
 
 import os
-
-print("**-------------",end="\r")
-
 import webbrowser
-
-print("***------------",end="\r")
-
 import random
-
-print("****-----------",end="\r")
-
 from time import sleep
-
-print("*****----------",end="\r")
-
 import datetime
-
-print("******---------",end="\r")
 try:
     from playsound import playsound
 except:
     messagebox.showwarning('Warning','Your device does not support playsound. Some features may be broken')
-print("*******--------",end="\r")
-
 import turtle
-
-print("********-------",end="\r")
-
 import threading
-
-print("*********------",end="\r")
-
 from tkinter import *
-print("**********-----",end="\r")
-
 import sys
-print("***********----",end="\r")
 from tkinter import messagebox
-print("************---",end='\r')
+print("preparing libraries ... done")
+print('Assigning variables ...',end='\r')
 sw = False
 gamees_played = 0
 gamees_won = 0
@@ -48,7 +25,8 @@ pi = 3.14
 xae = True
 tcrash = False
 cmd_run = 0
-print("*************--",end="\r")
+print('Assigning variables ...done',end='\n')
+print('Writing appdata files ...',end='\r')
 try:
     f = open("appdata.txt","r")
     besttime = f.read()
@@ -77,7 +55,8 @@ finally:
         f.close()
     except:
         ggggggggg = False
-print("**************-",end="\r")
+print('Writing Appdata files ... done',end='\n')
+print('preparing functions ...',end='\r')
 def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
@@ -134,13 +113,16 @@ def startsound():
         playsound('startup.mp3')
     except:
         print('',end='\r')
+
+print('preparing functions ... done',end='\n')
+print('Reading appdata files...',end='\r')
 try:
     f = open('bday.txt','r')
     x = f.readlines()
     mt = x[0]
     dy = x[1]
 except:
-    print('Warning: Bday file unreadable or missing',end='\r')
+    print('')
 else:
     t = datetime.datetime.now()
     p = t.month
@@ -164,13 +146,36 @@ else:
                 print("")
                 print('press enter to continue to the command menu')
                 input()
-
-print("***************",end='\n')
+print('reading appdata files ... done',end='\n')
+print('Scanning dates ...',end='\r')
+t = datetime.datetime.now()
+y = t.year
+p = t.month
+o = t.day
+if p == 1 and o ==1:
+    print('Happy New Year, User (gregorian calendar)')
+elif y == 2022 and p == 2 and o == 1:
+    print('happy Chinese New Year')
+elif y == 2023 and p == 1 and o == 22:
+    print('happy Chinese New Year')
+elif y == 2024 and p == 2 and o == 10:
+    print('happy Chinese New Year')
+elif y == 2025 and p == 1 and o == 29:
+    print('happy Chinese New Year')
+elif p == 12 and o == 25:
+    print('Happy Holidays, User')
+elif p == 12 and o == 24:
+    print('Happy Holidays, User')
+elif p == 12 and o == 26:
+    print('Happy Holidays, User')
+elif p == 2 and o == 15:
+    print('Happy Parinirvana Day, User (If you are buddhist)')
+print('Scanning dates ... done',end='\n')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
-sleep(0.5)
+print('')
 print("Welcome to BasicUtilities")
-print("Version 2.2.1")
+
 while xae == True:
     crashed = False
     print("")
@@ -227,8 +232,97 @@ while xae == True:
         print("encode: encode stuff so no one can read it")
         print("translate: Translate files back to readable")
         print('notifs: Change your commmand-running notification settings.')
+        print('crash: Crash this program')
+        print('progcount: How long since this program existed')
         print("There are also some easter egg commands :)")
         
+    elif command == 'picker':
+        pickable = []
+        xmxa = False
+        while True:
+            print('Do you want to add an item? (y/n)')
+            makenew = input()
+            if makenew == 'y':
+                print('What to add?')
+                poi = input()
+                pickable.append(poi)
+                xmxa = True
+            elif makenew == 'n' and xmxa == True:
+                selection = random.choice(pickable)
+                print('Your selection is',selection)
+                break
+            else:
+                print('Please make sure that there is more than 0 items on the list and that you typed in a valid command.')
+        
+    elif command == 'progcount':
+        newwindow()
+        print('')
+        
+        while True:
+            x = datetime.datetime.now()
+            a = x.year
+            b = x.month
+            c = x.day
+            d = x.hour
+            e = x.minute
+            f = x.second
+            d1 = datetime.datetime(a,b,c,d,e,f)
+            d0 = datetime.datetime(2021,4,14,15,30,0)
+            difference = d1 - d0
+            total_seconds = difference.total_seconds()
+            total_min = total_seconds / 60
+            total_hr = total_min / 60
+            total_dy = total_hr / 24
+            total_wk = total_dy /7
+            total_yr = total_dy / 365
+            total_mt = total_yr * 12
+            print("")
+            print("There are",total_seconds,"seconds since")
+            print("There are",total_min,"minutes since")
+            print("There are",total_hr,"hours since")
+            print("There are",total_dy,"days since")
+            print("There are",total_wk,"weeks since")
+            print("There are",total_mt,"month since")
+            print("There are",total_yr,"years since This program exisited.")
+            sleep(1)
+        
+    elif command == 'crash':
+        for i in range(30):
+            print('')
+        print('.  //')
+        print('  ||')
+        print('.  \\')
+        print('')
+        print('A critical system failure has occured.')
+        print('If this is the first time that you have seen this screen, restart.')
+        print('If this problem persists, reinstall.')
+        print('')
+        print('Techincal Information:')
+        print('')
+        print('Error code 0x00000129c (0x00000000a,0x00000011p,0x0_)')
+        print('Stop: Manually_Initiated_Crash')
+        print('')
+        print('press enter to continue to restart')
+        input()
+        try:
+            os.startfile('BasicUtilities.exe')
+            sys.exit()
+        except:
+            print('Exception: Most recent Callback')
+            print('Error in line 314 of BasicUtilities.py')
+            print('try:')
+            print("     os.startfile('BasicUtilites.exe')")
+            print('[ERRNO] 17')
+            print('')
+            print('During the handling of the above exception, another exception occured')
+            print('')
+            print('Error in line @#*(@^* of &(@#&(@.$*)@')
+            print('4vby3489vtb3v7tr80T*)@B^C806b3r807wb')
+            print('*(349bfUFGbbofeb78838b0t78t038tbb')
+            print('C@&s3: y07r syst3m hav3 h0l*d^^n02')
+            print('pr3@@ 3n53r t0 g0 t0 s7st3, sh*5d02n')
+            input()
+            sys.exit()
     elif command == 'notifs':
         def nn():
             global nf
@@ -1612,13 +1706,13 @@ while xae == True:
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
-        print("And Thonny for Raspberry Pi 4")
+        print("And Thonny IDE for Raspberry Pi 4")
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
         print('Sound "Windows Xp Boot" from Instant Sounds')
         print("Started on April 14, 2021")
-        print("2549 lines of code")
+        print("2649 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
@@ -2534,6 +2628,7 @@ while xae == True:
     if xlm == '0':
         pqie = 2009
     elif xlm == '1':
+        print('')
         print('You have run',cmd_run,'commands this session')
     elif xlm == '2':
 
@@ -2544,6 +2639,7 @@ while xae == True:
         f.write('1')
         
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
-        messagebox.showinfo('Analytics Reporter',xls)
+        print('')
+        print(xls)
     f.close()
 #NOW were done        
