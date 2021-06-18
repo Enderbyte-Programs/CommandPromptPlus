@@ -267,9 +267,9 @@ while xae == True:
         lbl.grid(column=1,row=0)
         btn = Button(nf,text='no notifications',command=nn)
         btn.grid(column=0,row=1)
-        btn = Button(nf,text='console notifications',command=cn)
+        btn = Button(nf,text='console notifications (default)',command=cn)
         btn.grid(column=1,row=1)
-        btn = Button(nf,text='messagebox notifications (default)',command=mn)
+        btn = Button(nf,text='messagebox notifications',command=mn)
         btn.grid(column=2,row=1)
         nf.mainloop()
         
@@ -2528,8 +2528,8 @@ while xae == True:
         xlm = f.read()
     except:
         f = open('notifs.txt','x')
-        f.write('2')
-        xlm = '2'
+        f.write('1')
+        xlm = '1'
     xmls = str(cmd_run)
     if xlm == '0':
         pqie = 2009
@@ -2541,7 +2541,7 @@ while xae == True:
         messagebox.showinfo('Analytics Reporter',xls)
     else:
         f = open('notifs.txt','w')
-        f.write('2')
+        f.write('1')
         
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
         messagebox.showinfo('Analytics Reporter',xls)
