@@ -1,4 +1,4 @@
-print('Basic Utilities 2.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities 2.4 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 
@@ -22,6 +22,12 @@ sw = False
 gamees_played = 0
 gamees_won = 0
 pi = 3.14
+hasarg = True
+try:
+    arguments = sys.argv
+    openfile_dir = arguments[1]
+except:
+    hasarg= False
 xae = True
 tcrash = False
 cmd_run = 0
@@ -173,6 +179,42 @@ elif p == 2 and o == 15:
 print('Scanning dates ... done',end='\n')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
+if hasarg == True:
+    try:
+        f = open(openfile_dir,'r')
+        mes = f.read()
+        print('')
+        print("encoded message is",len(mes),"bytes")
+    except:
+        error(o)
+    else:
+        tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
+    .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
+    .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
+    .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
+    .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+    .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
+    print('')
+    print('Tranlation:',tra)
+    print('size:',len(tra),'bytes')
+    print("Do you want to write this to a txt file?(y/n)")
+    wt = input()
+    if wt == 'y':
+        print("What should the fle name be? (no extension needed)")
+        fex = input()
+        fex = fex + '.txt'
+        try:
+            f = open(fex,'x')
+            f.write(tra)
+            f.close()
+            print("written to",fex)
+        except:
+            f = open(fex,'w')
+            f.write(tra)
+            f.close()
+            print("written to",fex)
+        print('Press enter to quit to the command menu.')
+        input()
 print('')
 print("Welcome to BasicUtilities")
 
@@ -235,7 +277,21 @@ while xae == True:
         print('crash: Crash this program')
         print('progcount: How long since this program existed')
         print("There are also some easter egg commands :)")
-        
+
+    elif command == 'Fday':
+        passwo = 'RubyRoo0705'
+        print('Warning: This is a restricted command. Please input the password.')
+        pq = input()
+        if pq == passwo:
+            print("Happy Father's Day, Dad!")
+            print('Restrictions')
+            print('Utterly ace')
+            print('B Best')
+            print('E Exceptional')
+            print('N Neat')
+            print('S Stupendous')
+            print('Thank you for being the best dad ever!')
+            print('From Jordan')
     elif command == 'picker':
         pickable = []
         xmxa = False
@@ -306,7 +362,7 @@ while xae == True:
         input()
         try:
             os.startfile('BasicUtilities.exe')
-            sys.exit()
+
         except:
             print('Exception: Most recent Callback')
             print('Error in line 314 of BasicUtilities.py')
@@ -322,6 +378,8 @@ while xae == True:
             print('C@&s3: y07r syst3m hav3 h0l*d^^n02')
             print('pr3@@ 3n53r t0 g0 t0 s7st3, sh*5d02n')
             input()
+            sys.exit()
+        else:
             sys.exit()
     elif command == 'notifs':
         def nn():
@@ -410,29 +468,29 @@ while xae == True:
             error(1)
         else:
             tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
-        .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
-        .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
-        .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
-        .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
-        .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
-        print(tra,'is the translation')
-        print('size:',len(tra),'bytes')
-        print("Do you want to write this to a txt file?(y/n)")
-        wt = input()
-        if wt == 'y':
-            print("What should the fle name be? (no extension needed)")
-            fex = input()
-            fex = fex + '.txt'
-            try:
-                f = open(fex,'x')
-                f.write(tra)
-                f.close()
-                print("written to",fex)
-            except:
-                f = open(fex,'w')
-                f.write(tra)
-                f.close()
-                print("written to",fex)
+            .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
+            .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
+            .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
+            .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+            .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
+            print(tra,'is the translation')
+            print('size:',len(tra),'bytes')
+            print("Do you want to write this to a txt file?(y/n)")
+            wt = input()
+            if wt == 'y':
+                print("What should the fle name be? (no extension needed)")
+                fex = input()
+                fex = fex + '.txt'
+                try:
+                    f = open(fex,'x')
+                    f.write(tra)
+                    f.close()
+                    print("written to",fex)
+                except:
+                    f = open(fex,'w')
+                    f.write(tra)
+                    f.close()
+                    print("written to",fex)
     elif command == 'bday':
         print('What month is your birthday on?')
         mt = input()
@@ -1712,7 +1770,7 @@ while xae == True:
         print('Sound Air Horn from SoundBible')
         print('Sound "Windows Xp Boot" from Instant Sounds')
         print("Started on April 14, 2021")
-        print("2649 lines of code")
+        print("2704 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
