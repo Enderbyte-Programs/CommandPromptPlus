@@ -1,4 +1,4 @@
-print('Basic Utilities 2.5 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities 2.5.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 
@@ -2298,9 +2298,10 @@ while xae == True:
             t.pencolor("red")
             noscreen = False
             ttotal = 0
+            qwe = datetime.datetime.now()
             while True:
 
-                qwe = datetime.datetime.now()
+                
                 qwer = qwe.second
                 if qwer > 57:
                     sleep(3)
@@ -2336,14 +2337,17 @@ while xae == True:
                             t.goto(-300,-300)
                             t.pendown()
                             t.pencolor("red")
+                            
                 except:
                     xsgued = 0
+                qwe = datetime.datetime.now()
                 averagelag = averagelag + lag
                 avglag = averagelag / lagcount
                 print("your computer is lagging by",lag,"milliseconds")
                 print("Your average computer lag is",avglag,"milliseconds")
                 print("Your computer is",averagelag,"milliseconds behind.")
                 print("")
+                
 
     elif command == "avg":
         nums = 0
