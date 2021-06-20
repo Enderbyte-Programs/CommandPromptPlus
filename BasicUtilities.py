@@ -1,4 +1,4 @@
-print('Basic Utilities 2.4 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities 2.5 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 
@@ -213,8 +213,8 @@ if hasarg == True:
             f.write(tra)
             f.close()
             print("written to",fex)
-        print('Press enter to quit to the command menu.')
-        input()
+    print('Press enter to quit to the command menu.')
+    input()
 print('')
 print("Welcome to BasicUtilities")
 
@@ -276,22 +276,69 @@ while xae == True:
         print('notifs: Change your commmand-running notification settings.')
         print('crash: Crash this program')
         print('progcount: How long since this program existed')
+        print('picker: Make a custom random generator')
+        print('cpicker: Random colour picker')
+        print('tempt: Temperature converter')
+        print('degp: degrees to percent')
+        print('pdeg: percent to degrees')
         print("There are also some easter egg commands :)")
+    elif command == 'degp':
+        print('How many degrees?')
+        der = input()
+        try:
+            deg = int(der)
+        except:
+            error(1)
+        else:
+            deg = deg / 360
+            deg = deg * 100
+            print(der,'degrees is',deg,'percent.')
+    elif command == 'pdeg':
+        print('How many percent?')
+        der = input()
+        try:
+            deg = int(der)
+        except:
+            error(1)
+        else:
+            deg = deg * 360
+            deg = deg / 100
+            print(der,'percent is',deg,'degrees.')
+    elif command == 'tempt':
+        print('Celsius (c), Farenheight (f), or Kelvin (k)')
+        tcmd = input()
+        if tcmd == 'c' or tcmd == 'f' or tcmd == 'k':
+            print('What to convert to? (c,f,k)')
+            ccmd = input()
+            if ccmd == 'c' or ccmd == 'f' or ccmd == 'k':
+                cmd = tcmd + ccmd
+                print('Value to convert?')
+                vtc = input()
+                try:
+                    vtc = float(vtc)
+                except:
+                    error(1)
+                else:
+                    if cmd == 'cf':
+                        res = (vtc*9/5)+32
+                        print('Converted is',res)
+                    elif cmd == 'fc':
+                        res = (vtc-32)*5/9
+                        print('Converted is',res)
+                    elif cmd == 'ck':
+                        res = vtc - 273
+                        print('Converted is',res)
+                    elif cmd == 'kc':
+                        res = vtc + 273
+                        print('Converted is',res)
+                    else:
+                        messagebox.showwarning('Warning','Invalid Command Combination')
+            else:
+                messagebox.showwarning('Warning','Invalid Command Combination')           
 
-    elif command == 'Fday':
-        passwo = 'RubyRoo0705'
-        print('Warning: This is a restricted command. Please input the password.')
-        pq = input()
-        if pq == passwo:
-            print("Happy Father's Day, Dad!")
-            print('Restrictions')
-            print('Utterly ace')
-            print('B Best')
-            print('E Exceptional')
-            print('N Neat')
-            print('S Stupendous')
-            print('Thank you for being the best dad ever!')
-            print('From Jordan')
+    elif command == 'cpicker':
+        colours = ['red','orange','yellow','lime','green','turquois','blue','navy','purple','magenta','pink','brown','black','white']
+        print('The chosen colour is',random.choice(colours))
     elif command == 'picker':
         pickable = []
         xmxa = False
@@ -365,7 +412,7 @@ while xae == True:
 
         except:
             print('Exception: Most recent Callback')
-            print('Error in line 314 of BasicUtilities.py')
+            print('Error in line 414 of BasicUtilities.py')
             print('try:')
             print("     os.startfile('BasicUtilites.exe')")
             print('[ERRNO] 17')
@@ -1769,8 +1816,9 @@ while xae == True:
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
         print('Sound "Windows Xp Boot" from Instant Sounds')
+        print('Sound "Windwos 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("2704 lines of code")
+        print("2752 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
