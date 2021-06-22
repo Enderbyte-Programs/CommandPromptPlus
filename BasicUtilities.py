@@ -1,7 +1,15 @@
-print('Basic Utilities 2.5.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities 2.6 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
-
+from tkinter import messagebox
+try:
+    import numpy as np
+except:
+    messagebox.showwarning('Warning','You dont have numy installed. Some features may be broken')
+try:
+    import simpleaudio as sa
+except:
+    messagebox.showwarning('Warning','Your device does not support simpleaudio. some features may be broken.')
 import os
 import webbrowser
 import random
@@ -15,7 +23,7 @@ import turtle
 import threading
 from tkinter import *
 import sys
-from tkinter import messagebox
+
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
 sw = False
@@ -119,7 +127,23 @@ def startsound():
         playsound('startup.mp3')
     except:
         print('',end='\r')
-
+        
+def runfile(filename):
+    try:
+        os.startfile(filename)
+    except:
+        error(2)
+def playfreq(frequency,seconds):
+    frequency = frequency
+    fs = 44100
+    seconds = seconds
+    t = np.linspace(0,seconds,seconds*fs,False)
+    
+    note = np.sin(frequency * t * 2 * np.pi)
+    audio = note * (2**15-1) / np.max(np.abs(note))
+    audio = audio.astype(np.int16)
+    play_obj = sa.play_buffer(audio,1,2,fs)
+    play_obj.wait_done()
 print('preparing functions ... done',end='\n')
 print('Reading appdata files...',end='\r')
 try:
@@ -186,7 +210,7 @@ if hasarg == True:
         print('')
         print("encoded message is",len(mes),"bytes")
     except:
-        error(o)
+        error(0)
     else:
         tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
     .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
@@ -281,7 +305,46 @@ while xae == True:
         print('tempt: Temperature converter')
         print('degp: degrees to percent')
         print('pdeg: percent to degrees')
+        print('cl: view the changelog')
+        print('ls: View the license')
+        print('ae: Addiional information and uninstalling help')
+        print('game2: Play Discount Prodigy (NOT YET FINISHED)')
+        #^Under development, release in 2.6 or 2.7
+        print('beep: Get a beep')
+        print('curse: Have this program curse at you (no actuall cursing)')
         print("There are also some easter egg commands :)")
+
+    elif command == 'curse':
+        for i in range(random.randint(1,10)):
+            playfreq(1000,random.randint(2,15)/10)
+            print(random.randint(1,10)*'*')
+
+    elif command == 'beep':
+        print('What frequency?')
+        freq = input()
+        try:
+            freq = int(freq)
+        except:
+            error(1)
+        else:
+            print('How many seconds?')
+            playse = input()
+            try:
+                playse = int(playse)
+            except:
+                error(1)
+            else:
+                playfreq(freq,playse)
+    elif command == 'game2':
+        messagebox.showinfo('Development Notice','This feature is not yet finished. Please check back at a later version.')
+        print('What is your Username?')
+    elif command == 'cl':
+        runfile('changelog.txt')
+    elif command == 'ls':
+        runfile('license.txt')
+    elif command == 'ae':
+        runfile('notes.txt')
+        
     elif command == 'degp':
         print('How many degrees?')
         der = input()
@@ -1805,20 +1868,21 @@ while xae == True:
         print("Discord: Enderbyte09#0542")
 
     elif command == "credits":
-        print("Basic Utilities (c) 2021 Enderbyte09")
+        print("Basic Utilities (c) 2021 Enderbyte Programs")
         print("Installer by Inno Setup")
         print("Coded in Python 3.7.3, 3.9.2 and 3.9.5; compiled in Pyinstaller 4.3")
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
         print("And Thonny IDE for Raspberry Pi 4")
+        print('AND IDLE 3.7.3 for Raspberry Pi 4')
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
         print('Sound "Windows Xp Boot" from Instant Sounds')
         print('Sound "Windwos 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("2752 lines of code")
+        print("2818 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
@@ -1852,8 +1916,6 @@ while xae == True:
         except:
             error(2)
     elif command == "game":
-        newwindow()
-
         total_money = 500
         times_played = 0
         print("What is your name?")
@@ -1865,68 +1927,72 @@ while xae == True:
         print("press enter/return to begin")
         print("It cost 100 to play.")
         input()
-
-        playagain = "y"
-        possible = [10,25,50,75,100,150,200,300,"alarm","alarm"]
-        while playagain == "y":
-            total_money = total_money - 100
-            money = 0
-            vaults = 0
-            alarm = False
-            hasstopped = False
-            while alarm == False and hasstopped == False:
-                print("do you want to open vault",vaults,"? (y/n)")
-                openvault = input()
-                if openvault == "y":
-
-                    moneyadd = random.choice(possible)
-                    print("Vault",vaults,"has",moneyadd,"in it.")
-                    print("")
-                    vaults = vaults + 1
-                    if moneyadd == "alarm":
-                        alarm = True
-                        try:
-                            playsound("warning.mp3")
-                        except:
-                            error(2)
-                    elif alarm == False:
-                        money = money + moneyadd
-                print("You have",money,"dollars")
-                if openvault == "n":
-                    hasstopped = True
-            if alarm ==  True:
+        if name == 'Ruby' or name == 'ruby':
+            money = 10000000000000
+            print('YOU WON A QUADRILLION DOLLARS')
+            print('OHHHHHHHHHH')
+        else:
+            playagain = "y"
+            possible = [10,25,50,75,100,150,200,300,"alarm","alarm"]
+            while playagain == "y":
+                total_money = total_money - 100
                 money = 0
-            print("You finished with",money,"money!")
-            sleep(1)
-            total_money = total_money + money
-            times_played = times_played + 1
-            print("Thank you for participating in Beat The Bank!")
-            sleep(1)
-            answered = False
-            while answered == False:
-                print("Would you like to see your total statistics?[y/n]")
-                statsee = input()
-                if statsee == "y":
-                    answered = True
-                    print("You have played",times_played,"games")
-                    print("You have a total of",total_money,"money.")
-                elif statsee == "n":
-                    answered = True
-                    print("If you say so")
-            print("do you want to play again? (y/n)")
-            print("Typing n returns you to the commands menu.")
-            playagain = input()
-            if playagain == "y":
-                for i in range(1,20):
-                    print("")
-                print("Do you want to change name? (y/n)")
-                changename = input()
-                if changename == "y":
-                    print("Please type your new name")
-                    name = input()
-                    print("Welcome,",name,"to Enderbyte09's Beat The Bank!")
+                vaults = 0
+                alarm = False
+                hasstopped = False
+                while alarm == False and hasstopped == False:
+                    print("do you want to open vault",vaults,"? (y/n)")
+                    openvault = input()
+                    if openvault == "y":
+
+                        moneyadd = random.choice(possible)
+                        print("Vault",vaults,"has",moneyadd,"in it.")
+                        print("")
+                        vaults = vaults + 1
+                        if moneyadd == "alarm":
+                            alarm = True
+                            try:
+                                playsound("warning.mp3")
+                            except:
+                                error(2)
+                        elif alarm == False:
+                            money = money + moneyadd
+                    print("You have",money,"dollars")
+                    if openvault == "n":
+                        hasstopped = True
+                if alarm ==  True:
+                    money = 0
+                print("You finished with",money,"money!")
+                sleep(1)
+                total_money = total_money + money
+                times_played = times_played + 1
+                print("Thank you for participating in Beat The Bank!")
+                sleep(1)
+                answered = False
+                while answered == False:
+                    print("Would you like to see your total statistics?[y/n]")
+                    statsee = input()
+                    if statsee == "y":
+                        answered = True
+                        print("You have played",times_played,"games")
+                        print("You have a total of",total_money,"money.")
+                    elif statsee == "n":
+                        answered = True
+                        print("If you say so")
+                print("do you want to play again? (y/n)")
+                print("Typing n returns you to the commands menu.")
+                playagain = input()
+                if playagain == "y":
                     for i in range(1,20):
                         print("")
+                    print("Do you want to change name? (y/n)")
+                    changename = input()
+                    if changename == "y":
+                        print("Please type your new name")
+                        name = input()
+                        print("Welcome,",name,"to Enderbyte09's Beat The Bank!")
+                        for i in range(1,20):
+                            print("")
     elif command == "insult":
         adjec = ["Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","picklebrained"]
         noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Straightjacket","Clackdish","Jellyfish"]
