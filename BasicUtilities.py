@@ -3,13 +3,9 @@ print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
 try:
-    import numpy as np
+    import winsound
 except:
-    messagebox.showwarning('Warning','You dont have numy installed. Some features may be broken')
-try:
-    import simpleaudio as sa
-except:
-    messagebox.showwarning('Warning','Your device does not support simpleaudio. some features may be broken.')
+   messagebox.showwarning('Error','An error aoccured while preparing module Winsound') 
 import os
 import webbrowser
 import random
@@ -133,17 +129,7 @@ def runfile(filename):
         os.startfile(filename)
     except:
         error(2)
-def playfreq(frequency,seconds):
-    frequency = frequency
-    fs = 44100
-    seconds = seconds
-    t = np.linspace(0,seconds,seconds*fs,False)
-    
-    note = np.sin(frequency * t * 2 * np.pi)
-    audio = note * (2**15-1) / np.max(np.abs(note))
-    audio = audio.astype(np.int16)
-    play_obj = sa.play_buffer(audio,1,2,fs)
-    play_obj.wait_done()
+
 print('preparing functions ... done',end='\n')
 print('Reading appdata files...',end='\r')
 try:
@@ -316,8 +302,10 @@ while xae == True:
 
     elif command == 'curse':
         for i in range(random.randint(1,10)):
-            playfreq(1000,random.randint(2,15)/10)
+            winsound.Beep(1000,random.randint(200,1500))
             print(random.randint(1,10)*'*')
+            sleep(random.randint(1,10)/10)
+            
 
     elif command == 'beep':
         print('What frequency?')
@@ -327,14 +315,17 @@ while xae == True:
         except:
             error(1)
         else:
-            print('How many seconds?')
+            print('How many milliseconds?')
             playse = input()
             try:
                 playse = int(playse)
             except:
                 error(1)
             else:
-                playfreq(freq,playse)
+                if playse > 0:
+                    winsound.Beep(freq,playse)
+                else:
+                    error(1)
     elif command == 'game2':
         messagebox.showinfo('Development Notice','This feature is not yet finished. Please check back at a later version.')
         print('What is your Username?')
