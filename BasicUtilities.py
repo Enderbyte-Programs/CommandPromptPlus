@@ -223,8 +223,9 @@ if hasarg == True:
             f.write(tra)
             f.close()
             print("written to",fex)
-    print('Press enter to quit to the command menu.')
+    print('Press enter to quit program.')
     input()
+    sys.exit()
 print('')
 print("Welcome to BasicUtilities")
 
