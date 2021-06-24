@@ -5,7 +5,7 @@ from tkinter import messagebox
 try:
     import winsound
 except:
-   messagebox.showwarning('Error','An error aoccured while preparing module Winsound') 
+   messagebox.showwarning('Error','Your device does not support Winsound. Some features may be broken.') 
 import os
 import webbrowser
 import random
@@ -297,8 +297,15 @@ while xae == True:
         print('game2: Play Discount Prodigy (NOT YET FINISHED)')
         #^Under development, release in 2.6 or 2.7
         print('beep: Get a beep')
-        print('curse: Have this program curse at you (no actuall cursing)')
+        print('curse: Have this program curse at you (no actual cursing)')
+        print('hex: Random Hexadecimal Generator (x16)')
+        print('hexbi: Random hexadecabinary generator (x62 system)')
         print("There are also some easter egg commands :)")
+
+    elif command == 'hex':
+        print(random.choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']))
+    elif command == 'hexbi':
+        print(random.choice([0,1,2,3,4,5,6,7,8,9,'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m','Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M']))
 
     elif command == 'curse':
         for i in range(random.randint(1,10)):
@@ -327,8 +334,26 @@ while xae == True:
                 else:
                     error(1)
     elif command == 'game2':
-        messagebox.showinfo('Development Notice','This feature is not yet finished. Please check back at a later version.')
+        messagebox.showinfo('This game is currently under development. It may cause unwanted effects if you countinue.')
         print('What is your Username?')
+        username = input()
+        print('Welcome',username,'to Discount Prodigy')
+        print('Discount prodigy is a game where you cast spells against monsters.')
+        print('To cast spells, you must answer simple math problems')
+        print('As you cast spells, you earn points.')
+        print('Press enter to begin.')
+        input()
+        fightmonsters = True
+        monster_names = ['Black Widow','Wulf','Slayer','Shredder','Magma','Tsunahmee']
+        monsters_battled = 0
+        monsters_won = 0
+        monsters_lost = 0
+        while fightmonsters == True:
+            print('A monster wants to battle you! do you want to battle?(y/n)')
+            battle = input()
+            if battle == 'y':
+                monsterbattle_name = random.choice(monster_names)
+                print('Your enemy is',monsterbattle_name)
     elif command == 'cl':
         runfile('changelog.txt')
     elif command == 'ls':
@@ -545,7 +570,7 @@ while xae == True:
         if sda == 'y':
             print("What file do you want it to be written to? No extension needed.")
             fex = input()
-            fex = fex + '.bu'
+            fex = fex + '.bue'
             try:
                 f = open(fex,'x')
                 f.write(enc)
@@ -558,9 +583,9 @@ while xae == True:
                 print("written to",fex)
             
     elif command == 'translate':
-        print("Translate from what file? Encoded message files usually have a .bu file extension. You don't need to put the file extension here.")
+        print("Translate from what file? Encoded message files usually have a bue file extension. You don't need to put the file extension here.")
         fex = input()
-        fex = fex + '.bu'
+        fex = fex + '.bue'
         try:
             f = open(fex,'r')
             mes = f.read()
