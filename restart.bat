@@ -1,1 +1,0 @@
-shutdown /r /t 5 /c "You did type restart..."
