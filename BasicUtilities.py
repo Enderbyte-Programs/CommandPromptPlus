@@ -1,4 +1,4 @@
-print('Basic Utilities 2.6.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities 2.6.2 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -302,7 +302,34 @@ while xae == True:
         print('curse: Have this program curse at you (no actual cursing)')
         print('hex: Random Hexadecimal Generator (x16)')
         print('hexbi: Random hexadecabinary generator (x62 system)')
+        print('toneup: Make a rising Tone')
+        print('rmg: Random Music Generator')
         print("There are also some easter egg commands :)")
+
+    elif command == 'rmg':
+        for i in range(random.randint(20,50)):
+            winsound.Beep(random.randint(400,1200),random.randint(200,1000))
+            
+
+    elif command == 'toneup':
+        print('Starting tone? (HZ)')
+        st = input()
+        try:
+            st = int(st)
+        except:
+            error(1)
+        else:
+            print('Ending tone? (Hz)')
+            et = input()
+            try:
+                et = int(et)
+            except:
+                error(1)
+            else:
+                while st < et:
+                    winsound.Beep(st,100)
+                    st = st + 10
+                    print('Played tone of',st,'Hertz')
 
     elif command == 'hex':
         print(random.choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']))
@@ -828,14 +855,6 @@ while xae == True:
         except:
             error(2)
         else:
-            for i in range(5):
-                print("uninstalling .",end='\r')
-                sleep(0.3)
-                print("uninstalling ..",end='\r')
-                sleep(0.3)
-                print("uninstalling ...",end='\r')
-                sleep(0.3)
-                print("                            ",end='\r')
             try:
                 os.startfile('unins000.exe')
             except:
@@ -1908,7 +1927,7 @@ while xae == True:
         print('Sound "Windows Xp Boot" from Instant Sounds')
         print('Sound "Windwos 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("2838 lines of code")
+        print("2867 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
