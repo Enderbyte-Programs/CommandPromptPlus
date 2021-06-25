@@ -186,6 +186,7 @@ elif p == 12 and o == 26:
     print('Happy Holidays, User')
 elif p == 2 and o == 15:
     print('Happy Parinirvana Day, User (If you are buddhist)')
+#Couldn't find any more fixed-date holidays that are recognized globally.
 print('Scanning dates ... done',end='\n')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
@@ -335,7 +336,7 @@ while xae == True:
                 else:
                     error(1)
     elif command == 'game2':
-        messagebox.showinfo('This game is currently under development. It may cause unwanted effects if you countinue.')
+        messagebox.showinfo('','This game is currently under development. It may cause unwanted effects if you continue.')
         print('What is your Username?')
         username = input()
         print('Welcome',username,'to Discount Prodigy')
@@ -349,12 +350,20 @@ while xae == True:
         monsters_battled = 0
         monsters_won = 0
         monsters_lost = 0
+        xp = 0
+        health = 100
         while fightmonsters == True:
             print('A monster wants to battle you! do you want to battle?(y/n)')
             battle = input()
             if battle == 'y':
                 monsterbattle_name = random.choice(monster_names)
+                monster_health = health/(random.randint(12,24)/10)
                 print('Your enemy is',monsterbattle_name)
+                print(monsterbattle_name,'has',monster_health,'health')
+                print('press enter to continue')
+                input()
+                if monsterbattle_name == 'Black Widow':
+                    monster_spells = ['Poke','Venom']
     elif command == 'cl':
         runfile('changelog.txt')
     elif command == 'ls':
