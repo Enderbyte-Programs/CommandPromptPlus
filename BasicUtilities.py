@@ -1,4 +1,4 @@
-print('Basic Utilities 2.6.2 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities 2.7 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -27,6 +27,7 @@ gamees_played = 0
 gamees_won = 0
 pi = 3.14
 hasarg = True
+playedg2 = False
 try:
     arguments = sys.argv
     openfile_dir = arguments[1]
@@ -116,7 +117,8 @@ def reload():
         os.startfile("BasicUtilities.exe")
     except:
         error(2)
-    else:
+        print('Te system will exit now')
+    finally:
         sys.exit()
 def startsound():
     try:
@@ -238,70 +240,100 @@ while xae == True:
     command = input()
     if command == "help" or command == "?":
         print("-----Commands List-----")
+        print('-----Misc-----')
         print("help: Shows this list")
+        print('cl: view the changelog')
+        print('ls: View the license')
+        print('ae: Addiional information and uninstalling help')
+        print("draw: Draw with Turtle!")
+        print("credits: View credits and statistics")
+        print("contact: Get my email and Discord")
+        print("colour: Find a colour")
+        print("bday: Input your birthday to get a surprise on startup when it matches")
+        
+        print('notifs: Change your commmand-running notification settings.')
+        print('')
+        print("-----USELESS COMMANDS-----")
+        print("insult: Get insulted")
+        print("prank: try it out :P")
+        print('crash: Crash this program')
+        print('')
+        print('-----System Interaction-----')
         print("stop: Stops this window")
         print("stopall: stops all BasicUtilities windows")
-        print("game: Play Beat The Bank")
         print("reload: reloads this program.")
-        print("insult: Get insulted")
-        print("meter: See how long it has been since COVID infected its first human.(VE COUNTER)")
-        print("lnmeter: How long since life was normal?")
         print("logoff: Logs you out.")
         print("restart: Restarts your computer")
         print("web: Open a website.")
+        print('')
+        print('-----Games-----')
+        print("game: Play Beat The Bank")
+        print("snl: Play Snakes and Ladders [sc]")
+        print("m8b: Magic 8 ball")
+        print("cpg: Play the Cartesian Plane Game")
+        print('game2: Play Discount Prodigy (NOT YET FINISHED)')
+        print('')
+        print('-----Preset Counters-----')
+        print("meter: See how long it has been since COVID infected its first human.(VE COUNTER)")
+        print("lnmeter: How long since life was normal?")
+        print('progcount: How long since this program existed')
+        print('')
+        print('-----Clocks & Alarms-----')
         print("alarm: Open the alarm clock")
         print("clock: Tells you the exact time")
         print("counter: make a counter")
+        print("sw: Stop watch!")
+        
+        print("timer: Pauseable Timer")
+        print('')
+        print('-----Random Generators-----')
         print("rng: Random Number Generator")
         print("cf: Coin Flip")
+        print('hex: Random Hexadecimal Generator (x16)')
+        print('hexbi: Random hexadecabinary generator (x62)')
+        print('picker: Make a custom random generator')
+        print('cpicker: Random colour picker')
+        print('')
+        print('-----Utility-----')
         print("lag: Measures your computer's lag.")
         print("anim: Get a little animation of a wheel.")
-        print("avg: Get an average calculator")
-        print("prank: try it out :P")
-        print("erc: List of error codes")
-        print("m8b: Magic 8 ball")
-        print("snl: Play Snakes and Ladders [sc]")
-        print("credits: View credits and statistics")
-        print("contact: Get my email and Discord")
+        print("pyterm: Open a python terminal prompt [potentially dangerous]")
         print("randpass: Get a random password.")
+        print("erc: List of error codes")
+        print("encode: encode stuff so no one can read it")
+        print("translate: Translate files back to readable") 
+        
+        
+        print('')
+        print('-----Calculators & Converters-----')
         print("apv: area, perimeter, and volume calculator [sc]")
+        print('tempt: Temperature converter')
+        print('degp: degrees to percent')
+        print('pdeg: percent to degrees')
+        
+     
         print("pa: Add percent")
         print("pr: Remove percent")
         print("pgpa: Percent to GPA")
         print("gpap: GPA to percent")
-        print("pyterm: Open a python terminal prompt [potentially dangerous]")
+        print("avg: Get an average calculator")
         print("calc help: Help with the calculator")
         print("calc: Calculator")
         print("quiz: get a multiplication quiz up to 12x12")
-        print("sw: Stop watch!")
-        print("draw: Draw with Turtle!")
-        print("timer: Pauseable Timer")
-        print("conv: converters [sc]")
+        
+        print("conv len: length converters [sc]")
         print("wb: Visit our website")
+        print('')
+        print('-----Uninstalling-----')
         print("uninstall: Uninstall this program completely")
         print("pre-uninstall: Get rid of the files that the uninstall can't uninstall. This will destroy appdata.txt and saved drawings still in this directory.")
-        print("cpg: Play the Cartesian Plane Game")
-        print("colour: Find a colour")
-        print("bday: Input your birthday to get a surprise on startup when it matches")
-        print("encode: encode stuff so no one can read it")
-        print("translate: Translate files back to readable")
-        print('notifs: Change your commmand-running notification settings.')
-        print('crash: Crash this program')
-        print('progcount: How long since this program existed')
-        print('picker: Make a custom random generator')
-        print('cpicker: Random colour picker')
-        print('tempt: Temperature converter')
-        print('degp: degrees to percent')
-        print('pdeg: percent to degrees')
-        print('cl: view the changelog')
-        print('ls: View the license')
-        print('ae: Addiional information and uninstalling help')
-        print('game2: Play Discount Prodigy (NOT YET FINISHED)')
+        
+        print('')
         #^Under development, release in 2.6 or 2.7
+        print('-----Sound (Microsoft Users Only)-----')
         print('beep: Get a beep')
         print('curse: Have this program curse at you (no actual cursing)')
-        print('hex: Random Hexadecimal Generator (x16)')
-        print('hexbi: Random hexadecabinary generator (x62 system)')
+
         print('toneup: Make a rising Tone')
         print('rmg: Random Music Generator')
         print("There are also some easter egg commands :)")
@@ -363,7 +395,7 @@ while xae == True:
                 else:
                     error(1)
     elif command == 'game2':
-        messagebox.showinfo('','This game is currently under development. It may cause unwanted effects if you continue.')
+        newwindow()
         print('What is your Username?')
         username = input()
         print('Welcome',username,'to Discount Prodigy')
@@ -373,24 +405,194 @@ while xae == True:
         print('Press enter to begin.')
         input()
         fightmonsters = True
-        monster_names = ['Black Widow','Wulf','Slayer','Shredder','Magma','Tsunahmee']
+        monster_names = ['Black Widow','Wulf','Slayer','Shredder','Magma','The Kraken']
         monsters_battled = 0
         monsters_won = 0
         monsters_lost = 0
-        xp = 0
-        health = 100
+        try:
+            f = open('xp.txt','r')
+            xp = f.read()
+        except:
+            f = open('xp.txt','x')
+            f.write('0')
+            f.close()
+            xp = 0
+        try:
+            xp = float(xp)
+        except:
+            xp = 0
+            f = open('xp.txt','w')
+            f.write('0')
+            f.close()
+        try:
+            f = open('health.txt','r')
+            health = f.read()
+        except:
+            f = open('health.txt','x')
+            f.write('100')
+            f.close()
+            health = 100
+        try:
+            health = float(health)
+        except:
+            health = 100
+            f = open('health.txt','w')
+            f.write('100')
+            f.close()
+        blhealth = health
+        blxp = xp
         while fightmonsters == True:
             print('A monster wants to battle you! do you want to battle?(y/n)')
             battle = input()
             if battle == 'y':
                 monsterbattle_name = random.choice(monster_names)
-                monster_health = health/(random.randint(12,24)/10)
+                monster_health = health//(random.randint(12,24)/10)
+                blmh = monster_health
                 print('Your enemy is',monsterbattle_name)
                 print(monsterbattle_name,'has',monster_health,'health')
                 print('press enter to continue')
                 input()
                 if monsterbattle_name == 'Black Widow':
-                    monster_spells = ['Poke','Venom']
+                    monster_spells = ['Poke','Venom','Crush']
+                elif monsterbattle_name == 'Wulf':
+                    monster_spells = ['Claw','Bite','Slaughter']
+                elif monsterbattle_name == 'Slayer':
+                    monster_spells = ['Execute','Corrupt','Overwrite the boot sector']
+                elif monsterbattle_name == 'Shredder':
+                    monster_spells = ['Shred','Big shred','Ultra Shred']
+                    # I am running out of ideas :(
+                elif monsterbattle_name == 'Magma':
+                    monster_spells = ['Burn','Roast''Erupt']
+                elif monsterbattle_name == 'The Kraken':
+                    monster_spells = ['Wave','Tsunami','Horror of the Deep']
+                else:
+                    messagebox.showwarning('Exception','Unrecognized monster name. Will revert to base spells')
+                    monster_spells = ['spell.placeholder.small','spell.placeholder.med','spell.placeholder.large']
+                spells = ['Wingardium Leviosa','Impedimenta','Avada Kedavra']
+                while monster_health > 0 and health > 0:
+                    failed = False
+                    print('Your spells are',spells[0],',',spells[1],',',spells[2])
+                    print('What spell do you want to use?')
+                    spell_used = input()
+                    if spell_used == spells[0] or spell_used == spells[1] or spell_used == spells[2]:
+                        if spell_used == spells[0]:
+                            print('Answer this question')
+                            a = random.randint(1,100)
+                            b = random.randint(1,100)
+                            print('What is',a,'+',b,'?')
+                            answ = input()
+                            try:
+                                answ = int(answ)
+                            except:
+                                error(1)
+                                print('Because we cant kick you to the command menu, we will restart the program')
+                                reload()
+                            else:
+                                if answ == a + b:
+                                    print('You got it correct')
+                                    spell_damage = blhealth /10 * (random.randint(10,20)/10)
+                                    print('You did',spell_damage,'damage')
+                                    monster_health -= spell_damage
+                                else:
+                                    print('You got it wrong')
+                                    print('Correct answer was',a+b)
+                        elif spell_used == spells[1]:
+                            print('Answer this question')
+                            a = random.randint(1,100)
+                            b = random.randint(1,100)
+                            while b > a:
+                                b = random.randint(1,100)
+                            print('What is',a,'-',b,'?')
+                            answ = input()
+                            try:
+                                answ = int(answ)
+                            except:
+                                error(1)
+                                print('Because we cant kick you to the command menu, we will restart the program')
+                                reload()
+                            else:
+                                if answ == a - b:
+                                    print('You got it correct')
+                                    spell_damage = blhealth /10 * (random.randint(20,50)/10)
+                                    print('You did',spell_damage,'damage')
+                                    monster_health -= spell_damage
+                                    
+                                else:
+                                    print('You got it wrong')
+                                    print('Correct answer was',a-b)
+                        elif spell_used == spells[2]:
+                            print('Answer this question')
+                            a = random.randint(1,12)
+                            b = random.randint(1,12)
+                            print('What is',a,'*',b,'?')
+                            answ = input()
+                            try:
+                                answ = int(answ)
+                            except:
+                                error(1)
+                                print('Because we cant kick you to the command menu, we will restart the program')
+                                reload()
+                            else:
+                                if answ == a * b:
+                                    print('You got it correct')
+                                    spell_damage = blhealth /10 * (random.randint(50,100)/10)
+                                    print('You did',spell_damage,'damage')
+                                    monster_health -= spell_damage
+                                else:
+                                    print('You got it wrong')
+                                    print('Correct answer was',a*b)
+                        xp += spell_damage
+                        print(monsterbattle_name,'has',monster_health,'health')
+                        if monster_health < 1:
+                            break
+                        print('It is now',monsterbattle_name,'turn')
+                        mspell_used = random.choice(monster_spells)
+                        print(monsterbattle_name,'used',mspell_used)
+                        if mspell_used == monster_spells[0]:
+                            mspell_damage = blmh /10 * (random.randint(10,20)/10)
+                        elif mspell_used == monster_spells[1]:
+                            mspell_damage = blmh /10 * (random.randint(20,50)/10)
+                        elif mspell_used == monster_spells[2]:
+                            mspell_damage = blmh /10 * (random.randint(50,100)/10)
+                        print(monsterbattle_name,'did',mspell_damage,'against you')
+                        health -= mspell_damage
+                        print('You now have',health,'health')
+                print('Game Over')
+                if health < 1:
+                    print('You lost')
+                    monsters_lost = monsters_lost + 1
+                elif monster_health < 1:
+                    print('You won!')
+                    monsters_won += 1
+                monsters_battled += 1
+                print('You gained',xp-blxp,'XP This round for a total of',xp)
+                print('You have won against',monsters_won,'This session')
+                print('You lost against',monsters_lost,'This session')
+                print('For a total of',monsters_battled)
+                print('You have a winning ration of',(str(monsters_won/monsters_battled*100)+' %'))
+                health = blhealth + (random.randint(blmh//8,blmh//5))
+                print('You gained',health-blhealth,'health This round for a total of',health)
+                print('')
+                print('Writing Statistics...',end='\r')
+                try:
+                    f = open('xp.txt','w')
+                    f.write(str(xp))
+                except:
+                    f = open('xp.txt','x')
+                    f.write(str(xp))
+                f.close()
+                try:
+                    f = open('health.txt','w')
+                    f.write(str(health))
+                except:
+                    f = open('health.txt','x')
+                    f.write(str(health))
+                f.close()
+                print('Writing Statistics...done')
+                print('')
+            elif battle == 'n':
+                break
+            
     elif command == 'cl':
         runfile('changelog.txt')
     elif command == 'ls':
@@ -1925,9 +2127,10 @@ while xae == True:
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
         print('Sound "Windows Xp Boot" from Instant Sounds')
+        print('Sound Windows 7 Boot from ???')
         print('Sound "Windwos 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("2867 lines of code")
+        print("3069 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
