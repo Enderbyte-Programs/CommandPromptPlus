@@ -19,7 +19,7 @@ import turtle
 import threading
 from tkinter import *
 import sys
-
+from requests import get
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
 sw = False
@@ -302,7 +302,8 @@ while xae == True:
         print("erc: List of error codes")
         print("encode: encode stuff so no one can read it")
         print("translate: Translate files back to readable") 
-        
+        print('ping: Ping an IP address')#still have to make on windows, use batch file/cmd run
+        print('ip: Get your IPv4 address')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -337,6 +338,9 @@ while xae == True:
         print('toneup: Make a rising Tone')
         print('rmg: Random Music Generator')
         print("There are also some easter egg commands :)")
+    elif command == 'ip':
+        ip = get('https://api.ipify.org').text
+        print('Your public IPv4 address is: {}'.format(ip))
 
     elif command == 'rmg':
         for i in range(random.randint(20,50)):
