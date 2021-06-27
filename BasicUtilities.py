@@ -1,11 +1,11 @@
-print('Basic Utilities Test Build 2.7.0.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Test Build 2.7.0.2 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
 try:
     import winsound
 except:
-   messagebox.showwarning('Error','Your device does not support Winsound. Some features may be broken.') 
+   messagebox.showwarning('Warning','Your device does not support Winsound. Some features may be broken.') 
 import os
 import webbrowser
 import random
@@ -250,6 +250,7 @@ while xae == True:
         print("contact: Get my email and Discord")
         print("colour: Find a colour")
         print("bday: Input your birthday to get a surprise on startup when it matches")
+        print("wb: Visit our website")
         
         print('notifs: Change your commmand-running notification settings.')
         print('')
@@ -271,7 +272,7 @@ while xae == True:
         print("snl: Play Snakes and Ladders [sc]")
         print("m8b: Magic 8 ball")
         print("cpg: Play the Cartesian Plane Game")
-        print('game2: Play Discount Prodigy (NOT YET FINISHED)')
+        print('game2: Play Discount Prodigy')
         print('')
         print('-----Preset Counters-----')
         print("meter: See how long it has been since COVID infected its first human.(VE COUNTER)")
@@ -323,7 +324,7 @@ while xae == True:
         print("quiz: get a multiplication quiz up to 12x12")
         
         print("conv len: length converters [sc]")
-        print("wb: Visit our website")
+        
         print('')
         print('-----Uninstalling-----')
         print("uninstall: Uninstall this program completely")
