@@ -1,4 +1,4 @@
-print('Basic Utilities 2.7 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Test Build 2.7.0.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
