@@ -1,4 +1,4 @@
-print('Basic Utilities Test Build 2.7.0.2 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.8 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -19,7 +19,10 @@ import turtle
 import threading
 from tkinter import *
 import sys
-from requests import get
+try:
+    from requests import get
+except:
+    messagebox.showwarning('Warning','Some features may be broken because you dont have requests installed.')
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
 sw = False
@@ -303,8 +306,9 @@ while xae == True:
         print("erc: List of error codes")
         print("encode: encode stuff so no one can read it")
         print("translate: Translate files back to readable") 
-        print('ping: Ping an IP address')#still have to make on windows, use batch file/cmd run
+        print('ping: Ping an IP address')
         print('ip: Get your IPv4 address')
+        print('permaping: Ping an IP address indefinitely')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -339,6 +343,15 @@ while xae == True:
         print('toneup: Make a rising Tone')
         print('rmg: Random Music Generator')
         print("There are also some easter egg commands :)")
+
+    elif command == 'permaping':
+        runfile('permaping.bat')
+        print('Please look at the command prompt window')
+
+    elif command =='ping':
+        runfile('ping.bat')
+        print('Please look at the command prompt window')
+        
     elif command == 'ip':
         ip = get('https://api.ipify.org').text
         print('Your public IPv4 address is: {}'.format(ip))
@@ -2135,7 +2148,7 @@ while xae == True:
         print('Sound Windows 7 Boot from ???')
         print('Sound "Windwos 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3069 lines of code")
+        print("3088 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
