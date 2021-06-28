@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.8 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.9 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -343,7 +343,19 @@ while xae == True:
 
         print('toneup: Make a rising Tone')
         print('rmg: Random Music Generator')
+        print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'cmaj':
+        x = 500
+        winsound.Beep(261,x)
+        winsound.Beep(293,x)
+        winsound.Beep(329,x)
+        winsound.Beep(349,x)
+        winsound.Beep(392,x)
+        winsound.Beep(440,x)
+        winsound.Beep(493,x)
+        winsound.Beep(523,x)
 
     elif command == 'fstat':
         print('What file to analyse? Without extension')
@@ -356,72 +368,82 @@ while xae == True:
         except:
             error(2)
         else:
-            data = f.read()
-            size = len(data)
-            print('Will write file statistics to',fta+'.fstat')
-            if size < 1000:
-                print('PREVIEW:')
-                print(data)
-            else:
-                print('Oops! File was to large to preview')
-            print('Characters:',size)
-            if size < 1000:
-                fs = size
-                print('File Size:',size,'bytes')
-            elif size < 1000 and size > 1000000:
-                fs = size/1000
-                print('File Size:',fs,'kilobytes')
-            else:
-                fs = size /1000/1000
-                print('File Size:',fs,'megabytes')
-            aol = 0
-            f.close()
-            f = open(fta)
-            tiwieyc = f.readlines()
-            while True:
-                try:    
-                    x = tiwieyc[aol]
-                    aol = aol + 1
-                except:
-                    break
-            print('Amount of lines:',aol)
-            tw = fta+'.fstat'
-            print('Writing to',tw)
-            f.close()
             try:
-                f = open(tw,'x')
-                f.write('Characters = '+str(size)+'\n')
-                f.write('Size = '+str(fs)+'\n')
-                f.write('Lines = '+str(aol)+'\n')
-                if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
-                    ftype = 'Text Document'
-                elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
-                    ftype = 'Executable'
-                elif ftx == '.doc' or ftx == '.docx':
-                    ftype = 'MS word Document'
-                elif ftx == '.bat':
-                    ftype = 'Batch File'
-                else:
-                    ftype = 'Other File'
-                f.write('Type = '+ftype)
+                data = f.read()
             except:
-                f = open(tw,'w')
-                f.write('Characters = '+str(size)+'\n')
-                f.write('Size = '+str(fs)+'\n')
-                f.write('Lines = '+str(aol)+'\n')
-                if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
-                    ftype = 'Text Document'
-                elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
-                    ftype = 'Executable'
-                elif ftx == '.doc' or ftx == '.docx':
-                    ftype = 'MS word Document'
-                elif ftx == '.bat':
-                    ftype = 'Batch File'
-                else:
-                    ftype = 'Other File'
-                f.write('Type = '+ftype)
-            finally:
                 f.close()
+                messagebox.showinfo('File Error','Basic Utilities cannot read this file. It may be compressed or unreadable.')
+            else:
+                size = len(data)
+                print('Will write file statistics to',fta+'.fstat')
+                if size < 1000:
+                    print('PREVIEW:')
+                    print('-----')
+                    print(data)
+                    print('-----')
+                else:
+                    print('Oops! File was to large to preview')
+                print('Characters:',size)
+                if size < 1000:
+                    fs = size
+                    fs = str(str(fs)+' bytes')
+                    print('File Size:',size,'bytes')
+                elif size < 1000 and size > 1000000:
+                    fs = size/1000
+                    print('File Size:',fs,'kilobytes')
+                    fs = str(str(fs)+' kilobytes')
+                else:
+                    fs = size /1000/1000
+                    print('File Size:',fs,'megabytes')
+                    fs = str(str(fs)+ ' megabytes')
+                aol = 0
+                f.close()
+                f = open(fta)
+                tiwieyc = f.readlines()
+                while True:
+                    try:    
+                        x = tiwieyc[aol]
+                        aol = aol + 1
+                    except:
+                        break
+                print('Amount of lines:',aol)
+                tw = fta+'.fstat'
+                print('Writing to',tw)
+                f.close()
+                try:
+                    f = open(tw,'x')
+                    f.write('Characters = '+str(size)+'\n')
+                    f.write('Size = '+str(fs)+'\n')
+                    f.write('Lines = '+str(aol)+'\n')
+                    if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
+                        ftype = 'Text Document'
+                    elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
+                        ftype = 'Executable'
+                    elif ftx == '.doc' or ftx == '.docx':
+                        ftype = 'MS word Document'
+                    elif ftx == '.bat':
+                        ftype = 'Batch File'
+                    else:
+                        ftype = 'Other File'
+                    f.write('Type = '+ftype)
+                except:
+                    f = open(tw,'w')
+                    f.write('Characters = '+str(size)+'\n')
+                    f.write('Size = '+str(fs)+'\n')
+                    f.write('Lines = '+str(aol)+'\n')
+                    if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
+                        ftype = 'Text Document'
+                    elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
+                        ftype = 'Executable'
+                    elif ftx == '.doc' or ftx == '.docx':
+                        ftype = 'MS word Document'
+                    elif ftx == '.bat':
+                        ftype = 'Batch File'
+                    else:
+                        ftype = 'Other File'
+                    f.write('Type = '+ftype)
+                finally:
+                    f.close()
                 
 
     elif command == 'permaping':
@@ -2228,7 +2250,7 @@ while xae == True:
         print('Sound Windows 7 Boot from ???')
         print('Sound "Windwos 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3088 lines of code")
+        print("3185 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
