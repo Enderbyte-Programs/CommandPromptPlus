@@ -388,7 +388,7 @@ while xae == True:
                     fs = size
                     fs = str(str(fs)+' bytes')
                     print('File Size:',size,'bytes')
-                elif size < 1000 and size > 1000000:
+                elif size > 1000 and size < 1000000:
                     fs = size/1000
                     print('File Size:',fs,'kilobytes')
                     fs = str(str(fs)+' kilobytes')
