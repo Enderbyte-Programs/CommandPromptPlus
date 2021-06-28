@@ -309,6 +309,7 @@ while xae == True:
         print('ping: Ping an IP address')
         print('ip: Get your IPv4 address')
         print('permaping: Ping an IP address indefinitely')
+        print('fstat: Read a file and get an analysis report on it in the form of *.*.fstat')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -343,6 +344,85 @@ while xae == True:
         print('toneup: Make a rising Tone')
         print('rmg: Random Music Generator')
         print("There are also some easter egg commands :)")
+
+    elif command == 'fstat':
+        print('What file to analyse? Without extension')
+        fta = input()
+        print('What extension does it have? eg: .txt')
+        ftx = input()
+        fta = fta + ftx
+        try:
+            f = open(fta)
+        except:
+            error(2)
+        else:
+            data = f.read()
+            size = len(data)
+            print('Will write file statistics to',fta+'.fstat')
+            if size < 1000:
+                print('PREVIEW:')
+                print(data)
+            else:
+                print('Oops! File was to large to preview')
+            print('Characters:',size)
+            if size < 1000:
+                fs = size
+                print('File Size:',size,'bytes')
+            elif size < 1000 and size > 1000000:
+                fs = size/1000
+                print('File Size:',fs,'kilobytes')
+            else:
+                fs = size /1000/1000
+                print('File Size:',fs,'megabytes')
+            aol = 0
+            f.close()
+            f = open(fta)
+            tiwieyc = f.readlines()
+            while True:
+                try:    
+                    x = tiwieyc[aol]
+                    aol = aol + 1
+                except:
+                    break
+            print('Amount of lines:',aol)
+            tw = fta+'.fstat'
+            print('Writing to',tw)
+            f.close()
+            try:
+                f = open(tw,'x')
+                f.write('Characters = '+str(size)+'\n')
+                f.write('Size = '+str(fs)+'\n')
+                f.write('Lines = '+str(aol)+'\n')
+                if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
+                    ftype = 'Text Document'
+                elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
+                    ftype = 'Executable'
+                elif ftx == '.doc' or ftx == '.docx':
+                    ftype = 'MS word Document'
+                elif ftx == '.bat':
+                    ftype = 'Batch File'
+                else:
+                    ftype = 'Other File'
+                f.write('Type = '+ftype)
+            except:
+                f = open(tw,'w')
+                f.write('Characters = '+str(size)+'\n')
+                f.write('Size = '+str(fs)+'\n')
+                f.write('Lines = '+str(aol)+'\n')
+                if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
+                    ftype = 'Text Document'
+                elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
+                    ftype = 'Executable'
+                elif ftx == '.doc' or ftx == '.docx':
+                    ftype = 'MS word Document'
+                elif ftx == '.bat':
+                    ftype = 'Batch File'
+                else:
+                    ftype = 'Other File'
+                f.write('Type = '+ftype)
+            finally:
+                f.close()
+                
 
     elif command == 'permaping':
         runfile('permaping.bat')
@@ -490,10 +570,10 @@ while xae == True:
                 while monster_health > 0 and health > 0:
                     failed = False
                     print('Your spells are',spells[0],',',spells[1],',',spells[2])
-                    print('What spell do you want to use?')
+                    print('What spell do you want to use? You may also use numbers 1,2,3.')
                     spell_used = input()
-                    if spell_used == spells[0] or spell_used == spells[1] or spell_used == spells[2]:
-                        if spell_used == spells[0]:
+                    if spell_used == spells[0] or spell_used == spells[1] or spell_used == spells[2] or spell_used == '1' or spell_used == '2' or spell_used == '3':
+                        if spell_used == spells[0] or spell_used == '1':
                             print('Answer this question')
                             a = random.randint(1,100)
                             b = random.randint(1,100)
@@ -514,7 +594,7 @@ while xae == True:
                                 else:
                                     print('You got it wrong')
                                     print('Correct answer was',a+b)
-                        elif spell_used == spells[1]:
+                        elif spell_used == spells[1] or spell_used == '2':
                             print('Answer this question')
                             a = random.randint(1,100)
                             b = random.randint(1,100)
@@ -538,7 +618,7 @@ while xae == True:
                                 else:
                                     print('You got it wrong')
                                     print('Correct answer was',a-b)
-                        elif spell_used == spells[2]:
+                        elif spell_used == spells[2] or spell_used == '3':
                             print('Answer this question')
                             a = random.randint(1,12)
                             b = random.randint(1,12)
