@@ -69,6 +69,31 @@ finally:
         f.close()
     except:
         ggggggggg = False
+try:
+    f = open('bcount.txt')
+    bootcount = f.read()
+    try:
+        bootcount = int(bootcount)
+    except:
+        f.close
+        f = open('bcount.txt','w')
+        bootcount = 0
+        f.write(str(bootcount+1))
+        f.close()
+except:
+    f = open('bcount.txt','x')
+    bootcount = 0
+    f.write(str(bootcount+1))
+    f.close()
+bootcount += 1
+try:
+    f = open('bcount.txt','w')
+    f.write(str(bootcount))
+    f.close()
+except:
+    f = open('bcount.txt','x')
+    f.write(str(bootcount))
+    f.close()
 print('Writing Appdata files ... done',end='\n')
 print('preparing functions ...',end='\r')
 def error(erc):
@@ -232,6 +257,7 @@ if hasarg == True:
     print('Press enter to quit program.')
     input()
     sys.exit()
+print('You have booted up Basic Utilities',bootcount,'times.')
 print('')
 print("Welcome to BasicUtilities")
 
@@ -268,7 +294,7 @@ while xae == True:
         print("reload: reloads this program.")
         print("logoff: Logs you out.")
         print("restart: Restarts your computer")
-        print("web: Open a website.")
+        print("browser: Open the Basic Utilities Browser.")
         print('')
         print('-----Games-----')
         print("game: Play Beat The Bank")
@@ -309,7 +335,7 @@ while xae == True:
         print('ping: Ping an IP address')
         print('ip: Get your IPv4 address')
         print('permaping: Ping an IP address indefinitely')
-        print('fstat: Read a file and get an analysis report on it in the form of *.*.fstat')
+        print('fstat: Read a file and get an statistics report on it in the form of *.*.fstat')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -329,6 +355,7 @@ while xae == True:
         print("quiz: get a multiplication quiz up to 12x12")
         
         print("conv len: length converters [sc]")
+        print('fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares')
         
         print('')
         print('-----Uninstalling-----')
@@ -345,6 +372,24 @@ while xae == True:
         print('rmg: Random Music Generator')
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'fibb':
+        print('How many units?')
+        cmz = input()
+        try:
+            cmz = int(cmz)
+        except:
+            error(1)
+        else:
+            a = 0
+            b = 1
+            if cmz > 0:
+                print(1)
+            for i in range(cmz-1):
+                c = a + b
+                print(c)
+                a = b
+                b = c
 
     elif command == 'cmaj':
         x = 500
@@ -460,7 +505,7 @@ while xae == True:
 
     elif command == 'rmg':
         for i in range(random.randint(20,50)):
-            winsound.Beep(random.randint(400,1200),random.randint(200,1000))
+            winsound.Beep(random.randint(200,1000),random.randint(200,1000))
             
 
     elif command == 'toneup':
@@ -1054,18 +1099,18 @@ while xae == True:
                 error(0)
         ct = Tk()
         ct.title('Window')
-        txt = Entry(ct,width=10)
+        txt = Entry(ct,width=10,bg='red')
         txt.grid(column=0,row=0)
-        txt1 = Entry(ct,width=10)
+        txt1 = Entry(ct,width=10,bg='green')
         txt1.grid(column=1,row=0)
-        txt2 = Entry(ct,width=10)
-        txt2.grid(column=2,row=0)
+        txt2 = Entry(ct,width=10,bg='blue')
+        txt2.grid(column=2,row=0,)
         btn = Button(ct,text='Generate colour',command=colourchange,bg='green')
         btn.grid(column=1,row=1)
         lbl = Label(ct,text='Please enter values between 0 and 255')
         lbl.grid(column=1,row=2)
         btn1 = Button(ct,text='Exit',command=bby,bg='red')
-        btn1.grid(column=2,row=1)
+        btn1.grid(column=0,row=1)
         ct.mainloop()
         
     elif command == 'clean your room':
@@ -2421,20 +2466,69 @@ while xae == True:
             print("It has been",days,"days")
             print("It has been",hour,"hours")
             print("It has been",minutes,"minutes")
-            print("It has been",second,"seconds sinceCOVID-19 infected its first human")
+            print("It has been",second,"seconds since COVID-19 infected its first human")
             print("")
             sleep(1)
 
-    elif command == "web":
-        print("Please type the exact url of what you want to search.")
-        search = input()
-        if search[0] == "h" and search[1] == "t" and search[2] == "t" and search[3] == "p":
+    elif command == "browser":
+        try:
+            f = open('history.txt')
+            data = f.read()
+        except:
+            f = open('history.txt','x')
+            data = 'No History Yet'
+            f.write(data)
+        finally:
+            f.close()
+        def gourl():
+            global txt
+            global res
+            res = txt.get()
+            webbrowser.open(res)
+            writehistory()
+        def sech():
+            global txt
+            global res
+            res = txt.get()
+            res = 'https://www.google.com/search?q='+res
+            webbrowser.open(res)
+            writehistory()
+        def vh():
+            global data
+            if data == 'No History Yet':
+                messagebox.showinfo('','No History Yet')
+            else:
+                webbrowser.open(data)
+        def writehistory():
+            global res
+            global lbl1
             try:
-                webbrowser.open(search)
+                f = open('history.txt','w')
+                f.write(res)
+                f.close()
             except:
-                error(6)
-        else:
-            error(6)
+                f = open('history.txt','w')
+                f.write(res)
+                f.close()
+            lbl1.configure(text=res) 
+        wbx = Tk()
+        wbx.title('BU Browser')
+        wbx.geometry('600x150')
+        lbl = Label(wbx,text='Put your URL or search here')
+        lbl.grid(column=0,row=0)
+        btn = Button(wbx,text='Close',bg='yellow',command=wbx.destroy)
+        btn.grid(column=1,row=0)
+        txt = Entry(wbx,width=50)
+        txt.grid(column=0,row=1)
+        btn1 = Button(wbx,text='Go to URL',command=gourl,bg='lime green')
+        btn1.grid(column=0,row=2)
+        btn2 = Button(wbx,text='Search',command=sech,bg='lime green')
+        btn2.grid(column=1,row=2)
+        lbl1 = Label(wbx,text=data)
+        lbl1.grid(column=0,row=3)
+        btn3 = Button(wbx,text='Go to recent search',bg='SkyBlue1',command=vh)
+        btn3.grid(column=1,row=3)
+        wbx.mainloop()
 
     elif command == "logoff":
         logoff = True
