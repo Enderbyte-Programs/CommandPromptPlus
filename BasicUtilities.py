@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.9 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.9.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -2292,10 +2292,10 @@ while xae == True:
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
         print('Sound "Windows Xp Boot" from Instant Sounds')
-        print('Sound Windows 7 Boot from ???')
-        print('Sound "Windwos 7 Boot" from [unknown]')
+        
+        print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3185 lines of code")
+        print("3284 lines of code")
         print("Alot of chracters")
 
     elif command == "prank":
