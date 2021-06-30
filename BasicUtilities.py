@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.9.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.9.2 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -258,6 +258,9 @@ if hasarg == True:
     input()
     sys.exit()
 print('You have booted up Basic Utilities',bootcount,'times.')
+x = datetime.datetime.now()
+if x.month == 4 and x.day == 1 and x.hour < 12:
+    webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
 print('')
 print("Welcome to BasicUtilities")
 
@@ -287,6 +290,7 @@ while xae == True:
         print("insult: Get insulted")
         print("prank: try it out :P")
         print('crash: Crash this program')
+       
         print('')
         print('-----System Interaction-----')
         print("stop: Stops this window")
@@ -356,7 +360,7 @@ while xae == True:
         
         print("conv len: length converters [sc]")
         print('fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares')
-        
+        print('prime: Generate all prime numbers up to a number')
         print('')
         print('-----Uninstalling-----')
         print("uninstall: Uninstall this program completely")
@@ -373,6 +377,35 @@ while xae == True:
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
 
+    elif command == 'prime':
+        num = 0
+        prime = 0
+        print('All prime numbers up to what?')
+        units = input()
+        try:
+            units = int(units)
+        except:
+            error(1)
+        else:
+            for i in range(units):
+                num += 1
+                if num > 1:
+                    for i in range(2,int(num/2)+1):
+                        if (num % i) == 0:
+                            nqtye = 0
+                            break
+                    else:
+                        print(num)
+                        prime += 1
+                else:
+
+                    nqtye = 0
+            
+            print('There were',prime,'prime numbers in that set')
+            try:
+                print('The prime number percent value is',str(prime/units*100)+' percent')
+            except:
+                print("We tried to print a percent, but you decided to devide by 0")
     elif command == 'fibb':
         print('How many units?')
         cmz = input()
@@ -403,11 +436,9 @@ while xae == True:
         winsound.Beep(523,x)
 
     elif command == 'fstat':
-        print('What file to analyse? Without extension')
+        print('What file to analyse? ')
         fta = input()
-        print('What extension does it have? eg: .txt')
-        ftx = input()
-        fta = fta + ftx
+        
         try:
             f = open(fta)
         except:
@@ -460,33 +491,13 @@ while xae == True:
                     f.write('Characters = '+str(size)+'\n')
                     f.write('Size = '+str(fs)+'\n')
                     f.write('Lines = '+str(aol)+'\n')
-                    if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
-                        ftype = 'Text Document'
-                    elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
-                        ftype = 'Executable'
-                    elif ftx == '.doc' or ftx == '.docx':
-                        ftype = 'MS word Document'
-                    elif ftx == '.bat':
-                        ftype = 'Batch File'
-                    else:
-                        ftype = 'Other File'
-                    f.write('Type = '+ftype)
+                    
                 except:
                     f = open(tw,'w')
                     f.write('Characters = '+str(size)+'\n')
                     f.write('Size = '+str(fs)+'\n')
                     f.write('Lines = '+str(aol)+'\n')
-                    if ftx == '.txt' or ftx == '.text' or ftx == 'rtf':
-                        ftype = 'Text Document'
-                    elif ftx == '.exe' or ftx == '.com' or ftx == 'scr':
-                        ftype = 'Executable'
-                    elif ftx == '.doc' or ftx == '.docx':
-                        ftype = 'MS word Document'
-                    elif ftx == '.bat':
-                        ftype = 'Batch File'
-                    else:
-                        ftype = 'Other File'
-                    f.write('Type = '+ftype)
+                    
                 finally:
                     f.close()
                 
@@ -2282,7 +2293,7 @@ while xae == True:
     elif command == "credits":
         print("Basic Utilities (c) 2021 Enderbyte Programs")
         print("Installer by Inno Setup")
-        print("Coded in Python 3.7.3, 3.9.2 and 3.9.5; compiled in Pyinstaller 4.3")
+        print("Coded in Python 3.7.3, 3.9.2, 3.9.6 and 3.9.5; compiled in Pyinstaller 4.3")
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
@@ -2295,8 +2306,8 @@ while xae == True:
         
         print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3284 lines of code")
-        print("Alot of chracters")
+        print("3294 lines of code")
+        print("116048 chracters")
 
     elif command == "prank":
         def prank():
