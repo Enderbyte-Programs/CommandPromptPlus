@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.9.2 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.9.3 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -149,6 +149,12 @@ def reload():
     finally:
         sys.exit()
 def startsound():
+    x = datetime.datetime.now()
+    if x.month == 7 and x.day == 1:
+        try:
+            playsound('can.mp3')
+        except:
+            print('',end='\r')
     try:
         playsound('startup.mp3')
     except:
@@ -261,6 +267,9 @@ print('You have booted up Basic Utilities',bootcount,'times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
+if x.month == 7 and x.day == 1:
+    print('Oh Canada\n Our home and native land. \n True Patriot Love\n in all of us command\n with glowing hearts, we see thee rise\n the True North Strong and Free\n from far and wide, O canada we stand on guard for thee.\n God keep our land\
+\nglorious and free\n O canada, we stand on guard for thee\n O canada we stand on guard for thee!')
 print('')
 print("Welcome to BasicUtilities")
 
@@ -347,7 +356,7 @@ while xae == True:
         print('tempt: Temperature converter')
         print('degp: degrees to percent')
         print('pdeg: percent to degrees')
-        
+        print('pi: Get up to 100 digits of pi')
      
         print("pa: Add percent")
         print("pr: Remove percent")
@@ -376,6 +385,17 @@ while xae == True:
         print('rmg: Random Music Generator')
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'pi':
+        print('How many units')
+        units = input()
+        try:
+            units = int(units)
+        except:
+            error(1)
+        else:
+            piq = str('3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679')
+            print(piq[0:units])
 
     elif command == 'prime':
         num = 0
@@ -440,7 +460,7 @@ while xae == True:
         fta = input()
         
         try:
-            f = open(fta)
+            f = open(fta,'r')
         except:
             error(2)
         else:
@@ -2306,8 +2326,8 @@ while xae == True:
         
         print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3294 lines of code")
-        print("116048 chracters")
+        print("3314 lines of code")
+        print("116568 chracters")
 
     elif command == "prank":
         def prank():
