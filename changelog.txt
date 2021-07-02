@@ -1,0 +1,8 @@
+	Alpha 0.1 Made game with white rectangle that you move around
+	Alpha 0.2 Added Enemy
+	Alpha 0.3 Made enemy move
+	Alpha 0.4 Background, music
+	Alpha 0.5 Added OS restart
+1.0 Published as zip
+	Test build 2171.1 Removed OS restart, added this, added license, made screen bigger
+	Test build 2171.2 Changed music
