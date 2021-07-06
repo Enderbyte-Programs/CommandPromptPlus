@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.9.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.10 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -23,6 +23,7 @@ try:
     from requests import get
 except:
     messagebox.showwarning('Warning','Some features may be broken because you dont have requests installed.')
+from tkinter import filedialog
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
 sw = False
@@ -268,8 +269,7 @@ x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
 if x.month == 7 and x.day == 1:
-    print('Oh Canada\n Our home and native land. \n True Patriot Love\n in all of us command\n with glowing hearts, we see thee rise\n the True North Strong and Free\n from far and wide, O canada we stand on guard for thee.\n God keep our land\
-\nglorious and free\n O canada, we stand on guard for thee\n O canada we stand on guard for thee!')
+    print('Happy Canada Day, User!')
 print('')
 print("Welcome to BasicUtilities")
 
@@ -294,6 +294,7 @@ while xae == True:
         print("wb: Visit our website")
         
         print('notifs: Change your commmand-running notification settings.')
+        print('rev: Reverse the contents of a file')
         print('')
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
@@ -349,6 +350,8 @@ while xae == True:
         print('ip: Get your IPv4 address')
         print('permaping: Ping an IP address indefinitely')
         print('fstat: Read a file and get an statistics report on it in the form of *.*.fstat')
+        print('cmd: Execute something on the Command Prompt')
+        print('musplay: Play an audio file in the background')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -386,6 +389,23 @@ while xae == True:
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
 
+    elif command == 'musplay':
+        file_path = filedialog.askopenfilename()
+        playsound(file_path)
+
+    elif command == 'rev':
+
+        newwindow()
+        file_path = filedialog.askopenfilename()
+        f = open(file_path)
+        data = f.read()
+        strlen = len(data)
+        newstr = data[strlen::-1]
+        print(newstr)
+        f.close()
+        f = open(file_path,'w')
+        f.write(newstr)
+        f.close()
     elif command == 'pi':
         print('How many units')
         units = input()
@@ -457,7 +477,7 @@ while xae == True:
 
     elif command == 'fstat':
         print('What file to analyse? ')
-        fta = input()
+        fta = filedialog.askopenfilename()
         
         try:
             f = open(fta,'r')
@@ -485,11 +505,11 @@ while xae == True:
                     fs = str(str(fs)+' bytes')
                     print('File Size:',size,'bytes')
                 elif size > 1000 and size < 1000000:
-                    fs = size/1000
+                    fs = size/1024
                     print('File Size:',fs,'kilobytes')
                     fs = str(str(fs)+' kilobytes')
                 else:
-                    fs = size /1000/1000
+                    fs = size /1000/1024
                     print('File Size:',fs,'megabytes')
                     fs = str(str(fs)+ ' megabytes')
                 aol = 0
@@ -529,6 +549,9 @@ while xae == True:
     elif command =='ping':
         runfile('ping.bat')
         print('Please look at the command prompt window')
+
+    elif command =='cmd':
+        runfile('execute.bat')
         
     elif command == 'ip':
         ip = get('https://api.ipify.org').text
@@ -926,7 +949,7 @@ while xae == True:
 
         except:
             print('Exception: Most recent Callback')
-            print('Error in line 414 of BasicUtilities.py')
+            print('Error in line 947 of BasicUtilities.py')
             print('try:')
             print("     os.startfile('BasicUtilites.exe')")
             print('[ERRNO] 17')
@@ -1018,11 +1041,11 @@ while xae == True:
                 print("written to",fex)
             
     elif command == 'translate':
-        print("Translate from what file? Encoded message files usually have a bue file extension. You don't need to put the file extension here.")
-        fex = input()
-        fex = fex + '.bue'
+        print("Please select file to translate.")
+        file_path = filedialog.askopenfilename()
+        
         try:
-            f = open(fex,'r')
+            f = open(file_path,'r')
             mes = f.read()
             print("encoded message is",len(mes),"bytes")
         except:
@@ -2326,8 +2349,8 @@ while xae == True:
         
         print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3314 lines of code")
-        print("116568 chracters")
+        print("3338 lines of code")
+        print("117299 chracters")
 
     elif command == "prank":
         def prank():
