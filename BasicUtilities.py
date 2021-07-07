@@ -5,7 +5,7 @@ from tkinter import messagebox
 try:
     import winsound
 except:
-   messagebox.showwarning('Warning','Your device does not support Winsound. Some features may be broken.') 
+   print('Your device does not support Winsound. Some features may be broken.') 
 import os
 import webbrowser
 import random
@@ -14,7 +14,7 @@ import datetime
 try:
     from playsound import playsound
 except:
-    messagebox.showwarning('Warning','Your device does not support playsound. Some features may be broken')
+    print('Your device does not support playsound. Some features may be broken')
 import turtle
 import threading
 from tkinter import *
@@ -22,7 +22,7 @@ import sys
 try:
     from requests import get
 except:
-    messagebox.showwarning('Warning','Some features may be broken because you dont have requests installed.')
+    print('Some features may be broken because you dont have requests installed.')
 from tkinter import filedialog
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
@@ -101,6 +101,7 @@ def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
     erm = erm + erc
+    Tk().withdraw()
     messagebox.showerror("Error",erm)
 
 def nwstart():
@@ -270,6 +271,83 @@ if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
 if x.month == 7 and x.day == 1:
     print('Happy Canada Day, User!')
+if x.month == 7 and x.day == 4:
+    print('Happy American Day, User( if you are american)')
+try:
+    f = open('btime.txt','r')
+except:
+    f = open('btime.txt','x')
+    f.write(str(x.year)+'\n')
+    f.write(str(x.month)+'\n')
+    f.write(str(x.day)+'\n')
+    f.write(str(x.hour)+'\n')
+    f.write(str(x.minute)+'\n')
+    f.write(str(x.second)+'\n')
+    a = x.year
+    b = x.month
+    c = x.day
+    d = x.hour
+    e = x.minute
+    g = x.second
+else:
+    try:
+        content = f.readlines()
+        a = content[0]
+        b = content[1]
+        c = content[2]
+        d = content[3]
+        e = content[4]
+        g = content[5]
+    except:
+        f = open('btime.txt','w')
+        f.write(str(x.year)+'\n')
+        f.write(str(x.month)+'\n')
+        f.write(str(x.day)+'\n')
+        f.write(str(x.hour)+'\n')
+        f.write(str(x.minute)+'\n')
+        f.write(str(x.second)+'\n')
+        a = x.year
+        b = x.month
+        c = x.day
+        d = x.hour
+        e = x.minute
+        g = x.second
+    else:
+        try:
+            a = int(a)
+            b = int(b)
+            c = int(c)
+            d = int(d)
+            e = int(e)
+            g = int(g)
+        except:
+            f = open('btime.txt','w')
+            f.write(str(x.year)+'\n')
+            f.write(str(x.month)+'\n')
+            f.write(str(x.day)+'\n')
+            f.write(str(x.hour)+'\n')
+            f.write(str(x.minute)+'\n')
+            f.write(str(x.second)+'\n')
+            a = x.year
+            b = x.month
+            c = x.day
+            d = x.hour
+            e = x.minute
+            g = x.second
+d0 = datetime.datetime(a,b,c,d,e,g)
+d1 = datetime.datetime(x.year,x.month,x.day,x.hour,x.minute,x.second)
+diff = d1-d0
+ts = diff.total_seconds()
+print('You opened Basic Utilities for the first time in',ts,'seconds!')
+f.close()
+f = open('btime.txt','w')
+f.write(str(x.year)+'\n')
+f.write(str(x.month)+'\n')
+f.write(str(x.day)+'\n')
+f.write(str(x.hour)+'\n')
+f.write(str(x.minute)+'\n')
+f.write(str(x.second)+'\n')
+f.close()
 print('')
 print("Welcome to BasicUtilities")
 
@@ -337,6 +415,8 @@ while xae == True:
         print('hexbi: Random hexadecabinary generator (x62)')
         print('picker: Make a custom random generator')
         print('cpicker: Random colour picker')
+        print('npicker: Random Name Picker (NOT TO BE TAKEN SERIOUSLY)')#Todo 1.11 pre 1
+        print('tpicker: Random Town Picker (NOT TO BE TAKEN SERIOUSLY)')#Todo 1.11 pre 1
         print('')
         print('-----Utility-----')
         print("lag: Measures your computer's lag.")
@@ -389,13 +469,33 @@ while xae == True:
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
 
+    elif command == 'npicker':
+        let = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t''u','v','w','x','y','z']
+        print('-----')
+        for i in range(random.randint(2,12)):
+            print(random.choice(let),end='',flush=True)
+        print('')
+        print('-----')
+
+    elif command == 'tpicker':
+        prefixes = ['she','kensing','park','new','Burn','Squa','Whis','Morton','Farris','Kalmy','Ruby','Fansing','']
+        mid = ['field','aby','st','','','','']
+        end = ['ton','ville','vill','don','hood','']
+        print('-----')
+        print(random.choice(prefixes)+random.choice(mid)+random.choice(end))
+        print('-----')
+
     elif command == 'musplay':
+        newwindow()
         file_path = filedialog.askopenfilename()
-        playsound(file_path)
+        try:
+            playsound(file_path)
+        except:
+            error(1)
 
     elif command == 'rev':
 
-        newwindow()
+        Tk().withdraw()
         file_path = filedialog.askopenfilename()
         f = open(file_path)
         data = f.read()
@@ -403,7 +503,10 @@ while xae == True:
         newstr = data[strlen::-1]
         print(newstr)
         f.close()
-        f = open(file_path,'w')
+        try:
+            f = open(file_path+'rev','x')
+        except:
+            f = open(file_path+'rev','x')
         f.write(newstr)
         f.close()
     elif command == 'pi':
@@ -477,6 +580,7 @@ while xae == True:
 
     elif command == 'fstat':
         print('What file to analyse? ')
+        Tk().withdraw()
         fta = filedialog.askopenfilename()
         
         try:
@@ -488,6 +592,7 @@ while xae == True:
                 data = f.read()
             except:
                 f.close()
+                Tk().withdraw()
                 messagebox.showinfo('File Error','Basic Utilities cannot read this file. It may be compressed or unreadable.')
             else:
                 size = len(data)
@@ -685,6 +790,7 @@ while xae == True:
                 elif monsterbattle_name == 'The Kraken':
                     monster_spells = ['Wave','Tsunami','Horror of the Deep']
                 else:
+                    Tk().withdraw()
                     messagebox.showwarning('Exception','Unrecognized monster name. Will revert to base spells')
                     monster_spells = ['spell.placeholder.small','spell.placeholder.med','spell.placeholder.large']
                 spells = ['Wingardium Leviosa','Impedimenta','Avada Kedavra']
@@ -869,8 +975,10 @@ while xae == True:
                         res = vtc + 273
                         print('Converted is',res)
                     else:
+                        Tk().withdraw()
                         messagebox.showwarning('Warning','Invalid Command Combination')
             else:
+                Tk().withdraw()
                 messagebox.showwarning('Warning','Invalid Command Combination')           
 
     elif command == 'cpicker':
@@ -1042,6 +1150,7 @@ while xae == True:
             
     elif command == 'translate':
         print("Please select file to translate.")
+        Tk().withdraw()
         file_path = filedialog.askopenfilename()
         
         try:
@@ -1168,9 +1277,11 @@ while xae == True:
         ct.mainloop()
         
     elif command == 'clean your room':
+        Tk().withdraw()
         messagebox.showerror('Error','Computers cannot clean their rooms')
     elif command == 'ur mom':
-       messagebox.showerror('Error','Shut up, you inmature child')
+        Tk().withdraw()
+        messagebox.showerror('Error','Shut up, you inmature child')
     elif command == 'spam':
         for i in range(20):
             try:
@@ -1344,6 +1455,7 @@ while xae == True:
             elif mxe == 'mi-km':
                 conv('miles','kilometres','*1.609')
             else:
+                Tk().withdraw()
                 messagebox.showwarning('Warning','Unrecognised command. Type help for the list.')
 
     elif command == 'conv len c-y':
@@ -2349,8 +2461,8 @@ while xae == True:
         
         print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3338 lines of code")
-        print("117299 chracters")
+        print("3453 lines of code")
+        print("120626 chracters")
 
     elif command == "prank":
         def prank():
@@ -2550,6 +2662,7 @@ while xae == True:
         def vh():
             global data
             if data == 'No History Yet':
+                Tk().withdraw()
                 messagebox.showinfo('','No History Yet')
             else:
                 webbrowser.open(data)
@@ -3305,6 +3418,7 @@ while xae == True:
             print(opponent,"won!")
 
     else:
+        Tk().withdraw()
         messagebox.showwarning('Warning',"You typed in an unrecognised command.\n If you want the commands list, dismiss this message and run the command '?' or 'help'")
 #Whew! That's a lot of code!
 #Wait! There is more!
@@ -3324,7 +3438,9 @@ while xae == True:
         print('You have run',cmd_run,'commands this session')
     elif xlm == '2':
 
+
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
+        Tk().withdraw()
         messagebox.showinfo('Analytics Reporter',xls)
     else:
         f = open('notifs.txt','w')

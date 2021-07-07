@@ -1,0 +1,9 @@
+What is new 2.11 snapshots
+
+Fixed bug where newwindow function was orte under the wrong command
+Fixed bug where running reverser would overwrite the existing file. It now writes reversed text to [filepath]rev.*
+Fixed bug where annoying little window would stay behind after running openfiledialog
+Fixed all bugs where annoying little window wold stay behind when a messagebox notification would come.
+Added random name gneratr (not swear proof, use at own risk)
+Added random town generator
+Added btime which measures how long since you turned it on last (purely statistical)
