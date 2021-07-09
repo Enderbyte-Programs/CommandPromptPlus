@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.10 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.11 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -8,6 +8,7 @@ except:
    print('Your device does not support Winsound. Some features may be broken.') 
 import os
 import webbrowser
+import platform
 import random
 from time import sleep
 import datetime
@@ -224,6 +225,8 @@ elif p == 12 and o == 26:
     print('Happy Holidays, User')
 elif p == 2 and o == 15:
     print('Happy Parinirvana Day, User (If you are buddhist)')
+elif p == 10 and o == 31:
+    print('Happy Halloween, User!')
 #Couldn't find any more fixed-date holidays that are recognized globally.
 print('Scanning dates ... done',end='\n')
 ss_po = threading.Thread(target=startsound)
@@ -365,14 +368,16 @@ while xae == True:
         print('ls: View the license')
         print('ae: Addiional information and uninstalling help')
         print("draw: Draw with Turtle!")
-        print("credits: View credits and statistics")
+        print("credits: View credits.")
         print("contact: Get my email and Discord")
         print("colour: Find a colour")
         print("bday: Input your birthday to get a surprise on startup when it matches")
         print("wb: Visit our website")
         
+        
         print('notifs: Change your commmand-running notification settings.')
         print('rev: Reverse the contents of a file')
+        print("stat: Get some statistics of this program.")
         print('')
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
@@ -387,6 +392,7 @@ while xae == True:
         print("logoff: Logs you out.")
         print("restart: Restarts your computer")
         print("browser: Open the Basic Utilities Browser.")
+        print("dir: Get the directory that this program is installed to")
         print('')
         print('-----Games-----')
         print("game: Play Beat The Bank")
@@ -432,6 +438,7 @@ while xae == True:
         print('fstat: Read a file and get an statistics report on it in the form of *.*.fstat')
         print('cmd: Execute something on the Command Prompt')
         print('musplay: Play an audio file in the background')
+        print('sysplat: Get your system platform, version, etc.')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -456,7 +463,7 @@ while xae == True:
         print('')
         print('-----Uninstalling-----')
         print("uninstall: Uninstall this program completely")
-        print("pre-uninstall: Get rid of the files that the uninstall can't uninstall. This will destroy appdata.txt and saved drawings still in this directory.")
+        print("clr: Clear all appdata and user-made files.")
         
         print('')
         #^Under development, release in 2.6 or 2.7
@@ -468,6 +475,30 @@ while xae == True:
         print('rmg: Random Music Generator')
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'stat':
+        print('lines: 3474')
+        print('print statements:745')
+        print('Variables: 947')
+        print('comparisons 337')
+        print('Exception handling loops 146')
+        print('While loops 46')
+        print('For loop 38')
+        print('Uses of os module 15')
+        print('Uses of random lib 59')
+        print('Uses of date lib 43')
+
+    elif command == 'sysplat':
+        print('-----')
+        print(platform.system())
+        print(platform.release())
+        print(platform.platform())
+        print('-----')
+
+    elif command == 'dir':
+        print('-----')
+        print(os.getcwd())
+        print('-----')
 
     elif command == 'npicker':
         let = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t''u','v','w','x','y','z']
@@ -1368,9 +1399,9 @@ while xae == True:
         btn4.grid(column=0,row=2)
         ct.mainloop()
 
-    elif command == 'pre-uninstall':
+    elif command == 'clr':
         try:
-            os.startfile('pre-uninstall.bat')
+            os.startfile('clrapdat.bat')
         except:
             error(2)
         else:
@@ -1380,10 +1411,11 @@ while xae == True:
             sleep(0.3)
             print("doing stuff ...",end='\n')
             sleep(0.3)
+            reload()
 
     elif command == 'uninstall':
         try:
-            os.startfile('pre-uninstall.bat')
+            os.startfile('clr.bat')
         except:
             error(2)
         else:
@@ -2454,6 +2486,7 @@ while xae == True:
         print("And notepad++")
         print("And Thonny IDE for Raspberry Pi 4")
         print('AND IDLE 3.7.3 for Raspberry Pi 4')
+        print('And Visual Studio Code fro Python 3.7.3 and 3.9.6')
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
@@ -2461,8 +2494,7 @@ while xae == True:
         
         print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
-        print("3453 lines of code")
-        print("120626 chracters")
+
 
     elif command == "prank":
         def prank():
