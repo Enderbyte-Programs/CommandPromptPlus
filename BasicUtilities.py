@@ -439,6 +439,7 @@ while xae == True:
         print('cmd: Execute something on the Command Prompt')
         print('musplay: Play an audio file in the background')
         print('sysplat: Get your system platform, version, etc.')
+        print('copy: copy this program into another directory.')
         
         print('')
         print('-----Calculators & Converters-----')
@@ -475,6 +476,14 @@ while xae == True:
         print('rmg: Random Music Generator')
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'copy':
+        print('please select the folder to copy to.')
+        Tk().withdraw()
+        ftw = filedialog.askdirectory()
+        print('Copy Appdata? [y/n]')
+        copyappdata = input()
+        #Code on MS here
 
     elif command == 'stat':
         print('lines: 3474')
