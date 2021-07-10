@@ -25,6 +25,7 @@ try:
 except:
     print('Some features may be broken because you dont have requests installed.')
 from tkinter import filedialog
+import shutil
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
 sw = False
@@ -353,7 +354,11 @@ f.write(str(x.second)+'\n')
 f.close()
 print('')
 print("Welcome to BasicUtilities")
-
+if str(platform.system()) == 'Windows':
+    sysslash = '\\'
+else:
+    sysslash = '/'
+print(sysslash)
 while xae == True:
     crashed = False
     print("")
@@ -439,7 +444,11 @@ while xae == True:
         print('cmd: Execute something on the Command Prompt')
         print('musplay: Play an audio file in the background')
         print('sysplat: Get your system platform, version, etc.')
-        print('copy: copy this program into another directory.')
+        print('sysmem: Get some system memory statistics')
+        print('folmem: Get memory statistics about a folder.')
+        print('filemem: Ge memory statistics about a file')
+        print('bumem: Get a statistic about how much of YOUR memory WE are using!')
+        
         
         print('')
         print('-----Calculators & Converters-----')
@@ -477,13 +486,60 @@ while xae == True:
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
 
-    elif command == 'copy':
-        print('please select the folder to copy to.')
+    elif command == 'bumem':
+        dirpath = os.getcwd()
+        try:
+            total_size = 0
+            
+            for path, dirs, files in os.walk(dirpath):
+                for f in files:
+                    fp = os.path.join(path, f)
+                    total_size += os.path.getsize(fp)
+            print("Directory size: " + str(total_size),'Bytes')
+            print('we are using',(total_size / shutil.disk_usage(sysslash)[1]*100),'% of YOUR used memory :)')
+            print('we are using',(total_size / shutil.disk_usage(sysslash)[0]*100),'% of YOUR total memory :)')
+        except:
+            Tk().withdraw()
+            messagebox.showerror('Error','Basic utilities is not able to access its own folder. What a shame.')
+
+    elif command == 'filemem':
         Tk().withdraw()
-        ftw = filedialog.askdirectory()
-        print('Copy Appdata? [y/n]')
-        copyappdata = input()
-        #Code on MS here
+        file_path = filedialog.askopenfilename()
+        try:
+            fsize = os.path.getsize(file_path)
+            print('Size:',fsize,'Bytes')
+            print('This file accounts for',(fsize / shutil.disk_usage(sysslash)[1]*100),'% of used memory')
+            print('This file accounts for',(fsize / shutil.disk_usage(sysslash)[0]*100),'% of total memory')
+        except:
+            error(1)
+
+    elif command == 'sysmem':
+        memory = shutil.disk_usage(sysslash)
+        print('Total Memory '+str(memory[0])+' Bytes')
+        print('Used Memory '+str(memory[1])+' Bytes')
+        print('Free Memory '+str(memory[2])+' Bytes')
+        print('You have used',((memory[1]/memory[0])*100),'%')
+
+    elif command == 'folmem':
+        total = 0
+        Tk().withdraw()
+        dirpath = filedialog.askdirectory()
+        if str(dirpath) == '()':
+            print('')
+        else:
+            try:
+                total_size = 0
+                
+                for path, dirs, files in os.walk(dirpath):
+                    for f in files:
+                        fp = os.path.join(path, f)
+                        total_size += os.path.getsize(fp)
+                print("Directory size: " + str(total_size),'Bytes')
+                print('This folder accounts for',(total_size / shutil.disk_usage(sysslash)[1]*100),'% of used memory')
+                print('This folder accounts for',(total_size / shutil.disk_usage(sysslash)[0]*100),'% of total memory')
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
         print('lines: 3474')

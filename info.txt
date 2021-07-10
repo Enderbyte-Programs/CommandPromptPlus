@@ -1,1 +1,5 @@
-Started copy to copy files to other dir
+added sysmem to get some system memonry statistics
+added folmem to get some directory tree memory statistics (crashes if access denied, may be resource intensive, will check.)
+OK ive checked now. If you choose a large folder it is VERY resource intensive.
+added filemem to get some file memory statistics
+added bumem to inform you how much memory we are taking up :)
