@@ -1,5 +1,10 @@
 added sysmem to get some system memonry statistics
-added folmem to get some directory tree memory statistics (crashes if access denied, may be resource intensive, will check.)
-OK ive checked now. If you choose a large folder it is VERY resource intensive.
+added folmem to get some directory tree memory statistics (crashes if access denied, very resource intensive if you choose a large folder)
+
 added filemem to get some file memory statistics
 added bumem to inform you how much memory we are taking up :)
+Removed countdown from restart
+Added a calculator for rectangluar pyramids
+Added a calculator for triangular pyramids
+Added a Blue Screen of Exception if Basic Utilities lacks read/write perms. Will test.
+Added energy calc, which uses e = mc2 to find the energy in an object

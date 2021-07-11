@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.11 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.12 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -26,6 +26,10 @@ except:
     print('Some features may be broken because you dont have requests installed.')
 from tkinter import filedialog
 import shutil
+if str(platform.system()) == 'Windows':
+    sysslash = '\\'
+else:
+    sysslash = '/'
 print("preparing libraries ... done")
 print('Assigning variables ...',end='\r')
 sw = False
@@ -41,6 +45,7 @@ except:
     hasarg= False
 xae = True
 tcrash = False
+accessdenied = False
 cmd_run = 0
 print('Assigning variables ...done',end='\n')
 print('Writing appdata files ...',end='\r')
@@ -63,15 +68,40 @@ try:
 
         a_file.close()
 except:
-    f = open("appdata.txt","x")
-    f.write("0")
-    besttime = 0
-    f.close()
+    try:
+        f = open("appdata.txt","x")
+        f.write("0")
+        besttime = 0
+        f.close()
+    except:
+        accessdenied = True
 finally:
     try:
         f.close()
     except:
-        ggggggggg = False
+        print('Writing AppData Files ... CRITICAL EXCEPTION')
+        accessdenied = True
+        ads = Tk()
+        ads.title('BU Critical Exception')
+        ads.geometry('800x600')
+        ads.configure(background='blue')
+        lbl = Label(ads,text=':(',font=("Arial Bold",64))
+        lbl.grid(column=0,row=0)
+        lbl1 = Label(ads,text='A critical exception has occured')
+        lbl1.grid(column=0,row=1)
+        lbl2 = Label(ads,text='ERROR: Access Denied')
+        lbl2.grid(column=0,row=2)
+        
+        lbl4 = Label(ads,text='It is reccomended that you exit and move me to a folder that I have perms in.')
+        lbl5 = Label(ads,text='Or you can click run as admin.')
+        
+        lbl4.grid(column=0,row=4)
+        lbl5.grid(column=0,row=5)
+        
+        btn1 = Button(ads,text='Exit',command=sys.exit,bg='Green')
+        btn1.grid(column=0,row=6)
+        ads.mainloop()
+
 try:
     f = open('bcount.txt')
     bootcount = f.read()
@@ -172,6 +202,7 @@ def runfile(filename):
 
 print('preparing functions ... done',end='\n')
 print('Reading appdata files...',end='\r')
+
 try:
     f = open('bday.txt','r')
     x = f.readlines()
@@ -253,19 +284,27 @@ if hasarg == True:
     print("Do you want to write this to a txt file?(y/n)")
     wt = input()
     if wt == 'y':
-        print("What should the fle name be? (no extension needed)")
+        print("What should the file name be? (no extension needed)")
         fex = input()
         fex = fex + '.txt'
+        print('What folder to save to?')
+        Tk().withdraw()
+        fexx = filedialog.opendirectory()
+        fex = fexx + sysslash + fex
         try:
             f = open(fex,'x')
             f.write(tra)
             f.close()
             print("written to",fex)
         except:
-            f = open(fex,'w')
-            f.write(tra)
-            f.close()
-            print("written to",fex)
+            try:
+                f = open(fex,'w')
+                f.write(tra)
+                f.close()
+                print("written to",fex)
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Error','Could not write')
     print('Press enter to quit program.')
     input()
     sys.exit()
@@ -354,10 +393,7 @@ f.write(str(x.second)+'\n')
 f.close()
 print('')
 print("Welcome to BasicUtilities")
-if str(platform.system()) == 'Windows':
-    sysslash = '\\'
-else:
-    sysslash = '/'
+
 print(sysslash)
 while xae == True:
     crashed = False
@@ -445,7 +481,7 @@ while xae == True:
         print('musplay: Play an audio file in the background')
         print('sysplat: Get your system platform, version, etc.')
         print('sysmem: Get some system memory statistics')
-        print('folmem: Get memory statistics about a folder.')
+        print('folmem: Get memory statistics about a folder. [Warning for big folders]')
         print('filemem: Ge memory statistics about a file')
         print('bumem: Get a statistic about how much of YOUR memory WE are using!')
         
@@ -470,6 +506,10 @@ while xae == True:
         print("conv len: length converters [sc]")
         print('fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares')
         print('prime: Generate all prime numbers up to a number')
+        
+        print('sqrpyr: Calculate volume of a rectangular pyramid.')
+        print('tripyr: Calculate volume of a triangular pyramid')
+        print('emc2: Calcuate th energy(joules) in a given object.')
         print('')
         print('-----Uninstalling-----')
         print("uninstall: Uninstall this program completely")
@@ -485,6 +525,67 @@ while xae == True:
         print('rmg: Random Music Generator')
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'emc2':
+        print('Mass of Object? (kilograms please)')
+        m = input()
+        try:
+            m = float(m)
+        except:
+            error(1)
+        else:
+            c = 299792458
+            c2 = c**2
+            e = m*c2
+            print('Energy: '+str(e))
+
+    elif command == 'sqrpyr':
+        print('Length?')
+        l = input()
+        try:
+            l = int(l)
+        except:
+            error(1)
+        else:
+            print('Width?')
+            w = input()
+            try:
+                w = int(w)
+            except:
+                error(1)
+            else:
+                print('Height?')
+                h = input()
+                try:
+                    h = int(h)
+                except:
+                    error(1)
+                else:
+                    print('The volume is '+str((l*w*h)/3)+' Cubic Units')
+
+    elif command == 'tripyr':
+        print('Length?')
+        l = input()
+        try:
+            l = int(l)
+        except:
+            error(1)
+        else:
+            print('Width?')
+            w = input()
+            try:
+                w = int(w)
+            except:
+                error(1)
+            else:
+                print('Height?')
+                h = input()
+                try:
+                    h = int(h)
+                except:
+                    error(1)
+                else:
+                    print('The volume is '+str(((l*w)/2*h)/3)+' Cubic Units')
 
     elif command == 'bumem':
         dirpath = os.getcwd()
@@ -542,16 +643,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 3474')
-        print('print statements:745')
-        print('Variables: 947')
-        print('comparisons 337')
-        print('Exception handling loops 146')
+        print('lines: 3652')
+        print('print statements:779')
+        print('Variables: 987')
+        print('comparisons 348')
+        print('Exception handling loops 161')
         print('While loops 46')
         print('For loop 38')
-        print('Uses of os module 15')
-        print('Uses of random lib 59')
-        print('Uses of date lib 43')
+        print('Commands: 115')
+        print('Libraries Imported 16')
+        print('files utilized 69')
 
     elif command == 'sysplat':
         print('-----')
