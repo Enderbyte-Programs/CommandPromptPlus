@@ -289,7 +289,7 @@ if hasarg == True:
         fex = fex + '.txt'
         print('What folder to save to?')
         Tk().withdraw()
-        fexx = filedialog.opendirectory()
+        fexx = filedialog.askdirectory()
         fex = fexx + sysslash + fex
         try:
             f = open(fex,'x')
@@ -441,6 +441,7 @@ while xae == True:
         print("m8b: Magic 8 ball")
         print("cpg: Play the Cartesian Plane Game")
         print('game2: Play Discount Prodigy')
+        
         print('')
         print('-----Preset Counters-----')
         print("meter: See how long it has been since COVID infected its first human.(VE COUNTER)")
@@ -511,9 +512,11 @@ while xae == True:
         print('tripyr: Calculate volume of a triangular pyramid')
         print('emc2: Calcuate th energy(joules) in a given object.')
         print('')
-        print('-----Uninstalling-----')
+        print('-----Uninstalling and cleaning-----')
         print("uninstall: Uninstall this program completely")
-        print("clr: Clear all appdata and user-made files.")
+        print("clr: Clear all appdata and user-made files in this directory (exc passwords and translation).")
+        print("rem: Remove custom appdata")
+        print('cln: Clean up files from old versions that you dont need')
         
         print('')
         #^Under development, release in 2.6 or 2.7
@@ -525,6 +528,103 @@ while xae == True:
         print('rmg: Random Music Generator')
         print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'rem':
+        Tk().withdraw()
+        da0 = messagebox.askyesno('Basic Utilities','Do you want to clear best time?')
+        print('ClearBestTime =',da0)
+        Tk().withdraw()
+        da1 = messagebox.askyesno('Basic Utilities','Do you want to clear boot count?')
+        print('ClearBootCount =',da1)
+        Tk().withdraw()
+        da2 = messagebox.askyesno('Basic Utilities','Do you want to clear birthday?')
+        print('ClearBday=',da2)
+        Tk().withdraw()
+        da3 = messagebox.askyesno('Basic Utilities','Do you want to clear boot time?')
+        print('ClearBootTime =',da3)
+        Tk().withdraw()
+        da4 = messagebox.askyesno('Basic Utilities','Do you want to clear game health?')
+        print('ClearGameealth =',da4)
+        Tk().withdraw()
+        da5 = messagebox.askyesno('Basic Utilities','Do you want to clear browser history?')
+        print('ClearBrowserHistory =',da5)
+        Tk().withdraw()
+        da6 = messagebox.askyesno('Basic Utilities','Do you want to clear Notifications settings?')
+        print('ClearNotifs =',da6)
+        Tk().withdraw()
+        da7 = messagebox.askyesno('Basic Utilities','Do you want to clear game xp?')
+        print('ClearXP =',da7)
+        print('-----')
+        print('Confirm? [y/n]')
+        conf = input()
+        if conf == 'y':
+            f.close()
+            if da0 == True:
+                try:
+                    os.remove('appdata.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da1 == True:
+                try:
+                    os.remove('bcount.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da2 == True:
+                try:
+                    os.remove('bday.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da3 == True:
+                try:
+                    os.remove('btime.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da4 == True:
+                try:
+                    os.remove('health.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da5 == True:
+                try:
+                    os.remove('history.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da6 == True:
+                try:
+                    os.remove('notifs.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da7 == True:
+                try:
+                    os.remove('xp.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            Tk().withdraw()
+            messagebox.showinfo('Basic Utilities','Press OK to reload BasicUtilities')
+            reload()
+    elif command == 'cln':
+        try:
+            os.remove('pre-uninstall.bat')
+        except:
+            print('No files to clean up')
+        else:
+            print('Removed 1 useless file')
 
     elif command == 'emc2':
         print('Mass of Object? (kilograms please)')
@@ -1254,7 +1354,7 @@ while xae == True:
 
         except:
             print('Exception: Most recent Callback')
-            print('Error in line 947 of BasicUtilities.py')
+            print('Error in line 1260 of BasicUtilities.py')
             print('try:')
             print("     os.startfile('BasicUtilites.exe')")
             print('[ERRNO] 17')
@@ -1265,7 +1365,7 @@ while xae == True:
             print('4vby3489vtb3v7tr80T*)@B^C806b3r807wb')
             print('*(349bfUFGbbofeb78838b0t78t038tbb')
             print('C@&s3: y07r syst3m hav3 h0l*d^^n02')
-            print('pr3@@ 3n53r t0 g0 t0 s7st3, sh*5d02n')
+            print('pr3@@ 3n53r t0 g0 t0 s7st3m sh*5d02n')
             input()
             sys.exit()
         else:
@@ -1315,8 +1415,18 @@ while xae == True:
         nf.mainloop()
         
     elif command == 'encode':
-        print("Input unencrypted message.")
-        um = input()
+        print("Please select the file to encode.")
+        Tk().withdraw()
+        um = filedialog.askopenfilename()
+        try:
+            f = open(um)
+            um = f.read()
+            f.close()
+        except:
+            Tk().withdraw()
+            messagebox.showerror(':(','Access denied')
+            um = 'Access Denied'
+        print('Unencoded Message:',um) 
         print("Message has a size of",len(um),"bytes")
         string = um.lower()
         enc = string.replace('a','NJ').replace('b','MPE').replace('c','CEXC').replace('d','QUIE').replace('e','*U&P/HTPS')\
@@ -1331,19 +1441,30 @@ while xae == True:
         print("Do you want to write this to a file?(y/n)")
         sda = input()
         if sda == 'y':
-            print("What file do you want it to be written to? No extension needed.")
-            fex = input()
-            fex = fex + '.bue'
-            try:
-                f = open(fex,'x')
-                f.write(enc)
-                f.close()
-                print("written to",fex)
-            except:
-                f = open(fex,'w')
-                f.write(enc)
-                f.close()
-                print("written to",fex)
+            print('What directory to write to?')
+            Tk().withdraw()
+            fexx = filedialog.askdirectory()
+            if fexx == '()':
+                print('')
+            else:
+                print("What file name do you want it to be written to? No extension needed.")
+                fex = input()
+                fex = fex + '.bue'
+                fex = fexx + sysslash +fex
+                try:
+                    f = open(fex,'x')
+                    f.write(enc)
+                    f.close()
+                    print("written to",fex)
+                except:
+                    try:
+                        f = open(fex,'w')
+                        f.write(enc)
+                        f.close()
+                        print("written to",fex)
+                    except:
+                        Tk().withdraw()
+                        messagebox.showerror(':(','Access Denied')
             
     elif command == 'translate':
         print("Please select file to translate.")
@@ -1368,19 +1489,30 @@ while xae == True:
             print("Do you want to write this to a txt file?(y/n)")
             wt = input()
             if wt == 'y':
-                print("What should the fle name be? (no extension needed)")
+                print('What directory to write to?')
+            Tk().withdraw()
+            fexx = filedialog.askdirectory()
+            if fexx == '()':
+                print('')
+            else:
+                print("What file name do you want it to be written to? No extension needed.")
                 fex = input()
                 fex = fex + '.txt'
+                fex = fexx + sysslash +fex
                 try:
                     f = open(fex,'x')
-                    f.write(tra)
+                    f.write(enc)
                     f.close()
                     print("written to",fex)
                 except:
-                    f = open(fex,'w')
-                    f.write(tra)
-                    f.close()
-                    print("written to",fex)
+                    try:
+                        f = open(fex,'w')
+                        f.write(enc)
+                        f.close()
+                        print("written to",fex)
+                    except:
+                        Tk().withdraw()
+                        messagebox.showerror(':(','Access Denied')
     elif command == 'bday':
         print('What month is your birthday on?')
         mt = input()
@@ -2343,7 +2475,7 @@ while xae == True:
             numbers = ["1","2","3","4","5","6","7","8","9","0"]
             symbols = ["!","@","#","$","%","^","&","*","'"]
             password = ["","","","","","","","","","","","","","","","","","","","","","","","",""]
-            chgx = [0,0,0,1,2]
+            chgx = [0,0,1,2]
             characters = 0
             for i in range(hmchar):
                 chgxy = random.choice(chgx)
@@ -2369,69 +2501,54 @@ while xae == True:
                 print("What should the file containing the password be called?")
                 print("example: myfile.txt")
                 print("Make sure to include the .txt at the end, otherwise your file may be unreadable.")
-                filesname = input()
-                if filesname == "BasicUtilities.exe":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
+                filesext = input()
+                Tk().withdraw()
+                filesname = filedialog.askdirectory()
+                if filesname == '()':
                     break
-                elif filesname == "logoff.bat":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
-                elif filesname == "restart.bat":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
-                elif filesname == "stop.bat":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
-                elif filesname == "gameboard.jpg":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
-                elif filesname == "help.txt":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
-                elif filesname == "BasicUtilities.py":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
-                elif filesname == "warning.mp3":
-                    print("This is the name of a vital program file. You are not allowed to overwrite that.")
-                    break
+                filesname = filesname + sysslash + filesext
+                
                 try:
                     f = open(filesname,"x")
-                except FileExistsError:
+                except:
                     print("This file already exists. Do you want to overwrite it?(y/n)")
                     overwrite = input()
                     if overwrite == "y":
-                        f = open(filesname,"w")
-                        print("writing to file 0%")
-                        f.write(password[0])
-                        f.write(password[1])
-                        f.write(password[2])
-                        f.write(password[3])
-                        f.write(password[4])
-                        f.write(password[5])
-                        f.write(password[6])
-                        f.write(password[7])
-                        f.write(password[8])
-                        f.write(password[9])
-                        f.write(password[10])
-                        f.write(password[11])
-                        f.write(password[12])
-                        print("writing to file 50%")
-                        f.write(password[13])
-                        f.write(password[14])
-                        f.write(password[15])
-                        f.write(password[16])
-                        f.write(password[17])
-                        f.write(password[18])
-                        f.write(password[19])
-                        f.write(password[20])
-                        f.write(password[21])
-                        f.write(password[22])
-                        f.write(password[23])
-                        f.write(password[24])
-                        print("writing to file 100%")
-                        f.close()
-                        print("File overwritten successfully.")
-                        print("After you copy and paste this file to a secure directory, remember to destroy the file in this directory!")
+                        try:
+                            f = open(filesname,"w")
+                            print("writing to file 0%")
+                            f.write(password[0])
+                            f.write(password[1])
+                            f.write(password[2])
+                            f.write(password[3])
+                            f.write(password[4])
+                            f.write(password[5])
+                            f.write(password[6])
+                            f.write(password[7])
+                            f.write(password[8])
+                            f.write(password[9])
+                            f.write(password[10])
+                            f.write(password[11])
+                            f.write(password[12])
+                            print("writing to file 50%")
+                            f.write(password[13])
+                            f.write(password[14])
+                            f.write(password[15])
+                            f.write(password[16])
+                            f.write(password[17])
+                            f.write(password[18])
+                            f.write(password[19])
+                            f.write(password[20])
+                            f.write(password[21])
+                            f.write(password[22])
+                            f.write(password[23])
+                            f.write(password[24])
+                            print("writing to file 100%")
+                            f.close()
+                            print("File overwritten successfully.")
+                        except:
+                            Tk().withdraw()
+                            messagebox.showerror('Error','Access Denied')
                 else:
                     print("Writing to file 0%")
                     f.write(password[0])
@@ -2463,7 +2580,7 @@ while xae == True:
                     print("writing to file 100%")
                     f.close()
                     print("File written to",filesname,"successfully.")
-                    print("After you copy and paste this file to a secure directory, remember to destroy the file in this directory!")
+                    
             randpass = False
 
     elif command == "apv":

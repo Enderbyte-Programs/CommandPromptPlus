@@ -1,10 +1,7 @@
-added sysmem to get some system memonry statistics
-added folmem to get some directory tree memory statistics (crashes if access denied, very resource intensive if you choose a large folder)
-
-added filemem to get some file memory statistics
-added bumem to inform you how much memory we are taking up :)
-Removed countdown from restart
-Added a calculator for rectangluar pyramids
-Added a calculator for triangular pyramids
-Added a Blue Screen of Exception if Basic Utilities lacks read/write perms. Will test.
-Added energy calc, which uses e = mc2 to find the energy in an object
+2.12.1
+Fixed bug in assocwrite
+changed password save to a dir based system
+changed encode to dir based
+changed translate to dir based
+Added cln to clean up pre-uninstall
+Added customizable appdata clearer.
