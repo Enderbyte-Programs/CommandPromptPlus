@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.12 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.12.3 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -43,6 +43,53 @@ try:
     openfile_dir = arguments[1]
 except:
     hasarg= False
+if hasarg == True:
+    try:
+        f = open(openfile_dir,'r')
+        mes = f.read()
+        print('')
+        print("encoded message is",len(mes),"bytes")
+    except:
+        Tk().wihdraw()
+        messagebox.showerror('Basic utilities','we culd not open the file for you. It may have been deleted, moved, unreadable, or we lack permissions.')
+    else:
+        tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
+    .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
+    .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
+    .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
+    .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+    .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
+    print('')
+    print('Tranlation:',tra)
+    print('size:',len(tra),'bytes')
+    print("Do you want to write this to a txt file?(y/n)")
+    wt = input()
+    if wt == 'y':
+        print('What folder to save to?')
+        Tk().withdraw()
+        fexx = filedialog.askdirectory()
+        print("What should the file name be? (no extension needed)")
+        fex = input()
+        fex = fex + '.txt'
+        
+        fex = fexx + sysslash + fex
+        try:
+            f = open(fex,'x')
+            f.write(tra)
+            f.close()
+            print("written to",fex)
+        except:
+            try:
+                f = open(fex,'w')
+                f.write(tra)
+                f.close()
+                print("written to",fex)
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Error','Could not write')
+    print('Press enter to quit program.')
+    input()
+    sys.exit()
 xae = True
 tcrash = False
 accessdenied = False
@@ -263,51 +310,7 @@ elif p == 10 and o == 31:
 print('Scanning dates ... done',end='\n')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
-if hasarg == True:
-    try:
-        f = open(openfile_dir,'r')
-        mes = f.read()
-        print('')
-        print("encoded message is",len(mes),"bytes")
-    except:
-        error(0)
-    else:
-        tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
-    .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
-    .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
-    .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
-    .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
-    .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
-    print('')
-    print('Tranlation:',tra)
-    print('size:',len(tra),'bytes')
-    print("Do you want to write this to a txt file?(y/n)")
-    wt = input()
-    if wt == 'y':
-        print("What should the file name be? (no extension needed)")
-        fex = input()
-        fex = fex + '.txt'
-        print('What folder to save to?')
-        Tk().withdraw()
-        fexx = filedialog.askdirectory()
-        fex = fexx + sysslash + fex
-        try:
-            f = open(fex,'x')
-            f.write(tra)
-            f.close()
-            print("written to",fex)
-        except:
-            try:
-                f = open(fex,'w')
-                f.write(tra)
-                f.close()
-                print("written to",fex)
-            except:
-                Tk().withdraw()
-                messagebox.showerror('Error','Could not write')
-    print('Press enter to quit program.')
-    input()
-    sys.exit()
+
 print('You have booted up Basic Utilities',bootcount,'times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
@@ -743,16 +746,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 3652')
-        print('print statements:779')
-        print('Variables: 987')
-        print('comparisons 348')
-        print('Exception handling loops 161')
+        print('lines: 3806')
+        print('print statements:804')
+        print('Variables: 1015')
+        print('comparisons 354')
+        print('Exception handling loops 171')
         print('While loops 46')
         print('For loop 38')
-        print('Commands: 115')
+        print('Commands: 117')
         print('Libraries Imported 16')
-        print('files utilized 69')
+        print('files utilized 72')
 
     elif command == 'sysplat':
         print('-----')
@@ -2328,15 +2331,31 @@ while xae == True:
 
 
     elif command == "calc":
-        print("Please type the full equation here.")
-        equation = input()
-        qku = "print("
-        equation = qku + equation
-        equation = equation + ")"
-        try:
-            exec(equation)
-        except:
-            error(3)
+        print("Please look at the tkinter window.")
+        def calcu():
+            global lbl1
+            global txt
+            res = txt.get()
+            try:
+                data = eval(res)
+                print(data)
+                lbl1.configure(text=data)
+            except:
+                lbl1.configure(text='error')
+        cal = Tk()
+        cal.title('Calculator')
+        lbl = Label(cal,text='Please input full equation and press calculate')
+        lbl.grid(column=0,row=0)
+        btn = Button(cal,text='Close',command=cal.destroy,bg='red')
+        btn.grid(column=1,row=0)
+        txt = Entry(cal,width=50)
+        txt.grid(column=0,row=1)
+        btn1 = Button(cal,text='Calculate',command=calcu,bg='lime green')
+        btn1.grid(column=1,row=1)
+        lbl1 = Label(cal,text='')
+        lbl1.grid(column=0,row=2)
+        cal.mainloop()
+        
 
     elif command == "lnmeter":
         newwindow()
@@ -2974,6 +2993,20 @@ while xae == True:
             res = 'https://www.google.com/search?q='+res
             webbrowser.open(res)
             writehistory()
+        def sechb():
+            global txt
+            global res
+            res = txt.get()
+            res = 'https://www.bing.com/search?q='+res
+            webbrowser.open(res)
+            writehistory()
+        def sechy():
+            global txt
+            global res
+            res = txt.get()
+            res = 'https://www.yahoo.com/search?p='+res
+            webbrowser.open(res)
+            writehistory()
         def vh():
             global data
             if data == 'No History Yet':
@@ -2995,7 +3028,7 @@ while xae == True:
             lbl1.configure(text=res) 
         wbx = Tk()
         wbx.title('BU Browser')
-        wbx.geometry('600x150')
+        wbx.geometry('800x150')
         lbl = Label(wbx,text='Put your URL or search here')
         lbl.grid(column=0,row=0)
         btn = Button(wbx,text='Close',bg='yellow',command=wbx.destroy)
@@ -3004,8 +3037,12 @@ while xae == True:
         txt.grid(column=0,row=1)
         btn1 = Button(wbx,text='Go to URL',command=gourl,bg='lime green')
         btn1.grid(column=0,row=2)
-        btn2 = Button(wbx,text='Search',command=sech,bg='lime green')
+        btn2 = Button(wbx,text='Search with Google',command=sech,bg='lime green')
         btn2.grid(column=1,row=2)
+        btn5 = Button(wbx,text='Bing',command=sechb,bg='lime green')
+        btn5.grid(column=2,row=2)
+        btn4 = Button(wbx,text='Yahoo',command=sechy,bg='lime green')
+        btn4.grid(column=3,row=2)
         lbl1 = Label(wbx,text=data)
         lbl1.grid(column=0,row=3)
         btn3 = Button(wbx,text='Go to recent search',bg='SkyBlue1',command=vh)

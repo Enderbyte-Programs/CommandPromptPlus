@@ -1,7 +1,4 @@
-2.12.1
-Fixed bug in assocwrite
-changed password save to a dir based system
-changed encode to dir based
-changed translate to dir based
-Added cln to clean up pre-uninstall
-Added customizable appdata clearer.
+2.12.3 (21.7.3.4)
+
+Added browsing support for bing and yahoo.
+Changed calculator to tkinter based system.
