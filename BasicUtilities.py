@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.12.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.12.3 (ɔ) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -2780,7 +2780,7 @@ while xae == True:
         print("Discord: Enderbyte09#0542")
 
     elif command == "credits":
-        print("Basic Utilities (c) 2021 Enderbyte Programs")
+        print("Basic Utilities (ɔ) 2021 Enderbyte Programs")
         print("Installer by Inno Setup")
         print("Coded in Python 3.7.3, 3.9.2, 3.9.6 and 3.9.5; compiled in Pyinstaller 4.3")
         print("Written by Enderbyte09")
