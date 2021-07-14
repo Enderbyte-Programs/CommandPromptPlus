@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.12.3 (ɔ) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.12.3.1 (ɔ) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -1716,7 +1716,7 @@ while xae == True:
 
     elif command == 'uninstall':
         try:
-            os.startfile('clr.bat')
+            os.startfile('clrapdat.bat')
         except:
             error(2)
         else:
