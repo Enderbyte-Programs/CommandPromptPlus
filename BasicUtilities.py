@@ -208,25 +208,41 @@ def newwindow():
     nw.quit()
 
 def conv(start,end,formula):
-    print("how many",start,"?")
-    a = input()
-    try:
-        a = float(a)
-    except:
-        error(1)
-    else:
-        b = a
-        a = str(a)
-        formula = str(formula)
-        equation = a + " " + formula
-        c = eval(equation)
-        print(b,start,"is",c,end)
+    global txt
+    global lbl2
+    def convert():
+        
+        res = txt.get()
+        try:
+            res = float(res)
+        except:
+            lbl2.configure(text='error')
+        else:
+            c = str(res)+formula
+            c = float(eval(c))
+            lbl2.configure(text=c)
+    window = Tk()
+    
+    window.title('Converter')
+    lbl = Label(window,text='please input the amount of '+start+' and press convert.')
+    lbl.grid(column=0,row=0)
+    lbl1 = Label(window,text='Converting to '+end)
+    lbl1.grid(column=1,row=0)
+    txt = Entry(window,width=20)
+    txt.grid(column=0,row=1)
+    btn = Button(window,text='Convert',command=convert,bg='lime green')
+    btn.grid(column=1,row=1)
+    lbl2 = Label(window,text='')
+    lbl2.grid(column=0,row=2)
+    btn1 = Button(window,text='close',command=window.destroy,bg='yellow')
+    btn1.grid(column=1,row=2)
+    window.mainloop()
 def reload():
     try:
         os.startfile("BasicUtilities.exe")
     except:
         error(2)
-        print('Te system will exit now')
+        print('The system will exit now')
     finally:
         sys.exit()
 def startsound():
@@ -1701,31 +1717,83 @@ while xae == True:
         ct.mainloop()
 
     elif command == 'clr':
+        f.close()
         try:
-            os.startfile('clrapdat.bat')
+            os.remove('appdata.txt')
         except:
-            error(2)
-        else:
-            print("doing stuff .",end='\r')
-            sleep(0.3)
-            print("doing stuff ..",end='\r')
-            sleep(0.3)
-            print("doing stuff ...",end='\n')
-            sleep(0.3)
-            reload()
+            print('File not found')
+        try:
+            os.remove('bcount.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('bday.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('btime.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('health.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('history.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('notifs.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('xp.txt')
+        except:
+            print('File not found')
+
+        reload()
 
     elif command == 'uninstall':
+        f.close()
         try:
-            os.startfile('clrapdat.bat')
+            os.remove('appdata.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('bcount.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('bday.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('btime.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('health.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('history.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('notifs.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('xp.txt')
+        except:
+            print('File not found')
+        try:
+            os.startfile('unins000.exe')
+            sys.exit()
         except:
             error(2)
         else:
-            try:
-                os.startfile('unins000.exe')
-            except:
-                error(2)
-            else:
-                sys.exit()
+            sys.exit()
 
     elif command == 'wb':
         webbrowser.open('https://bit.ly/enderexe')
@@ -3028,7 +3096,7 @@ while xae == True:
             lbl1.configure(text=res) 
         wbx = Tk()
         wbx.title('BU Browser')
-        wbx.geometry('800x150')
+        
         lbl = Label(wbx,text='Put your URL or search here')
         lbl.grid(column=0,row=0)
         btn = Button(wbx,text='Close',bg='yellow',command=wbx.destroy)
@@ -3050,25 +3118,9 @@ while xae == True:
         wbx.mainloop()
 
     elif command == "logoff":
-        logoff = True
-        while logoff == True:
-            try:
-                os.startfile("logoff.bat")
-            except:
-                error(2)
-                break
-            finally:
-                logoff = False
+        os.system('cmd /c "shutdown /l"')
     elif command == "restart":
-        restart = True
-        while restart == True:
-            try:
-                os.startfile("restart.bat")
-            except:
-                error(2)
-                break
-            finally:
-                restart = False
+        os.system('cmd /c "shutdown /r"')
 
     elif command == "rng":
         afghs = True

@@ -1,4 +1,17 @@
-2.12.3 (21.7.3.4)
+2.12.4 (21.7.3.5)
+Fixed critical uninstall bug caused by my idiot ass generating a new app ID. Now you have to fully uninstall. To make matters worse,
+THERE IS AN UNINSTALL BUG :(:(:(
+    Combined logoff and restart into the program using os.system()
+    Changed uninstall to use os.remove()
+    Changed clr to use os.remove()
+Fixed spelling error in reload()
+Changed conv() to gui based
 
-Added browsing support for bing and yahoo.
-Changed calculator to tkinter based system.
+To Do
+
+Remove logoff.bat and restart.bat from the files.
+Also remove clrapdat
+Add to cleanup file:
+logoff.bat
+restart.bat
+clrapdat.bat
