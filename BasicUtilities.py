@@ -222,7 +222,9 @@ def conv(start,end,formula):
             c = float(eval(c))
             lbl2.configure(text=c)
     window = Tk()
-    
+    def die():
+        window.destroy()
+        window.quit()
     window.title('Converter')
     lbl = Label(window,text='please input the amount of '+start+' and press convert.')
     lbl.grid(column=0,row=0)
@@ -234,7 +236,7 @@ def conv(start,end,formula):
     btn.grid(column=1,row=1)
     lbl2 = Label(window,text='')
     lbl2.grid(column=0,row=2)
-    btn1 = Button(window,text='close',command=window.destroy,bg='yellow')
+    btn1 = Button(window,text='close',command=die,bg='yellow')
     btn1.grid(column=1,row=2)
     window.mainloop()
 def reload():
@@ -3110,13 +3112,16 @@ while xae == True:
                 f = open('history.txt','w')
                 f.write(res)
                 f.close()
-            lbl1.configure(text=res) 
+            lbl1.configure(text=res)
+        def ddie():
+             wbx.destroy()
+             wbx.quit()
         wbx = Tk()
         wbx.title('BU Browser')
         
         lbl = Label(wbx,text='Put your URL or search here')
         lbl.grid(column=0,row=0)
-        btn = Button(wbx,text='Close',bg='yellow',command=wbx.destroy)
+        btn = Button(wbx,text='Close',bg='yellow',command=ddie)
         btn.grid(column=1,row=0)
         txt = Entry(wbx,width=50)
         txt.grid(column=0,row=1)
