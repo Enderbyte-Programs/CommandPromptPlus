@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.12.3.1 (ɔ) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Version 2.12.4 (ɔ) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -762,7 +762,7 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 3806')
+        print('lines: 3858')
         print('print statements:804')
         print('Variables: 1015')
         print('comparisons 354')
