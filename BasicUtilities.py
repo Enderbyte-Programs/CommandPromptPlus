@@ -638,12 +638,29 @@ while xae == True:
             messagebox.showinfo('Basic Utilities','Press OK to reload BasicUtilities')
             reload()
     elif command == 'cln':
+        fcln = 0
         try:
             os.remove('pre-uninstall.bat')
+            fcln +=1
         except:
-            print('No files to clean up')
+            fcln +=0
+        try:
+            os.remove('logoff.bat')
+        except:
+            fcln+=0
         else:
-            print('Removed 1 useless file')
+            fcln +=1
+        try:
+            os.remove('restart.bat')
+            fcln +=1
+        except:
+            fcln +=0
+        try:
+            os.remove('clrapdat.bat')
+            fcln +=1
+        except:
+            fcln +=0
+        print(fcln,' useless files removed.')
 
     elif command == 'emc2':
         print('Mass of Object? (kilograms please)')
@@ -762,7 +779,7 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 3858')
+        print('lines: 3875')
         print('print statements:804')
         print('Variables: 1015')
         print('comparisons 354')
