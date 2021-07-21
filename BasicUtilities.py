@@ -1,4 +1,4 @@
-print('Basic Utilities Version 2.12.4 (ɔ) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.12.5 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -662,6 +662,26 @@ while xae == True:
             fcln +=1
         except:
             fcln +=0
+        try:
+            os.remove('ping.bat')
+            fcln +=1
+        except:
+            fcln +=0
+        try:
+            os.remove('permaping.bat')
+            fcln +=1
+        except:
+            fcln +=0
+        try:
+            os.remove('execute.bat')
+            fcln +=1
+        except:
+            fcln +=0
+        try:
+            os.remove('stop.bat')
+            fcln +=1
+        except:
+            fcln +=0
         print(fcln,' useless files removed.')
 
     elif command == 'emc2':
@@ -781,14 +801,14 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 3875')
-        print('print statements:804')
-        print('Variables: 1015')
-        print('comparisons 354')
-        print('Exception handling loops 171')
+        print('lines: 3967')
+        print('print statements:812')
+        print('Variables: 1039')
+        print('comparisons 352')
+        print('Exception handling loops 193')
         print('While loops 46')
         print('For loop 38')
-        print('Commands: 117')
+        print('Commands: 118')
         print('Libraries Imported 16')
         print('files utilized 72')
 
@@ -983,15 +1003,82 @@ while xae == True:
                 
 
     elif command == 'permaping':
-        runfile('permaping.bat')
-        print('Please look at the command prompt window')
+        def pgo0():
+            global txt
+            res = txt.get()
+            pping.destroy()
+            pping.quit()
+            
+            try:
+                os.system('ping '+res+' -t')
+            except:
+                error(1)
+        pping = Tk()
+        pping.title('permapinger')
+        lbl = Label(pping,text='IP address to ping')
+        lbl.grid(column=0,row=0)
+        btn = Button(pping,text='Close',command=pping.destroy,bg='yellow')
+        btn.grid(column=1,row=0)
+        txt = Entry(pping,width=20)
+        txt.grid(column=0,row=1)
+        btn1 = Button(pping,text='Ping',command=pgo0,bg='green')
+        btn1.grid(column=1,row=1)
+        pping.mainloop()
+        pping.quit()
 
     elif command =='ping':
-        runfile('ping.bat')
-        print('Please look at the command prompt window')
+        def pgo1():
+            global txt
+            global txt1
+            global btn1
+            btn1['state'] = 'disabled'
+            res = txt.get()
+            res1 = txt1.get()
+            try:
+                os.system('ping '+res+' -n '+res1)
+            except:
+                error(3)
+            btn1['state'] = 'normal'
+        ping = Tk()
+        ping.title('pinger')
+        lbl = Label(ping,text='IP address to ping')
+        lbl1 = Label(ping,text='Number of times to ping')
+        lbl.grid(column=0,row=0)
+        lbl1.grid(column=1,row=0)
+        btn = Button(ping,text='Close',command=ping.destroy,bg='Yellow')
+        btn.grid(column=2,row=0)
+        txt = Entry(ping,width=20)
+        txt.grid(column=0,row=1)
+        txt1 = Entry(ping,width=10)
+        txt1.grid(column=1,row=1)
+        btn1 = Button(ping,text='Ping',command=pgo1,bg='green')
+        btn1.grid(column=2,row=1)
+        ping.mainloop()
+        ping.quit()
 
+    
     elif command =='cmd':
-        runfile('execute.bat')
+        def go2():
+            global txt
+            cmdtr = txt.get()
+            try:
+                os.system(cmdtr)
+            except:
+                error(3)
+        cmdc = Tk()
+        cmdc.title('Command Executor')
+        lbl = Label(cmdc,text='Command to execute')
+        lbl.grid(column=0,row=0)
+        btn = Button(cmdc,text='Close',command=cmdc.destroy,bg='yellow')
+        btn.grid(column=1,row=0)
+        txt = Entry(cmdc,width=20)
+        txt.grid(column=0,row=1)
+        btn1 = Button(cmdc,text='Go',command=go2,bg='green')
+        btn1.grid(column=1,row=1)
+        cmdc.mainloop()
+        cmdc.quit()
+
+        
         
     elif command == 'ip':
         ip = get('https://api.ipify.org').text
@@ -2867,7 +2954,7 @@ while xae == True:
         print("Discord: Enderbyte09#0542")
 
     elif command == "credits":
-        print("Basic Utilities (ɔ) 2021 Enderbyte Programs")
+        print("Basic Utilities (c) 2021 Enderbyte Programs")
         print("Installer by Inno Setup")
         print("Coded in Python 3.7.3, 3.9.2, 3.9.6 and 3.9.5; compiled in Pyinstaller 4.3")
         print("Written by Enderbyte09")
@@ -2875,7 +2962,7 @@ while xae == True:
         print("And notepad++")
         print("And Thonny IDE for Raspberry Pi 4")
         print('AND IDLE 3.7.3 for Raspberry Pi 4')
-        print('And Visual Studio Code fro Python 3.7.3 and 3.9.6')
+        print('And Visual Studio Code for Python 3.7.3 and 3.9.6')
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
         print('Sound Air Horn from SoundBible')
@@ -2912,7 +2999,7 @@ while xae == True:
         break
     elif command == "stopall":
         try:
-            os.startfile("stop.bat")
+            os.system('taskkill /F /IM BasicUtilities.exe')
         except:
             error(2)
     elif command == "game":
