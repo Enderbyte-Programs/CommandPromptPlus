@@ -340,7 +340,7 @@ if x.month == 7 and x.day == 4:
 try:
     f = open('btime.txt','r')
 except:
-    f = open('btime.txt','x')beep
+    f = open('btime.txt','x')
     f.write(str(x.year)+'\n')
     f.write(str(x.month)+'\n')
     f.write(str(x.day)+'\n')
