@@ -1,17 +1,11 @@
-2.12.4 (21.7.3.5)
-Fixed critical uninstall bug caused by my idiot ass generating a new app ID. Now you have to fully uninstall. To make matters worse,
-THERE IS AN UNINSTALL BUG :(:(:(
-    Combined logoff and restart into the program using os.system()
-    Changed uninstall to use os.remove()
-    Changed clr to use os.remove()
-Fixed spelling error in reload()
-Changed conv() to gui based
+2.13 (21.7.5.0)
 
-To Do
-
-Remove logoff.bat and restart.bat from the files.
-Also remove clrapdat
-Add to cleanup file:
-logoff.bat
-restart.bat
-clrapdat.bat
+Made box for executing system commands wider
+Changed conv len cmd to conv cmd
+Removed URC msbox warning from conv cmd, replacen with conole print
+Added KG-LB converter
+Added LB-KG converter
+Added TaskList (MS only)
+Removd URC msbox warning from main command menu, replaced with print statement similar to the one in Ye Olde pre-1.12.
+Added avglag to the graph, will have to test further.
+Prevented non-microsoft users from viewing ms-only commands in the help menu.

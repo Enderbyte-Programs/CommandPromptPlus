@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.12.5 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.13 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -340,7 +340,7 @@ if x.month == 7 and x.day == 4:
 try:
     f = open('btime.txt','r')
 except:
-    f = open('btime.txt','x')
+    f = open('btime.txt','x')beep
     f.write(str(x.year)+'\n')
     f.write(str(x.month)+'\n')
     f.write(str(x.day)+'\n')
@@ -506,6 +506,7 @@ while xae == True:
         print('folmem: Get memory statistics about a folder. [Warning for big folders]')
         print('filemem: Ge memory statistics about a file')
         print('bumem: Get a statistic about how much of YOUR memory WE are using!')
+        print('tsklst: List all task running on the system')
         
         
         print('')
@@ -541,14 +542,18 @@ while xae == True:
         
         print('')
         #^Under development, release in 2.6 or 2.7
-        print('-----Sound (Microsoft Users Only)-----')
-        print('beep: Get a beep')
-        print('curse: Have this program curse at you (no actual cursing)')
+        if sysslash == '\\':
+            print('-----Sound-----')
+            print('beep: Get a beep')
+            print('curse: Have this program curse at you (no actual cursing)')
 
-        print('toneup: Make a rising Tone')
-        print('rmg: Random Music Generator')
-        print('cmaj: Play the ascending C major scale')
+            print('toneup: Make a rising Tone')
+            print('rmg: Random Music Generator')
+            print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
+
+    elif command == 'tsklst':
+        os.system('tasklist')
 
     elif command == 'rem':
         Tk().withdraw()
@@ -801,14 +806,14 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 3967')
-        print('print statements:812')
-        print('Variables: 1039')
-        print('comparisons 352')
+        print('lines: 4025')
+        print('print statements:817')
+        print('Variables: 1046')
+        print('comparisons 361')
         print('Exception handling loops 193')
         print('While loops 46')
         print('For loop 38')
-        print('Commands: 118')
+        print('Commands: 126')
         print('Libraries Imported 16')
         print('files utilized 72')
 
@@ -923,15 +928,19 @@ while xae == True:
                 b = c
 
     elif command == 'cmaj':
-        x = 500
-        winsound.Beep(261,x)
-        winsound.Beep(293,x)
-        winsound.Beep(329,x)
-        winsound.Beep(349,x)
-        winsound.Beep(392,x)
-        winsound.Beep(440,x)
-        winsound.Beep(493,x)
-        winsound.Beep(523,x)
+        if sysslash == '\\':
+            x = 500
+            winsound.Beep(261,x)
+            winsound.Beep(293,x)
+            winsound.Beep(329,x)
+            winsound.Beep(349,x)
+            winsound.Beep(392,x)
+            winsound.Beep(440,x)
+            winsound.Beep(493,x)
+            winsound.Beep(523,x)
+        else:
+            Tk().withdraw()
+            messagebox.showerror('BU','This command is not compatibl with your device')
 
     elif command == 'fstat':
         print('What file to analyse? ')
@@ -1071,7 +1080,7 @@ while xae == True:
         lbl.grid(column=0,row=0)
         btn = Button(cmdc,text='Close',command=cmdc.destroy,bg='yellow')
         btn.grid(column=1,row=0)
-        txt = Entry(cmdc,width=20)
+        txt = Entry(cmdc,width=50)
         txt.grid(column=0,row=1)
         btn1 = Button(cmdc,text='Go',command=go2,bg='green')
         btn1.grid(column=1,row=1)
@@ -1085,29 +1094,37 @@ while xae == True:
         print('Your public IPv4 address is: {}'.format(ip))
 
     elif command == 'rmg':
-        for i in range(random.randint(20,50)):
-            winsound.Beep(random.randint(200,1000),random.randint(200,1000))
+        if sysslash == '\\':
+            for i in range(random.randint(20,50)):
+                winsound.Beep(random.randint(200,1000),random.randint(200,1000))
+        else:
+            Tk().withdraw()
+            messagebox.showerror('BU','Please use a microsoft device to run this command.')
             
 
     elif command == 'toneup':
-        print('Starting tone? (HZ)')
-        st = input()
-        try:
-            st = int(st)
-        except:
-            error(1)
-        else:
-            print('Ending tone? (Hz)')
-            et = input()
+        if sysslash == '\\':
+            print('Starting tone? (HZ)')
+            st = input()
             try:
-                et = int(et)
+                st = int(st)
             except:
                 error(1)
             else:
-                while st < et:
-                    winsound.Beep(st,100)
-                    st = st + 10
-                    print('Played tone of',st,'Hertz')
+                print('Ending tone? (Hz)')
+                et = input()
+                try:
+                    et = int(et)
+                except:
+                    error(1)
+                else:
+                    while st < et:
+                        winsound.Beep(st,100)
+                        st = st + 10
+                        print('Played tone of',st,'Hertz')
+        else:
+            Tk().withdraw()
+            messagebox.showerror('BU','Please use a microsoft device to run this command.')
 
     elif command == 'hex':
         print(random.choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']))
@@ -1115,31 +1132,41 @@ while xae == True:
         print(random.choice([0,1,2,3,4,5,6,7,8,9,'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m','Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M']))
 
     elif command == 'curse':
-        for i in range(random.randint(1,10)):
-            winsound.Beep(1000,random.randint(200,1500))
-            print(random.randint(1,10)*'*')
-            sleep(random.randint(1,10)/10)
+        if sysslash == '\\':
+            for i in range(random.randint(1,10)):
+                winsound.Beep(1000,random.randint(200,1500))
+                print(random.randint(1,10)*'*')
+                sleep(random.randint(1,10)/10)
+        else:
+            Tk().withdraw()
+            messagebox.showerror('BU','Please use a microsoft device to execute this command.')
             
 
     elif command == 'beep':
-        print('What frequency?')
-        freq = input()
-        try:
-            freq = int(freq)
-        except:
-            error(1)
-        else:
-            print('How many milliseconds?')
-            playse = input()
+        if sysslash == '\\':
+            print('What frequency?')
+            freq = input()
             try:
-                playse = int(playse)
+                freq = int(freq)
             except:
                 error(1)
             else:
-                if playse > 0:
-                    winsound.Beep(freq,playse)
-                else:
+                print('How many milliseconds?')
+                playse = input()
+                try:
+                    playse = int(playse)
+                except:
                     error(1)
+                else:
+                    if playse > 0:
+                        winsound.Beep(freq,playse)
+                    else:
+                        error(1)
+
+        else:
+            Tk().withdraw()
+            messagebox.showerror('BU','Please use a Microsoft device to execute this comamnd.')
+
     elif command == 'game2':
         newwindow()
         print('What is your Username?')
@@ -1926,6 +1953,7 @@ while xae == True:
     elif command == 'conv':
         print("-----Subcommands for Convert-----")
         print("conv len: convert length of things")
+        print("conv cmd: Converter command menu")
 
     elif command == 'conv len':
         print("-----Subcommands for Convert Length-----")
@@ -1939,22 +1967,32 @@ while xae == True:
         print("conv len y-i: yards to inches")
         print("conv len y-m: yards to meters")
         print("conv len y-c: yards to centimeters")
-        print('conv len cmd: Access the new length converter command menu')
+        
 
     elif command == 'conv len i-y':
         conv('inches','yards',"/48")
-    elif command == 'conv len cmd':
+    elif command == 'conv cmd':
         xay = True
         while xay == True:
-            print('-----Length Converter Command Menu-----')
+            print('-----Converter Command Menu-----')
             print('Type your command under here and press enter')
             mxe = input()
             if mxe == 'help' or mxe =='?':
-                print('-----Commands List for Conv Len-----')
+                print('-----Commands List for Conv-----')
                 print('help: Shows this list')
                 print('cmd: Go to the command menu')
                 print('km-mi: kilometres to miles')
                 print('mi-km: miles to kilometres')
+                print('kg-lb: Kilograms to pounds')
+                print('lb-kg: pounds to kilograms')
+
+            elif mxe == 'lb-kg':
+                conv('pounds','kilograms','/2.20463')
+                
+            
+            elif mxe == 'kg-lb':
+                conv('kilograms','pounds','*2.20463')
+
             elif mxe == 'cmd':
                 break
             elif mxe == 'km-mi':
@@ -1962,8 +2000,8 @@ while xae == True:
             elif mxe == 'mi-km':
                 conv('miles','kilometres','*1.609')
             else:
-                Tk().withdraw()
-                messagebox.showwarning('Warning','Unrecognised command. Type help for the list.')
+                print('You typed in an unrecognized command. \n\
+                    Type "help" or "?" for the commands list.')
 
     elif command == 'conv len c-y':
         conv('centimeters','yards','*0.010936')
@@ -3495,7 +3533,8 @@ while xae == True:
             except:
                 s = turtle.getscreen()
                 t = turtle.Turtle()
-            t.speed(10)
+            turtle.title("Lag Graph")
+            t.speed(0)
             t.penup()
             t.goto(-300,-300)
             t.pendown()
@@ -3504,6 +3543,8 @@ while xae == True:
             t.goto(-300,-300)
             t.pendown()
             t.pencolor("red")
+            lnp = t.pos()
+            lanp = t.pos()
             noscreen = False
             ttotal = 0
             qwe = datetime.datetime.now()
@@ -3527,13 +3568,28 @@ while xae == True:
                 lag = ft - fa
                 lag = lag - tims
                 lag = lag * 1000
+                averagelag = averagelag + lag
+                avglag = averagelag / lagcount
                 try:
                     if noscreen == False:
                         tlag = lag - 300
+                        talag = avglag - 300
                         ttotal = ttotal + 10
                         tgotototal = ttotal - 300
                         t.goto(tgotototal,tlag)
+                        lnp = t.pos()
+                        t.penup()
+                        t.pencolor("green")
+                        t.goto(lanp[0],lanp[1])
+                        t.pendown()
+                        t.goto(tgotototal,talag)
+                        lanp = t.pos()
+                        t.penup()
+                        t.pencolor('red')
+                        t.goto(lnp[0],lnp[1])
+                        t.pendown()
                         if tgotototal > 300:
+                            t.pencolor("red")
                             t.clear()
                             ttotal = 0
                             t.penup()
@@ -3545,12 +3601,13 @@ while xae == True:
                             t.goto(-300,-300)
                             t.pendown()
                             t.pencolor("red")
+                            lnp = (-300,-300)
+                            lanp = (-300,-300)
                             
                 except:
                     xsgued = 0
                 qwe = datetime.datetime.now()
-                averagelag = averagelag + lag
-                avglag = averagelag / lagcount
+                
                 print("your computer is lagging by",lag,"milliseconds")
                 print("Your average computer lag is",avglag,"milliseconds")
                 print("Your computer is",averagelag,"milliseconds behind.")
@@ -3931,9 +3988,10 @@ while xae == True:
             print(opponent,"won!")
 
     else:
-        Tk().withdraw()
-        messagebox.showwarning('Warning',"You typed in an unrecognised command.\n If you want the commands list, dismiss this message and run the command '?' or 'help'")
-#Whew! That's a lot of code!
+
+        print('Warning: You typed an unrecognized command. If you want to see the commands list, dismiss this message and run the command "help" or "?".')
+
+        #Whew! That's a lot of code!
 #Wait! There is more!
     cmd_run = cmd_run + 1
     try:
