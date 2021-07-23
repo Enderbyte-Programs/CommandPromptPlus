@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.13 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.13.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -3570,6 +3570,7 @@ while xae == True:
                 lag = lag * 1000
                 averagelag = averagelag + lag
                 avglag = averagelag / lagcount
+                
                 try:
                     if noscreen == False:
                         tlag = lag - 300
@@ -3603,6 +3604,8 @@ while xae == True:
                             t.pencolor("red")
                             lnp = (-300,-300)
                             lanp = (-300,-300)
+                            averagelag = 0
+                            lagcount = 0
                             
                 except:
                     xsgued = 0
@@ -3610,7 +3613,7 @@ while xae == True:
                 
                 print("your computer is lagging by",lag,"milliseconds")
                 print("Your average computer lag is",avglag,"milliseconds")
-                print("Your computer is",averagelag,"milliseconds behind.")
+                
                 print("")
                 
 
