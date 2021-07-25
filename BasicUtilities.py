@@ -437,6 +437,7 @@ while xae == True:
         print("wb: Visit our website")
         
         
+        
         print('notifs: Change your commmand-running notification settings.')
         print('rev: Reverse the contents of a file')
         print("stat: Get some statistics of this program.")
@@ -453,6 +454,7 @@ while xae == True:
         print("reload: reloads this program.")
         print("logoff: Logs you out.")
         print("restart: Restarts your computer")
+        print("shutdown: Shutdown your computer")
         print("browser: Open the Basic Utilities Browser.")
         print("dir: Get the directory that this program is installed to")
         print('')
@@ -551,7 +553,27 @@ while xae == True:
             print('toneup: Make a rising Tone')
             print('rmg: Random Music Generator')
             print('cmaj: Play the ascending C major scale')
+            print('alm: Get a nice beepy alarm')
         print("There are also some easter egg commands :)")
+
+    elif command == 'shutdown':
+        os.system("shutdown /s")
+
+    elif command == 'tkdebug':
+        
+        
+        messagebox.showinfo('Basic Utilities','Test')
+        Tk().withdraw()
+        Tk().destroy()
+        Tk().withdraw()
+        filedialog.askopenfilename()
+        filedialog.askdirectory()
+
+    
+    elif command == 'alm':
+        for i in range(10):
+            winsound.Beep(1500,500)
+            winsound.Beep(1000,500)
 
     elif command == 'diran':
         print('Please select the folder to analyze')
@@ -3161,8 +3183,8 @@ while xae == True:
                         for i in range(1,20):
                             print("")
     elif command == "insult":
-        adjec = ["Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","picklebrained"]
-        noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Straightjacket","Clackdish","Jellyfish"]
+        adjec = ["Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","Picklebrained","@$%&TYFt767tT*^TT*%%RFft*^((%^$4&^^4"]
+        noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Monkeybottom","Clackdish","Jellyfish","^%*yuygg&yguguyTUGUT87t83t868%&&^^&*^&*"]
         adjec1 = random.choice(adjec)
         adjec2 = random.choice(adjec)
         noun1 = random.choice(noun)
