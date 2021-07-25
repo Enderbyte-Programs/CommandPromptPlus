@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.13.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.14 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -507,6 +507,7 @@ while xae == True:
         print('filemem: Ge memory statistics about a file')
         print('bumem: Get a statistic about how much of YOUR memory WE are using!')
         print('tsklst: List all task running on the system')
+        print('diran: Get directory statistics and write to file')
         
         
         print('')
@@ -552,6 +553,47 @@ while xae == True:
             print('cmaj: Play the ascending C major scale')
         print("There are also some easter egg commands :)")
 
+    elif command == 'diran':
+        print('Please select the folder to analyze')
+        Tk().withdraw()
+        dtoo = filedialog.askdirectory()
+        
+        cdt = datetime.datetime.now()
+        try:
+            os.system('cd '+dtoo+'&'+' dir'+'&'+' dir > directoryanalysis.txt')
+        except:
+            error(0)
+        else:
+            try:
+                total_size = 0
+                
+                for path, dirs, files in os.walk(dtoo):
+                    for f in files:
+                        fp = os.path.join(path, f)
+                        total_size += os.path.getsize(fp)
+                print("Directory size: " + str(total_size),'Bytes')
+                print('folder is using',(total_size / shutil.disk_usage(sysslash)[1]*100),'% of YOUR used memory ')
+                print('folder is using',(total_size / shutil.disk_usage(sysslash)[0]*100),'% of YOUR total memory ')
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Error','Could not access directory to count size')
+            try:
+                f = open(dtoo+sysslash+'directoryanalysis.txt','a')
+            except:
+                error(0)
+            else:
+                f.write('\n')
+                f.write('Directory analysis for '+dtoo+'\n')
+                f.write('Made on '+str(datetime.datetime.now())+'\n')
+                try:
+                    f.write('Total Directory Size: '+str(total_size)+' Bytes'+'\n')
+                except:
+                    f.write('Could not get total directory size')
+                else:
+                    f.write('folder is using'+str((total_size / shutil.disk_usage(sysslash)[1]*100))+' % of YOUR used memory'+'\n')
+                    f.write('folder is using '+str((total_size / shutil.disk_usage(sysslash)[0]*100))+' % of YOUR total memory ')
+                f.close()
+                print('Statistics written to '+dtoo+sysslash+'directoryanalysis.txt')
     elif command == 'tsklst':
         os.system('tasklist')
 
@@ -806,16 +848,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4025')
-        print('print statements:817')
-        print('Variables: 1046')
-        print('comparisons 361')
-        print('Exception handling loops 193')
-        print('While loops 46')
-        print('For loop 38')
-        print('Commands: 126')
+        print('lines: 4068')
+        print('print statements: 821')
+        print('Variables: 1053')
+        print('comparisons 362')
+        print('Exception handling loops 197')
+        print('While loops 45')
+        print('For loop 47')
+        print('Commands: 127')
         print('Libraries Imported 16')
-        print('files utilized 72')
+        print('files utilized 73')
 
     elif command == 'sysplat':
         print('-----')
@@ -940,7 +982,7 @@ while xae == True:
             winsound.Beep(523,x)
         else:
             Tk().withdraw()
-            messagebox.showerror('BU','This command is not compatibl with your device')
+            messagebox.showerror('BU','This command is not compatible with your device')
 
     elif command == 'fstat':
         print('What file to analyse? ')
@@ -1506,7 +1548,7 @@ while xae == True:
 
         except:
             print('Exception: Most recent Callback')
-            print('Error in line 1260 of BasicUtilities.py')
+            print('Error in line 1550 of BasicUtilities.py')
             print('try:')
             print("     os.startfile('BasicUtilites.exe')")
             print('[ERRNO] 17')
