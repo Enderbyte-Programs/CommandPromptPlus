@@ -612,7 +612,7 @@ while xae == True:
                 except:
                     f.write('Could not get total directory size')
                 else:
-                    f.write('folder is using'+str((total_size / shutil.disk_usage(sysslash)[1]*100))+' % of YOUR used memory'+'\n')
+                    f.write('folder is using '+str((total_size / shutil.disk_usage(sysslash)[1]*100))+' % of YOUR used memory'+'\n')
                     f.write('folder is using '+str((total_size / shutil.disk_usage(sysslash)[0]*100))+' % of YOUR total memory ')
                 f.close()
                 print('Statistics written to '+dtoo+sysslash+'directoryanalysis.txt')
@@ -902,9 +902,9 @@ while xae == True:
         print('-----')
 
     elif command == 'tpicker':
-        prefixes = ['she','kensing','park','new','Burn','Squa','Whis','Morton','Farris','Kalmy','Ruby','Fansing','']
-        mid = ['field','aby','st','','','','']
-        end = ['ton','ville','vill','don','hood','']
+        prefixes = ['she','kensing','park','new','Burn','Squa','Whis','Morton','Farris','Kalmy','Ruby','Fansing','','PArks','Sur','Castle']
+        mid = ['field','aby','st','','','','Dooby']
+        end = ['ton','ville','vill','don','hood','','Rey']
         print('-----')
         print(random.choice(prefixes)+random.choice(mid)+random.choice(end))
         print('-----')
