@@ -3283,6 +3283,20 @@ while xae == True:
             res = 'https://www.yahoo.com/search?p='+res
             webbrowser.open(res)
             writehistory()
+        def sechw():
+            global txt
+            global res
+            res = txt.get()
+            res = 'https://en.wikipedia.org/w/index.php?search='+res
+            webbrowser.open(res)
+            writehistory()
+        def sechyo():
+            global txt
+            global res
+            res = txt.get()
+            res = 'https://www.youtube.com/results?search_query='+res
+            webbrowser.open(res)
+            writehistory()
         def vh():
             global data
             if data == 'No History Yet':
@@ -3322,6 +3336,10 @@ while xae == True:
         btn5.grid(column=2,row=2)
         btn4 = Button(wbx,text='Yahoo',command=sechy,bg='lime green')
         btn4.grid(column=3,row=2)
+        btn5 = Button(wbx,text='Wikipedia',command=sechw,bg='lime green')
+        btn5.grid(column=4,row=2)
+        btn6 = Button(wbx,text='Youtube',command=sechyo,bg='lime green')
+        btn6.grid(column=5,row=2)
         lbl1 = Label(wbx,text=data)
         lbl1.grid(column=0,row=3)
         btn3 = Button(wbx,text='Go to recent search',bg='SkyBlue1',command=vh)
@@ -3329,9 +3347,9 @@ while xae == True:
         wbx.mainloop()
 
     elif command == "logoff":
-        os.system('cmd /c "shutdown /l"')
+        os.system('shutdown /l')
     elif command == "restart":
-        os.system('cmd /c "shutdown /r"')
+        os.system('shutdown /r')
 
     elif command == "rng":
         afghs = True

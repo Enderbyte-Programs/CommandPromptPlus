@@ -1,11 +1,8 @@
-2.13 (21.7.5.0)
+2.14.3 (21.7.6.3)
 
-Made box for executing system commands wider
-Changed conv len cmd to conv cmd
-Removed URC msbox warning from conv cmd, replacen with conole print
-Added KG-LB converter
-Added LB-KG converter
-Added TaskList (MS only)
-Removd URC msbox warning from main command menu, replaced with print statement similar to the one in Ye Olde pre-1.12.
-Added avglag to the graph, will have to test further.
-Prevented non-microsoft users from viewing ms-only commands in the help menu.
+Fixed bugs
+Added more insults
+Added more town pickers
+Added Wikipedia to searchlist
+Added Youtube to searchlist
+Slightly modified logoff and restart syntax.
