@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.14.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.14.4 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -488,6 +488,7 @@ while xae == True:
         print('cpicker: Random colour picker')
         print('npicker: Random Name Picker (NOT TO BE TAKEN SERIOUSLY)')#Todo 1.11 pre 1
         print('tpicker: Random Town Picker (NOT TO BE TAKEN SERIOUSLY)')#Todo 1.11 pre 1
+        print('fpicker: Get a randomly generated food product name')
         print('')
         print('-----Utility-----')
         print("lag: Measures your computer's lag.")
@@ -555,6 +556,11 @@ while xae == True:
             print('cmaj: Play the ascending C major scale')
             print('alm: Get a nice beepy alarm')
         print("There are also some easter egg commands :)")
+
+    elif command == 'fpicker':
+        print('-----')
+        print(random.choice(['Nutra','nutri','health','good','fod'])+random.choice(['-o-','er','','',''])+random.choice(['loaf','fod','snak','fodder','health','food']))
+        print('-----')
 
     elif command == 'shutdown':
         os.system("shutdown /s")
@@ -870,14 +876,14 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4110')
+        print('lines: 4116')
         print('print statements: 821')
         print('Variables: 1053')
         print('comparisons 362')
         print('Exception handling loops 197')
         print('While loops 45')
         print('For loop 47')
-        print('Commands: 127')
+        print('Commands: 128')
         print('Libraries Imported 16')
         print('files utilized 73')
 
@@ -1986,9 +1992,10 @@ while xae == True:
             print('File not found')
         try:
             os.startfile('unins000.exe')
-            sys.exit()
+            
         except:
             error(2)
+            print('Main uninstaller failed to start.')
         else:
             sys.exit()
 
