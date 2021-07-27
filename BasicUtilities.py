@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.14.4 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.14.5 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -38,6 +38,8 @@ gamees_won = 0
 pi = 3.14
 hasarg = True
 playedg2 = False
+
+
 try:
     arguments = sys.argv
     openfile_dir = arguments[1]
@@ -132,15 +134,15 @@ finally:
         ads.title('BU Critical Exception')
         ads.geometry('800x600')
         ads.configure(background='blue')
-        lbl = Label(ads,text=':(',font=("Arial Bold",64))
+        lbl = Label(ads,text=':(',font=("Arial Bold",64),bg='blue')
         lbl.grid(column=0,row=0)
-        lbl1 = Label(ads,text='A critical exception has occured')
+        lbl1 = Label(ads,text='A critical exception has occured',bg='blue')
         lbl1.grid(column=0,row=1)
-        lbl2 = Label(ads,text='ERROR: Access Denied')
+        lbl2 = Label(ads,text='ERROR: Access Denied',bg='blue')
         lbl2.grid(column=0,row=2)
         
-        lbl4 = Label(ads,text='It is reccomended that you exit and move me to a folder that I have perms in.')
-        lbl5 = Label(ads,text='Or you can click run as admin.')
+        lbl4 = Label(ads,text='It is reccomended that you exit and move me to a folder that I have perms in.',bg='blue')
+        lbl5 = Label(ads,text='Or you can click run as admin.',bg='blue')
         
         lbl4.grid(column=0,row=4)
         lbl5.grid(column=0,row=5)
@@ -476,6 +478,7 @@ while xae == True:
         print("clock: Tells you the exact time")
         print("counter: make a counter")
         print("sw: Stop watch!")
+        print("clk: Get an ongoing clock")
         
         print("timer: Pauseable Timer")
         print('')
@@ -556,6 +559,38 @@ while xae == True:
             print('cmaj: Play the ascending C major scale')
             print('alm: Get a nice beepy alarm')
         print("There are also some easter egg commands :)")
+
+    elif command == 'clk':
+        newwindow()
+        isfini = False
+        def cloc():
+            sleep(1)
+            global lbl
+            global isfini
+            while isfini == False:
+                sleep(0.1)
+                try:
+                    lbl.configure(text=str(datetime.datetime.now()))
+                except:
+                    break
+                
+        def ckill():
+            global isfini
+            isfini = True
+            clk.quit()
+            clk.destroy()
+            
+        th = threading.Thread(target=cloc)
+        th.start()
+        clk = Tk()
+        clk.title('Clock')
+        clk.geometry('150x50')
+        lbl = Label(clk,text='')
+        lbl.grid(column=0,row=0)
+        btn = Button(clk,text='Exit',bg='red',command=ckill)
+        btn.grid(column=0,row=1)
+        clk.mainloop()
+        
 
     elif command == 'fpicker':
         print('-----')
@@ -876,16 +911,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4116')
-        print('print statements: 821')
-        print('Variables: 1053')
-        print('comparisons 362')
-        print('Exception handling loops 197')
-        print('While loops 45')
+        print('lines: 4152')
+        print('print statements: 831')
+        print('Variables: 1065')
+        print('comparisons 368')
+        print('Exception handling loops 198')
+        print('While loops 46')
         print('For loop 47')
-        print('Commands: 128')
+        print('Commands: 129')
         print('Libraries Imported 16')
         print('files utilized 73')
+        print('Tkinter windows used 62')
 
     elif command == 'sysplat':
         print('-----')
