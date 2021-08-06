@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.14.5 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.15 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -271,6 +271,28 @@ print('preparing functions ... done',end='\n')
 print('Reading appdata files...',end='\r')
 
 try:
+    f = open('username.txt','r')
+except:
+    try:
+        f = open('username.txt','x')
+    except:
+        try:
+            f = open('username.txt','w')
+        except:
+            print('Access Denied')
+        else:
+            f.write('DefaultUser')
+            f.close()
+            sysuser = 'DefaultUser'
+    else:
+        f.write('DefaultUser')
+        f.close()
+        sysuser = 'DefaultUser'
+else:
+    sysuser = str(f.read())
+    f.close()
+
+try:
     f = open('bday.txt','r')
     x = f.readlines()
     mt = x[0]
@@ -415,7 +437,17 @@ f.write(str(x.minute)+'\n')
 f.write(str(x.second)+'\n')
 f.close()
 print('')
-print("Welcome to BasicUtilities")
+print("Welcome to Basic Utilities,",sysuser)
+print(datetime.datetime.now())
+x = datetime.datetime.now()
+if x.hour > 0 and x.hour < 12:
+    print('Good morning,',sysuser)
+elif x.hour > 11 and x.hour < 18:
+    print('Good afternoon,',sysuser)
+elif x.hour > 18 and x.hour < 22:
+    print('Good evening,',sysuser)
+else:
+    print('Good night,',sysuser)
 
 print(sysslash)
 while xae == True:
@@ -443,6 +475,7 @@ while xae == True:
         print('notifs: Change your commmand-running notification settings.')
         print('rev: Reverse the contents of a file')
         print("stat: Get some statistics of this program.")
+        print('usr: change your username')
         print('')
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
@@ -492,6 +525,9 @@ while xae == True:
         print('npicker: Random Name Picker (NOT TO BE TAKEN SERIOUSLY)')#Todo 1.11 pre 1
         print('tpicker: Random Town Picker (NOT TO BE TAKEN SERIOUSLY)')#Todo 1.11 pre 1
         print('fpicker: Get a randomly generated food product name')
+        print('rname: Random Ruby Name Generator')
+        #Ruby is my dog and she has a lot of names
+        print('art: Get some random art')
         print('')
         print('-----Utility-----')
         print("lag: Measures your computer's lag.")
@@ -513,7 +549,8 @@ while xae == True:
         print('filemem: Ge memory statistics about a file')
         print('bumem: Get a statistic about how much of YOUR memory WE are using!')
         print('tsklst: List all task running on the system')
-        print('diran: Get directory statistics and write to file')
+        if sysslash == '\\':
+            print('diran: Get directory statistics and write to file')
         
         
         print('')
@@ -559,6 +596,142 @@ while xae == True:
             print('cmaj: Play the ascending C major scale')
             print('alm: Get a nice beepy alarm')
         print("There are also some easter egg commands :)")
+
+    elif command == 'art':
+        try:
+            s = turtle.getscreen()
+            t = turtle.Turtle()
+        except:
+            s = turtle.getscreen()
+            t = turtle.Turtle()
+        t.speed(0)
+        t.penup()
+        t.goto(-300,-300)
+        t.pendown()
+        t.goto(-300,300)
+        t.goto(300,300)
+        t.goto(300,-300)
+        t.goto(-300,-300)
+        t.penup()
+        t.goto(0,0)
+        t.pendown()
+        colours = ['snow', 'ghost white', 'white smoke', 'gainsboro', 'floral white', 'old lace',
+        'linen', 'antique white', 'papaya whip', 'blanched almond', 'bisque', 'peach puff',
+        'navajo white', 'lemon chiffon', 'mint cream', 'azure', 'alice blue', 'lavender',
+        'lavender blush', 'misty rose', 'dark slate gray', 'dim gray', 'slate gray',
+        'light slate gray', 'gray', 'light grey', 'midnight blue', 'navy', 'cornflower blue', 'dark slate blue',
+        'slate blue', 'medium slate blue', 'light slate blue', 'medium blue', 'royal blue',  'blue',
+        'dodger blue', 'deep sky blue', 'sky blue', 'light sky blue', 'steel blue', 'light steel blue',
+        'light blue', 'powder blue', 'pale turquoise', 'dark turquoise', 'medium turquoise', 'turquoise',
+        'cyan', 'light cyan', 'cadet blue', 'medium aquamarine', 'aquamarine', 'dark green', 'dark olive green',
+        'dark sea green', 'sea green', 'medium sea green', 'light sea green', 'pale green', 'spring green',
+        'lawn green', 'medium spring green', 'green yellow', 'lime green', 'yellow green',
+        'forest green', 'olive drab', 'dark khaki', 'khaki', 'pale goldenrod', 'light goldenrod yellow',
+        'light yellow', 'yellow', 'gold', 'light goldenrod', 'goldenrod', 'dark goldenrod', 'rosy brown',
+        'indian red', 'saddle brown', 'sandy brown',
+        'dark salmon', 'salmon', 'light salmon', 'orange', 'dark orange',
+        'coral', 'light coral', 'tomato', 'orange red', 'red', 'hot pink', 'deep pink', 'pink', 'light pink',
+        'pale violet red', 'maroon', 'medium violet red', 'violet red',
+        'medium orchid', 'dark orchid', 'dark violet', 'blue violet', 'purple', 'medium purple',
+        'thistle', 'snow2', 'snow3',
+        'snow4', 'seashell2', 'seashell3', 'seashell4', 'AntiqueWhite1', 'AntiqueWhite2',
+        'AntiqueWhite3', 'AntiqueWhite4', 'bisque2', 'bisque3', 'bisque4', 'PeachPuff2',
+        'PeachPuff3', 'PeachPuff4', 'NavajoWhite2', 'NavajoWhite3', 'NavajoWhite4',
+        'LemonChiffon2', 'LemonChiffon3', 'LemonChiffon4', 'cornsilk2', 'cornsilk3',
+        'cornsilk4', 'ivory2', 'ivory3', 'ivory4', 'honeydew2', 'honeydew3', 'honeydew4',
+        'LavenderBlush2', 'LavenderBlush3', 'LavenderBlush4', 'MistyRose2', 'MistyRose3',
+        'MistyRose4', 'azure2', 'azure3', 'azure4', 'SlateBlue1', 'SlateBlue2', 'SlateBlue3',
+        'SlateBlue4', 'RoyalBlue1', 'RoyalBlue2', 'RoyalBlue3', 'RoyalBlue4', 'blue2', 'blue4',
+        'DodgerBlue2', 'DodgerBlue3', 'DodgerBlue4', 'SteelBlue1', 'SteelBlue2',
+        'SteelBlue3', 'SteelBlue4', 'DeepSkyBlue2', 'DeepSkyBlue3', 'DeepSkyBlue4',
+        'SkyBlue1', 'SkyBlue2', 'SkyBlue3', 'SkyBlue4', 'LightSkyBlue1', 'LightSkyBlue2',
+        'LightSkyBlue3', 'LightSkyBlue4', 'SlateGray1', 'SlateGray2', 'SlateGray3',
+        'SlateGray4', 'LightSteelBlue1', 'LightSteelBlue2', 'LightSteelBlue3',
+        'LightSteelBlue4', 'LightBlue1', 'LightBlue2', 'LightBlue3', 'LightBlue4',
+        'LightCyan2', 'LightCyan3', 'LightCyan4', 'PaleTurquoise1', 'PaleTurquoise2',
+        'PaleTurquoise3', 'PaleTurquoise4', 'CadetBlue1', 'CadetBlue2', 'CadetBlue3',
+        'CadetBlue4', 'turquoise1', 'turquoise2', 'turquoise3', 'turquoise4', 'cyan2', 'cyan3',
+        'cyan4', 'DarkSlateGray1', 'DarkSlateGray2', 'DarkSlateGray3', 'DarkSlateGray4',
+        'aquamarine2', 'aquamarine4', 'DarkSeaGreen1', 'DarkSeaGreen2', 'DarkSeaGreen3',
+        'DarkSeaGreen4', 'SeaGreen1', 'SeaGreen2', 'SeaGreen3', 'PaleGreen1', 'PaleGreen2',
+        'PaleGreen3', 'PaleGreen4', 'SpringGreen2', 'SpringGreen3', 'SpringGreen4',
+        'green2', 'green3', 'green4', 'chartreuse2', 'chartreuse3', 'chartreuse4',
+        'OliveDrab1', 'OliveDrab2', 'OliveDrab4', 'DarkOliveGreen1', 'DarkOliveGreen2',
+        'DarkOliveGreen3', 'DarkOliveGreen4', 'khaki1', 'khaki2', 'khaki3', 'khaki4',
+        'LightGoldenrod1', 'LightGoldenrod2', 'LightGoldenrod3', 'LightGoldenrod4',
+        'LightYellow2', 'LightYellow3', 'LightYellow4', 'yellow2', 'yellow3', 'yellow4',
+        'gold2', 'gold3', 'gold4', 'goldenrod1', 'goldenrod2', 'goldenrod3', 'goldenrod4',
+        'DarkGoldenrod1', 'DarkGoldenrod2', 'DarkGoldenrod3', 'DarkGoldenrod4',
+        'RosyBrown1', 'RosyBrown2', 'RosyBrown3', 'RosyBrown4', 'IndianRed1', 'IndianRed2',
+        'IndianRed3', 'IndianRed4', 'sienna1', 'sienna2', 'sienna3', 'sienna4', 'burlywood1',
+        'burlywood2', 'burlywood3', 'burlywood4', 'wheat1', 'wheat2', 'wheat3', 'wheat4', 'tan1',
+        'tan2', 'tan4', 'chocolate1', 'chocolate2', 'chocolate3', 'firebrick1', 'firebrick2',
+        'firebrick3', 'firebrick4', 'brown1', 'brown2', 'brown3', 'brown4', 'salmon1', 'salmon2',
+        'salmon3', 'salmon4', 'LightSalmon2', 'LightSalmon3', 'LightSalmon4', 'orange2',
+        'orange3', 'orange4', 'DarkOrange1', 'DarkOrange2', 'DarkOrange3', 'DarkOrange4',
+        'coral1', 'coral2', 'coral3', 'coral4', 'tomato2', 'tomato3', 'tomato4', 'OrangeRed2',
+        'OrangeRed3', 'OrangeRed4', 'red2', 'red3', 'red4', 'DeepPink2', 'DeepPink3', 'DeepPink4',
+        'HotPink1', 'HotPink2', 'HotPink3', 'HotPink4', 'pink1', 'pink2', 'pink3', 'pink4',
+        'LightPink1', 'LightPink2', 'LightPink3', 'LightPink4', 'PaleVioletRed1',
+        'PaleVioletRed2', 'PaleVioletRed3', 'PaleVioletRed4', 'maroon1', 'maroon2',
+        'maroon3', 'maroon4', 'VioletRed1', 'VioletRed2', 'VioletRed3', 'VioletRed4',
+        'magenta2', 'magenta3', 'magenta4', 'orchid1', 'orchid2', 'orchid3', 'orchid4', 'plum1',
+        'plum2', 'plum3', 'plum4', 'MediumOrchid1', 'MediumOrchid2', 'MediumOrchid3',
+        'MediumOrchid4', 'DarkOrchid1', 'DarkOrchid2', 'DarkOrchid3', 'DarkOrchid4',
+        'purple1', 'purple2', 'purple3', 'purple4', 'MediumPurple1', 'MediumPurple2',
+        'MediumPurple3', 'MediumPurple4', 'thistle1', 'thistle2', 'thistle3', 'thistle4','gray60']
+        for i in range(random.randint(10,200)):
+            try:
+                t.pencolor(random.choice(colours))
+                t.pensize(random.randint(1,10))
+                t.goto(random.randint(-300,300),random.randint(-300,300))
+                t.right(random.randint(0,360))
+                exec(random.choice(['t.dot(random.randint(1,20))','t.circle(random.randint(1,20))','print("")','print("")']))
+            except:
+                crashed = True
+                break
+        if crashed == False:
+            Tk().withdraw()
+            mmop = messagebox.askyesno('Art','Do you want to export this to a .eps file?')
+            if mmop == True:
+                
+                s.getcanvas().postscript(file='art'+str(random.randint(0,999999))+'.eps')
+                mmoo = messagebox.askyesno('Art','Do you want to visit the website to convert to a png?\n\
+                    WARNING: USE AT OWN RISK, NO AFFILIATED WITH BU IN ANY WAY')
+                if mmoo == True:
+                    webbrowser.open("https://epsviewer.org/onlineviewer.aspx")
+            messagebox.showinfo('BU','Done. Dismiss this messagebox when you are ready to close turtle window')
+            turtle.bye()
+        
+
+
+    elif command == 'usr':
+        print(f"Your current username is {sysuser}")
+        print('Please input your new name')
+        sysuser = input()
+        try:
+            f = open('username.txt','w')
+        except:
+            try:
+                f = open('username.txt','x')
+            except:
+                print('Access denied. Your new name will only work for this session')
+            else:
+                f.write(sysuser)
+                f.close()
+                print('Sucess')
+        else:
+            f.write(sysuser)
+            f.close()
+            print('sucess')
+    
+
+    elif command == 'rname':
+        rname = ''
+        for i in range(random.randint(1,20)):
+            rname += str(random.choice(['Ruby','Roo','Roobster','Doo','By','By','By','Boo','Dy','Doodle','r','oo','oo','dle','oobster']))
+        rname = rname.replace('BooB','RooB')
+        print(rname)
 
     elif command == 'clk':
         newwindow()
@@ -685,6 +858,9 @@ while xae == True:
         Tk().withdraw()
         da7 = messagebox.askyesno('Basic Utilities','Do you want to clear game xp?')
         print('ClearXP =',da7)
+        Tk().withdraw()
+        da8 = messagebox.askyesno('Basic Utilities','Do you want to clear system Username?')
+        print('ClearUsr =',da8)
         print('-----')
         print('Confirm? [y/n]')
         conf = input()
@@ -742,6 +918,13 @@ while xae == True:
             if da7 == True:
                 try:
                     os.remove('xp.txt')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            if da8 == True:
+                try:
+                    os.remove('username.txt')
                 except:
                     print('File not found')
                 else:
@@ -911,16 +1094,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4152')
-        print('print statements: 831')
-        print('Variables: 1065')
-        print('comparisons 368')
-        print('Exception handling loops 198')
+        print('lines: 4344')
+        print('print statements: 851')
+        print('Variables: 1084')
+        print('comparisons 376')
+        print('Exception handling loops 208')
         print('While loops 46')
-        print('For loop 47')
-        print('Commands: 129')
+        print('For loop 48')
+        print('Commands: 135')
         print('Libraries Imported 16')
-        print('files utilized 73')
+        print('files utilized 81')
         print('Tkinter windows used 62')
 
     elif command == 'sysplat':
@@ -1275,9 +1458,9 @@ while xae == True:
 
     elif command == 'game2':
         newwindow()
-        print('What is your Username?')
-        username = input()
-        print('Welcome',username,'to Discount Prodigy')
+        
+
+        print('Welcome',sysuser,'to Discount Prodigy')
         print('Discount prodigy is a game where you cast spells against monsters.')
         print('To cast spells, you must answer simple math problems')
         print('As you cast spells, you earn points.')
@@ -1989,6 +2172,10 @@ while xae == True:
             os.remove('xp.txt')
         except:
             print('File not found')
+        try:
+            os.remove('username.txt')
+        except:
+            print('File not found')
 
         reload()
 
@@ -2024,6 +2211,10 @@ while xae == True:
             print('File not found')
         try:
             os.remove('xp.txt')
+        except:
+            print('File not found')
+        try:
+            os.remove('username.txt')
         except:
             print('File not found')
         try:
@@ -3150,16 +3341,16 @@ while xae == True:
     elif command == "game":
         total_money = 500
         times_played = 0
-        print("What is your name?")
-        name = input()
-        print("Welcome",name,"to Enderbyte09's Beat th' Bank!")
+        
+        
+        print("Welcome",sysuser,"to Enderbyte09's Beat th' Bank!")
         print("enter/return to continue.")
         input()
         print("You will have to open vault doors. You will gain money. However, there is a chance that you will open the ALARM, in which case you will get no money at all.")
         print("press enter/return to begin")
         print("It cost 100 to play.")
         input()
-        if name == 'Ruby' or name == 'ruby':
+        if sysuser == 'Ruby' or sysuser == 'ruby':
             money = 10000000000000
             print('YOU WON A QUADRILLION DOLLARS')
             print('OHHHHHHHHHH')
