@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.15 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.15.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -487,9 +487,10 @@ while xae == True:
         print("stop: Stops this window")
         print("stopall: stops all BasicUtilities windows")
         print("reload: reloads this program.")
-        print("logoff: Logs you out.")
-        print("restart: Restarts your computer")
-        print("shutdown: Shutdown your computer")
+        if sysslash == '\\':
+            print("logoff: Logs you out.")
+            print("restart: Restarts your computer")
+            print("shutdown: Shutdown your computer")
         print("browser: Open the Basic Utilities Browser.")
         print("dir: Get the directory that this program is installed to")
         print('')
@@ -549,6 +550,7 @@ while xae == True:
         print('filemem: Ge memory statistics about a file')
         print('bumem: Get a statistic about how much of YOUR memory WE are using!')
         print('tsklst: List all task running on the system')
+        print('ip6: Get your Ipv6 address')
         if sysslash == '\\':
             print('diran: Get directory statistics and write to file')
         
@@ -1381,6 +1383,10 @@ while xae == True:
     elif command == 'ip':
         ip = get('https://api.ipify.org').text
         print('Your public IPv4 address is: {}'.format(ip))
+
+    elif command == 'ip6':
+        ip = get('https://ipify.org').text
+        print('Your public IPv6 address is: {}'.format(ip))
 
     elif command == 'rmg':
         if sysslash == '\\':
