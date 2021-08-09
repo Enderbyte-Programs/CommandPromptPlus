@@ -1,0 +1,136 @@
+1.0- Combined previous programs to make BasicUtilities
+1.1 Added come clocks
+1.2 Bug fixes
+1.3 Combined insult into main executable
+1.4 combined everything into main executable
+1.5 Added lagometer
+
+1.6 Added uninstall and avg
+	1.6.1 Fixed bug in lag meter; added average lag
+	1.6.2 Unsucessful bug patch
+	1.6.3 Added Total lag
+1.7 Added This document, and Magic 8 ball.
+	1.7.1 Added Stats and credits
+	1.8 Snapshot 1 added contact
+	1.8 Snapshot 2 partially added snl manual
+1.8 Snakes And Ladders
+	1.8.1 Modified existing exception handling
+	1.9 Snapshot 1 Added out of range exeption handling
+	1.9 Snapshot 2 Added Execphand
+	1.9 Snapshot 3 fixed bugs
+1.9: The Uncrashable Update
+	1.9.1 Fixed multiple infinite loop bugs
+	1.10 Snapshot 1 Added a prototype randpass
+	1.10 Snapshot 2 perfected 1.10
+1.10: Random Password
+	1.10.1 Fixed int bug
+	1.10.2 Fixed int bug
+	1.10.3 Made the design of randpass a bit better
+	1.10.4 Added txt write to randpass
+	1.10.5 Fixed fatal corruption bug
+	1.11 Snapshot 1 rec
+	1.11 Snapshot 2 cir
+	1.11 Snapshot 3 tri
+1.11 Area and Perimeter
+	1.11.1 recp
+	1.11.2 trip
+	1.11.3 cyl
+	1.11.4 sph
+	1.11.5 Allowed Decimals
+	1.12 Snapshot 1 PA
+1.12 Percentage Add
+	1.12.1 Added PR
+	1.12.2 Overhauled web
+	1.12.3 Actually made the uninstaller work right
+	1.13 Snapshot 1 PGPA
+	1.13 Snapshot 2 GPAP
+	1.13 Snapshot 3 PyTerm
+1.13 GPAs and Command Prompts and a NEW ICON!
+	1.13.1 Fixed some bugs
+	1.13.2 Overhauled CovidCounter
+	1.13.3 Fixed grammatical errors in insulter
+	1.14 snapshot 1 Added Grapher
+	1.14 Snapshot 2 Fixed some error
+	1.14 Snapshot 3 Fixed some more error
+1.14 Graphs Update
+	1.14.1 Added a line to show where 0 lag was.
+	1.15 snapshot 1 Added Calc
+	1.15 Snapshot 2 Added calc help
+1.15 Calculation Update
+	1.15.1 fixed some bugs in Grapher
+	1.15.2 Gave program startup screen and fixed spelling.
+1.16 Added quiz!
+	1.17 snapshot 1: Window stop
+	1.17 snapshot 2: Made crashy version of stopwatch, it will have to do for now.
+1.17 The glitchy stopwatch update :(
+	1.17.1: Fixed all stopwatch bugs :)!
+	1.17.2: Revamped uninstall and tweaked insult (That means I added more insults), also insult repeating adjective bug fix.
+	1.17.3: Modified some code to hopefully fix some issues with the uninstaller. It still says 1.17.2, but it is actually 1.17.3
+	1.18 Snapshot 1 Replaced newwindow statement with newwindow function
+	1.18 Snapshot 2 Compressed all errors into error(errorcode)
+1.18 The Optimization Update- No new features, but smaller file size (by 2 KB)
+	1.18.1 Condensed all prank commands into the command 'prank'.
+	1.19 Snapshot 1 Put LetsDraw into BasicUtilities
+	1.19 Snapshot 2 Fixed bugs
+1.19 The  (not) Final update (out of features to add... again...)
+	1.19.1 Fixed some bugs in the pranks.
+	1.19.2 Fixed some bugs with letsdraw and lag
+	1.19.3 Added Timer and Tweaked Stopwatch
+	1.20 Snapshot 1- Added meters to feet
+	1.20 Snapshot 2- Added full m-f/f-m conv
+	1.20 Snapshot 3 c-i/i-c
+	1.19.4 Fixed some bugs [LAST ZIP VERSION]
+2.0: The Installer Update
+	2.0.1 Fixed some bugs and added anim.
+	2.0.2 Added some more conv, and other things.
+2.1: The Education Update: Added a ct game
+	2.1.1 Assorted things
+	2.1.2 Added colourget and fixed bugs
+	2.1.3 Added bday and fixed bugs [unreleased]
+2.2: The Secret Update: Encoder and Translator
+	2.2.1: Command Count and Converter Menu
+	2.2.2: Slight Parameter modifications
+2.3: The useless update: Pickers, new startups, and fake crashes. What fun!
+2.4: The Father's Day and Argument Update
+2.5: The Degree and Temperature Update
+	2.5.1: Bug fix for lagometer2.6
+2.6: The Beepy/Windows Only update
+	2.6.1: Stuff that you should read notes.txt for.
+	2.6.2: Beepers and Music
+2.7: The clean and FUN update
+		2.7.0.1: Get IP added dev build test
+		2.7.0.2: Bug fixes
+2.8: The Network Update: ping and whatsmyip
+		2.8.0.1 Bug Fixes
+		2.8.0.2 fStat
+2.9: The Statistics and Music update (Fstat and Cmaj)
+		2.9.0.1: Fixed bug where program would crash if it tried to read a compressed file
+		2.9.0.2: Fixed bug where program would always use megabytes regardless of file size.
+	2.9.1: The Browser Subupdate
+		2.9.1.1: Updates the license correctly
+	2.9.2: Added prime number gen
+	2.9.3 (2170_1): pi and patriotism
+2.10: The Probably Final Update (2171)
+	2.11 pre-1: Added btime, tpicker and npicker
+	2.11 pre-2: Overhauled File system
+	2.11 pre-3: Attempted fix in fatal error in file ascossiation
+	2.11 pre-4: Revoked File system Overhaul
+	2.11 pre-5: Added sysplat and stat
+2.11: Random Generators and stuff and system Update
+2.12: The Bsod and Memory Update
+	2.12.1: Added custom appdata clear and made file saving and opening more user friendly
+		2.12.1.1 Fixed bug where BU would write appdata files in a bad place.
+	2.12.2: [UNRELEASED] Added bing and yahoo browsing support
+	2.12.3: Changed calculator to a gui
+	2.12.4: Changed convert to gui, bug fix
+	2.12.5: No more batch files!
+2.13: Additions to lag graph, other stuff
+	2.13.1: Tweaked graphing parameters
+2.14: The directory analysis update
+	2.14.1: The Alarm and Insult subupdate
+	2.14.2: [UNKNOWN]
+	2.14.3: More insults and search choices 
+	2.14.4: MASSIVE BUG FIX
+	2.14.5: Nicer bsods and an ongoing clock.
+2.15: The Username, Drawing, and Installer II Update.
+	2.15.1: Ipv6, New Icons, and more source.
