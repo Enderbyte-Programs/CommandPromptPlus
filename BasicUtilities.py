@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.15.2 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.15.3 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -459,9 +459,9 @@ while xae == True:
         print("-----Commands List-----")
         print('-----Misc-----')
         print("help: Shows this list")
-        print('cl: view the changelog')
+        
         print('ls: View the license')
-        print('ae: Addiional information and uninstalling help')
+        
         print("draw: Draw with Turtle!")
         print("credits: View credits.")
         print("contact: Get my email and Discord")
@@ -581,7 +581,7 @@ while xae == True:
         print('')
         print('-----Uninstalling and cleaning-----')
         print("uninstall: Uninstall this program completely")
-        print("clr: Clear all appdata and user-made files in this directory (exc passwords and translation).")
+        print("clr: Reset Basic Utilities' AppData.")
         print("rem: Remove custom appdata")
         print('cln: Clean up files from old versions that you dont need')
         
@@ -597,6 +597,8 @@ while xae == True:
             print('cmaj: Play the ascending C major scale')
             print('alm: Get a nice beepy alarm')
         print("There are also some easter egg commands :)")
+        print('-----Contact and Support-----')
+        print('If you need help, contact me with the contact command')
 
     elif command == 'art':
         try:
@@ -976,7 +978,24 @@ while xae == True:
             fcln +=1
         except:
             fcln +=0
+        try:
+            os.remove('notes.txt')
+            fcln +=1
+        except:
+            fcln +=0
+        try:
+            os.remove('notice.txt')
+            fcln +=1
+        except:
+            fcln +=0
+        try:
+            os.remove('changelog.txt')
+            fcln +=1
+        except:
+            fcln +=0
+        
         print(fcln,' useless files removed.')
+
 
     elif command == 'emc2':
         print('Mass of Object? (kilograms please)')
@@ -1661,12 +1680,10 @@ while xae == True:
             elif battle == 'n':
                 break
             
-    elif command == 'cl':
-        runfile('changelog.txt')
+    
     elif command == 'ls':
         runfile('license.txt')
-    elif command == 'ae':
-        runfile('notes.txt')
+    
         
     elif command == 'degp':
         print('How many degrees?')
@@ -2186,42 +2203,7 @@ while xae == True:
 
     elif command == 'uninstall':
         f.close()
-        try:
-            os.remove('appdata.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('bcount.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('bday.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('btime.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('health.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('history.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('notifs.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('xp.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('username.txt')
-        except:
-            print('File not found')
+        
         try:
             os.startfile('unins000.exe')
             
