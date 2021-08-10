@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.15.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.15.2 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
 print('preparing libraries ...',end='\r')
 from tkinter import messagebox
@@ -250,14 +250,13 @@ def reload():
     finally:
         sys.exit()
 def startsound():
-    x = datetime.datetime.now()
-    if x.month == 7 and x.day == 1:
-        try:
-            playsound('can.mp3')
-        except:
-            print('',end='\r')
+    
+
+
+
+      
     try:
-        playsound('startup.mp3')
+        playsound(r'startup.mp3')
     except:
         print('',end='\r')
         
@@ -1096,7 +1095,7 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4344')
+        print('lines: 4363')
         print('print statements: 851')
         print('Variables: 1084')
         print('comparisons 376')
@@ -3848,6 +3847,8 @@ while xae == True:
         if nogo == False:
             newwindow()
             averagelag = 0
+            tavglag = 0
+            tlagcount = 0
             lagcount = 0
             try:
                 s = turtle.getscreen()
@@ -3867,6 +3868,7 @@ while xae == True:
             t.pencolor("red")
             lnp = t.pos()
             lanp = t.pos()
+            tlan = t.pos()
             noscreen = False
             ttotal = 0
             qwe = datetime.datetime.now()
@@ -3881,6 +3883,7 @@ while xae == True:
                 fa = qwe.strftime('%S.%f')[:-3]
                 fa = float(fa)
                 lagcount = lagcount + 1
+                tlagcount += 1
                 tims = 0
                 sleep(1)
                 tims = 1
@@ -3892,11 +3895,14 @@ while xae == True:
                 lag = lag * 1000
                 averagelag = averagelag + lag
                 avglag = averagelag / lagcount
+                tavglag += lag
+                xavglag = tavglag / tlagcount
                 
                 try:
                     if noscreen == False:
                         tlag = lag - 300
                         talag = avglag - 300
+                        tlg = xavglag - 300
                         ttotal = ttotal + 10
                         tgotototal = ttotal - 300
                         t.goto(tgotototal,tlag)
@@ -3907,6 +3913,12 @@ while xae == True:
                         t.pendown()
                         t.goto(tgotototal,talag)
                         lanp = t.pos()
+                        t.penup()
+                        t.pencolor('blue')
+                        t.goto(tlan[0],tlan[1])
+                        t.pendown()
+                        t.goto(tgotototal,tlg)
+                        tlan = t.pos()
                         t.penup()
                         t.pencolor('red')
                         t.goto(lnp[0],lnp[1])
@@ -3926,6 +3938,7 @@ while xae == True:
                             t.pencolor("red")
                             lnp = (-300,-300)
                             lanp = (-300,-300)
+                            tlan = lnp
                             averagelag = 0
                             lagcount = 0
                             
@@ -3934,8 +3947,8 @@ while xae == True:
                 qwe = datetime.datetime.now()
                 
                 print("your computer is lagging by",lag,"milliseconds")
-                print("Your average computer lag is",avglag,"milliseconds")
-                
+                print("Your moving average.60 computer lag is",avglag,"milliseconds")
+                print("Your all-time average computer lag is",xavglag,"milliseconds")
                 print("")
                 
 
