@@ -1,6 +1,6 @@
-print('Basic Utilities Release 2.15.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.16 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
-print('preparing libraries ...',end='\r')
+print('Preparing Libraries')
 from tkinter import messagebox
 try:
     import winsound
@@ -26,26 +26,35 @@ except:
     print('Some features may be broken because you dont have requests installed.')
 from tkinter import filedialog
 import shutil
+import subprocess
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
 else:
     sysslash = '/'
-print("preparing libraries ... done")
-print('Assigning variables ...',end='\r')
+print('Scanning for Args')
+print(os.getcwd())
 sw = False
 gamees_played = 0
 gamees_won = 0
 pi = 3.14
 hasarg = True
 playedg2 = False
-
+hasarg2 = True
 
 try:
     arguments = sys.argv
     openfile_dir = arguments[1]
+    xxx = arguments[2]
 except:
     hasarg= False
-if hasarg == True:
+
+try:
+    arguments = sys.argv
+    fto = sys.argv[1]
+except:
+    hasarg2 = False
+
+if hasarg == True and xxx == 'translate':
     try:
         f = open(openfile_dir,'r')
         mes = f.read()
@@ -92,12 +101,184 @@ if hasarg == True:
     print('Press enter to quit program.')
     input()
     sys.exit()
+
+
+elif hasarg2 == True:
+
+    cwd = os.getcwd()
+    fto = sys.argv[1]
+    if fto == 'new':
+        
+        def saveas():
+            global txt
+            global fname
+            try:
+                files = [('All Files','*.*')]
+                file = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Could not write')
+            else:
+                try:
+                    fname = file.name
+                except:
+                    q = 0
+                else:
+                    try:
+                        file = open(fname,'w')
+                        file.write(txt.get('1.0','end-1c'))
+                        file.close()
+                    except:
+                        Tk().withdraw()
+                        messagebox.showerror('notpad','Cannot Write data')
+                    else:
+                        root.title('Notpad-'+fname)
+                        Tk().withdraw()
+                        messagebox.showinfo('notpad','Writing sucessfull')
+
+        def save():
+            global txt
+            global fname
+            try:
+                file = open(fname,'w')
+            except:
+                Tk().withdraw()
+                messagebox.showerror('notpad','Error. Did you make sure to \n\
+                    Make sure to save as first?\n\
+                        Make sure I have write perms in the output directory')
+            else:
+                file.write(txt.get('1.0','end-1c'))
+                file.close()
+
+        def opennew():
+            Tk().withdraw()
+            x = filedialog.askopenfilename()
+            
+                
+            CREATE_NEW_PROCESS_GROUP = 0x00000200
+            DETACHED_PROCESS = 0x00000008
+            
+            p = subprocess.Popen(["BasicUtilities.exe", x], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+            
+        
+
+        root = Tk()
+        root.title('Notpad [new file]')
+        root.geometry('1200x720')
+        
+        txt = Text(root,width=150,height=40,wrap=NONE)
+        txt.place(x=0,y=0)
+        btn = Button(root,text='Exit',command=sys.exit,bg='red')
+        btn.place(x=0,y=650)
+        btn1 = Button(root,text='Save As',command=saveas)
+        btn1.place(x=50,y=650)
+        
+        btn2 = Button(root,text='Save',bg='green',command=save)
+        btn2.place(x=100,y=650)
+        btn3 = Button(root,text='Open',command=opennew)
+        btn3.place(x=150,y=650)
+        scr = Scrollbar(root)
+        scr.pack(side='right',fill='y',expand=False)
+        txt.config(yscrollcommand=scr.set)
+        scr.config(command=txt.yview)
+        scr1 = Scrollbar(root,orient='horizontal')
+        scr1.pack(side='bottom',fill='x',expand=False)
+        txt.config(xscrollcommand=scr1.set)
+        scr1.config(command=txt.xview)
+        lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
+        lbl.place(x=0,y=675)
+        lbl1 = Label(root,text='Notpad Text Editor Build Alpha 3')
+        lbl1.place(x=500,y=675)
+        
+        
+        root.mainloop()
+        sys.exit()
+    else:
+        try:
+            f = open(fto)
+        except:
+            Tk().withdraw()
+            messagebox.showerror('notpad','Could not open file. May not exist, access denied, or unreadable.')
+        else:
+            def saveas():
+                global txt
+                global fname
+                try:
+                    files = [('All Files','*.*')]
+                    file = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
+                except:
+                    Tk().withdraw()
+                    messagebox.showerror('Could not write')
+                else:
+                    try:
+                        fname = file.name
+                    except:
+                        q = 0
+                    else:
+                        try:
+                            file = open(fname,'w')
+                            file.write(txt.get('1.0','end-1c'))
+                            file.close()
+                        except:
+                            Tk().withdraw()
+                            messagebox.showerror('notpad','Cannot Write data')
+                        else:
+                            
+                            Tk().withdraw()
+                            messagebox.showinfo('notpad','Writing sucessfull')
+
+            def save():
+                global txt
+                global fto
+                try:
+                    file = open(fto,'w')
+                except:
+                    Tk().withdraw()
+                    messagebox.showerror('notpad','Error. Did you make sure to \n\
+                    Make sure to save as first?\n\
+                    Make sure I have write perms in the output directory')
+                else:
+                    file.write(txt.get('1.0','end-1c'))
+                    file.close()
+
+            
+
+            root = Tk()
+            root.title('Notpad-'+fto)
+            root.geometry('1200x720')
+            
+            txt = Text(root,width=150,height=40,wrap=NONE)
+            txt.place(x=0,y=0)
+            txt.insert(END,str(f.read()))
+            btn = Button(root,text='Exit',command=sys.exit,bg='red')
+            btn.place(x=0,y=650)
+            btn1 = Button(root,text='Save As',command=saveas)
+            btn1.place(x=50,y=650)
+            
+            btn2 = Button(root,text='Save',bg='green',command=save)
+            btn2.place(x=100,y=650)
+            
+            scr = Scrollbar(root)
+            scr.pack(side='right',fill='y',expand=False)
+            txt.config(yscrollcommand=scr.set)
+            scr.config(command=txt.yview)
+            scr1 = Scrollbar(root,orient='horizontal')
+            scr1.pack(side='bottom',fill='x',expand=False)
+            txt.config(xscrollcommand=scr1.set)
+            scr1.config(command=txt.xview)
+            lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
+            lbl.place(x=0,y=675)
+            lbl1 = Label(root,text='Notpad Text Editor Build Alpha 3')
+            lbl1.place(x=500,y=675)
+            
+            root.mainloop()
+            sys.exit()
+print('Writing and Reading AppData')
 xae = True
 tcrash = False
 accessdenied = False
 cmd_run = 0
-print('Assigning variables ...done',end='\n')
-print('Writing appdata files ...',end='\r')
+
 try:
     f = open("appdata.txt","r")
     besttime = f.read()
@@ -128,7 +309,7 @@ finally:
     try:
         f.close()
     except:
-        print('Writing AppData Files ... CRITICAL EXCEPTION')
+        print('CRITICAL EXCEPTION')
         accessdenied = True
         ads = Tk()
         ads.title('BU Critical Exception')
@@ -176,8 +357,7 @@ except:
     f = open('bcount.txt','x')
     f.write(str(bootcount))
     f.close()
-print('Writing Appdata files ... done',end='\n')
-print('preparing functions ...',end='\r')
+print('Preparing Functions')
 def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
@@ -266,8 +446,7 @@ def runfile(filename):
     except:
         error(2)
 
-print('preparing functions ... done',end='\n')
-print('Reading appdata files...',end='\r')
+print('Reading more AppData just for good measure')
 
 try:
     f = open('username.txt','r')
@@ -321,8 +500,7 @@ else:
                 print("")
                 print('press enter to continue to the command menu')
                 input()
-print('reading appdata files ... done',end='\n')
-print('Scanning dates ...',end='\r')
+
 t = datetime.datetime.now()
 y = t.year
 p = t.month
@@ -348,7 +526,7 @@ elif p == 2 and o == 15:
 elif p == 10 and o == 31:
     print('Happy Halloween, User!')
 #Couldn't find any more fixed-date holidays that are recognized globally.
-print('Scanning dates ... done',end='\n')
+
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
 
@@ -552,6 +730,7 @@ while xae == True:
         print('ip6: Get your Ipv6 address')
         if sysslash == '\\':
             print('diran: Get directory statistics and write to file')
+            print('te: Open the Text Editor that comes with this.')
         
         
         print('')
@@ -599,6 +778,16 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == 'te':
+        
+        CREATE_NEW_PROCESS_GROUP = 0x00000200
+        DETACHED_PROCESS = 0x00000008
+        try:
+            p = subprocess.Popen(["BasicUtilities.exe", "new"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+        except:
+            Tk().withdraw()
+            messagebox.showerror('BU','Unable to start.')
 
     elif command == 'art':
         try:
@@ -1114,17 +1303,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4363')
-        print('print statements: 851')
-        print('Variables: 1084')
-        print('comparisons 376')
-        print('Exception handling loops 208')
+        print('lines: 4539')
+        print('print statements: 839')
+        print('Variables: 1142')
+        print('comparisons 378')
+        print('Exception handling loops 212')
         print('While loops 46')
         print('For loop 48')
-        print('Commands: 135')
-        print('Libraries Imported 16')
-        print('files utilized 81')
-        print('Tkinter windows used 62')
+        print('Commands: 132')
+        print('Libraries Imported 17')
+        print('files utilized 89')
+        print('Tkinter windows used 77')
 
     elif command == 'sysplat':
         print('-----')
@@ -2346,7 +2535,7 @@ while xae == True:
                 error(0)
             print("Your timer is done")
             try:
-                playsound("warning.mp3")
+                winsound.Beep(1000,1000)
             except:
                 error(2)
 
@@ -3306,7 +3495,7 @@ while xae == True:
                 webbrowser.open("https://geekprank.com/fake-virus/")
             elif x == 4:
                 try:
-                    playsound("warning.mp3")
+                    winsound.Beep(1000,1000)
                 except:
                     error(2)
         pr = Tk()
@@ -3362,7 +3551,7 @@ while xae == True:
                         if moneyadd == "alarm":
                             alarm = True
                             try:
-                                playsound("warning.mp3")
+                                winsound.Beep(1000,1000)
                             except:
                                 error(2)
                         elif alarm == False:
@@ -3704,7 +3893,7 @@ while xae == True:
             asdfgh = True
             while asdfgh == True:
                 try:
-                    playsound("warning.mp3")
+                    winsound.Beep(1000,1000)
                     asdfgh = False
                 except:
                     error(2)
@@ -3714,7 +3903,7 @@ while xae == True:
 
             for i in range(1,5):
                 if crashed == False:
-                    playsound("warning.mp3")
+                    winsound.Beep(1000,1000)
             ajh = False
     elif command == "clock":
         x = datetime.datetime.now()
