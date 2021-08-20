@@ -1,6 +1,6 @@
-print('Basic Utilities Release 2.16 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.16.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('')
-print('Preparing Libraries')
+print('Starting up')
 from tkinter import messagebox
 try:
     import winsound
@@ -31,7 +31,7 @@ if str(platform.system()) == 'Windows':
     sysslash = '\\'
 else:
     sysslash = '/'
-print('Scanning for Args')
+
 print(os.getcwd())
 sw = False
 gamees_played = 0
@@ -160,11 +160,14 @@ elif hasarg2 == True:
             
             p = subprocess.Popen(["BasicUtilities.exe", x], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
             
-        
+        def ats():
+            global txt
+            
+            txt.insert(END,' '+str(datetime.datetime.now()))
 
         root = Tk()
         root.title('Notpad [new file]')
-        root.geometry('1200x720')
+        root.geometry('1225x720')
         
         txt = Text(root,width=150,height=40,wrap=NONE)
         txt.place(x=0,y=0)
@@ -177,6 +180,8 @@ elif hasarg2 == True:
         btn2.place(x=100,y=650)
         btn3 = Button(root,text='Open',command=opennew)
         btn3.place(x=150,y=650)
+        btn4 = Button(root,text='Append Time Stamp',command=ats)
+        btn4.place(x=200,y=650)
         scr = Scrollbar(root)
         scr.pack(side='right',fill='y',expand=False)
         txt.config(yscrollcommand=scr.set)
@@ -187,7 +192,7 @@ elif hasarg2 == True:
         scr1.config(command=txt.xview)
         lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
         lbl.place(x=0,y=675)
-        lbl1 = Label(root,text='Notpad Text Editor Build Alpha 3')
+        lbl1 = Label(root,text='Notpad Text Editor Build Beta 1')
         lbl1.place(x=500,y=675)
         
         
@@ -241,7 +246,10 @@ elif hasarg2 == True:
                     file.write(txt.get('1.0','end-1c'))
                     file.close()
 
+            def ats():
+                global txt
             
+                txt.insert(END,' '+str(datetime.datetime.now()))
 
             root = Tk()
             root.title('Notpad-'+fto)
@@ -249,7 +257,12 @@ elif hasarg2 == True:
             
             txt = Text(root,width=150,height=40,wrap=NONE)
             txt.place(x=0,y=0)
-            txt.insert(END,str(f.read()))
+            try:
+                txt.insert(END,str(f.read()))
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Notpad','Could not read file')
+                sys.exit()
             btn = Button(root,text='Exit',command=sys.exit,bg='red')
             btn.place(x=0,y=650)
             btn1 = Button(root,text='Save As',command=saveas)
@@ -257,7 +270,8 @@ elif hasarg2 == True:
             
             btn2 = Button(root,text='Save',bg='green',command=save)
             btn2.place(x=100,y=650)
-            
+            btn4 = Button(root,text='Append Time Stamp',command=ats)
+            btn4.place(x=200,y=650)
             scr = Scrollbar(root)
             scr.pack(side='right',fill='y',expand=False)
             txt.config(yscrollcommand=scr.set)
@@ -268,12 +282,12 @@ elif hasarg2 == True:
             scr1.config(command=txt.xview)
             lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
             lbl.place(x=0,y=675)
-            lbl1 = Label(root,text='Notpad Text Editor Build Alpha 3')
+            lbl1 = Label(root,text='Notpad Text Editor Build Beta 1')
             lbl1.place(x=500,y=675)
             
             root.mainloop()
             sys.exit()
-print('Writing and Reading AppData')
+
 xae = True
 tcrash = False
 accessdenied = False
@@ -357,7 +371,7 @@ except:
     f = open('bcount.txt','x')
     f.write(str(bootcount))
     f.close()
-print('Preparing Functions')
+
 def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
@@ -446,7 +460,7 @@ def runfile(filename):
     except:
         error(2)
 
-print('Reading more AppData just for good measure')
+
 
 try:
     f = open('username.txt','r')
@@ -621,7 +635,7 @@ if x.hour > 0 and x.hour < 12:
     print('Good morning,',sysuser)
 elif x.hour > 11 and x.hour < 18:
     print('Good afternoon,',sysuser)
-elif x.hour > 18 and x.hour < 22:
+elif x.hour > 17 and x.hour < 22:
     print('Good evening,',sysuser)
 else:
     print('Good night,',sysuser)
@@ -1303,7 +1317,7 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4539')
+        print('lines: 4548')
         print('print statements: 839')
         print('Variables: 1142')
         print('comparisons 378')
