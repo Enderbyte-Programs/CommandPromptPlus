@@ -142,3 +142,4 @@
 2.16: Added Text Editor, More Bug fixes, More installer updates!
    2.16.1: Added append time stamp to both new and open. Fixed bugs where editing shortcuts would cause a crash
    2.16.2: Added Canadian and Text Slang translator
+2.17: Added No Exit Without Save for text editor, added Texan english and *groan* owo text converters.

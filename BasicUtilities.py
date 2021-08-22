@@ -1,37 +1,55 @@
-print('Basic Utilities Release 2.16.2 (c) 2021 Enderbyte Programs. All rights reserved.')
-print('')
-print('Starting up')
+print('Basic Utilities Release 2.17 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Starting Up')
+from tkinter import *
+iopqwe = 0
 from tkinter import messagebox
+iopqwe = 0
 try:
     import winsound
 except:
    print('Your device does not support Winsound. Some features may be broken.') 
+iopqwe = 0
 import os
+iopqwe = 0
 import webbrowser
+iopqwe = 0
 import platform
+iopqwe = 0
 import random
+iopqwe = 0
 from time import sleep
+iopqwe = 0
 import datetime
+iopqwe = 0
 try:
     from playsound import playsound
 except:
     print('Your device does not support playsound. Some features may be broken')
+iopqwe = 0
 import turtle
+iopqwe = 0
 import threading
-from tkinter import *
+iopqwe = 0
+
+iopqwe = 0
 import sys
+iopqwe = 0
 try:
     from requests import get
 except:
     print('Some features may be broken because you dont have requests installed.')
+iopqwe = 0
 from tkinter import filedialog
+iopqwe = 0
 import shutil
+iopqwe = 0
 import subprocess
+iopqwe = 0
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
 else:
     sysslash = '/'
-
+iopqwe = 0
 print(os.getcwd())
 sw = False
 gamees_played = 0
@@ -40,7 +58,7 @@ pi = 3.14
 hasarg = True
 playedg2 = False
 hasarg2 = True
-
+iopqwe = 0
 try:
     arguments = sys.argv
     openfile_dir = arguments[1]
@@ -55,6 +73,7 @@ except:
     hasarg2 = False
 
 if hasarg == True and xxx == 'translate':
+    iopqwe = 0
     try:
         f = open(openfile_dir,'r')
         mes = f.read()
@@ -104,7 +123,7 @@ if hasarg == True and xxx == 'translate':
 
 
 elif hasarg2 == True:
-
+    iopqwe = 0
     cwd = os.getcwd()
     fto = sys.argv[1]
     if fto == 'new':
@@ -112,6 +131,7 @@ elif hasarg2 == True:
         def saveas():
             global txt
             global fname
+            global prevsavedata
             try:
                 files = [('All Files','*.*')]
                 file = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
@@ -135,10 +155,11 @@ elif hasarg2 == True:
                         root.title('Notpad-'+fname)
                         Tk().withdraw()
                         messagebox.showinfo('notpad','Writing sucessfull')
-
+                        prevsavedata = txt.get('1.0','end-1c')
         def save():
             global txt
             global fname
+            global prevsavedata
             try:
                 file = open(fname,'w')
             except:
@@ -149,6 +170,7 @@ elif hasarg2 == True:
             else:
                 file.write(txt.get('1.0','end-1c'))
                 file.close()
+                prevsavedata = txt.get('1.0','end-1c')
 
         def opennew():
             Tk().withdraw()
@@ -206,13 +228,59 @@ elif hasarg2 == True:
             data = data.replace('laugh','lol')
             data = data.replace('Laugh','lol')
             txt.insert(END,data)
+
+        def amconv():
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            data = data.replace('all of you',"y'all")
+            data = data.replace('All of you',"Y'all")
+            data = data.replace('you all',"y'all")
+            data = data.replace('You all',"Y'all")
+            data = data.replace('yes',"yes'm")
+            data = data.replace('Yes',"Yes'm")
+            data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','NullTexanException']))
+            txt.insert(END,data)
+
+        def owoconv():
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            #Why did I make this????
+            #WHY!?!?!?!?!?!
+            data = data.replace('w','w-w')
+            data = data.replace('W','w-w')
+            data = data.replace('d','d-d')
+            data = data.replace('D','d-d')
+            data = data.replace('.','~')
+            data = data.replace('dog','doggo')
+            data = data.replace('pl','pw')
+            data = data.replace('Pl','Pw')
+            data = data.replace('r','w')
+            data = data.replace('R','W')
+            data = data.replace('l','w')
+            data = data.replace('L','W')
+            txt.insert(END,data)
+
+        def terminat():
+            global txt
+            global prevsavedata
+            data = txt.get('1.0','end-1c')
+            if data == prevsavedata:
+                sys.exit()
+            else:
+                Tk().withdraw()
+                x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
+                if x == True:
+                    sys.exit()
+        prevsavedata = ''
         root = Tk()
         root.title('Notpad [new file]')
         root.geometry('1225x720')
         
         txt = Text(root,width=150,height=40,wrap=NONE)
         txt.place(x=0,y=0)
-        btn = Button(root,text='Exit',command=sys.exit,bg='red')
+        btn = Button(root,text='Exit',command=terminat,bg='red')
         btn.place(x=0,y=650)
         btn1 = Button(root,text='Save As',command=saveas)
         btn1.place(x=50,y=650)
@@ -227,6 +295,11 @@ elif hasarg2 == True:
         btn5.place(x=350,y=650)
         btn6 = Button(root,text='Convert to Text Slang',bg='orange',command=txconv)
         btn6.place(x=520,y=650)
+        btn7 = Button(root,text='Convert to American English',bg='red',command=amconv)
+        btn7.place(x=650,y=650)
+
+        btn8 = Button(root,text='Convert to Owo Text',bg='yellow',command=owoconv)
+        btn8.place(x=820,y=650)
         
         scr = Scrollbar(root)
         scr.pack(side='right',fill='y',expand=False)
@@ -243,6 +316,7 @@ elif hasarg2 == True:
         
         
         root.mainloop()
+        
         sys.exit()
     else:
         try:
@@ -254,6 +328,7 @@ elif hasarg2 == True:
             def saveas():
                 global txt
                 global fname
+                global prevsavedata
                 try:
                     files = [('All Files','*.*')]
                     file = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
@@ -277,10 +352,12 @@ elif hasarg2 == True:
                             
                             Tk().withdraw()
                             messagebox.showinfo('notpad','Writing sucessfull')
+                            prevsavedata = txt.get('1.0','end-1c')
 
             def save():
                 global txt
                 global fto
+                global prevsavedata
                 try:
                     file = open(fto,'w')
                 except:
@@ -291,6 +368,7 @@ elif hasarg2 == True:
                 else:
                     file.write(txt.get('1.0','end-1c'))
                     file.close()
+                    prevsavedata = txt.get('1.0','end-1c')
 
             def ats():
                 global txt
@@ -339,6 +417,56 @@ elif hasarg2 == True:
                 data = data.replace('Laugh','lol')
                 txt.insert(END,data)
 
+            def amconv():
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                data = data.replace('all of you',"y'all")
+                data = data.replace('All of you',"Y'all")
+                data = data.replace('you all',"y'all")
+                data = data.replace('You all',"Y'all")
+                data = data.replace('yes',"yes'm")
+                data = data.replace('Yes',"Yes'm")
+                data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','NullTexanException']))
+                txt.insert(END,data)
+
+            def owoconv():
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                #Why did I make this????
+                #WHY!?!?!?!?!?!
+                data = data.replace('w','w-w')
+                data = data.replace('W','w-w')
+                data = data.replace('d','d-d')
+                data = data.replace('D','d-d')
+                data = data.replace('.','~')
+                data = data.replace('dog','doggo')
+                data = data.replace('pl','pw')
+                data = data.replace('Pl','Pw')
+                data = data.replace('r','w')
+                data = data.replace('R','W')
+                data = data.replace('l','w')
+                data = data.replace('L','W')
+                txt.insert(END,data)
+
+            def terminat():
+                global txt
+                global prevsavedata
+                data = txt.get('1.0','end-1c')
+                if data == prevsavedata:
+                    sys.exit()
+                else:
+                    Tk().withdraw()
+                    x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
+                    if x == True:
+                        sys.exit()
+            try:
+                prevsavedata = f.read()
+            except:
+                Tk().withdraw()
+                messagebox.showerror('Text Editor','Could not read file')
+                sys.exit()
             root = Tk()
             root.title('Notpad-'+fto)
             root.geometry('1200x720')
@@ -346,12 +474,12 @@ elif hasarg2 == True:
             txt = Text(root,width=150,height=40,wrap=NONE)
             txt.place(x=0,y=0)
             try:
-                txt.insert(END,str(f.read()))
+                txt.insert(END,prevsavedata)
             except:
                 Tk().withdraw()
                 messagebox.showerror('Notpad','Could not read file')
                 sys.exit()
-            btn = Button(root,text='Exit',command=sys.exit,bg='red')
+            btn = Button(root,text='Exit',command=terminat,bg='red')
             btn.place(x=0,y=650)
             btn1 = Button(root,text='Save As',command=saveas)
             btn1.place(x=50,y=650)
@@ -364,6 +492,10 @@ elif hasarg2 == True:
             btn5.place(x=350,y=650)
             btn6 = Button(root,text='Convert to Text Slang',bg='orange',command=txconv)
             btn6.place(x=520,y=650)
+            btn7 = Button(root,text='Convert to American English',bg='red',command=amconv)
+            btn7.place(x=650,y=650)
+            btn8 = Button(root,text='Convert to Owo Text',bg='yellow',command=owoconv)
+            btn8.place(x=820,y=650)
             scr = Scrollbar(root)
             scr.pack(side='right',fill='y',expand=False)
             txt.config(yscrollcommand=scr.set)
@@ -374,17 +506,22 @@ elif hasarg2 == True:
             scr1.config(command=txt.xview)
             lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
             lbl.place(x=0,y=675)
-            lbl1 = Label(root,text='Notpad Text Editor fro Basic Utilities')
+            lbl1 = Label(root,text='Notpad Text Editor for Basic Utilities')
             lbl1.place(x=500,y=675)
             
             root.mainloop()
+            try:
+                f.close()
+                
+            except:
+                ool = []
             sys.exit()
 
 xae = True
 tcrash = False
 accessdenied = False
 cmd_run = 0
-
+iopqwe = 0
 try:
     f = open("appdata.txt","r")
     besttime = f.read()
@@ -415,6 +552,7 @@ finally:
     try:
         f.close()
     except:
+        iopqwe = 0
         print('CRITICAL EXCEPTION')
         accessdenied = True
         ads = Tk()
@@ -437,7 +575,7 @@ finally:
         btn1 = Button(ads,text='Exit',command=sys.exit,bg='Green')
         btn1.grid(column=0,row=6)
         ads.mainloop()
-
+iopqwe = 0
 try:
     f = open('bcount.txt')
     bootcount = f.read()
@@ -463,14 +601,14 @@ except:
     f = open('bcount.txt','x')
     f.write(str(bootcount))
     f.close()
-
+iopqwe = 0
 def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
     erm = erm + erc
     Tk().withdraw()
     messagebox.showerror("Error",erm)
-
+iopqwe = 0
 def nwstart():
     global nw
     try:
@@ -479,7 +617,7 @@ def nwstart():
         error(2)
     finally:
         nw.destroy()
-
+iopqwe = 0
 def newwindow():
     global nw
     print("Please look at the tkinter window.")
@@ -494,7 +632,7 @@ def newwindow():
     btn323.grid(column=1,row=1)
     nw.mainloop()
     nw.quit()
-
+iopqwe = 0
 def conv(start,end,formula):
     global txt
     global lbl2
@@ -527,6 +665,9 @@ def conv(start,end,formula):
     btn1 = Button(window,text='close',command=die,bg='yellow')
     btn1.grid(column=1,row=2)
     window.mainloop()
+
+iopqwe = 0
+
 def reload():
     try:
         os.startfile("BasicUtilities.exe")
@@ -535,24 +676,23 @@ def reload():
         print('The system will exit now')
     finally:
         sys.exit()
+
+iopqwe = 0
+
 def startsound():
-    
 
-
-
-      
     try:
         playsound(r'startup.mp3')
     except:
         print('',end='\r')
-        
+iopqwe = 0       
 def runfile(filename):
     try:
         os.startfile(filename)
     except:
         error(2)
 
-
+iopqwe = 0
 
 try:
     f = open('username.txt','r')
@@ -575,7 +715,7 @@ except:
 else:
     sysuser = str(f.read())
     f.close()
-
+iopqwe = 0
 try:
     f = open('bday.txt','r')
     x = f.readlines()
@@ -606,7 +746,7 @@ else:
                 print("")
                 print('press enter to continue to the command menu')
                 input()
-
+iopqwe = 0
 t = datetime.datetime.now()
 y = t.year
 p = t.month
@@ -635,7 +775,7 @@ elif p == 10 and o == 31:
 
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
-
+iopqwe = 0
 print('You have booted up Basic Utilities',bootcount,'times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
@@ -719,6 +859,8 @@ f.write(str(x.hour)+'\n')
 f.write(str(x.minute)+'\n')
 f.write(str(x.second)+'\n')
 f.close()
+iopqwe = 0
+iopqwe = 0
 print('')
 print("Welcome to Basic Utilities,",sysuser)
 print(datetime.datetime.now())
@@ -1409,17 +1551,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4548')
-        print('print statements: 839')
-        print('Variables: 1142')
-        print('comparisons 378')
-        print('Exception handling loops 212')
+        print('lines: 4782')
+        print('print statements: 833')
+        print('Variables: 1302')
+        print('comparisons 382')
+        print('Exception handling loops 215')
         print('While loops 46')
         print('For loop 48')
         print('Commands: 132')
         print('Libraries Imported 17')
-        print('files utilized 89')
-        print('Tkinter windows used 77')
+        print('files utilized 88')
+        print('Tkinter windows used 81')
 
     elif command == 'sysplat':
         print('-----')
@@ -3574,7 +3716,7 @@ while xae == True:
     elif command == "credits":
         print("Basic Utilities (c) 2021 Enderbyte Programs")
         print("Installer by Inno Setup")
-        print("Coded in Python 3.7.3, 3.9.2, 3.9.6 and 3.9.5; compiled in Pyinstaller 4.3")
+        print("Coded in Python 3.7.3, 3.9.2, 3.9.6 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1")
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
@@ -3583,7 +3725,7 @@ while xae == True:
         print('And Visual Studio Code for Python 3.7.3 and 3.9.6')
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
-        print('Sound Air Horn from SoundBible')
+        
         print('Sound "Windows Xp Boot" from Instant Sounds')
         
         print('Sound "Windows 7 Boot" from [unknown]')
