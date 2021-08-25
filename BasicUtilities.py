@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.17 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.18 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
 from tkinter import *
 iopqwe = 0
@@ -59,6 +59,11 @@ hasarg = True
 playedg2 = False
 hasarg2 = True
 iopqwe = 0
+pid = os.getpid()
+print(pid)
+def forcekill():
+    global pid
+    os.system('taskkill /F /PID '+str(pid)+' /T')
 try:
     arguments = sys.argv
     openfile_dir = arguments[1]
@@ -132,6 +137,8 @@ elif hasarg2 == True:
             global txt
             global fname
             global prevsavedata
+            global issy
+            global btn15
             try:
                 files = [('All Files','*.*')]
                 file = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
@@ -154,12 +161,15 @@ elif hasarg2 == True:
                     else:
                         root.title('Notpad-'+fname)
                         Tk().withdraw()
+                        issy = True
+                        btn15['state'] = 'normal'
                         messagebox.showinfo('notpad','Writing sucessfull')
                         prevsavedata = txt.get('1.0','end-1c')
         def save():
             global txt
             global fname
             global prevsavedata
+            
             try:
                 file = open(fname,'w')
             except:
@@ -265,21 +275,128 @@ elif hasarg2 == True:
         def terminat():
             global txt
             global prevsavedata
+            global pid
             data = txt.get('1.0','end-1c')
             if data == prevsavedata:
-                sys.exit()
+                istr = False
+                forcekill()
             else:
                 Tk().withdraw()
                 x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
                 if x == True:
-                    sys.exit()
+                    istr = False
+                    forcekill()
+        
+        def scanautosave():
+            try:
+                global chkc
+            except:
+                donothing = 0
+            global istr
+            global issy
+            while True:
+                sleep(10)
+                try:
+                    if int(chkc.get()) == 1 and issy == True:
+                        save()
+                        
+                except:
+                    donothing = 0
+                if istr == False:
+                    break
+        def encd():
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            data = data.replace('a','NJ').replace('b','MPE').replace('c','CEXC').replace('d','QUIE').replace('e','*U&P/HTPS')\
+            .replace('f','XML').replace('g','MDD').replace('h','BU#').replace('i','NNQP').replace('j','DYE').replace('k','AVOO').replace('l','AXZ')\
+            .replace('m','LOL').replace('n','/-/').replace('o','NYX').replace('p','VAN').replace('q','FKUWEUI').replace('r','QYIF')\
+            .replace('s','GHQ[W]').replace('t','CUED').replace('u','MOM').replace('v','OTW').replace('w','BITLY').replace('x','ENDER')\
+            .replace('y','EXE').replace('z','GLHAC.P').replace('0','NULL').replace('1','0').replace('2','1').replace('3','2')\
+            .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8').replace(' ','PWSAC')
+            txt.insert(END,data)
+
+        def dcd():
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            data = data.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
+            .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
+            .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
+            .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
+            .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+            .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
+            txt.insert(END,data)
+        
+        def dai():
+            global ent
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            todel = ent.get()
+            data = data.replace(todel,'')
+            txt.insert(END,data)
+        def dfw():
+            global ent
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            todel = ' '+ent.get()+' '
+            data = data.replace(todel,'')
+            txt.insert(END,data)
+        def repw():
+            global ent
+            global ent2
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete("1.0","end")
+            
+            data = data.replace(ent.get(),ent2.get())
+            txt.insert(END,data)\
+
+        def cio():
+            global ent3
+            global txt
+            data = txt.get('1.0','end-1c')
+            messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get())))
+
+        def writestat():
+            try:
+                global fname
+                global txt
+                data = txt.get('1.0','end-1c')
+                file = open(fname+'stat','w+')
+                file.write('Data for file '+fname+'\n')
+                file.write('At '+str(datetime.datetime.now())+'\n')
+                file.write('File Length: '+str(len(data))+'bytes\n')
+                file.write('File size: '+str(os.path.getsize(fname))+'bytes\n')
+                
+                file.close()
+            except:
+                try:
+                    file.close()
+                except:
+                    donothing = 0
+                Tk().withdraw()
+                messagebox.showerror('Text Editor','Failed to write statistics file')
+            else:
+                Tk().withdraw()
+                messagebox.showinfo('Text Editor','Wrote Statistics file to '+fname+'stat')
+                
+
         prevsavedata = ''
+        istr = True
+        issy = False
+        scaus = threading.Thread(target=scanautosave)
+        scaus.start()
         root = Tk()
         root.title('Notpad [new file]')
-        root.geometry('1225x720')
+        root.geometry('1350x720')
+        scr = Scrollbar(root)
+        scr.pack(side='right',fill='y',expand=False)
         
         txt = Text(root,width=150,height=40,wrap=NONE)
-        txt.place(x=0,y=0)
+        txt.pack(fill=BOTH)
         btn = Button(root,text='Exit',command=terminat,bg='red')
         btn.place(x=0,y=650)
         btn1 = Button(root,text='Save As',command=saveas)
@@ -300,9 +417,14 @@ elif hasarg2 == True:
 
         btn8 = Button(root,text='Convert to Owo Text',bg='yellow',command=owoconv)
         btn8.place(x=820,y=650)
+        btn9 = Button(root,text='Encode',command=encd)
+        btn9.place(x=950,y=650)
+        btn10 = Button(root,text='Decode',command=dcd)
+        btn10.place(x=1000,y=650)
+        chkc = IntVar()
+        chkbx = Checkbutton(root,text='Autosave (10 s)',variable=chkc)
+        chkbx.place(x=350,y=675)
         
-        scr = Scrollbar(root)
-        scr.pack(side='right',fill='y',expand=False)
         txt.config(yscrollcommand=scr.set)
         scr.config(command=txt.yview)
         scr1 = Scrollbar(root,orient='horizontal')
@@ -313,11 +435,27 @@ elif hasarg2 == True:
         lbl.place(x=0,y=675)
         lbl1 = Label(root,text='Notpad Text Editor for Basic Utilities')
         lbl1.place(x=500,y=675)
-        
+        ent = Entry(root,width=20)
+        ent.place(x=700,y=675)
+        btn11 = Button(root,text='Delete all instances',command=dai,bg='skyblue')
+        btn11.place(x=820,y=675)
+        btn12 = Button(root,text='Delete full words only',command=dfw,bg='blue',fg='white')
+        btn12.place(x=930,y=675)
+        btn13 = Button(root,text='Replace with',bg='black',fg='white',command=repw)
+        ent2 = Entry(root,width=20)
+        btn13.place(x=1050,y=675)
+        ent2.place(x=1130,y=675)
+        ent3 = Entry(root,width=10)
+        ent3.place(x=1050,y=650)
+        btn14 = Button(root,text='Count instances of',command=cio)
+        btn14.place(x=1100,y=650)
+        btn15 = Button(root,text='Write statistics file',bg='lime green',command=writestat)
+        btn15.place(x=1225,y=650)
+        btn15['state'] = 'disabled'
         
         root.mainloop()
-        
-        sys.exit()
+        istr = False
+        forcekill()
     else:
         try:
             f = open(fto)
@@ -455,24 +593,128 @@ elif hasarg2 == True:
                 global prevsavedata
                 data = txt.get('1.0','end-1c')
                 if data == prevsavedata:
-                    sys.exit()
+                    forcekill()
                 else:
                     Tk().withdraw()
                     x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
                     if x == True:
-                        sys.exit()
+                        forcekill()
+
+            def scanautosave():
+                try:
+                    global chkc
+                except:
+                    donothing = 0
+                global istr
+                global issy
+                while True:
+                    sleep(10)
+                    try:
+                        if int(chkc.get()) == 1 and issy == True:
+                            save()
+                            
+                    except:
+                        donothing = 0
+                    if istr == False:
+                        break
+            def encd():
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                data = data.replace('a','NJ').replace('b','MPE').replace('c','CEXC').replace('d','QUIE').replace('e','*U&P/HTPS')\
+                .replace('f','XML').replace('g','MDD').replace('h','BU#').replace('i','NNQP').replace('j','DYE').replace('k','AVOO').replace('l','AXZ')\
+                .replace('m','LOL').replace('n','/-/').replace('o','NYX').replace('p','VAN').replace('q','FKUWEUI').replace('r','QYIF')\
+                .replace('s','GHQ[W]').replace('t','CUED').replace('u','MOM').replace('v','OTW').replace('w','BITLY').replace('x','ENDER')\
+                .replace('y','EXE').replace('z','GLHAC.P').replace('0','NULL').replace('1','0').replace('2','1').replace('3','2')\
+                .replace('4','3').replace('5','4').replace('6','5').replace('7','6').replace('8','7').replace('9','8').replace(' ','PWSAC')
+                txt.insert(END,data)
+
+            def dcd():
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                data = data.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
+                .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
+                .replace('NYX','o').replace('/-/','n').replace('LOL','m').replace('AXZ','l').replace('AVOO','k').replace('DYE','j')\
+                .replace('NNQP','i').replace('BU#','h').replace('MDD','g').replace('XML','f').replace('*U&P/HTPS','e').replace('QUIE','d')\
+                .replace('CEXC','c').replace('MPE','b').replace('NJ','a').replace('8','9').replace('7','8').replace('6','7').replace('5','6')\
+                .replace('4','5').replace('3','4').replace('2','3').replace('1','2').replace('0','1').replace('NULL','0').replace('PWSAC',' ')
+                txt.insert(END,data)
+
+            def dai():
+                global ent
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                todel = ent.get()
+                data = data.replace(todel,'')
+                txt.insert(END,data)
+            def dfw():
+                global ent
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                todel = ' '+ent.get()+' '
+                data = data.replace(todel,'')
+                txt.insert(END,data)
+            def repw():
+                global ent
+                global ent2
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete("1.0","end")
+                
+                data = data.replace(ent.get(),ent2.get())
+                txt.insert(END,data)
+
+            def cio():
+                global ent3
+                global txt
+                data = txt.get('1.0','end-1c')
+                messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get())))
+
+            def writestat():
+                try:
+                    global fto
+                    global txt
+                    data = txt.get('1.0','end-1c')
+                    file = open(fto+'stat','w+')
+                    file.write('Data for file '+fto+'\n')
+                    file.write('At '+str(datetime.datetime.now())+'\n')
+                    file.write('File Length: '+str(len(data))+'bytes\n')
+                    file.write('File size: '+str(os.path.getsize(fto))+'bytes\n')
+                    
+                    file.close()
+                except:
+                    try:
+                        file.close()
+                    except:
+                        donothing = 0
+                    Tk().withdraw()
+                    messagebox.showerror('Text Editor','Failed to write statistics file')
+                else:
+                    Tk().withdraw()
+                    messagebox.showinfo('Text Editor','Wrote Statistics file to '+fname+'stat')
+
             try:
                 prevsavedata = f.read()
             except:
                 Tk().withdraw()
                 messagebox.showerror('Text Editor','Could not read file')
                 sys.exit()
+
+            istr = True
+            issy = True
+            scaus = threading.Thread(target=scanautosave)
+            scaus.start()
             root = Tk()
             root.title('Notpad-'+fto)
-            root.geometry('1200x720')
+            root.geometry('1350x720')
+            scr = Scrollbar(root)
+            scr.pack(side='right',fill='y',expand=False)
             
             txt = Text(root,width=150,height=40,wrap=NONE)
-            txt.place(x=0,y=0)
+            txt.pack(fill='x')
             try:
                 txt.insert(END,prevsavedata)
             except:
@@ -496,8 +738,15 @@ elif hasarg2 == True:
             btn7.place(x=650,y=650)
             btn8 = Button(root,text='Convert to Owo Text',bg='yellow',command=owoconv)
             btn8.place(x=820,y=650)
-            scr = Scrollbar(root)
-            scr.pack(side='right',fill='y',expand=False)
+            btn9 = Button(root,text='Encode',command=encd)
+            btn9.place(x=950,y=650)
+            btn10 = Button(root,text='Decode',command=dcd)
+            btn10.place(x=1000,y=650)
+            
+            chkc = IntVar()
+            chkbx = Checkbutton(root,text='Autosave (10 s)',variable=chkc)
+            chkbx.place(x=350,y=675)
+            
             txt.config(yscrollcommand=scr.set)
             scr.config(command=txt.yview)
             scr1 = Scrollbar(root,orient='horizontal')
@@ -508,6 +757,22 @@ elif hasarg2 == True:
             lbl.place(x=0,y=675)
             lbl1 = Label(root,text='Notpad Text Editor for Basic Utilities')
             lbl1.place(x=500,y=675)
+            ent = Entry(root,width=20)
+            ent.place(x=700,y=675)
+            btn11 = Button(root,text='Delete all instances',command=dai,bg='skyblue')
+            btn11.place(x=820,y=675)
+            btn12 = Button(root,text='Delete full words only',command=dfw,bg='blue',fg='white')
+            btn12.place(x=930,y=675)
+            btn13 = Button(root,text='Replace with',bg='black',fg='white',command=repw)
+            ent2 = Entry(root,width=20)
+            btn13.place(x=1050,y=675)
+            ent2.place(x=1130,y=675)
+            ent3 = Entry(root,width=10)
+            ent3.place(x=1050,y=650)
+            btn14 = Button(root,text='Count instances of',command=cio)
+            btn14.place(x=1100,y=650)
+            btn15 = Button(root,text='Write statistics file',bg='lime green',command=writestat)
+            btn15.place(x=1225,y=650)
             
             root.mainloop()
             try:
@@ -515,7 +780,8 @@ elif hasarg2 == True:
                 
             except:
                 ool = []
-            sys.exit()
+            istr = False
+            forcekill()
 
 xae = True
 tcrash = False
@@ -680,9 +946,10 @@ def reload():
 iopqwe = 0
 
 def startsound():
-
     try:
-        playsound(r'startup.mp3')
+        winsound.Beep(880,500)
+        winsound.Beep(587,400)
+        winsound.Beep(659,1000)
     except:
         print('',end='\r')
 iopqwe = 0       
@@ -1551,16 +1818,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 4782')
+        print('lines: 5049')
         print('print statements: 833')
-        print('Variables: 1302')
-        print('comparisons 382')
-        print('Exception handling loops 215')
-        print('While loops 46')
+        print('Variables: 1376')
+        print('comparisons 388')
+        print('Exception handling loops 223')
+        print('While loops 48')
         print('For loop 48')
         print('Commands: 132')
         print('Libraries Imported 17')
-        print('files utilized 88')
+        print('files utilized 90')
         print('Tkinter windows used 81')
 
     elif command == 'sysplat':
