@@ -946,12 +946,21 @@ def reload():
 iopqwe = 0
 
 def startsound():
-    try:
-        winsound.Beep(880,500)
-        winsound.Beep(587,400)
-        winsound.Beep(659,1000)
-    except:
-        print('',end='\r')
+    if os.path.isfile('startsound.dat') == True:
+        try:
+            f = open('startsound.dat')
+            data = f.read()
+        except:
+            print('Startsound file could not be read. Will delete')
+            try:
+                f.close()
+            except:
+                donothing = 0
+            os.remove('startsound.dat')
+        else:
+            f.close()
+            if os.path.isfile(data):
+                playsound(data)
 iopqwe = 0       
 def runfile(filename):
     try:
@@ -1168,6 +1177,7 @@ while xae == True:
         print('rev: Reverse the contents of a file')
         print("stat: Get some statistics of this program.")
         print('usr: change your username')
+        print('startsound: Set your startup sound')
         print('')
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
@@ -1293,6 +1303,36 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == 'startsound':
+        try:
+            f = open('startsound.dat')
+            data = f.read()
+            f.close()
+        except:
+            print('You do not have a start sound')
+        else:
+            if os.path.isfile(data) == True:
+                print('This is your current startup sound')
+                playsound(data)
+                
+            else:
+                print('startsound.dat contains invalid data.')
+        print('Please select a start sound')
+        Tk().withdraw()
+        dlf = filedialog.askopenfilename()
+        print(dlf)
+        
+        try:
+            playsound(str(dlf))
+        except:
+            Tk().withdraw()
+            messagebox.showerror('BU','File is unreadable')
+        else:
+            f = open('startsound.dat','w+')
+            f.write(dlf)
+            f.close()
+            print('Startup sound set to',dlf)
 
     elif command == 'te':
         
