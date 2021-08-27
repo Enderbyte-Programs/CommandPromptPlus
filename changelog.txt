@@ -143,3 +143,5 @@
    2.16.1: Added append time stamp to both new and open. Fixed bugs where editing shortcuts would cause a crash
    2.16.2: Added Canadian and Text Slang translator
 2.17: Added No Exit Without Save for text editor, added Texan english and *groan* owo text converters.
+2.18: Using Ye Olde 1.14-2.15 Icon, BU encode,decode upport for text editor, autosave, delete both all and word, count instances, replace, increased window size, write stats file
+   2.18.1: Added Choose your own startup sound, added percent of char/txe, made stat file output more detailed.

@@ -1,4 +1,4 @@
-print('Basic Utilities Release 2.18 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.18.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
 from tkinter import *
 iopqwe = 0
@@ -358,7 +358,7 @@ elif hasarg2 == True:
             global ent3
             global txt
             data = txt.get('1.0','end-1c')
-            messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get())))
+            messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get()))+' ('+(str(data.count(ent3.get())/len(data)*100)+'%)'))
 
         def writestat():
             try:
@@ -368,8 +368,38 @@ elif hasarg2 == True:
                 file = open(fname+'stat','w+')
                 file.write('Data for file '+fname+'\n')
                 file.write('At '+str(datetime.datetime.now())+'\n')
-                file.write('File Length: '+str(len(data))+'bytes\n')
-                file.write('File size: '+str(os.path.getsize(fname))+'bytes\n')
+                file.write('File Length: '+str(len(data))+' bytes\n')
+                file.write('File size: '+str(os.path.getsize(fname))+' bytes\n')
+                file.write('Instances of A: '+str((data.count('a')+data.count('A')))+' '+str((data.count('a')+data.count('A'))/len(data)*100)+'%\n')
+                file.write('Instances of b: '+str((data.count('b')+data.count('B')))+' '+str((data.count('b')+data.count('B'))/len(data)*100)+'%\n')
+                file.write('Instances of c: '+str((data.count('c')+data.count('C')))+' '+str((data.count('c')+data.count('C'))/len(data)*100)+'%\n')
+                file.write('Instances of d: '+str((data.count('d')+data.count('D')))+' '+str((data.count('d')+data.count('D'))/len(data)*100)+'%\n')
+                file.write('Instances of e: '+str((data.count('e')+data.count('E')))+' '+str((data.count('e')+data.count('E'))/len(data)*100)+'%\n')
+                file.write('Instances of f: '+str((data.count('f')+data.count('F')))+' '+str((data.count('f')+data.count('F'))/len(data)*100)+'%\n')
+                file.write('Instances of g: '+str((data.count('g')+data.count('G')))+' '+str((data.count('g')+data.count('G'))/len(data)*100)+'%\n')
+                file.write('Instances of h: '+str((data.count('h')+data.count('H')))+' '+str((data.count('h')+data.count('H'))/len(data)*100)+'%\n')
+                file.write('Instances of i: '+str((data.count('i')+data.count('I')))+' '+str((data.count('i')+data.count('I'))/len(data)*100)+'%\n')
+                file.write('Instances of j: '+str((data.count('j')+data.count('J')))+' '+str((data.count('j')+data.count('J'))/len(data)*100)+'%\n')
+                file.write('Instances of k: '+str((data.count('k')+data.count('K')))+' '+str((data.count('k')+data.count('K'))/len(data)*100)+'%\n')
+                file.write('Instances of l: '+str((data.count('l')+data.count('L')))+' '+str((data.count('l')+data.count('L'))/len(data)*100)+'%\n')
+                file.write('Instances of m: '+str((data.count('m')+data.count('M')))+' '+str((data.count('m')+data.count('M'))/len(data)*100)+'%\n')
+                file.write('Instances of n: '+str((data.count('n')+data.count('N')))+' '+str((data.count('n')+data.count('N'))/len(data)*100)+'%\n')
+                file.write('Instances of o: '+str((data.count('o')+data.count('O')))+' '+str((data.count('o')+data.count('O'))/len(data)*100)+'%\n')
+                file.write('Instances of p: '+str((data.count('p')+data.count('P')))+' '+str((data.count('p')+data.count('P'))/len(data)*100)+'%\n')
+                file.write('Instances of q: '+str((data.count('q')+data.count('Q')))+' '+str((data.count('q')+data.count('Q'))/len(data)*100)+'%\n')
+                file.write('Instances of r: '+str((data.count('r')+data.count('R')))+' '+str((data.count('r')+data.count('R'))/len(data)*100)+'%\n')
+                file.write('Instances of s: '+str((data.count('s')+data.count('S')))+' '+str((data.count('s')+data.count('S'))/len(data)*100)+'%\n')
+                file.write('Instances of t: '+str((data.count('t')+data.count('T')))+' '+str((data.count('t')+data.count('T'))/len(data)*100)+'%\n')
+                file.write('Instances of u: '+str((data.count('u')+data.count('U')))+' '+str((data.count('u')+data.count('U'))/len(data)*100)+'%\n')
+                file.write('Instances of v: '+str((data.count('v')+data.count('V')))+' '+str((data.count('v')+data.count('V'))/len(data)*100)+'%\n')
+                file.write('Instances of w: '+str((data.count('w')+data.count('W')))+' '+str((data.count('w')+data.count('W'))/len(data)*100)+'%\n')
+                file.write('Instances of x: '+str((data.count('x')+data.count('X')))+' '+str((data.count('x')+data.count('X'))/len(data)*100)+'%\n')
+                file.write('Instances of y: '+str((data.count('y')+data.count('Y')))+' '+str((data.count('y')+data.count('Y'))/len(data)*100)+'%\n')
+                file.write('Instances of z: '+str((data.count('z')+data.count('Z')))+' '+str((data.count('z')+data.count('Z'))/len(data)*100)+'%\n')
+                file.write('Instances of NUM: '+str((data.count('0')+data.count('1')+data.count('2')+data.count('3')+data.count('4')+data.count('5')+data.count('6')+data.count('7')+data.count('8')+data.count('9')))+' '+str((data.count('0')+data.count('1')+data.count('2')+data.count('3')+data.count('4')+data.count('5')+data.count('6')+data.count('7')+data.count('8')+data.count('9'))/len(data)*100)+'%\n')
+                file.write('Instances of SPACE: '+str(data.count(' '))+' '+str(data.count(' ')/len(data)*100)+'%\n')
+                file.write('Instances of SYM: '+str((data.count('!')+data.count('@')+data.count('#')+data.count('$')+data.count('%')+data.count('^')+data.count('&')+data.count('*')+data.count('(')+data.count(')')+data.count('-')+data.count('_')+data.count('/')+data.count(';')+data.count(',')+data.count('.')))+' '+str((data.count('!')+data.count('@')+data.count('#')+data.count('$')+data.count('%')+data.count('^')+data.count('&')+data.count('*')+data.count('(')+data.count(')')+data.count('-')+data.count('_')+data.count('/')+data.count(';')+data.count(',')+data.count('.'))/len(data)*100)+'%\n')
+                
                 
                 file.close()
             except:
@@ -671,7 +701,7 @@ elif hasarg2 == True:
                 global ent3
                 global txt
                 data = txt.get('1.0','end-1c')
-                messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get())))
+                messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get()))+' ('+(str(data.count(ent3.get())/len(data)*100)+'%)'))
 
             def writestat():
                 try:
@@ -681,8 +711,38 @@ elif hasarg2 == True:
                     file = open(fto+'stat','w+')
                     file.write('Data for file '+fto+'\n')
                     file.write('At '+str(datetime.datetime.now())+'\n')
-                    file.write('File Length: '+str(len(data))+'bytes\n')
-                    file.write('File size: '+str(os.path.getsize(fto))+'bytes\n')
+                    file.write('File Length: '+str(len(data))+' bytes\n')
+                    file.write('File size: '+str(os.path.getsize(fto))+' bytes\n')
+                    file.write('Instances of A: '+str((data.count('a')+data.count('A')))+' '+str((data.count('a')+data.count('A'))/len(data)*100)+'%\n')
+                    file.write('Instances of b: '+str((data.count('b')+data.count('B')))+' '+str((data.count('b')+data.count('B'))/len(data)*100)+'%\n')
+                    file.write('Instances of c: '+str((data.count('c')+data.count('C')))+' '+str((data.count('c')+data.count('C'))/len(data)*100)+'%\n')
+                    file.write('Instances of d: '+str((data.count('d')+data.count('D')))+' '+str((data.count('d')+data.count('D'))/len(data)*100)+'%\n')
+                    file.write('Instances of e: '+str((data.count('e')+data.count('E')))+' '+str((data.count('e')+data.count('E'))/len(data)*100)+'%\n')
+                    file.write('Instances of f: '+str((data.count('f')+data.count('F')))+' '+str((data.count('f')+data.count('F'))/len(data)*100)+'%\n')
+                    file.write('Instances of g: '+str((data.count('g')+data.count('G')))+' '+str((data.count('g')+data.count('G'))/len(data)*100)+'%\n')
+                    file.write('Instances of h: '+str((data.count('h')+data.count('H')))+' '+str((data.count('h')+data.count('H'))/len(data)*100)+'%\n')
+                    file.write('Instances of i: '+str((data.count('i')+data.count('I')))+' '+str((data.count('i')+data.count('I'))/len(data)*100)+'%\n')
+                    file.write('Instances of j: '+str((data.count('j')+data.count('J')))+' '+str((data.count('j')+data.count('J'))/len(data)*100)+'%\n')
+                    file.write('Instances of k: '+str((data.count('k')+data.count('K')))+' '+str((data.count('k')+data.count('K'))/len(data)*100)+'%\n')
+                    file.write('Instances of l: '+str((data.count('l')+data.count('L')))+' '+str((data.count('l')+data.count('L'))/len(data)*100)+'%\n')
+                    file.write('Instances of m: '+str((data.count('m')+data.count('M')))+' '+str((data.count('m')+data.count('M'))/len(data)*100)+'%\n')
+                    file.write('Instances of n: '+str((data.count('n')+data.count('N')))+' '+str((data.count('n')+data.count('N'))/len(data)*100)+'%\n')
+                    file.write('Instances of o: '+str((data.count('o')+data.count('O')))+' '+str((data.count('o')+data.count('O'))/len(data)*100)+'%\n')
+                    file.write('Instances of p: '+str((data.count('p')+data.count('P')))+' '+str((data.count('p')+data.count('P'))/len(data)*100)+'%\n')
+                    file.write('Instances of q: '+str((data.count('q')+data.count('Q')))+' '+str((data.count('q')+data.count('Q'))/len(data)*100)+'%\n')
+                    file.write('Instances of r: '+str((data.count('r')+data.count('R')))+' '+str((data.count('r')+data.count('R'))/len(data)*100)+'%\n')
+                    file.write('Instances of s: '+str((data.count('s')+data.count('S')))+' '+str((data.count('s')+data.count('S'))/len(data)*100)+'%\n')
+                    file.write('Instances of t: '+str((data.count('t')+data.count('T')))+' '+str((data.count('t')+data.count('T'))/len(data)*100)+'%\n')
+                    file.write('Instances of u: '+str((data.count('u')+data.count('U')))+' '+str((data.count('u')+data.count('U'))/len(data)*100)+'%\n')
+                    file.write('Instances of v: '+str((data.count('v')+data.count('V')))+' '+str((data.count('v')+data.count('V'))/len(data)*100)+'%\n')
+                    file.write('Instances of w: '+str((data.count('w')+data.count('W')))+' '+str((data.count('w')+data.count('W'))/len(data)*100)+'%\n')
+                    file.write('Instances of x: '+str((data.count('x')+data.count('X')))+' '+str((data.count('x')+data.count('X'))/len(data)*100)+'%\n')
+                    file.write('Instances of y: '+str((data.count('y')+data.count('Y')))+' '+str((data.count('y')+data.count('Y'))/len(data)*100)+'%\n')
+                    file.write('Instances of z: '+str((data.count('z')+data.count('Z')))+' '+str((data.count('z')+data.count('Z'))/len(data)*100)+'%\n')
+                    file.write('Instances of NUM: '+str((data.count('0')+data.count('1')+data.count('2')+data.count('3')+data.count('4')+data.count('5')+data.count('6')+data.count('7')+data.count('8')+data.count('9')))+' '+str((data.count('0')+data.count('1')+data.count('2')+data.count('3')+data.count('4')+data.count('5')+data.count('6')+data.count('7')+data.count('8')+data.count('9'))/len(data)*100)+'%\n')
+                    file.write('Instances of SPACE: '+str(data.count(' '))+' '+str(data.count(' ')/len(data)*100)+'%\n')
+                    file.write('Instances of SYM: '+str((data.count('!')+data.count('@')+data.count('#')+data.count('$')+data.count('%')+data.count('^')+data.count('&')+data.count('*')+data.count('(')+data.count(')')+data.count('-')+data.count('_')+data.count('/')+data.count(';')+data.count(',')+data.count('.')))+' '+str((data.count('!')+data.count('@')+data.count('#')+data.count('$')+data.count('%')+data.count('^')+data.count('&')+data.count('*')+data.count('(')+data.count(')')+data.count('-')+data.count('_')+data.count('/')+data.count(';')+data.count(',')+data.count('.'))/len(data)*100)+'%\n')
+                    
                     
                     file.close()
                 except:
@@ -694,7 +754,7 @@ elif hasarg2 == True:
                     messagebox.showerror('Text Editor','Failed to write statistics file')
                 else:
                     Tk().withdraw()
-                    messagebox.showinfo('Text Editor','Wrote Statistics file to '+fname+'stat')
+                    messagebox.showinfo('Text Editor','Wrote Statistics file to '+fto+'stat')
 
             try:
                 prevsavedata = f.read()
@@ -961,6 +1021,8 @@ def startsound():
             f.close()
             if os.path.isfile(data):
                 playsound(data)
+    else:
+        print('You currently do not have a startup sound set. Set one via the startsound command')
 iopqwe = 0       
 def runfile(filename):
     try:
@@ -1858,16 +1920,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5049')
-        print('print statements: 833')
-        print('Variables: 1376')
-        print('comparisons 388')
-        print('Exception handling loops 223')
+        print('lines: 5151')
+        print('print statements: 842')
+        print('Variables: 1383')
+        print('comparisons 391')
+        print('Exception handling loops 226')
         print('While loops 48')
         print('For loop 48')
-        print('Commands: 132')
+        print('Commands: 133')
         print('Libraries Imported 17')
-        print('files utilized 90')
+        print('files utilized 93')
         print('Tkinter windows used 81')
 
     elif command == 'sysplat':
