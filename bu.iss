@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.18.1.0"
+#define MyAppVersion "2.19.0"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -25,11 +25,11 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\BasicUtilities
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\BasicUtilities\license.txt
+LicenseFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities-2.18.1
+OutputBaseFilename=basicutilities-2.19
 SetupIconFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
@@ -93,6 +93,8 @@ Type: files; Name: "{app}\permaping.bat";Tasks: clrold
 Type: files; Name: "{app}\stop.bat";Tasks: clrold
 Type: files; Name: "{app}\notice.txt";Tasks: clrold
 Type: files; Name: "{app}\notes.txt";Tasks: clrold
+Type: files; Name: "{app}\changelog.txt";Tasks: clrold
+Type: files; Name: "{app}\license.txt";Tasks: clrold
 
 Type: files; Name: "{app}\unins000.exe"
 Type: files; Name: "{app}\can.mp3";Tasks: clrold
@@ -111,5 +113,6 @@ Type: files; Name: "{app}\health.txt"
 Type: files; Name: "{app}\xp.txt.txt"
 Type: files; Name: "{app}\username.txt"
 Type: files; Name: "{app}\startsound.dat"
+Type: files; Name: "{app}\log_000.log"
 Type: dirifempty; Name: {app}
 

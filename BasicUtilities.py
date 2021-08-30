@@ -1,8 +1,19 @@
-print('Basic Utilities Release 2.18.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.19 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
+SYSVERSION = '2.19.0'
+ 
 from tkinter import *
 iopqwe = 0
 from tkinter import messagebox
+import datetime
+def log(stuff_to_log):
+    
+    f = open('log_000.log','a+')
+
+    f.write(str('['+str(datetime.datetime.now())+'] '+stuff_to_log)+'\n')
+    f.close()
+   
+
 iopqwe = 0
 try:
     import winsound
@@ -16,10 +27,11 @@ iopqwe = 0
 import platform
 iopqwe = 0
 import random
+from packaging import version
 iopqwe = 0
 from time import sleep
 iopqwe = 0
-import datetime
+
 iopqwe = 0
 try:
     from playsound import playsound
@@ -34,10 +46,14 @@ iopqwe = 0
 iopqwe = 0
 import sys
 iopqwe = 0
+reqins = False
 try:
     from requests import get
 except:
     print('Some features may be broken because you dont have requests installed.')
+else:
+    SYSVERDATA = get('https://pastebin.com/raw/htCBGFXf').text
+    reqins = True
 iopqwe = 0
 from tkinter import filedialog
 iopqwe = 0
@@ -62,6 +78,10 @@ iopqwe = 0
 pid = os.getpid()
 print(pid)
 def forcekill():
+    log('Program stopped with exit code 0')
+    global pid
+    os.system('taskkill /F /PID '+str(pid)+' /T')
+def forcekillnl():
     global pid
     os.system('taskkill /F /PID '+str(pid)+' /T')
 try:
@@ -124,7 +144,7 @@ if hasarg == True and xxx == 'translate':
                 messagebox.showerror('Error','Could not write')
     print('Press enter to quit program.')
     input()
-    sys.exit()
+    forcekill()
 
 
 elif hasarg2 == True:
@@ -279,13 +299,13 @@ elif hasarg2 == True:
             data = txt.get('1.0','end-1c')
             if data == prevsavedata:
                 istr = False
-                forcekill()
+                forcekillnl()
             else:
                 Tk().withdraw()
                 x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
                 if x == True:
                     istr = False
-                    forcekill()
+                    forcekillnl()
         
         def scanautosave():
             try:
@@ -352,7 +372,7 @@ elif hasarg2 == True:
             txt.delete("1.0","end")
             
             data = data.replace(ent.get(),ent2.get())
-            txt.insert(END,data)\
+            txt.insert(END,data)
 
         def cio():
             global ent3
@@ -412,6 +432,14 @@ elif hasarg2 == True:
             else:
                 Tk().withdraw()
                 messagebox.showinfo('Text Editor','Wrote Statistics file to '+fname+'stat')
+
+        def reverse():
+            global txt
+            data = txt.get('1.0','end-1c')
+            txt.delete('1.0',"end")
+            datalen = len(data)
+            data = data[datalen::-1]
+            txt.insert(END,data)
                 
 
         prevsavedata = ''
@@ -430,14 +458,16 @@ elif hasarg2 == True:
         btn = Button(root,text='Exit',command=terminat,bg='red')
         btn.place(x=0,y=650)
         btn1 = Button(root,text='Save As',command=saveas)
-        btn1.place(x=50,y=650)
+        btn1.place(x=30,y=650)
         
         btn2 = Button(root,text='Save',bg='green',command=save)
-        btn2.place(x=100,y=650)
+        btn2.place(x=80,y=650)
         btn3 = Button(root,text='Open',command=opennew)
-        btn3.place(x=150,y=650)
+        btn3.place(x=115,y=650)
         btn4 = Button(root,text='Append Time Stamp',command=ats)
-        btn4.place(x=200,y=650)
+        btn4.place(x=150,y=650)
+        btn16 = Button(root,text='Reverse',bg='black',fg='white',command=reverse)
+        btn16.place(x=280,y=650)
         btn5 = Button(root,text='Convert to Canadian English',bg='lime green',command=canaconv)
         btn5.place(x=350,y=650)
         btn6 = Button(root,text='Convert to Text Slang',bg='orange',command=txconv)
@@ -485,7 +515,7 @@ elif hasarg2 == True:
         
         root.mainloop()
         istr = False
-        forcekill()
+        forcekillnl()
     else:
         try:
             f = open(fto)
@@ -623,12 +653,12 @@ elif hasarg2 == True:
                 global prevsavedata
                 data = txt.get('1.0','end-1c')
                 if data == prevsavedata:
-                    forcekill()
+                    forcekillnl()
                 else:
                     Tk().withdraw()
                     x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
                     if x == True:
-                        forcekill()
+                        forcekillnl()
 
             def scanautosave():
                 try:
@@ -755,13 +785,19 @@ elif hasarg2 == True:
                 else:
                     Tk().withdraw()
                     messagebox.showinfo('Text Editor','Wrote Statistics file to '+fto+'stat')
-
+            def reverse():
+                global txt
+                data = txt.get('1.0','end-1c')
+                txt.delete('1.0',"end")
+                datalen = len(data)
+                data = data[datalen::-1]
+                txt.insert(END,data)
             try:
                 prevsavedata = f.read()
             except:
                 Tk().withdraw()
                 messagebox.showerror('Text Editor','Could not read file')
-                sys.exit()
+                forcekillnl()
 
             istr = True
             issy = True
@@ -780,16 +816,18 @@ elif hasarg2 == True:
             except:
                 Tk().withdraw()
                 messagebox.showerror('Notpad','Could not read file')
-                sys.exit()
+                forcekillnl()
             btn = Button(root,text='Exit',command=terminat,bg='red')
             btn.place(x=0,y=650)
             btn1 = Button(root,text='Save As',command=saveas)
-            btn1.place(x=50,y=650)
+            btn1.place(x=30,y=650)
+            btn16 = Button(root,text='Reverse',bg='black',fg='white',command=reverse)
+            btn16.place(x=280,y=650)
             
             btn2 = Button(root,text='Save',bg='green',command=save)
-            btn2.place(x=100,y=650)
+            btn2.place(x=80,y=650)
             btn4 = Button(root,text='Append Time Stamp',command=ats)
-            btn4.place(x=200,y=650)
+            btn4.place(x=115,y=650)
             btn5 = Button(root,text='Convert to Canadian English',bg='lime green',command=canaconv)
             btn5.place(x=350,y=650)
             btn6 = Button(root,text='Convert to Text Slang',bg='orange',command=txconv)
@@ -841,8 +879,12 @@ elif hasarg2 == True:
             except:
                 ool = []
             istr = False
-            forcekill()
-
+            forcekillnl()
+try:        
+    log('program started')
+except:
+    Tk().withdraw()
+    messagebox.showerror('BU','Could not write log file')
 xae = True
 tcrash = False
 accessdenied = False
@@ -883,7 +925,7 @@ finally:
         accessdenied = True
         ads = Tk()
         ads.title('BU Critical Exception')
-        ads.geometry('800x600')
+        
         ads.configure(background='blue')
         lbl = Label(ads,text=':(',font=("Arial Bold",64),bg='blue')
         lbl.grid(column=0,row=0)
@@ -892,7 +934,7 @@ finally:
         lbl2 = Label(ads,text='ERROR: Access Denied',bg='blue')
         lbl2.grid(column=0,row=2)
         
-        lbl4 = Label(ads,text='It is reccomended that you exit and move me to a folder that I have perms in.',bg='blue')
+        lbl4 = Label(ads,text='It is reccomended that you exit and move me to a folder that I have write permissions in.',bg='blue')
         lbl5 = Label(ads,text='Or you can click run as admin.',bg='blue')
         
         lbl4.grid(column=0,row=4)
@@ -949,13 +991,13 @@ def newwindow():
     print("Please look at the tkinter window.")
     nw = Tk()
     nw.title("New Window Starter")
-    nw.geometry("800x50")
+    nw.geometry("525x50")
     lbl = Label(nw,text='Do you want to start a new window of BasicUtilities before you run this long/infinite command?')
-    lbl.grid(column=0,row=0)
+    lbl.pack(side=TOP)
     btn322 = Button(nw,text='Yes',command=nwstart,bg="green")
-    btn322.grid(column=0,row=1)
+    btn322.pack(side=LEFT)
     btn323 = Button(nw,text='No',command=nw.destroy,bg="red")
-    btn323.grid(column=1,row=1)
+    btn323.pack(side=LEFT)
     nw.mainloop()
     nw.quit()
 iopqwe = 0
@@ -1001,7 +1043,7 @@ def reload():
         error(2)
         print('The system will exit now')
     finally:
-        sys.exit()
+        forcekill()
 
 iopqwe = 0
 
@@ -1023,6 +1065,8 @@ def startsound():
                 playsound(data)
     else:
         print('You currently do not have a startup sound set. Set one via the startsound command')
+ss_po = threading.Thread(target=startsound)
+ss_po.start()
 iopqwe = 0       
 def runfile(filename):
     try:
@@ -1111,8 +1155,7 @@ elif p == 10 and o == 31:
     print('Happy Halloween, User!')
 #Couldn't find any more fixed-date holidays that are recognized globally.
 
-ss_po = threading.Thread(target=startsound)
-ss_po.start()
+
 iopqwe = 0
 print('You have booted up Basic Utilities',bootcount,'times.')
 x = datetime.datetime.now()
@@ -1211,20 +1254,29 @@ elif x.hour > 17 and x.hour < 22:
     print('Good evening,',sysuser)
 else:
     print('Good night,',sysuser)
-
+nua = False
 print(sysslash)
+if reqins == True:
+    SYSVERNUM = version.parse(SYSVERDATA[0:6])
+    SYSVERSION = version.parse(SYSVERSION)
+    if SYSVERNUM > SYSVERSION:
+        print('A new update is available. Run the "update" command for more details')
+        log('Found new update')
+        nua = True
 while xae == True:
     crashed = False
     print("")
     print("-----Command Menu-----")
     print("Type your command under here and press enter")
     command = input()
+    log('User executed command '+command)
     if command == "help" or command == "?":
+        
         print("-----Commands List-----")
         print('-----Misc-----')
         print("help: Shows this list")
         
-        print('ls: View the license')
+        print('seelog: View the log')
         
         print("draw: Draw with Turtle!")
         print("credits: View credits.")
@@ -1315,6 +1367,7 @@ while xae == True:
         print('bumem: Get a statistic about how much of YOUR memory WE are using!')
         print('tsklst: List all task running on the system')
         print('ip6: Get your Ipv6 address')
+        print('update: check for updates')
         if sysslash == '\\':
             print('diran: Get directory statistics and write to file')
             print('te: Open the Text Editor that comes with this.')
@@ -1366,6 +1419,21 @@ while xae == True:
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
 
+    elif command == 'update':
+        if nua == True:
+            
+            Tk().withdraw()
+            m = messagebox.askyesno('BU','A new update ('+SYSVERDATA[0:6]+') is available. Do you want to download it?')
+            if m == True:
+                webbrowser.open(SYSVERDATA[6:len(SYSVERDATA)])
+                log('Download new update')
+        else:
+            Tk().withdraw()
+            messagebox.showinfo('BU','No new updates are available')
+
+    elif command == 'seelog':
+        os.startfile('log_000.log')
+
     elif command == 'startsound':
         try:
             f = open('startsound.dat')
@@ -1395,6 +1463,7 @@ while xae == True:
             f.write(dlf)
             f.close()
             print('Startup sound set to',dlf)
+            log('Changed startsound')
 
     elif command == 'te':
         
@@ -1529,10 +1598,12 @@ while xae == True:
                 f.write(sysuser)
                 f.close()
                 print('Sucess')
+                log('Changed username')
         else:
             f.write(sysuser)
             f.close()
             print('sucess')
+            log('Changed username')
     
 
     elif command == 'rname':
@@ -1670,6 +1741,9 @@ while xae == True:
         Tk().withdraw()
         da8 = messagebox.askyesno('Basic Utilities','Do you want to clear system Username?')
         print('ClearUsr =',da8)
+        Tk().withdraw()
+        da9 = messagebox.askyesno('Basic Utilities','Do you want to clear startup sound?')
+        print('ClearStartSound =',da9)
         print('-----')
         print('Confirm? [y/n]')
         conf = input()
@@ -1738,6 +1812,14 @@ while xae == True:
                     print('File not found')
                 else:
                     print('Deleted succesfully')
+            if da9 == True:
+                try:
+                    os.remove('startsound.dat')
+                except:
+                    print('File not found')
+                else:
+                    print('Deleted succesfully')
+            log('User reset some appdata')
             Tk().withdraw()
             messagebox.showinfo('Basic Utilities','Press OK to reload BasicUtilities')
             reload()
@@ -1799,8 +1881,14 @@ while xae == True:
             fcln +=1
         except:
             fcln +=0
+        try:
+            os.remove('license.txt')
+            fcln +=1
+        except:
+            fcln +=0
         
         print(fcln,' useless files removed.')
+        log('User cleaned out old files')
 
 
     elif command == 'emc2':
@@ -2636,9 +2724,9 @@ while xae == True:
             print('C@&s3: y07r syst3m hav3 h0l*d^^n02')
             print('pr3@@ 3n53r t0 g0 t0 s7st3m sh*5d02n')
             input()
-            sys.exit()
+            forcekill()
         else:
-            sys.exit()
+            forcekill()
     elif command == 'notifs':
         def nn():
             global nf
@@ -3017,7 +3105,7 @@ while xae == True:
             error(2)
             print('Main uninstaller failed to start.')
         else:
-            sys.exit()
+            os.system('taskkill /F /IM BasicUtilities.exe')
 
     elif command == 'wb':
         webbrowser.open('https://bit.ly/enderexe')
@@ -4124,7 +4212,7 @@ while xae == True:
         pr.mainloop()
     elif command == "stop":
         xae = False
-        sys.exit()
+        forcekill()
         break
     elif command == "stopall":
         try:
