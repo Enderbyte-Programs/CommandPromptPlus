@@ -146,3 +146,4 @@
 2.18: Using Ye Olde 1.14-2.15 Icon, BU encode,decode upport for text editor, autosave, delete both all and word, count instances, replace, increased window size, write stats file
    2.18.1: Added Choose your own startup sound, added percent of char/txe, made stat file output more detailed.
 2.19: Added reverse text for text editor, now out of space. Added update notifier, compressed picture, added log.
+   2.19.1: Fixed bug with ip6 command; first test for update notifier
