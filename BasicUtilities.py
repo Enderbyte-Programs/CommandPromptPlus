@@ -1,6 +1,6 @@
-print('Basic Utilities Release 2.19 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.19.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.19.0'
+SYSVERSION = '2.19.1'
  
 from tkinter import *
 iopqwe = 0
@@ -2297,7 +2297,7 @@ while xae == True:
         print('Your public IPv4 address is: {}'.format(ip))
 
     elif command == 'ip6':
-        ip = get('https://ipify.org').text
+        ip = get('https://api64.ipify.org').text
         print('Your public IPv6 address is: {}'.format(ip))
 
     elif command == 'rmg':
