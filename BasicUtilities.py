@@ -1,7 +1,7 @@
-print('Basic Utilities Release 2.19.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.19.3 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.19.1'
- 
+SYSVERSION = '2.19.3'
+from plyer import notification
 from tkinter import *
 iopqwe = 0
 from tkinter import messagebox
@@ -195,8 +195,8 @@ elif hasarg2 == True:
             except:
                 Tk().withdraw()
                 messagebox.showerror('notpad','Error. Did you make sure to \n\
-                    Make sure to save as first?\n\
-                        Make sure I have write perms in the output directory')
+                Make sure to save as first?\n\
+                Make sure I have write perms in the output directory')
             else:
                 file.write(txt.get('1.0','end-1c'))
                 file.close()
@@ -296,16 +296,28 @@ elif hasarg2 == True:
             global txt
             global prevsavedata
             global pid
+            global istr
             data = txt.get('1.0','end-1c')
             if data == prevsavedata:
                 istr = False
                 forcekillnl()
             else:
                 Tk().withdraw()
-                x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
+                x = messagebox.askyesnocancel('Text Editor','You have unsaved work. Do you want to save before closing?')
                 if x == True:
-                    istr = False
-                    forcekillnl()
+                    if prevsavedata == '':
+                        saveas()
+                        if prevsavedata == '':
+                            donothing = 0
+                        else:
+                            forcekillnl()
+                    else:
+                        save()
+                        forcekillnl()
+                elif x == False:
+                    
+                    forcekill()
+
         
         def scanautosave():
             try:
@@ -656,8 +668,11 @@ elif hasarg2 == True:
                     forcekillnl()
                 else:
                     Tk().withdraw()
-                    x = messagebox.askyesno('Text Editor','You have unsaved work. Are you sure you want to exit now?')
+                    x = messagebox.askyesnocancel('Text Editor','You have unsaved work. Do you want to save before closing?')
                     if x == True:
+                        save()
+                        forcekillnl()
+                    elif x == False:
                         forcekillnl()
 
             def scanautosave():
@@ -1258,9 +1273,14 @@ nua = False
 print(sysslash)
 if reqins == True:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse(SYSVERSION)
+    SYSVERSION = version.parse("2.19.3")
     if SYSVERNUM > SYSVERSION:
-        print('A new update is available. Run the "update" command for more details')
+        notification.notify(
+        title='BU Update',
+        message='A new update ('+SYSVERDATA[0:6]+') is available. Run the command "update" to download.',
+        app_icon='bu.ico',
+        timeout=10
+)
         log('Found new update')
         nua = True
 while xae == True:
@@ -2008,15 +2028,15 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5151')
-        print('print statements: 842')
-        print('Variables: 1383')
-        print('comparisons 391')
-        print('Exception handling loops 226')
+        print('lines: 5259')
+        print('print statements: 846')
+        print('Variables: 1402')
+        print('comparisons 401')
+        print('Exception handling loops 229')
         print('While loops 48')
         print('For loop 48')
         print('Commands: 133')
-        print('Libraries Imported 17')
+        print('Libraries Imported 19')
         print('files utilized 93')
         print('Tkinter windows used 81')
 
