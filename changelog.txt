@@ -147,3 +147,5 @@
    2.18.1: Added Choose your own startup sound, added percent of char/txe, made stat file output more detailed.
 2.19: Added reverse text for text editor, now out of space. Added update notifier, compressed picture, added log.
    2.19.1: Fixed bug with ip6 command; first test for update notifier
+   2.19.2: MadeText editor exit without save better
+   2.19.3: Madenew update available into Desktop Notifications!
