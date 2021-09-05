@@ -149,3 +149,4 @@
    2.19.1: Fixed bug with ip6 command; first test for update notifier
    2.19.2: MadeText editor exit without save better
    2.19.3: Madenew update available into Desktop Notifications!
+   2.19.4: Fixed a bug where restart and shutdown commands would delay 30 seconds
