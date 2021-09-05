@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.19.3"
+#define MyAppVersion "2.19.4"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -29,7 +29,7 @@ LicenseFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\licens
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities-2.19.3
+OutputBaseFilename=basicutilities-2.19.4
 SetupIconFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes

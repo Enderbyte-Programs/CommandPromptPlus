@@ -1,6 +1,6 @@
-print('Basic Utilities Release 2.19.3 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.19.4 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.19.3'
+SYSVERSION = '2.19.4'
 from plyer import notification
 from tkinter import *
 iopqwe = 0
@@ -1273,7 +1273,7 @@ nua = False
 print(sysslash)
 if reqins == True:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.19.3")
+    SYSVERSION = version.parse("2.19.4")
     if SYSVERNUM > SYSVERSION:
         notification.notify(
         title='BU Update',
@@ -1671,7 +1671,7 @@ while xae == True:
         print('-----')
 
     elif command == 'shutdown':
-        os.system("shutdown /s")
+        os.system("shutdown /s /t 0")
 
     elif command == 'tkdebug':
         
@@ -4484,7 +4484,7 @@ while xae == True:
     elif command == "logoff":
         os.system('shutdown /l')
     elif command == "restart":
-        os.system('shutdown /r')
+        os.system('shutdown /r /t 0')
 
     elif command == "rng":
         afghs = True
