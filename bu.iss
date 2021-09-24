@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.19.4"
+#define MyAppVersion "2.20"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -29,7 +29,7 @@ LicenseFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\licens
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities-2.19.4
+OutputBaseFilename=basicutilities-2.20
 SetupIconFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
@@ -100,6 +100,8 @@ Type: files; Name: "{app}\unins000.exe"
 Type: files; Name: "{app}\can.mp3";Tasks: clrold
 Type: files; Name: "{app}\warning.mp3";Tasks: clrold
 Type: files; Name: "{app}\startup.mp3";Tasks: clrold
+Type: files; Name: "{app}\error.vbs";Tasks: clrold
+Type: files; Name: "{app}\gameboard.jpg";Tasks: clrold
 
 
 [UninstallDelete]
