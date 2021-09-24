@@ -151,3 +151,4 @@
    2.19.3: Madenew update available into Desktop Notifications!
    2.19.4: Fixed a bug where restart and shutdown commands would delay 30 seconds
 2.20: Made questions nicer, added SUPPORT FOR MAKING AND UNMAKING TAR.GZ FILES, scanall
+2.21: Added custom excpetion handler, search, speed
