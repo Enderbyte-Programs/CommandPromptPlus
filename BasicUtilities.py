@@ -1,13 +1,21 @@
-print('Basic Utilities Release 2.20 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.21 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.20'
+SYSVERSION = '2.21'
+from tkinter import messagebox, Tk
+def toplevelerror(message,title='Error'):
+    title = str(title)
+    message = str(message)
+    root = Tk()
+    root.wm_attributes("-topmost",True)
+    root.withdraw()
+    messagebox.showerror(title,message)
+try:
+    import pyutils39
+except Exception as e:
+    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 
-from tkinter import *
-import pyutils39
-import tarfile
-iopqwe = 0
-from tkinter import messagebox
-import datetime
+from traceback import format_tb
+import sys
 def log(stuff_to_log):
     
     f = open('log_000.log','a+')
@@ -15,7 +23,26 @@ def log(stuff_to_log):
     f.write(str('['+str(datetime.datetime.now())+'] '+stuff_to_log)+'\n')
     f.close()
    
+def handle_exception(type,value,traceback):
+    if issubclass(type, KeyboardInterrupt):
+        pass
+    else:
+        try:
+            log('!UNCAUGHT EXCPEION!'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+        except:
+            pass
+        toplevelerror('A fatal exception occured in Basic Utilities. ERROR:\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+from tkinter import *
 
+import tarfile
+
+iopqwe = 0
+
+import datetime
+
+    
+
+sys.excepthook = handle_exception
 iopqwe = 0
 try:
     import winsound
@@ -46,7 +73,7 @@ import threading
 iopqwe = 0
 
 iopqwe = 0
-import sys
+
 iopqwe = 0
 reqins = False
 try:
@@ -310,7 +337,7 @@ elif hasarg2 == True:
                     if prevsavedata == '':
                         saveas()
                         if prevsavedata == '':
-                            donothing = 0
+                            pass
                         else:
                             forcekillnl()
                     else:
@@ -325,7 +352,7 @@ elif hasarg2 == True:
             try:
                 global chkc
             except:
-                donothing = 0
+                pass
             global istr
             global issy
             while True:
@@ -335,7 +362,7 @@ elif hasarg2 == True:
                         save()
                         
                 except:
-                    donothing = 0
+                    pass
                 if istr == False:
                     break
         def encd():
@@ -440,7 +467,7 @@ elif hasarg2 == True:
                 try:
                     file.close()
                 except:
-                    donothing = 0
+                    pass
                 Tk().withdraw()
                 messagebox.showerror('Text Editor','Failed to write statistics file')
             else:
@@ -681,7 +708,7 @@ elif hasarg2 == True:
                 try:
                     global chkc
                 except:
-                    donothing = 0
+                    pass
                 global istr
                 global issy
                 while True:
@@ -691,7 +718,7 @@ elif hasarg2 == True:
                             save()
                             
                     except:
-                        donothing = 0
+                        pass
                     if istr == False:
                         break
             def encd():
@@ -796,7 +823,7 @@ elif hasarg2 == True:
                     try:
                         file.close()
                     except:
-                        donothing = 0
+                        pass
                     Tk().withdraw()
                     messagebox.showerror('Text Editor','Failed to write statistics file')
                 else:
@@ -897,11 +924,9 @@ elif hasarg2 == True:
                 ool = []
             istr = False
             forcekillnl()
-try:        
-    log('program started')
-except:
-    Tk().withdraw()
-    messagebox.showerror('BU','Could not write log file')
+      
+log('program started')
+
 xae = True
 tcrash = False
 accessdenied = False
@@ -934,32 +959,7 @@ except:
     except:
         accessdenied = True
 finally:
-    try:
-        f.close()
-    except:
-        iopqwe = 0
-        print('CRITICAL EXCEPTION')
-        accessdenied = True
-        ads = Tk()
-        ads.title('BU Critical Exception')
-        
-        ads.configure(background='blue')
-        lbl = Label(ads,text=':(',font=("Arial Bold",64),bg='blue')
-        lbl.grid(column=0,row=0)
-        lbl1 = Label(ads,text='A critical exception has occured',bg='blue')
-        lbl1.grid(column=0,row=1)
-        lbl2 = Label(ads,text='ERROR: Access Denied',bg='blue')
-        lbl2.grid(column=0,row=2)
-        
-        lbl4 = Label(ads,text='It is reccomended that you exit and move me to a folder that I have write permissions in.',bg='blue')
-        lbl5 = Label(ads,text='Or you can click run as admin.',bg='blue')
-        
-        lbl4.grid(column=0,row=4)
-        lbl5.grid(column=0,row=5)
-        
-        btn1 = Button(ads,text='Exit',command=sys.exit,bg='Green')
-        btn1.grid(column=0,row=6)
-        ads.mainloop()
+    f.close()
 iopqwe = 0
 try:
     f = open('bcount.txt')
@@ -1060,7 +1060,7 @@ def startsound():
             try:
                 f.close()
             except:
-                donothing = 0
+                pass
             os.remove('startsound.dat')
         else:
             f.close()
@@ -1261,7 +1261,7 @@ nua = False
 print(sysslash)
 if reqins == True:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.20.0")
+    SYSVERSION = version.parse("2.21.0")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -1375,6 +1375,8 @@ while xae == True:
         print('scanall: Get a list of all files in a directory')
         print('tar: Make tar.gz archive')
         print('untar: Uncompress a tar.gz archive')
+        print('search: Search folders for files that contain things you input. Warning: Can take up lots of resources!')
+        print('speed: How many equations can your computer do in 1 second?')
         if sysslash == '\\':
             print('diran: Get directory statistics and write to file')
             print('te: Open the Text Editor that comes with this program.')
@@ -1426,6 +1428,35 @@ while xae == True:
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
 
+    elif command == 'search':
+        print('What to search for?')
+        searchfor = input()
+        print('Please choose directory')
+        Tk().withdraw()
+
+        root = filedialog.askdirectory()
+        
+        if os.path.isdir(root):
+            for path, subdirs, files in os.walk(root):
+                for name in files:
+                    fin = os.path.join(path, name)
+                    if searchfor in name:
+                        print(fin)
+
+    elif command == 'speed':
+        has_finished_counting = False
+        def count_speed():
+            global has_finished_counting
+            sleep(1)
+            has_finished_counting = True
+        counting = 0
+        th = threading.Thread(target=count_speed)
+        th.start()
+        while not has_finished_counting:
+            counting += 1
+        print('Equations/second:',counting)
+                    
+            
     elif command == 'tar':
         try:
             f = tarfile.open('archive.tar.gz',mode='x:gz')
@@ -2755,6 +2786,7 @@ while xae == True:
             sleep(1)
         
     elif command == 'crash':
+        raise RuntimeError('Manual Crash')
         for i in range(30):
             print('')
         print('.  //')
