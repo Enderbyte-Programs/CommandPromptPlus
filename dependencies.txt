@@ -1,11 +1,10 @@
 To execute the source code of Basic Utilities, you must have the following:
-A computer running WINDOWS 10
+A computer running any OS (Windows 10 reccomended)
 Python 3.9.2 or later
 Libraries
 
 Requests
 
-plyer
 
 playsound (version from github)
 -----
