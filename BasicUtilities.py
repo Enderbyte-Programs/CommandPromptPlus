@@ -1,8 +1,10 @@
-print('Basic Utilities Release 2.19.4 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.20 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.19.4'
-from plyer import notification
+SYSVERSION = '2.20'
+
 from tkinter import *
+import pyutils39
+import tarfile
 iopqwe = 0
 from tkinter import messagebox
 import datetime
@@ -992,29 +994,15 @@ def error(erc):
     Tk().withdraw()
     messagebox.showerror("Error",erm)
 iopqwe = 0
-def nwstart():
-    global nw
-    try:
-        os.startfile('BasicUtilities.exe')
-    except:
-        error(2)
-    finally:
-        nw.destroy()
 iopqwe = 0
 def newwindow():
-    global nw
-    print("Please look at the tkinter window.")
-    nw = Tk()
-    nw.title("New Window Starter")
-    nw.geometry("525x50")
-    lbl = Label(nw,text='Do you want to start a new window of BasicUtilities before you run this long/infinite command?')
-    lbl.pack(side=TOP)
-    btn322 = Button(nw,text='Yes',command=nwstart,bg="green")
-    btn322.pack(side=LEFT)
-    btn323 = Button(nw,text='No',command=nw.destroy,bg="red")
-    btn323.pack(side=LEFT)
-    nw.mainloop()
-    nw.quit()
+
+    x = pyutils39.toplevelquestion('Do you want to open a new window of Basic Utilities before you run this long/infinite command?')
+    if x == True:
+        try:
+            os.startfile('BasicUtilities.exe')
+        except:
+            pyutils39.error('Could not find BasicUtilities.exe. Did you rename it?')
 iopqwe = 0
 def conv(start,end,formula):
     global txt
@@ -1273,14 +1261,10 @@ nua = False
 print(sysslash)
 if reqins == True:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.19.4")
+    SYSVERSION = version.parse("2.20.0")
     if SYSVERNUM > SYSVERSION:
-        notification.notify(
-        title='BU Update',
-        message='A new update ('+SYSVERDATA[0:6]+') is available. Run the command "update" to download.',
-        app_icon='bu.ico',
-        timeout=10
-)
+        print('!New update found. Run the update command to download it!')
+
         log('Found new update')
         nua = True
 while xae == True:
@@ -1388,9 +1372,12 @@ while xae == True:
         print('tsklst: List all task running on the system')
         print('ip6: Get your Ipv6 address')
         print('update: check for updates')
+        print('scanall: Get a list of all files in a directory')
+        print('tar: Make tar.gz archive')
+        print('untar: Uncompress a tar.gz archive')
         if sysslash == '\\':
             print('diran: Get directory statistics and write to file')
-            print('te: Open the Text Editor that comes with this.')
+            print('te: Open the Text Editor that comes with this program.')
         
         
         print('')
@@ -1438,6 +1425,65 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == 'tar':
+        try:
+            f = tarfile.open('archive.tar.gz',mode='x:gz')
+        except:
+            f = tarfile.open('archive.tar.gz',mode='w:gz')
+        print('Please choose files')
+        Tk().withdraw()
+        files_to_add = filedialog.askopenfilenames()
+        
+        
+        for files in files_to_add:
+            f.add(files,arcname=os.path.basename(files))
+        f.close()
+        print('Please select file save directory')
+        Tk().withdraw()
+        file_to_save = filedialog.askdirectory()
+        print('What should it be called (excluding file extension)')
+        file_name = input()
+        try:
+            os.rename('archive.tar.gz',file_name+'.tar.gz')
+            file_to_copy = file_name+'.tar.gz'
+            shutil.copyfile(file_to_copy,file_to_save+sysslash+file_to_copy)
+            os.remove(file_to_copy)
+        except:
+            pyutils39.toplevelerror('Error when copying file. You can find your archive as archive.tar.gz in this program"s folder.')
+
+    elif command == 'untar':
+        print('Please select file to uncompress')
+        Tk().withdraw()
+        ftu = filedialog.askopenfilename()
+        print('Please select output directory')
+        Tk().withdraw()
+        ftx = filedialog.askdirectory()
+
+        try:
+            f = tarfile.open(ftu)
+            f.extractall(ftx)
+            f.close()
+        except:
+            pyutils39.toplevelerror('Could not uncompress')
+
+    elif command == 'scanall':
+        print('Please choose directory')
+        Tk().withdraw()
+
+        root = filedialog.askdirectory()
+        how_many_files = 0
+        if os.path.isdir(root):
+            for path, subdirs, files in os.walk(root):
+                for name in files:
+                    print(os.path.join(path, name))
+                    how_many_files += 1
+            print('Files:',how_many_files)
+            
+        else:
+        
+            pass
+        
 
     elif command == 'update':
         if nua == True:
@@ -1767,7 +1813,7 @@ while xae == True:
         print('-----')
         print('Confirm? [y/n]')
         conf = input()
-        if conf == 'y':
+        if conf.lower().startswith('y'):
             f.close()
             if da0 == True:
                 try:
@@ -2444,7 +2490,7 @@ while xae == True:
         while fightmonsters == True:
             print('A monster wants to battle you! do you want to battle?(y/n)')
             battle = input()
-            if battle == 'y':
+            if battle.lower().startswith('y'):
                 monsterbattle_name = random.choice(monster_names)
                 monster_health = health//(random.randint(12,24)/10)
                 blmh = monster_health
@@ -2664,7 +2710,7 @@ while xae == True:
         while True:
             print('Do you want to add an item? (y/n)')
             makenew = input()
-            if makenew == 'y':
+            if makenew.lower().startswith('y'):
                 print('What to add?')
                 poi = input()
                 pickable.append(poi)
@@ -2817,7 +2863,7 @@ while xae == True:
         print("Size:",len(enc),"bytes")
         print("Do you want to write this to a file?(y/n)")
         sda = input()
-        if sda == 'y':
+        if sda.lower().startswith('y'):
             print('What directory to write to?')
             Tk().withdraw()
             fexx = filedialog.askdirectory()
@@ -2865,7 +2911,7 @@ while xae == True:
             print('size:',len(tra),'bytes')
             print("Do you want to write this to a txt file?(y/n)")
             wt = input()
-            if wt == 'y':
+            if wt.lower().startswith('y'):
                 print('What directory to write to?')
             Tk().withdraw()
             fexx = filedialog.askdirectory()
@@ -2993,7 +3039,7 @@ while xae == True:
             try:
                 os.startfile('error.vbs')
             except:
-                error(2)
+                pyutils39.toplevelerror('Please use version 2.19.4 or earlier!')
                 break
             else:
                 c = random.randint(3,13)
@@ -3927,7 +3973,7 @@ while xae == True:
             print("This is the randomly generated password.")
             print("Do you want to write your password to a txt file?(y/n)")
             writetofile = input()
-            if writetofile == "y":
+            if writetofile.lower().startswith('y'):
                 print("What should the file containing the password be called?")
                 print("example: myfile.txt")
                 print("Make sure to include the .txt at the end, otherwise your file may be unreadable.")
@@ -3943,7 +3989,7 @@ while xae == True:
                 except:
                     print("This file already exists. Do you want to overwrite it?(y/n)")
                     overwrite = input()
-                    if overwrite == "y":
+                    if overwrite.lower().startswith('y'):
                         try:
                             f = open(filesname,"w")
                             print("writing to file 0%")
@@ -4267,7 +4313,7 @@ while xae == True:
                 while alarm == False and hasstopped == False:
                     print("do you want to open vault",vaults,"? (y/n)")
                     openvault = input()
-                    if openvault == "y":
+                    if openvault.lower().startswith('y'):
 
                         moneyadd = random.choice(possible)
                         print("Vault",vaults,"has",moneyadd,"in it.")
@@ -4296,7 +4342,7 @@ while xae == True:
                 while answered == False:
                     print("Would you like to see your total statistics?[y/n]")
                     statsee = input()
-                    if statsee == "y":
+                    if statsee.lower().startswith('y'):
                         answered = True
                         print("You have played",times_played,"games")
                         print("You have a total of",total_money,"money.")
@@ -4306,17 +4352,20 @@ while xae == True:
                 print("do you want to play again? (y/n)")
                 print("Typing n returns you to the commands menu.")
                 playagain = input()
-                if playagain == "y":
+                if playagain.lower().startswith('y'):
+                    playagain = 'y'
                     for i in range(1,20):
                         print("")
                     print("Do you want to change name? (y/n)")
                     changename = input()
-                    if changename == "y":
+                    if changename.lower().startswith('y'):
                         print("Please type your new name")
                         name = input()
                         print("Welcome,",name,"to Enderbyte09's Beat The Bank!")
                         for i in range(1,20):
                             print("")
+                else:
+                    playagain = 'n'
     elif command == "insult":
         adjec = ["Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","Picklebrained","@$%&TYFt767tT*^TT*%%RFft*^((%^$4&^^4"]
         noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Monkeybottom","Clackdish","Jellyfish","^%*yuygg&yguguyTUGUT87t83t868%&&^^&*^&*"]
@@ -4857,7 +4906,7 @@ while xae == True:
         while isdone == False:
             print("Do you want to add a data value (y/n)")
             adddata = input()
-            if adddata == "y":
+            if adddata.lower().startswith('y'):
                 print("Please put the value.")
                 addnum = input()
                 try:
@@ -4914,14 +4963,14 @@ while xae == True:
         opponent_square = 0
         print("Do you want to see the game board? (y/n)")
         seeboard = input()
-        if seeboard == "y":
+        if seeboard.lower().startswith('y'):
             awrt = True
             while awrt == True:
                 try:
-                    os.startfile("gameboard.jpg")
+                    webbrowser.open('https://imgur.com/a/CwzPDsB')
                 except:
                     print("Oh no! Something went wrong!")
-                    print("Please make sure that there is a file called 'gameboard.jpg'.")
+                    
                     print("")
                     sleep(1)
                     break
@@ -5076,11 +5125,11 @@ while xae == True:
         opponent_square = 0
         print("Do you want to see the game board? (y/n)")
         seeboard = input()
-        if seeboard == "y":
+        if seeboard.lower().startswith('y'):
             awrt = True
             while awrt == True:
                 try:
-                    os.startfile("gameboard.jpg")
+                    webbrowser.open('https://imgur.com/a/CwzPDsB')
                 except:
                     error(2)
                     break
