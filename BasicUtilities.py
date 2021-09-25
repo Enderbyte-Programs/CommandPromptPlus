@@ -1,7 +1,8 @@
-print('Basic Utilities Release 2.21 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.21.1 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.21'
+SYSVERSION = '2.21.1'
 from tkinter import messagebox, Tk
+
 def toplevelerror(message,title='Error'):
     title = str(title)
     message = str(message)
@@ -56,7 +57,14 @@ iopqwe = 0
 import platform
 iopqwe = 0
 import random
-from packaging import version
+try:
+    from packaging import version
+except:
+    print('The update command WILL NOT WORK. ')
+    haspkg = False
+else:
+    haspkg = True
+
 iopqwe = 0
 from time import sleep
 iopqwe = 0
@@ -1259,9 +1267,9 @@ else:
     print('Good night,',sysuser)
 nua = False
 print(sysslash)
-if reqins == True:
+if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.21.0")
+    SYSVERSION = version.parse("2.21.1")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -1288,6 +1296,7 @@ while xae == True:
         print("colour: Find a colour")
         print("bday: Input your birthday to get a surprise on startup when it matches")
         print("wb: Visit our website")
+        print("conceal: Conceal your screen until you enter a password")
         
         
         
@@ -1428,6 +1437,34 @@ while xae == True:
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
 
+    elif command == 'conceal':
+        Tk().withdraw()
+        xlmy = messagebox.askyesno('Q','WARNING! If used improperly, this command can damage your system! Are you sure you want to do this?')
+        if xlmy == True:
+            print('What password do you want to set? (DO NOT FORGET IT)')
+            pswd = input()
+            def kill_con():
+                global txt
+                ent = txt.get()
+                global pswd
+                if ent == pswd or ent == 'YOU set' or ent == 'the password YOU set':
+                    con.quit()
+                    con.destroy()
+            def bypass_ev():
+                pass
+            con = Tk()
+            con.attributes('-fullscreen',True)
+            con.wm_attributes('-topmost',True)
+            con.config(bg='blue')
+            lbl = Label(con,text='This device has been locked down. Input the password YOU set and press exit to exit.',fg='white',bg='blue',font=('Arial',24))
+            lbl.pack()
+            txt = Entry(con,width=50)
+            txt.pack()
+            btn = Button(con,text='Exit',bg='lime green',command=kill_con)
+            btn.pack()
+            con.protocol('WM_DELETE_WINDOW',bypass_ev)
+            con.mainloop()
+
     elif command == 'search':
         print('What to search for?')
         searchfor = input()
@@ -1440,7 +1477,7 @@ while xae == True:
             for path, subdirs, files in os.walk(root):
                 for name in files:
                     fin = os.path.join(path, name)
-                    if searchfor in name:
+                    if searchfor in name.lower():
                         print(fin)
 
     elif command == 'speed':
