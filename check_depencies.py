@@ -14,6 +14,11 @@ else:
     os.system('py -m pip install playsound')
     os.system('py -m pip install requests')
     os.system('py -m pip install winsound')
+try:
+    import pyutils39
+except:
+    Tk().withdraw()
+    messagebox.showwarning('Basic Utilities dep','You do not have the custom library pyutils39 installed. Download it from the github repo!')
 input('All Finished! Press enter to start Basic Utilities.')
 try:
     os.startfile("BasicUtilities.py")
