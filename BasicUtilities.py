@@ -1296,7 +1296,7 @@ while xae == True:
         print("colour: Find a colour")
         print("bday: Input your birthday to get a surprise on startup when it matches")
         print("wb: Visit our website")
-        print("conceal: Conceal your screen until you enter a password")
+        print("lockdown: lockdown your screen until you enter a password")
         
         
         
@@ -2142,17 +2142,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5259')
-        print('print statements: 846')
-        print('Variables: 1402')
-        print('comparisons 401')
-        print('Exception handling loops 229')
-        print('While loops 48')
-        print('For loop 48')
-        print('Commands: 133')
-        print('Libraries Imported 19')
-        print('files utilized 93')
-        print('Tkinter windows used 81')
+        print('lines: 5377')
+        print('print statements: 864')
+        print('Variables: 1415')
+        print('comparisons 398')
+        print('Exception handling loops 233')
+        print('While loops 49')
+        print('For loop 65')
+        print('Commands: 136')
+        print('Libraries Imported 21')
+        print('files utilized 100')
+        print('Tkinter windows used 97')
 
     elif command == 'sysplat':
         print('-----')
