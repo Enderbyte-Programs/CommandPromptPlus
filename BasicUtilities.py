@@ -1,6 +1,6 @@
-print('Basic Utilities Release 2.21.1 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Patch 2.21.2 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.21.1'
+SYSVERSION = '2.21.2'
 from tkinter import messagebox, Tk
 
 def toplevelerror(message,title='Error'):
@@ -306,6 +306,8 @@ elif hasarg2 == True:
             data = data.replace('You all',"Y'all")
             data = data.replace('yes',"yes'm")
             data = data.replace('Yes',"Yes'm")
+            data = data.replace('ng',"n'")
+            data = data.replace('NG',"N'")
             data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','NullTexanException']))
             txt.insert(END,data)
 
@@ -1051,11 +1053,9 @@ def reload():
     try:
         os.startfile("BasicUtilities.exe")
     except:
-        error(2)
-        print('The system will exit now')
-    finally:
-        forcekill()
-
+        print("Could not start Basic Utilities")
+    else:
+        sys.exit()
 iopqwe = 0
 
 def startsound():
@@ -1269,7 +1269,7 @@ nua = False
 print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.21.1")
+    SYSVERSION = version.parse("2.21.2")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -3358,7 +3358,7 @@ while xae == True:
                 try:
                     lbl.configure(text=sc_tm)
                 except:
-                    error(0)
+                    break
                 sc_tm = sc_tm - 1
                 sleep(1)
             if sc_tm < 1:
@@ -3366,9 +3366,13 @@ while xae == True:
 
         def tmdone():
             global btn23
+            global btn22
+            global btn25
             btn23['state'] = 'disabled'
             btn22['state'] = 'disabled'
             btn25['state'] = 'normal'
+            global btn24
+            btn24['state'] = 'normal'
             try:
                 lbl.configure(text='Timer is Done')
             except:
@@ -3387,13 +3391,24 @@ while xae == True:
             global btn25
             btn22['state'] = 'disabled'
             btn25['state'] = 'disabled'
+            global btn24
+            btn24['state'] = 'disabled'
             th.start()
+
+        def tmkill():
+            global tm
+            global paused
+            paused = True
+            tm.quit()
+            tm.destroy()
 
         def tmstop():
             global paused
             paused = True
             btn22['state'] = 'normal'
             btn25['state'] = 'normal'
+            global btn24
+            btn24['state'] = 'normal'
 
         def tmreset():
             global paused
@@ -3401,6 +3416,7 @@ while xae == True:
             sc_tm = tm_full
             btn22['state'] = 'normal'
             btn23['state'] = 'normal'
+
             lbl.configure(text='Waiting for Start')
             paused = False
         try:
@@ -3418,7 +3434,7 @@ while xae == True:
             btn22.grid(column=0,row=1)
             btn23 = Button(tm,text="Pause",command=tmstop,bg="yellow")
             btn23.grid(column=1,row=1)
-            btn24 = Button(tm,text="Stop",command=tm.destroy,bg='red')
+            btn24 = Button(tm,text="Stop",command=tmkill,bg='red')
             btn24.grid(column=2,row=1)
             btn25 = Button(tm,text='Reset',command=tmreset,bg='blue')
             btn25.grid(column=3,row=1)
@@ -3711,6 +3727,12 @@ while xae == True:
 
         newwindow()
         print("Please look at the Tkinter window")
+        def swkill():
+            global window
+            window.quit()
+            window.destroy()
+            global paused
+            paused = True
         def swmain():
             global tcount
             global window
@@ -3718,6 +3740,7 @@ while xae == True:
             global paused
             global btn
             global btn3
+            global btn2
             window = Tk()
             window.title("Stopwatch")
             window.geometry("400x100")
@@ -3727,19 +3750,21 @@ while xae == True:
             btn.grid(column=0,row=1)
             btn1 = Button(window,text="Pause",command=swstop,bg="yellow")
             btn1.grid(column=1,row=1)
-            btn2 = Button(window,text="Stop",command=window.destroy,bg="red")
+            btn2 = Button(window,text="Stop",command=swkill,bg="red")
             btn2.grid(column=2,row=1)
             btn3 = Button(window,text='Reset',command=swreset,bg='blue')
             btn3.grid(column=3,row=1)
             window.mainloop()
-            window.quit()
+            
             paused = True
 
         def swstart():
             global btn3
             global btn
+            global btn2
             btn['state'] = "disabled"
             btn3['state'] = "disabled"
+            btn2['state'] = "disabled"
             th0 = threading.Thread(target=swcount)
             th0.start()
 
@@ -3755,8 +3780,7 @@ while xae == True:
                 try:
                     lbl.configure(text=tcount)
                 except:
-                    error(0)
-                    print("You can still run commands.")
+                    pass
 
         def swstop():
             global paused
@@ -3764,6 +3788,7 @@ while xae == True:
             global btn3
             btn['state'] = "normal"
             btn3['state'] = 'normal'
+            btn2['state'] = "normal"
             paused = True
 
         def swreset():
