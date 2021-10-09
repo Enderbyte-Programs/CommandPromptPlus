@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.21.2"
+#define MyAppVersion "2.23"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -25,12 +25,12 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\BasicUtilities
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\license.txt
+LicenseFile=C:\Python39\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities-2.21.2
-SetupIconFile=C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\bu.ico
+OutputBaseFilename=basicutilities-2.23
+SetupIconFile=C:\Python39\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -51,7 +51,7 @@ Name: "notpad"; Description: "Create shortcuts for Notpad (Text Editor)"; GroupD
 
 [Files]
 
-Source: "C:\Users\jorda\AppData\Local\Programs\Python\Python39\Scripts\BasicUtilities\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Python39\Scripts\BasicUtilities\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -102,6 +102,7 @@ Type: files; Name: "{app}\warning.mp3";Tasks: clrold
 Type: files; Name: "{app}\startup.mp3";Tasks: clrold
 Type: files; Name: "{app}\error.vbs";Tasks: clrold
 Type: files; Name: "{app}\gameboard.jpg";Tasks: clrold
+Type: files; Name: "{app}\BasicUtilities.py";Tasks: clrold
 
 
 [UninstallDelete]

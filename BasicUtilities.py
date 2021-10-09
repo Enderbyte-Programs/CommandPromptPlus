@@ -1,8 +1,8 @@
-print('Basic Utilities Patch 2.21.2 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Release 2.23 (c) 2021 Enderbyte Programs. All rights reserved.')
 print('Starting Up')
-SYSVERSION = '2.21.2'
+SYSVERSION = '2.23'
 from tkinter import messagebox, Tk
-
+import os
 def toplevelerror(message,title='Error'):
     title = str(title)
     message = str(message)
@@ -12,6 +12,14 @@ def toplevelerror(message,title='Error'):
     messagebox.showerror(title,message)
 try:
     import pyutils39
+except Exception as e:
+    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+try:
+    from pytube import YouTube
+except Exception as e:
+    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+try:
+    import keyboard
 except Exception as e:
     toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 
@@ -33,6 +41,8 @@ def handle_exception(type,value,traceback):
         except:
             pass
         toplevelerror('A fatal exception occured in Basic Utilities. ERROR:\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+        
+        os.system('taskkill /F /PID '+str(os.getpid())+' /T')
 from tkinter import *
 
 import tarfile
@@ -89,8 +99,12 @@ try:
 except:
     print('Some features may be broken because you dont have requests installed.')
 else:
-    SYSVERDATA = get('https://pastebin.com/raw/htCBGFXf').text
-    reqins = True
+    try:
+        SYSVERDATA = get('https://pastebin.com/raw/htCBGFXf').text
+        reqins = True
+    except:
+        Tk().withdraw()
+        messagebox.showerror('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
 iopqwe = 0
 from tkinter import filedialog
 iopqwe = 0
@@ -100,7 +114,6 @@ import subprocess
 iopqwe = 0
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
-else:
     sysslash = '/'
 iopqwe = 0
 print(os.getcwd())
@@ -195,7 +208,7 @@ elif hasarg2 == True:
             global fname
             global prevsavedata
             global issy
-            global btn15
+            global menu1
             try:
                 files = [('All Files','*.*')]
                 file = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
@@ -219,7 +232,7 @@ elif hasarg2 == True:
                         root.title('Notpad-'+fname)
                         Tk().withdraw()
                         issy = True
-                        btn15['state'] = 'normal'
+                        menu1['menu'].entryconfigure(8,state='normal')
                         messagebox.showinfo('notpad','Writing sucessfull')
                         prevsavedata = txt.get('1.0','end-1c')
         def save():
@@ -230,24 +243,29 @@ elif hasarg2 == True:
             try:
                 file = open(fname,'w')
             except:
-                Tk().withdraw()
-                messagebox.showerror('notpad','Error. Did you make sure to \n\
-                Make sure to save as first?\n\
-                Make sure I have write perms in the output directory')
+                saveas()
             else:
                 file.write(txt.get('1.0','end-1c'))
                 file.close()
                 prevsavedata = txt.get('1.0','end-1c')
 
         def opennew():
+            def launchWithoutConsole(command, args):
+                """Launches 'command' windowless"""
+                startupinfo = subprocess.STARTUPINFO()
+                startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+                return subprocess.Popen([command] + args, startupinfo=startupinfo,
+                                    stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             Tk().withdraw()
             x = filedialog.askopenfilename()
-            
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
                 
             CREATE_NEW_PROCESS_GROUP = 0x00000200
             DETACHED_PROCESS = 0x00000008
             
-            p = subprocess.Popen(["BasicUtilities.exe", x], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+            p = subprocess.Popen(["BasicUtilities.exe", x],stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell=False,creationflags=subprocess.CREATE_NO_WINDOW | DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
             
         def ats():
             global txt
@@ -308,7 +326,7 @@ elif hasarg2 == True:
             data = data.replace('Yes',"Yes'm")
             data = data.replace('ng',"n'")
             data = data.replace('NG',"N'")
-            data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','NullTexanException']))
+            data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats','pythons'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','Root directory']))
             txt.insert(END,data)
 
         def owoconv():
@@ -429,7 +447,7 @@ elif hasarg2 == True:
             global ent3
             global txt
             data = txt.get('1.0','end-1c')
-            messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get()))+' ('+(str(data.count(ent3.get())/len(data)*100)+'%)'))
+            messagebox.showinfo('Text Editor','Instances of '+str(ent3.get())+': '+str(data.count(ent3.get()))+' ('+(str(data.count(ent3.get())/(len(data)+1)*100)+'%)'))
 
         def writestat():
             try:
@@ -492,49 +510,95 @@ elif hasarg2 == True:
             data = data[datalen::-1]
             txt.insert(END,data)
                 
+        
 
         prevsavedata = ''
         istr = True
         issy = False
+        keyboard.add_hotkey('ctrl+q',terminat)
+        keyboard.add_hotkey('ctrl+shift+s',saveas)
+        keyboard.add_hotkey('ctrl+s',save)
+        keyboard.add_hotkey('ctrl+alt+o',opennew)
         scaus = threading.Thread(target=scanautosave)
         scaus.start()
         root = Tk()
         root.title('Notpad [new file]')
-        root.geometry('1350x720')
+        root.state('zoomed')
+        def chk_menu1(val):
+            global OptionVar0
+            OptionVar0.set('File Options')
+            if val == 'Exit (ctrl+q)':
+                terminat()
+            elif val == 'Save As (ctrl+shift+s)':
+                saveas()
+            elif val == 'Save (ctrl+s)':
+                save()
+            elif val == 'Open (ctrl+alt+o)':
+                opennew()
+            
+        
         scr = Scrollbar(root)
         scr.pack(side='right',fill='y',expand=False)
-        
-        txt = Text(root,width=150,height=40,wrap=NONE)
-        txt.pack(fill=BOTH)
-        btn = Button(root,text='Exit',command=terminat,bg='red')
-        btn.place(x=0,y=650)
-        btn1 = Button(root,text='Save As',command=saveas)
-        btn1.place(x=30,y=650)
-        
-        btn2 = Button(root,text='Save',bg='green',command=save)
-        btn2.place(x=80,y=650)
-        btn3 = Button(root,text='Open',command=opennew)
-        btn3.place(x=115,y=650)
-        btn4 = Button(root,text='Append Time Stamp',command=ats)
-        btn4.place(x=150,y=650)
-        btn16 = Button(root,text='Reverse',bg='black',fg='white',command=reverse)
-        btn16.place(x=280,y=650)
-        btn5 = Button(root,text='Convert to Canadian English',bg='lime green',command=canaconv)
-        btn5.place(x=350,y=650)
-        btn6 = Button(root,text='Convert to Text Slang',bg='orange',command=txconv)
-        btn6.place(x=520,y=650)
-        btn7 = Button(root,text='Convert to American English',bg='red',command=amconv)
-        btn7.place(x=650,y=650)
 
-        btn8 = Button(root,text='Convert to Owo Text',bg='yellow',command=owoconv)
-        btn8.place(x=820,y=650)
-        btn9 = Button(root,text='Encode',command=encd)
-        btn9.place(x=950,y=650)
-        btn10 = Button(root,text='Decode',command=dcd)
-        btn10.place(x=1000,y=650)
-        chkc = IntVar()
+        OptionVar0 = StringVar(root)
+        OptionVar0.set('File Options')
+        menu = OptionMenu(root,OptionVar0,"Exit (ctrl+q)","Save As (ctrl+shift+s)","Save (ctrl+s)","Open (ctrl+alt+o)","All key shortcuts used WILL AFFECT TO ALL OTHER COPIES OF THIS PROGRAM CURRENTLY RUNNING",command=chk_menu1)
+        menu.pack(side=TOP,anchor=NW)
+        menu['menu'].entryconfigure(4,state='disabled')
+        def chk_menu2(val):
+            global OptionVar1
+            OptionVar1.set('Text Options')
+            if val == 'Append Time Stamp (ctrl+alt+a)':
+                ats()
+            elif val == 'Reverse (ctrl+alt+r)':
+                reverse()
+            elif val == 'Convert to Canadian English (alt+c)':
+                canaconv()
+            elif val == 'Convert to Text Slang (alt+t)':
+                txconv()
+            elif val == 'Convert to American English (alt+a)':
+                amconv()
+            elif val == 'Convert to Owo Text (alt+o)':
+                owoconv()
+            elif val == 'Encode (alt+e)':
+                encd()
+            elif val == 'Decode (alt+d)':
+                dcd()
+            elif val == 'Write Statistics File (ctrl+alt+w)':
+                writestat()
+
+        keyboard.add_hotkey('ctrl+alt+a',ats)
+        keyboard.add_hotkey('ctrl+alt+r',reverse)
+        keyboard.add_hotkey('alt+c',canaconv)
+        keyboard.add_hotkey('alt+t',txconv)
+        keyboard.add_hotkey('alt+a',amconv)
+        keyboard.add_hotkey('alt+o',owoconv)
+        keyboard.add_hotkey('alt+e',encd)
+        keyboard.add_hotkey('alt+d',dcd)
+        keyboard.add_hotkey('ctrl+alt+w',writestat)
+        
+        OptionVar1 = StringVar(root)
+        OptionVar1.set('Text Options')
+
+        menu1 = OptionMenu(root,OptionVar1,"Append Time Stamp (ctrl+alt+a)","Reverse (ctrl+alt+r)",'Convert to Canadian English (alt+c)','Convert to Text Slang(alt+t)',
+        "Convert to American English (alt+a)",
+        "Convert to Owo Text (alt+o)",
+        "Encode (alt+e)",
+        "Decode (alt+d)",
+        "Write Statistics File (ctrl+alt+w)",
+        "All key shortcuts used WILL AFFECT ALL OTHER COPIES OF THIS PROGRAM CURRENTLY RUNNING",
+        command=chk_menu2)
+        menu1['menu'].entryconfigure(8,state='disabled')
+        menu1['menu'].entryconfigure(9,state='disabled')
+        menu1.pack(side=TOP,anchor=NW)
+
+        txt = Text(root,wrap=NONE)
+        txt.pack(expand=True,fill='both')
+
+       
+        chkc = IntVar(root)
         chkbx = Checkbutton(root,text='Autosave (10 s)',variable=chkc)
-        chkbx.place(x=350,y=675)
+        chkbx.place(x=390,y=30)
         
         txt.config(yscrollcommand=scr.set)
         scr.config(command=txt.yview)
@@ -542,27 +606,23 @@ elif hasarg2 == True:
         scr1.pack(side='bottom',fill='x',expand=False)
         txt.config(xscrollcommand=scr1.set)
         scr1.config(command=txt.xview)
-        lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
-        lbl.place(x=0,y=675)
-        lbl1 = Label(root,text='Notpad Text Editor for Basic Utilities')
-        lbl1.place(x=500,y=675)
+        lbl = Label(root,text='Regular save will save to the directory in the title.')
+        lbl.place(x=120,y=30)
         ent = Entry(root,width=20)
-        ent.place(x=700,y=675)
+        ent.place(x=120,y=0)
         btn11 = Button(root,text='Delete all instances',command=dai,bg='skyblue')
-        btn11.place(x=820,y=675)
+        btn11.place(x=250,y=0)
         btn12 = Button(root,text='Delete full words only',command=dfw,bg='blue',fg='white')
-        btn12.place(x=930,y=675)
+        btn12.place(x=360,y=0)
         btn13 = Button(root,text='Replace with',bg='black',fg='white',command=repw)
         ent2 = Entry(root,width=20)
-        btn13.place(x=1050,y=675)
-        ent2.place(x=1130,y=675)
+        btn13.place(x=500,y=0)
+        ent2.place(x=600,y=0)
         ent3 = Entry(root,width=10)
-        ent3.place(x=1050,y=650)
+        ent3.place(x=510,y=30)
         btn14 = Button(root,text='Count instances of',command=cio)
-        btn14.place(x=1100,y=650)
-        btn15 = Button(root,text='Write statistics file',bg='lime green',command=writestat)
-        btn15.place(x=1225,y=650)
-        btn15['state'] = 'disabled'
+        btn14.place(x=580,y=30)
+        
         
         root.mainloop()
         istr = False
@@ -610,10 +670,7 @@ elif hasarg2 == True:
                 try:
                     file = open(fto,'w')
                 except:
-                    Tk().withdraw()
-                    messagebox.showerror('notpad','Error. Did you make sure to \n\
-                    Make sure to save as first?\n\
-                    Make sure I have write perms in the output directory')
+                    saveas()
                 else:
                     file.write(txt.get('1.0','end-1c'))
                     file.close()
@@ -676,7 +733,7 @@ elif hasarg2 == True:
                 data = data.replace('You all',"Y'all")
                 data = data.replace('yes',"yes'm")
                 data = data.replace('Yes',"Yes'm")
-                data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','NullTexanException']))
+                data = data.replace('er than',"er than "+str(random.randint(1,20))+' '+random.choice(['pigs','cows','chickens','computers','dogs','cats','pythons'])+' in a '+random.choice(['pigpen','farm','doghouse','chicken coop','Root directory']))
                 txt.insert(END,data)
 
             def owoconv():
@@ -855,49 +912,96 @@ elif hasarg2 == True:
 
             istr = True
             issy = True
+            keyboard.add_hotkey('ctrl+q',terminat)
+            keyboard.add_hotkey('ctrl+shift+s',saveas)
+            keyboard.add_hotkey('ctrl+s',save)
+            
             scaus = threading.Thread(target=scanautosave)
             scaus.start()
             root = Tk()
-            root.title('Notpad-'+fto)
-            root.geometry('1350x720')
+            root.title('Notpad [new file]')
+            root.state('zoomed')
+            def chk_menu1(val):
+                global OptionVar0
+                OptionVar0.set('File Options')
+                if val == 'Exit (ctrl+q)':
+                    terminat()
+                elif val == 'Save As (ctrl+shift+s)':
+                    saveas()
+                elif val == 'Save (ctrl+s)':
+                    save()
+                
+                
+            
             scr = Scrollbar(root)
             scr.pack(side='right',fill='y',expand=False)
+
+            OptionVar0 = StringVar(root)
+            OptionVar0.set('File Options')
+            menu = OptionMenu(root,OptionVar0,"Exit (ctrl+q)","Save As (ctrl+shift+s)","Save (ctrl+s)","All key shortcuts used WILL AFFECT TO ALL OTHER COPIES OF THIS PROGRAM CURRENTLY RUNNING",command=chk_menu1)
+            menu.pack(side=TOP,anchor=NW)
+            menu['menu'].entryconfigure(3,state='disabled')
+
+            def chk_menu2(val):
+                global OptionVar1
+                OptionVar1.set('Text Options')
+                if val == 'Append Time Stamp (ctrl+alt+a)':
+                    ats()
+                elif val == 'Reverse (ctrl+alt+r)':
+                    reverse()
+                elif val == 'Convert to Canadian English (alt+c)':
+                    canaconv()
+                elif val == 'Convert to Text Slang (alt+t)':
+                    txconv()
+                elif val == 'Convert to American English (alt+a)':
+                    amconv()
+                elif val == 'Convert to Owo Text (alt+o)':
+                    owoconv()
+                elif val == 'Encode (alt+e)':
+                    encd()
+                elif val == 'Decode (alt+d)':
+                    dcd()
+                elif val == 'Write Statistics File (ctrl+alt+w)':
+                    writestat()
+
+            keyboard.add_hotkey('ctrl+alt+a',ats)
+            keyboard.add_hotkey('ctrl+alt+r',reverse)
+            keyboard.add_hotkey('alt+c',canaconv)
+            keyboard.add_hotkey('alt+t',txconv)
+            keyboard.add_hotkey('alt+a',amconv)
+            keyboard.add_hotkey('alt+o',owoconv)
+            keyboard.add_hotkey('alt+e',encd)
+            keyboard.add_hotkey('alt+d',dcd)
+            keyboard.add_hotkey('ctrl+alt+w',writestat)
             
-            txt = Text(root,width=150,height=40,wrap=NONE)
-            txt.pack(fill='x')
+            OptionVar1 = StringVar(root)
+            OptionVar1.set('Text Options')
+
+            menu1 = OptionMenu(root,OptionVar1,"Append Time Stamp (ctrl+alt+a)","Reverse (ctrl+alt+r)",'Convert to Canadian English (alt+c)','Convert to Text Slang(alt+t)',
+            "Convert to American English (alt+a)",
+            "Convert to Owo Text (alt+o)",
+            "Encode (alt+e)",
+            "Decode (alt+d)",
+            "Write Statistics File (ctrl+alt+w)",
+            "All key shortcuts used WILL AFFECT ALL OTHER COPIES OF THIS PROGRAM CURRENTLY RUNNING",
+            command=chk_menu2)
+            
+            menu1['menu'].entryconfigure(9,state='disabled')
+            menu1.pack(side=TOP,anchor=NW)
+
+            txt = Text(root,wrap=NONE)
+            txt.pack(expand=True,fill='both')
             try:
                 txt.insert(END,prevsavedata)
             except:
                 Tk().withdraw()
                 messagebox.showerror('Notpad','Could not read file')
                 forcekillnl()
-            btn = Button(root,text='Exit',command=terminat,bg='red')
-            btn.place(x=0,y=650)
-            btn1 = Button(root,text='Save As',command=saveas)
-            btn1.place(x=30,y=650)
-            btn16 = Button(root,text='Reverse',bg='black',fg='white',command=reverse)
-            btn16.place(x=280,y=650)
-            
-            btn2 = Button(root,text='Save',bg='green',command=save)
-            btn2.place(x=80,y=650)
-            btn4 = Button(root,text='Append Time Stamp',command=ats)
-            btn4.place(x=115,y=650)
-            btn5 = Button(root,text='Convert to Canadian English',bg='lime green',command=canaconv)
-            btn5.place(x=350,y=650)
-            btn6 = Button(root,text='Convert to Text Slang',bg='orange',command=txconv)
-            btn6.place(x=520,y=650)
-            btn7 = Button(root,text='Convert to American English',bg='red',command=amconv)
-            btn7.place(x=650,y=650)
-            btn8 = Button(root,text='Convert to Owo Text',bg='yellow',command=owoconv)
-            btn8.place(x=820,y=650)
-            btn9 = Button(root,text='Encode',command=encd)
-            btn9.place(x=950,y=650)
-            btn10 = Button(root,text='Decode',command=dcd)
-            btn10.place(x=1000,y=650)
-            
-            chkc = IntVar()
+
+        
+            chkc = IntVar(root)
             chkbx = Checkbutton(root,text='Autosave (10 s)',variable=chkc)
-            chkbx.place(x=350,y=675)
+            chkbx.place(x=390,y=30)
             
             txt.config(yscrollcommand=scr.set)
             scr.config(command=txt.yview)
@@ -905,26 +1009,22 @@ elif hasarg2 == True:
             scr1.pack(side='bottom',fill='x',expand=False)
             txt.config(xscrollcommand=scr1.set)
             scr1.config(command=txt.xview)
-            lbl = Label(root,text='Please note that standard save will save to the directory in the title.')
-            lbl.place(x=0,y=675)
-            lbl1 = Label(root,text='Notpad Text Editor for Basic Utilities')
-            lbl1.place(x=500,y=675)
+            lbl = Label(root,text='Regular save will save to the directory in the title.')
+            lbl.place(x=120,y=30)
             ent = Entry(root,width=20)
-            ent.place(x=700,y=675)
+            ent.place(x=120,y=0)
             btn11 = Button(root,text='Delete all instances',command=dai,bg='skyblue')
-            btn11.place(x=820,y=675)
+            btn11.place(x=250,y=0)
             btn12 = Button(root,text='Delete full words only',command=dfw,bg='blue',fg='white')
-            btn12.place(x=930,y=675)
+            btn12.place(x=360,y=0)
             btn13 = Button(root,text='Replace with',bg='black',fg='white',command=repw)
             ent2 = Entry(root,width=20)
-            btn13.place(x=1050,y=675)
-            ent2.place(x=1130,y=675)
+            btn13.place(x=500,y=0)
+            ent2.place(x=600,y=0)
             ent3 = Entry(root,width=10)
-            ent3.place(x=1050,y=650)
+            ent3.place(x=510,y=30)
             btn14 = Button(root,text='Count instances of',command=cio)
-            btn14.place(x=1100,y=650)
-            btn15 = Button(root,text='Write statistics file',bg='lime green',command=writestat)
-            btn15.place(x=1225,y=650)
+            btn14.place(x=580,y=30)
             
             root.mainloop()
             try:
@@ -1269,7 +1369,7 @@ nua = False
 print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.21.2")
+    SYSVERSION = version.parse("2.23.0")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -1421,6 +1521,7 @@ while xae == True:
         print("clr: Reset Basic Utilities' AppData.")
         print("rem: Remove custom appdata")
         print('cln: Clean up files from old versions that you dont need')
+
         
         print('')
         #^Under development, release in 2.6 or 2.7
@@ -1433,9 +1534,104 @@ while xae == True:
             print('rmg: Random Music Generator')
             print('cmaj: Play the ascending C major scale')
             print('alm: Get a nice beepy alarm')
+        print('')
+        print('-----YouTube-----')
+        print('ytdownload: Download a single video from YouTube')
+        print("ytaudio: Download a video's audio only")
+        print('')
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == 'ytdownload':
+        print('Please input the full URL to the video of your choice and press enter')
+        ytdownld = input()
+        try:
+            yx = YouTube(ytdownld)
+            yx.check_availability()
+        except:
+            Tk().withdraw()
+            messagebox.showerror('Error','Please input a valid video URL')
+        else:
+            def dlr():
+                global yx
+                ytw.quit()
+                ytw.destroy()
+                print('Preparing')
+                x = yx.streams.get_lowest_resolution()
+                print('Please select save file')
+                files = [('mp4 video', '*.mp4')]
+                Tk().withdraw()
+                file = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
+                
+                print('Downloading')
+                x.download(filename=str(file.name))
+                print('Complete')
+
+            def dhr():
+                global yx
+                ytw.quit()
+                ytw.destroy()
+                print('Preparing')
+                x = yx.streams.get_highest_resolution()
+                print('Please select save file')
+                files = [('mp4 video', '*.mp4')]
+                Tk().withdraw()
+                file = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
+                
+                print('Downloading')
+                x.download(filename=str(file.name))
+                print('Complete')
+                
+            ytw = Tk()
+            ytw.title('Options')
+            lbl = Label(ytw,text='Please select your option')
+            lbl.grid(column=0,row=0)
+            btn = Button(ytw,text='Cancel',bg='red',command=ytw.destroy)
+            btn.grid(column=0,row=1)
+            btn1 = Button(ytw,text='Download lowest resolution',bg='yellow',command=dlr)
+            btn1.grid(column=1,row=0)
+            btn2 = Button(ytw,text='Download highest resolution',bg='lime green',command=dhr)
+            btn2.grid(column=1,row=1)
+            ytw.mainloop()
+
+    elif command == 'ytaudio':
+        print('Please input the full URL to the video of your choice and press enter')
+        ytdownld = input()
+        try:
+            yx = YouTube(ytdownld)
+            yx.check_availability()
+        except:
+            Tk().withdraw()
+            messagebox.showerror('Error','Please input a valid video URL')
+        else:
+            
+
+            def dhr():
+                global yx
+                yta.quit()
+                yta.destroy()
+                print('Preparing')
+                x = yx.streams.get_audio_only()
+                print('Please select save file')
+                files = [('mp3 Audio', '*.mp3')]
+                Tk().withdraw()
+                file = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
+                
+                print('Downloading')
+                x.download(filename=str(file.name))
+                print('Complete')
+                
+            yta = Tk()
+            yta.title('Options')
+            lbl = Label(yta,text='Please select your option')
+            lbl.grid(column=0,row=0)
+            btn = Button(yta,text='Cancel',bg='red',command=yta.destroy)
+            btn.grid(column=0,row=1)
+            
+            btn2 = Button(yta,text='Download',bg='lime green',command=dhr)
+            btn2.grid(column=1,row=0)
+            yta.mainloop()
 
     elif command == 'conceal':
         Tk().withdraw()
@@ -2142,17 +2338,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5377')
-        print('print statements: 864')
-        print('Variables: 1415')
-        print('comparisons 398')
-        print('Exception handling loops 233')
+        print('lines: 5562')
+        print('print statements: 854')
+        print('Variables: 1433')
+        print('comparisons 425')
+        print('Exception handling loops 238')
         print('While loops 49')
         print('For loop 65')
-        print('Commands: 136')
-        print('Libraries Imported 21')
+        print('Commands: 139')
+        print('Libraries Imported 22')
         print('files utilized 100')
-        print('Tkinter windows used 97')
+        print('Tkinter windows used 103')
 
     elif command == 'sysplat':
         print('-----')
@@ -2427,12 +2623,18 @@ while xae == True:
         
         
     elif command == 'ip':
-        ip = get('https://api.ipify.org').text
-        print('Your public IPv4 address is: {}'.format(ip))
+        try:
+            ip = get('https://api.ipify.org').text
+            print('Your public IPv4 address is: {}'.format(ip))
+        except Exception as e:
+            toplevelerror('ERROR\n'+str(e))
 
     elif command == 'ip6':
-        ip = get('https://api64.ipify.org').text
-        print('Your public IPv6 address is: {}'.format(ip))
+        try:
+            ip = get('https://api64.ipify.org').text
+            print('Your public IPv6 address is: {}'.format(ip))
+        except Exception as e:
+            toplevelerror('ERROR\n'+str(e))
 
     elif command == 'rmg':
         if sysslash == '\\':
@@ -2824,44 +3026,7 @@ while xae == True:
         
     elif command == 'crash':
         raise RuntimeError('Manual Crash')
-        for i in range(30):
-            print('')
-        print('.  //')
-        print('  ||')
-        print('.  \\')
-        print('')
-        print('A critical system failure has occured.')
-        print('If this is the first time that you have seen this screen, restart.')
-        print('If this problem persists, reinstall.')
-        print('')
-        print('Techincal Information:')
-        print('')
-        print('Error code 0x00000129c (0x00000000a,0x00000011p,0x0_)')
-        print('Stop: Manually_Initiated_Crash')
-        print('')
-        print('press enter to continue to restart')
-        input()
-        try:
-            os.startfile('BasicUtilities.exe')
-
-        except:
-            print('Exception: Most recent Callback')
-            print('Error in line 1550 of BasicUtilities.py')
-            print('try:')
-            print("     os.startfile('BasicUtilites.exe')")
-            print('[ERRNO] 17')
-            print('')
-            print('During the handling of the above exception, another exception occured')
-            print('')
-            print('Error in line @#*(@^* of &(@#&(@.$*)@')
-            print('4vby3489vtb3v7tr80T*)@B^C806b3r807wb')
-            print('*(349bfUFGbbofeb78838b0t78t038tbb')
-            print('C@&s3: y07r syst3m hav3 h0l*d^^n02')
-            print('pr3@@ 3n53r t0 g0 t0 s7st3m sh*5d02n')
-            input()
-            forcekill()
-        else:
-            forcekill()
+        
     elif command == 'notifs':
         def nn():
             global nf
@@ -4898,11 +5063,11 @@ while xae == True:
             turtle.title("Lag Graph")
             t.speed(0)
             t.penup()
-            t.goto(-300,-300)
+            t.goto(-300,-100)
             t.pendown()
-            t.goto(300,-300)
+            t.goto(300,-100)
             t.penup()
-            t.goto(-300,-300)
+            t.goto(-300,-100)
             t.pendown()
             t.pencolor("red")
             lnp = t.pos()
@@ -4939,9 +5104,9 @@ while xae == True:
                 
                 try:
                     if noscreen == False:
-                        tlag = lag - 300
-                        talag = avglag - 300
-                        tlg = xavglag - 300
+                        tlag = lag - 100
+                        talag = avglag - 100
+                        tlg = xavglag - 100
                         ttotal = ttotal + 10
                         tgotototal = ttotal - 300
                         t.goto(tgotototal,tlag)
@@ -4967,16 +5132,16 @@ while xae == True:
                             t.clear()
                             ttotal = 0
                             t.penup()
-                            t.goto(-300,-300)
+                            t.goto(-300,-100)
                             t.pendown()
                             t.pencolor("black")
-                            t.goto(300,-300)
+                            t.goto(300,-100)
                             t.penup()
-                            t.goto(-300,-300)
+                            t.goto(-300,-100)
                             t.pendown()
                             t.pencolor("red")
-                            lnp = (-300,-300)
-                            lanp = (-300,-300)
+                            lnp = (-300,-100)
+                            lanp = (-300,-100)
                             tlan = lnp
                             averagelag = 0
                             lagcount = 0
