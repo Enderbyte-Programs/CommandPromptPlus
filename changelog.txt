@@ -154,3 +154,5 @@
 2.21: Added custom excpetion handler, search, speed
    2.21.1: Added conceal to lock down a computer (almost locked myself out of mine), made searh more lenient, fixed bug 4
    2.21.2: Fixed multiple bugs
+2.22: Text Editor Update III: Completely overhauled text editor [merged into 2.23]
+2.23: The YouTUbe Update: ADded download Youtube Video and download youtube audio.
