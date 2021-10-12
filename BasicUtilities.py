@@ -1,6 +1,6 @@
-print('Basic Utilities Release 2.23 (c) 2021 Enderbyte Programs. All rights reserved.')
+print('Basic Utilities Patch 2.23.1')
 print('Starting Up')
-SYSVERSION = '2.23'
+SYSVERSION = '2.23.1'
 from tkinter import messagebox, Tk
 import os
 def toplevelerror(message,title='Error'):
@@ -94,17 +94,7 @@ iopqwe = 0
 
 iopqwe = 0
 reqins = False
-try:
-    from requests import get
-except:
-    print('Some features may be broken because you dont have requests installed.')
-else:
-    try:
-        SYSVERDATA = get('https://pastebin.com/raw/htCBGFXf').text
-        reqins = True
-    except:
-        Tk().withdraw()
-        messagebox.showerror('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
+
 iopqwe = 0
 from tkinter import filedialog
 iopqwe = 0
@@ -250,23 +240,21 @@ elif hasarg2 == True:
                 prevsavedata = txt.get('1.0','end-1c')
 
         def opennew():
-            def launchWithoutConsole(command, args):
-                """Launches 'command' windowless"""
+            
+            if os.path.isfile('BasicUtilities.exe'):
+                Tk().withdraw()
+                x = filedialog.askopenfilename()
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-
-                return subprocess.Popen([command] + args, startupinfo=startupinfo,
-                                    stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-            Tk().withdraw()
-            x = filedialog.askopenfilename()
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                    
+                CREATE_NEW_PROCESS_GROUP = 0x00000200
+                DETACHED_PROCESS = 0x00000008
                 
-            CREATE_NEW_PROCESS_GROUP = 0x00000200
-            DETACHED_PROCESS = 0x00000008
-            
-            p = subprocess.Popen(["BasicUtilities.exe", x],stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell=False,creationflags=subprocess.CREATE_NO_WINDOW | DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
-            
+                p = subprocess.Popen(["BasicUtilities.exe", x],stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell=False,creationflags=subprocess.CREATE_NO_WINDOW | DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+            else:
+                Tk().withdraw()
+                messagebox.showerror('Notpad','Could not find BasicUtilities.exe. Did you delete or rename it?')
+
         def ats():
             global txt
             
@@ -548,7 +536,7 @@ elif hasarg2 == True:
         def chk_menu2(val):
             global OptionVar1
             OptionVar1.set('Text Options')
-            if val == 'Append Time Stamp (ctrl+alt+a)':
+            if val == 'Append Time Stamp (alt+s)':
                 ats()
             elif val == 'Reverse (ctrl+alt+r)':
                 reverse()
@@ -567,7 +555,7 @@ elif hasarg2 == True:
             elif val == 'Write Statistics File (ctrl+alt+w)':
                 writestat()
 
-        keyboard.add_hotkey('ctrl+alt+a',ats)
+        keyboard.add_hotkey('alt+s',ats)
         keyboard.add_hotkey('ctrl+alt+r',reverse)
         keyboard.add_hotkey('alt+c',canaconv)
         keyboard.add_hotkey('alt+t',txconv)
@@ -580,7 +568,7 @@ elif hasarg2 == True:
         OptionVar1 = StringVar(root)
         OptionVar1.set('Text Options')
 
-        menu1 = OptionMenu(root,OptionVar1,"Append Time Stamp (ctrl+alt+a)","Reverse (ctrl+alt+r)",'Convert to Canadian English (alt+c)','Convert to Text Slang(alt+t)',
+        menu1 = OptionMenu(root,OptionVar1,"Append Time Stamp (alt+s)","Reverse (ctrl+alt+r)",'Convert to Canadian English (alt+c)','Convert to Text Slang(alt+t)',
         "Convert to American English (alt+a)",
         "Convert to Owo Text (alt+o)",
         "Encode (alt+e)",
@@ -945,7 +933,7 @@ elif hasarg2 == True:
             def chk_menu2(val):
                 global OptionVar1
                 OptionVar1.set('Text Options')
-                if val == 'Append Time Stamp (ctrl+alt+a)':
+                if val == 'Append Time Stamp (alt+s)':
                     ats()
                 elif val == 'Reverse (ctrl+alt+r)':
                     reverse()
@@ -964,7 +952,7 @@ elif hasarg2 == True:
                 elif val == 'Write Statistics File (ctrl+alt+w)':
                     writestat()
 
-            keyboard.add_hotkey('ctrl+alt+a',ats)
+            keyboard.add_hotkey('alt+s',ats)
             keyboard.add_hotkey('ctrl+alt+r',reverse)
             keyboard.add_hotkey('alt+c',canaconv)
             keyboard.add_hotkey('alt+t',txconv)
@@ -977,7 +965,7 @@ elif hasarg2 == True:
             OptionVar1 = StringVar(root)
             OptionVar1.set('Text Options')
 
-            menu1 = OptionMenu(root,OptionVar1,"Append Time Stamp (ctrl+alt+a)","Reverse (ctrl+alt+r)",'Convert to Canadian English (alt+c)','Convert to Text Slang(alt+t)',
+            menu1 = OptionMenu(root,OptionVar1,"Append Time Stamp (alt+s)","Reverse (ctrl+alt+r)",'Convert to Canadian English (alt+c)','Convert to Text Slang(alt+t)',
             "Convert to American English (alt+a)",
             "Convert to Owo Text (alt+o)",
             "Encode (alt+e)",
@@ -1036,7 +1024,17 @@ elif hasarg2 == True:
             forcekillnl()
       
 log('program started')
-
+try:
+    from requests import get
+except:
+    print('Some features may be broken because you dont have requests installed.')
+else:
+    try:
+        SYSVERDATA = get('https://pastebin.com/raw/htCBGFXf').text
+        reqins = True
+    except:
+        Tk().withdraw()
+        messagebox.showerror('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
 xae = True
 tcrash = False
 accessdenied = False
@@ -1369,7 +1367,7 @@ nua = False
 print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.23.0")
+    SYSVERSION = version.parse("2.23.1")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -1673,8 +1671,8 @@ while xae == True:
             for path, subdirs, files in os.walk(root):
                 for name in files:
                     fin = os.path.join(path, name)
-                    if searchfor in name.lower():
-                        print(fin)
+                    if searchfor.lower() in name.lower():
+                        print(fin.replace('/','\\'))
 
     elif command == 'speed':
         has_finished_counting = False
@@ -1740,13 +1738,13 @@ while xae == True:
         if os.path.isdir(root):
             for path, subdirs, files in os.walk(root):
                 for name in files:
-                    print(os.path.join(path, name))
+                    print(os.path.join(path, name).replace('/','\\'))
                     how_many_files += 1
             print('Files:',how_many_files)
             
         else:
         
-            pass
+            print('Invalid directory')
         
 
     elif command == 'update':
