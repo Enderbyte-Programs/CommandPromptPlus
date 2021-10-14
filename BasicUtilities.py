@@ -104,6 +104,7 @@ import subprocess
 iopqwe = 0
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
+else:
     sysslash = '/'
 iopqwe = 0
 print(os.getcwd())
