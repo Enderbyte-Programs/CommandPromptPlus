@@ -157,4 +157,5 @@
 2.22: Text Editor Update III: Completely overhauled text editor [merged into 2.23]
 2.23: The YouTUbe Update: ADded download Youtube Video and download youtube audio.
    2.23.1: Assorted bug and UI fixes
-      2.23.1.1 [still says 2.23.1] Fixed critical issue #6
+[PLANNED] 2.24 fix bugs 6-8, overhaul calculator.
+[PLANNED] 2.25 ffmpeg something
