@@ -504,10 +504,13 @@ elif hasarg2 == True:
         prevsavedata = ''
         istr = True
         issy = False
-        keyboard.add_hotkey('ctrl+q',terminat)
-        keyboard.add_hotkey('ctrl+shift+s',saveas)
-        keyboard.add_hotkey('ctrl+s',save)
-        keyboard.add_hotkey('ctrl+alt+o',opennew)
+        try:
+            keyboard.add_hotkey('ctrl+q',terminat)
+            keyboard.add_hotkey('ctrl+shift+s',saveas)
+            keyboard.add_hotkey('ctrl+s',save)
+            keyboard.add_hotkey('ctrl+alt+o',opennew)
+        except:
+            pass
         scaus = threading.Thread(target=scanautosave)
         scaus.start()
         root = Tk()
@@ -555,17 +558,18 @@ elif hasarg2 == True:
                 dcd()
             elif val == 'Write Statistics File (ctrl+alt+w)':
                 writestat()
-
-        keyboard.add_hotkey('alt+s',ats)
-        keyboard.add_hotkey('ctrl+alt+r',reverse)
-        keyboard.add_hotkey('alt+c',canaconv)
-        keyboard.add_hotkey('alt+t',txconv)
-        keyboard.add_hotkey('alt+a',amconv)
-        keyboard.add_hotkey('alt+o',owoconv)
-        keyboard.add_hotkey('alt+e',encd)
-        keyboard.add_hotkey('alt+d',dcd)
-        keyboard.add_hotkey('ctrl+alt+w',writestat)
-        
+        try:
+            keyboard.add_hotkey('alt+s',ats)
+            keyboard.add_hotkey('ctrl+alt+r',reverse)
+            keyboard.add_hotkey('alt+c',canaconv)
+            keyboard.add_hotkey('alt+t',txconv)
+            keyboard.add_hotkey('alt+a',amconv)
+            keyboard.add_hotkey('alt+o',owoconv)
+            keyboard.add_hotkey('alt+e',encd)
+            keyboard.add_hotkey('alt+d',dcd)
+            keyboard.add_hotkey('ctrl+alt+w',writestat)
+        except:
+            pass
         OptionVar1 = StringVar(root)
         OptionVar1.set('Text Options')
 
@@ -901,9 +905,12 @@ elif hasarg2 == True:
 
             istr = True
             issy = True
-            keyboard.add_hotkey('ctrl+q',terminat)
-            keyboard.add_hotkey('ctrl+shift+s',saveas)
-            keyboard.add_hotkey('ctrl+s',save)
+            try:
+                keyboard.add_hotkey('ctrl+q',terminat)
+                keyboard.add_hotkey('ctrl+shift+s',saveas)
+                keyboard.add_hotkey('ctrl+s',save)
+            except:
+                pass
             
             scaus = threading.Thread(target=scanautosave)
             scaus.start()
@@ -953,15 +960,19 @@ elif hasarg2 == True:
                 elif val == 'Write Statistics File (ctrl+alt+w)':
                     writestat()
 
-            keyboard.add_hotkey('alt+s',ats)
-            keyboard.add_hotkey('ctrl+alt+r',reverse)
-            keyboard.add_hotkey('alt+c',canaconv)
-            keyboard.add_hotkey('alt+t',txconv)
-            keyboard.add_hotkey('alt+a',amconv)
-            keyboard.add_hotkey('alt+o',owoconv)
-            keyboard.add_hotkey('alt+e',encd)
-            keyboard.add_hotkey('alt+d',dcd)
-            keyboard.add_hotkey('ctrl+alt+w',writestat)
+            try:
+
+                keyboard.add_hotkey('alt+s',ats)
+                keyboard.add_hotkey('ctrl+alt+r',reverse)
+                keyboard.add_hotkey('alt+c',canaconv)
+                keyboard.add_hotkey('alt+t',txconv)
+                keyboard.add_hotkey('alt+a',amconv)
+                keyboard.add_hotkey('alt+o',owoconv)
+                keyboard.add_hotkey('alt+e',encd)
+                keyboard.add_hotkey('alt+d',dcd)
+                keyboard.add_hotkey('ctrl+alt+w',writestat)
+            except:
+                pass
             
             OptionVar1 = StringVar(root)
             OptionVar1.set('Text Options')
