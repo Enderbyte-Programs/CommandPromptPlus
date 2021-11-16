@@ -1,4 +1,7 @@
 # Basic-Utilities
+
+# This program's binaries are reccomended for Microsoft Windows 10/11. Running on Windows 7/8 may not work, and it won't start on Mac/Linux. Some features do not work on *nix systems.
+
 Download BasicUtilities
 
 Basic Utilities
