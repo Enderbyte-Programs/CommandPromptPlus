@@ -103,8 +103,10 @@ import subprocess
 
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
+    print(str(platform.platform()))
 else:
     sysslash = '/'
+    print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
 
 print(os.getcwd())
 sw = False
