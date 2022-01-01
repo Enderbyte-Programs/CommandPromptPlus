@@ -1,6 +1,7 @@
 print('Basic Utilities Patch 2.23.1')
 print('Starting Up')
 SYSVERSION = '2.23.1'
+#TODO Write json modder
 from tkinter import messagebox, Tk
 import os
 def toplevelerror(message,title='Error'):
@@ -20,6 +21,10 @@ except Exception as e:
     toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 try:
     import keyboard
+except Exception as e:
+    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+try:
+    import urllib.request
 except Exception as e:
     toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 
@@ -46,26 +51,20 @@ def handle_exception(type,value,traceback):
 from tkinter import *
 
 import tarfile
-
-iopqwe = 0
-
 import datetime
-
-    
-
 sys.excepthook = handle_exception
-iopqwe = 0
+
 try:
     import winsound
 except:
    print('Your device does not support Winsound. Some features may be broken.') 
-iopqwe = 0
+
 import os
-iopqwe = 0
+
 import webbrowser
-iopqwe = 0
+
 import platform
-iopqwe = 0
+
 import random
 try:
     from packaging import version
@@ -75,38 +74,38 @@ except:
 else:
     haspkg = True
 
-iopqwe = 0
-from time import sleep
-iopqwe = 0
 
-iopqwe = 0
+from time import sleep
+
+
+
 try:
     from playsound import playsound
 except:
     print('Your device does not support playsound. Some features may be broken')
-iopqwe = 0
+
 import turtle
-iopqwe = 0
+
 import threading
-iopqwe = 0
 
-iopqwe = 0
 
-iopqwe = 0
+
+
+
 reqins = False
 
-iopqwe = 0
+
 from tkinter import filedialog
-iopqwe = 0
+
 import shutil
-iopqwe = 0
+
 import subprocess
-iopqwe = 0
+
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
 else:
     sysslash = '/'
-iopqwe = 0
+
 print(os.getcwd())
 sw = False
 gamees_played = 0
@@ -115,7 +114,7 @@ pi = 3.14
 hasarg = True
 playedg2 = False
 hasarg2 = True
-iopqwe = 0
+
 pid = os.getpid()
 print(pid)
 def forcekill():
@@ -139,7 +138,7 @@ except:
     hasarg2 = False
 
 if hasarg == True and xxx == 'translate':
-    iopqwe = 0
+    
     try:
         f = open(openfile_dir,'r')
         mes = f.read()
@@ -189,7 +188,7 @@ if hasarg == True and xxx == 'translate':
 
 
 elif hasarg2 == True:
-    iopqwe = 0
+    
     cwd = os.getcwd()
     fto = sys.argv[1]
     if fto == 'new':
@@ -1051,7 +1050,7 @@ xae = True
 tcrash = False
 accessdenied = False
 cmd_run = 0
-iopqwe = 0
+
 try:
     f = open("appdata.txt","r")
     besttime = f.read()
@@ -1080,7 +1079,7 @@ except:
         accessdenied = True
 finally:
     f.close()
-iopqwe = 0
+
 try:
     f = open('bcount.txt')
     bootcount = f.read()
@@ -1106,15 +1105,15 @@ except:
     f = open('bcount.txt','x')
     f.write(str(bootcount))
     f.close()
-iopqwe = 0
+
 def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
     erm = erm + erc
     Tk().withdraw()
     messagebox.showerror("Error",erm)
-iopqwe = 0
-iopqwe = 0
+
+
 def newwindow():
 
     x = pyutils39.toplevelquestion('Do you want to open a new window of Basic Utilities before you run this long/infinite command?')
@@ -1123,7 +1122,7 @@ def newwindow():
             os.startfile('BasicUtilities.exe')
         except:
             pyutils39.error('Could not find BasicUtilities.exe. Did you rename it?')
-iopqwe = 0
+
 def conv(start,end,formula):
     global txt
     global lbl2
@@ -1157,7 +1156,7 @@ def conv(start,end,formula):
     btn1.grid(column=1,row=2)
     window.mainloop()
 
-iopqwe = 0
+
 
 def reload():
     try:
@@ -1166,7 +1165,7 @@ def reload():
         print("Could not start Basic Utilities")
     else:
         sys.exit()
-iopqwe = 0
+
 
 def startsound():
     if os.path.isfile('startsound.dat') == True:
@@ -1188,14 +1187,14 @@ def startsound():
         print('You currently do not have a startup sound set. Set one via the startsound command')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()
-iopqwe = 0       
+       
 def runfile(filename):
     try:
         os.startfile(filename)
     except:
         error(2)
 
-iopqwe = 0
+
 
 try:
     f = open('username.txt','r')
@@ -1218,7 +1217,7 @@ except:
 else:
     sysuser = str(f.read())
     f.close()
-iopqwe = 0
+
 try:
     f = open('bday.txt','r')
     x = f.readlines()
@@ -1249,7 +1248,7 @@ else:
                 print("")
                 print('press enter to continue to the command menu')
                 input()
-iopqwe = 0
+
 t = datetime.datetime.now()
 y = t.year
 p = t.month
@@ -1277,7 +1276,7 @@ elif p == 10 and o == 31:
 #Couldn't find any more fixed-date holidays that are recognized globally.
 
 
-iopqwe = 0
+
 print('You have booted up Basic Utilities',bootcount,'times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
@@ -1361,8 +1360,8 @@ f.write(str(x.hour)+'\n')
 f.write(str(x.minute)+'\n')
 f.write(str(x.second)+'\n')
 f.close()
-iopqwe = 0
-iopqwe = 0
+
+
 print('')
 print("Welcome to Basic Utilities,",sysuser)
 print(datetime.datetime.now())
@@ -1496,6 +1495,7 @@ while xae == True:
         print('untar: Uncompress a tar.gz archive')
         print('search: Search folders for files that contain things you input. Warning: Can take up lots of resources!')
         print('speed: How many equations can your computer do in 1 second?')
+        print("webdownload: Download a web page to file")
         if sysslash == '\\':
             print('diran: Get directory statistics and write to file')
             print('te: Open the Text Editor that comes with this program.')
@@ -1552,6 +1552,19 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == 'webdownload' :
+        wbdl = input("Web page to download: ")
+        print("Please select the save file.")
+        files = [('html webpage', '*.html')]
+        Tk().withdraw()
+        file = filedialog.asksaveasfile(filetypes = files, defaultextension = files)
+        try:
+            urllib.request.urlretrieve(wbdl,file.name)
+        except: 
+            pass
+        else:
+            print("Download is complete")
 
     elif command == 'ytdownload':
         print('Please input the full URL to the video of your choice and press enter')
