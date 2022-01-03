@@ -1,7 +1,7 @@
 print('Basic Utilities Patch 2.23.1')
 print('Starting Up')
 SYSVERSION = '2.23.1'
-#TODO Write json modder
+
 from tkinter import messagebox, Tk
 import os
 def toplevelerror(message,title='Error'):
@@ -28,8 +28,14 @@ try:
 except Exception as e:
     toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 
+try:
+    import termcolor
+except Exception as e:
+    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+
 from traceback import format_tb
 import sys
+import json
 def log(stuff_to_log):
     
     f = open('log_000.log','a+')
@@ -42,12 +48,12 @@ def handle_exception(type,value,traceback):
         pass
     else:
         try:
-            log('!UNCAUGHT EXCPEION!'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+            log('!UNCAUGHT EXCPETION!'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
         except:
             pass
-        toplevelerror('A fatal exception occured in Basic Utilities. ERROR:\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+        termcolor.cprint('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]),"red")
+        input("press enter to quit program")
         
-        os.system('taskkill /F /PID '+str(os.getpid())+' /T')
 from tkinter import *
 
 import tarfile
@@ -76,9 +82,6 @@ else:
 
 
 from time import sleep
-
-
-
 try:
     from playsound import playsound
 except:
@@ -87,11 +90,6 @@ except:
 import turtle
 
 import threading
-
-
-
-
-
 reqins = False
 
 
@@ -116,6 +114,9 @@ pi = 3.14
 hasarg = True
 playedg2 = False
 hasarg2 = True
+
+if not os.path.isfile("appdata.json"):
+    print("Would you like to port appdata?")
 
 pid = os.getpid()
 print(pid)
@@ -3057,33 +3058,24 @@ while xae == True:
             global nf
             try:
                 f = open('notifs.txt','w')
-                f.write('0')
+                f.write('false')
             except:
                 f = open('notifs.txt','x')
-                f.write('0')
+                f.write('false')
             f.close()
             nf.destroy()
         def cn():
             global nf
             try:
                 f = open('notifs.txt','w')
-                f.write('1')
+                f.write('true')
             except:
                 f = open('notifs.txt','x')
-                f.write('1')
+                f.write('true')
             finally:
                 f.close()
             nf.destroy()
-        def mn():
-            global nf
-            try:
-                f = open('notifs.txt','w')
-                f.write('2')
-            except:
-                f = open('notifs.txt','x')
-                f.write('2')
-            f.close()
-            nf.destroy()
+        
         nf = Tk()
         nf.title('Notifications settings')
         lbl = Label(nf,text='Select your notification settings')
@@ -3092,8 +3084,7 @@ while xae == True:
         btn.grid(column=0,row=1)
         btn = Button(nf,text='console notifications (default)',command=cn)
         btn.grid(column=1,row=1)
-        btn = Button(nf,text='messagebox notifications',command=mn)
-        btn.grid(column=2,row=1)
+        
         nf.mainloop()
         
     elif command == 'encode':
@@ -4523,19 +4514,15 @@ while xae == True:
     elif command == "credits":
         print("Basic Utilities (c) 2021 Enderbyte Programs")
         print("Installer by Inno Setup")
-        print("Coded in Python 3.7.3, 3.9.2, 3.9.6 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1")
+        print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7")
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
         print("And Thonny IDE for Raspberry Pi 4")
         print('AND IDLE 3.7.3 for Raspberry Pi 4')
-        print('And Visual Studio Code for Python 3.7.3 and 3.9.6')
+        print('And Visual Studio Code for Python 3.7.3 and 3.9.6, 3.9.7, 3.10.0, and 3.10.1')
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
-        
-        print('Sound "Windows Xp Boot" from Instant Sounds')
-        
-        print('Sound "Windows 7 Boot" from [unknown]')
         print("Started on April 14, 2021")
 
 
@@ -4562,7 +4549,7 @@ while xae == True:
         pr.mainloop()
     elif command == "stop":
         xae = False
-        forcekill()
+        sys.exit()
         break
     elif command == "stopall":
         try:
@@ -5566,25 +5553,21 @@ while xae == True:
         xlm = f.read()
     except:
         f = open('notifs.txt','x')
-        f.write('1')
-        xlm = '1'
+        f.write('true')
+        xlm = 'true'
     xmls = str(cmd_run)
-    if xlm == '0':
-        pqie = 2009
-    elif xlm == '1':
+    if xlm == 'false':
+        pass
+    elif xlm == 'true':
         print('')
         print('You have run',cmd_run,'commands this session')
-    elif xlm == '2':
-
-
-        xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
-        Tk().withdraw()
-        messagebox.showinfo('Analytics Reporter',xls)
+    
     else:
+        log("Invalid notifs")
         f = open('notifs.txt','w')
-        f.write('1')
+        f.write('true')
         
-        xls = 'You have run this many commands this session: ' + xmls + ". If you don't want messagebox notifs, change this with the notifs command."
+        xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
         print('')
         print(xls)
     f.close()
