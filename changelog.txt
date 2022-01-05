@@ -161,3 +161,4 @@
    2.24-a2: Added unsupported OS warning, now prints platform at startup
    2.24-a3: Removed messagebox booleans, and changed it to a boolean (true/false)
    2.24-a4: Browser history will now store all history instead of most recent search only, changed start name to 2.24.
+   2.24-a5: Removed rem command, switched appdata.txt and bcount.txt fully to JSON with porting capabilities
