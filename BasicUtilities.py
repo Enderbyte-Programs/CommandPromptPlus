@@ -1,6 +1,6 @@
-print('Basic Utilities Patch 2.23.1')
+print('Basic Utilities 2.24 Beta 4')
 print('Starting Up')
-SYSVERSION = '2.23.1'
+SYSVERSION = '2.24'
 
 from tkinter import messagebox, Tk
 import os
@@ -114,9 +114,13 @@ pi = 3.14
 hasarg = True
 playedg2 = False
 hasarg2 = True
-
-if not os.path.isfile("appdata.json"):
-    print("Would you like to port appdata?")
+pre = False
+if not os.path.isfile("appdata.json") and pre:
+    print("You are using an old version of appdata (>2.23). Would you like to port it?")
+    pa = input()
+    if pa.lower().startswith("y"):
+        with open("appdata.txt") as ad:
+            besttime = ad.read()
 
 pid = os.getpid()
 print(pid)
@@ -4704,11 +4708,11 @@ while xae == True:
     elif command == "browser":
         try:
             f = open('history.txt')
-            data = f.read()
+            data = f.readlines()[len(f.readlines())]
         except:
-            f = open('history.txt','x')
+            
             data = 'No History Yet'
-            f.write(data)
+            
         finally:
             f.close()
         def gourl():
@@ -4763,12 +4767,12 @@ while xae == True:
             global res
             global lbl1
             try:
-                f = open('history.txt','w')
-                f.write(res)
+                f = open('history.txt','a+')
+                f.write(res+"\n")
                 f.close()
             except:
-                f = open('history.txt','w')
-                f.write(res)
+                f = open('history.txt','a+')
+                f.write(res+"\n")
                 f.close()
             lbl1.configure(text=res)
         def ddie():
