@@ -114,13 +114,11 @@ pi = 3.14
 hasarg = True
 playedg2 = False
 hasarg2 = True
-pre = False
-if not os.path.isfile("appdata.json") and pre:
-    print("You are using an old version of appdata (>2.23). Would you like to port it?")
-    pa = input()
-    if pa.lower().startswith("y"):
-        with open("appdata.txt") as ad:
-            besttime = ad.read()
+
+
+
+
+
 
 pid = os.getpid()
 print(pid)
@@ -1042,6 +1040,50 @@ elif hasarg2 == True:
             forcekillnl()
       
 log('program started')
+
+if os.path.isfile("appdata.json"):
+    with open("appdata.json") as appdat:
+        APPDATA = json.load(appdat)
+        
+isported = False
+if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
+    print("You are using an old version of appdata (<2.23). Would you like to port it?")
+    pa = input()
+    apd = {"besttime": None, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": None, "gamexp": None, "startsound": None}
+    if pa.lower().startswith("y"):
+        log("Porting Appdata")
+        isported = True
+        if os.path.isfile("appdata.txt"):
+            with open("appdata.txt") as ad:
+                besttime = ad.read()
+            try:
+                besttime = int(besttime)
+            except:
+                pass
+            else:
+                apd["besttime"] = besttime
+
+        if os.path.isfile("bcount.txt"):
+
+            with open("bcount.txt") as ad2:
+                bcount = ad2.read()
+            try:
+                bcount = int(bcount)
+            except:
+                pass
+            else:
+                apd["bcount"] = bcount
+        
+        with open("appdata.json","w+") as ad:
+            ad.write(str(json.dumps(apd)))
+        with open("appdata.json") as appdat:
+            APPDATA = json.load(appdat)
+if not os.path.isfile("appdata.json") and not isported:
+    with open("appdata.json","w+") as apt:
+        apt.write('{"besttime": null, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null}')
+    with open("appdata.json") as appdat:
+        APPDATA = json.load(appdat)
+
 try:
     from requests import get
 except:
@@ -1058,60 +1100,28 @@ tcrash = False
 accessdenied = False
 cmd_run = 0
 
-try:
-    f = open("appdata.txt","r")
-    besttime = f.read()
-    try:
-        besttime = int(besttime)
-    except:
-        a_file = open("appdata.txt", "r")
-
-        list_of_lines = a_file.readlines()
-
-        list_of_lines[0] = "0\n"
-
-        besttime = 0
-        a_file = open("appdata.txt", "w")
-
-        a_file.writelines(list_of_lines)
-
-        a_file.close()
-except:
-    try:
-        f = open("appdata.txt","x")
-        f.write("0")
-        besttime = 0
-        f.close()
-    except:
-        accessdenied = True
-finally:
-    f.close()
+def updateappdata():
+    global APPDATA
+    with open("appdata.json","w+") as ad:
+        ad.write(str(json.dumps(APPDATA)))
 
 try:
-    f = open('bcount.txt')
-    bootcount = f.read()
-    try:
-        bootcount = int(bootcount)
-    except:
-        f.close
-        f = open('bcount.txt','w')
-        bootcount = 0
-        f.write(str(bootcount+1))
-        f.close()
+    besttime = int(APPDATA["besttime"])
 except:
-    f = open('bcount.txt','x')
-    bootcount = 0
-    f.write(str(bootcount+1))
-    f.close()
-bootcount += 1
+    besttime = 0
+    APPDATA["besttime"] = 0
+    updateappdata()
+###
+bootcount = APPDATA["bcount"]
 try:
-    f = open('bcount.txt','w')
-    f.write(str(bootcount))
-    f.close()
+    bootcount = int(bootcount)
 except:
-    f = open('bcount.txt','x')
-    f.write(str(bootcount))
-    f.close()
+    bootcount = 1
+    APPDATA["bcount"] = bootcount
+    updateappdata()
+else:
+    APPDATA["bcount"] = bootcount + 1
+    updateappdata()
 
 def error(erc):
     erc = str(erc)
@@ -1284,7 +1294,7 @@ elif p == 10 and o == 31:
 
 
 
-print('You have booted up Basic Utilities',bootcount,'times.')
+print('You have booted up Basic Utilities',bootcount+1,'times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
@@ -1536,12 +1546,12 @@ while xae == True:
         print('-----Uninstalling and cleaning-----')
         print("uninstall: Uninstall this program completely")
         print("clr: Reset Basic Utilities' AppData.")
-        print("rem: Remove custom appdata")
+        
         print('cln: Clean up files from old versions that you dont need')
 
         
         print('')
-        #^Under development, release in 2.6 or 2.7
+        
         if sysslash == '\\':
             print('-----Sound-----')
             print('beep: Get a beep')
@@ -2073,116 +2083,7 @@ while xae == True:
     elif command == 'tsklst':
         os.system('tasklist')
 
-    elif command == 'rem':
-        Tk().withdraw()
-        da0 = messagebox.askyesno('Basic Utilities','Do you want to clear best time?')
-        print('ClearBestTime =',da0)
-        Tk().withdraw()
-        da1 = messagebox.askyesno('Basic Utilities','Do you want to clear boot count?')
-        print('ClearBootCount =',da1)
-        Tk().withdraw()
-        da2 = messagebox.askyesno('Basic Utilities','Do you want to clear birthday?')
-        print('ClearBday=',da2)
-        Tk().withdraw()
-        da3 = messagebox.askyesno('Basic Utilities','Do you want to clear boot time?')
-        print('ClearBootTime =',da3)
-        Tk().withdraw()
-        da4 = messagebox.askyesno('Basic Utilities','Do you want to clear game health?')
-        print('ClearGameealth =',da4)
-        Tk().withdraw()
-        da5 = messagebox.askyesno('Basic Utilities','Do you want to clear browser history?')
-        print('ClearBrowserHistory =',da5)
-        Tk().withdraw()
-        da6 = messagebox.askyesno('Basic Utilities','Do you want to clear Notifications settings?')
-        print('ClearNotifs =',da6)
-        Tk().withdraw()
-        da7 = messagebox.askyesno('Basic Utilities','Do you want to clear game xp?')
-        print('ClearXP =',da7)
-        Tk().withdraw()
-        da8 = messagebox.askyesno('Basic Utilities','Do you want to clear system Username?')
-        print('ClearUsr =',da8)
-        Tk().withdraw()
-        da9 = messagebox.askyesno('Basic Utilities','Do you want to clear startup sound?')
-        print('ClearStartSound =',da9)
-        print('-----')
-        print('Confirm? [y/n]')
-        conf = input()
-        if conf.lower().startswith('y'):
-            f.close()
-            if da0 == True:
-                try:
-                    os.remove('appdata.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da1 == True:
-                try:
-                    os.remove('bcount.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da2 == True:
-                try:
-                    os.remove('bday.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da3 == True:
-                try:
-                    os.remove('btime.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da4 == True:
-                try:
-                    os.remove('health.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da5 == True:
-                try:
-                    os.remove('history.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da6 == True:
-                try:
-                    os.remove('notifs.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da7 == True:
-                try:
-                    os.remove('xp.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da8 == True:
-                try:
-                    os.remove('username.txt')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            if da9 == True:
-                try:
-                    os.remove('startsound.dat')
-                except:
-                    print('File not found')
-                else:
-                    print('Deleted succesfully')
-            log('User reset some appdata')
-            Tk().withdraw()
-            messagebox.showinfo('Basic Utilities','Press OK to reload BasicUtilities')
-            reload()
+
     elif command == 'cln':
         fcln = 0
         try:
@@ -2916,7 +2817,7 @@ while xae == True:
                 print('You have won against',monsters_won,'This session')
                 print('You lost against',monsters_lost,'This session')
                 print('For a total of',monsters_battled)
-                print('You have a winning ration of',(str(monsters_won/monsters_battled*100)+' %'))
+                print('You have a winning rate of',(str(monsters_won/monsters_battled*100)+' %'))
                 health = blhealth + (random.randint(blmh//8,blmh//5))
                 print('You gained',health-blhealth,'health This round for a total of',health)
                 print('')
@@ -3377,41 +3278,9 @@ while xae == True:
     elif command == 'clr':
         f.close()
         try:
-            os.remove('appdata.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('bcount.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('bday.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('btime.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('health.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('history.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('notifs.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('xp.txt')
-        except:
-            print('File not found')
-        try:
-            os.remove('username.txt')
-        except:
-            print('File not found')
+            os.remove("appdata.json")
+        except Exception as e:
+            print("Failed to delete Appdata",e)
 
         reload()
 
@@ -4036,19 +3905,8 @@ while xae == True:
         print("You did it in",ttime,"seconds!")
         if besttime == 0 or ttime < besttime:
             print("You have a new best time!")
-            ttime = str(ttime)
-            try:
-                f = open("appdata.txt","x")
-                f.write(ttime)
-                f.close()
-            except:
-                ttime = ttime + "\n"
-                f = open("appdata.txt","r")
-                xr = f.readlines()
-                xr[0] = ttime
-                f = open("appdata.txt","w")
-                f.writelines(xr)
-                f.close()
+            APPDATA["besttime"] = ttime
+            updateappdata()
         ot = correct + wrong
         print("You did",correct,"correct answers out of",ot)
         ote = correct / ot * 100
