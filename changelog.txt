@@ -157,7 +157,7 @@
 2.22: Text Editor Update III: Completely overhauled text editor [merged into 2.23]
 2.23: The YouTUbe Update: ADded download Youtube Video and download youtube audio.
    2.23.1: Assorted bug and UI fixes
-   2.24-a1: Added webdownload to download a webpage as an html file, removed random iopqwe = 0s from a failed update.
+   2.24-a1: Added webdownload to download a webpage as an html file, removed random iopqwe = 0s from a failed update. Also removed crash GUI as it served no purpose. Fancy terminals will display crashes as red text.
    2.24-a2: Added unsupported OS warning, now prints platform at startup
    2.24-a3: Removed messagebox booleans, and changed it to a boolean (true/false)
    2.24-a4: Browser history will now store all history instead of most recent search only, changed start name to 2.24.
