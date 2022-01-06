@@ -1,4 +1,4 @@
-print('Basic Utilities 2.24 Beta 4')
+print('Basic Utilities 2.24 Beta 7')
 print('Starting Up')
 SYSVERSION = '2.24'
 
@@ -1085,8 +1085,9 @@ if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
-try:
+try:   
     from requests import get
+    import requests
 except:
     print('Some features may be broken because you dont have requests installed.')
 else:
@@ -1105,6 +1106,22 @@ def updateappdata():
     global APPDATA
     with open("appdata.json","w+") as ad:
         ad.write(str(json.dumps(APPDATA)))
+
+try:
+    ewqueo = requests.get("https://www.google.com")
+except (requests.ConnectionError,requests.Timeout):
+    print("You are not connected.")
+    APPDATA["useDownloadedSounds"] = False
+    updateappdata()
+    log("User is not connected to the internet")
+except NameError:
+    print("Please install requests library to use downloaded sounds")
+    APPDATA["useDownloadedSounds"] = False
+    updateappdata()
+else:
+    log("User is connected to the internet")
+    if not os.path.isfile("warning.mp3"):
+        urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3","warning.mp3")
 
 try:
     besttime = int(APPDATA["besttime"])
@@ -1254,7 +1271,7 @@ else:
         print('Warning: Bday file cannot be converted to type <int>.',end='\r')
     else:
         try:
-            l = datetime.datetime(2021,mt,dy,0,0,0)
+            l = datetime.datetime(2022,mt,dy,0,0,0)
         except:
             print('Warning: Bday out of range',end='\r')
         else:
@@ -4375,7 +4392,7 @@ while xae == True:
         print("Discord: Enderbyte09#0542")
 
     elif command == "credits":
-        print("Basic Utilities (c) 2021 Enderbyte Programs")
+        print("Basic Utilities (c) 2021-2022 Enderbyte Programs")
         print("Installer by Inno Setup")
         print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7")
         print("Written by Enderbyte09")
@@ -4455,13 +4472,26 @@ while xae == True:
                         vaults = vaults + 1
                         if moneyadd == "alarm":
                             alarm = True
-                            try:
-                                winsound.Beep(1000,1000)
-                            except:
-                                error(2)
+                            if APPDATA["useDownloadedSounds"]:
+                                try:
+                                    playsound("warning.mp3")
+                                except:
+                                    log("Could not play sound, will try beep")
+                                    try:
+                                        winsound.Beep(1000,1000)
+                                    except:
+                                        Tk().withdraw()
+                                        messagebox.showerror("Beat The bank","Could not play alarm sound.")
+                            else:
+                                try:
+                                    winsound.Beep(1000,1000)
+                                except:
+                                    Tk().withdraw()
+                                    messagebox.showerror("Beat The bank","Could not play alarm sound.")
                         elif alarm == False:
                             money = money + moneyadd
-                    print("You have",money,"dollars")
+                    if not alarm:
+                        print("You have",money,"dollars")
                     if openvault == "n":
                         hasstopped = True
                 if alarm ==  True:
