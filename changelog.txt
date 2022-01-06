@@ -162,3 +162,7 @@
    2.24-a3: Removed messagebox booleans, and changed it to a boolean (true/false)
    2.24-a4: Browser history will now store all history instead of most recent search only, changed start name to 2.24.
    2.24-a5: Removed rem command, switched appdata.txt and bcount.txt fully to JSON with porting capabilities. WARNING: command "clr" is fully ported, but the rest is not. Please excersize caution until the full release 
+   2.24-a6: Readded the airhorn and added "useDownloadedSounds" key to appdata.json
+   2.24-a7: Fixed bugs and re-added air horn to beat the bank
+   2.24-a8: Chanegd the command "clock" to "time" and "clk" to "clock". Also added air horn support to alarms and timer. Control this through appdata.json, a GUI settings will be added later.
+   2.24-a9: Added snapshot warning and fixed bugs in bday comparer (leap year discrepancy that has been there since 2.1.3)
