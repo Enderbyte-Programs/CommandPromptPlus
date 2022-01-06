@@ -1,6 +1,7 @@
 print('Basic Utilities 2.24 Beta 8')
 print('Starting...')
 SYSVERSION = '2.24'
+SNAPSHOT = True
 
 from tkinter import messagebox, Tk
 import os
@@ -41,8 +42,7 @@ def log(stuff_to_log):
     f = open('log_000.log','a+')
 
     f.write(str('['+str(datetime.datetime.now())+'] '+stuff_to_log)+'\n')
-    f.close()
-   
+    f.close()  
 def handle_exception(type,value,traceback):
     if issubclass(type, KeyboardInterrupt):
         pass
@@ -56,6 +56,9 @@ def handle_exception(type,value,traceback):
         
 from tkinter import *
 
+if SNAPSHOT:
+    termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
+
 import tarfile
 import datetime
 sys.excepthook = handle_exception
@@ -63,7 +66,7 @@ sys.excepthook = handle_exception
 try:
     import winsound
 except:
-   print('Your device does not support Winsound. Some features may be broken.') 
+    print('Your device does not support Winsound. Some features may be broken.') 
 
 import os
 
@@ -1283,7 +1286,7 @@ else:
         print('Warning: Bday file cannot be converted to type <int>.',end='\r')
     else:
         try:
-            l = datetime.datetime(2022,mt,dy,0,0,0)
+            l = datetime.datetime(t.year,mt,dy,0,0,0)
         except:
             print('Warning: Bday out of range',end='\r')
         else:
@@ -1553,8 +1556,7 @@ while xae == True:
         print('tempt: Temperature converter')
         print('degp: degrees to percent')
         print('pdeg: percent to degrees')
-        print('pi: Get up to 100 digits of pi')
-     
+        print('pi: Get up to 100 digits of pi')    
         print("pa: Add percent")
         print("pr: Remove percent")
         print("pgpa: Percent to GPA")
@@ -1571,6 +1573,7 @@ while xae == True:
         print('sqrpyr: Calculate volume of a rectangular pyramid.')
         print('tripyr: Calculate volume of a triangular pyramid')
         print('emc2: Calcuate th energy(joules) in a given object.')
+        
         print('')
         print('-----Uninstalling and cleaning-----')
         print("uninstall: Uninstall this program completely")
@@ -4538,8 +4541,8 @@ while xae == True:
                 else:
                     playagain = 'n'
     elif command == "insult":
-        adjec = ["Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","Picklebrained","@$%&TYFt767tT*^TT*%%RFft*^((%^$4&^^4"]
-        noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Monkeybottom","Clackdish","Jellyfish","^%*yuygg&yguguyTUGUT87t83t868%&&^^&*^&*"]
+        adjec = ["Porkmouthed","Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","Picklebrained","@$%&TYFt767tT*^TT*%%RFft*^((%^$4&^^4"]
+        noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Monkeybottom","Clackdish","Jellyfish","Nimrod","^%*yuygg&yguguyTUGUT87t83t868%&&^^&*^&*"]
         adjec1 = random.choice(adjec)
         adjec2 = random.choice(adjec)
         noun1 = random.choice(noun)
