@@ -1453,8 +1453,7 @@ while xae == True:
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
         print("prank: try it out :P")
-        print('crash: Crash this program')
-       
+        print('crash: Crash this program')       
         print('')
         print('-----System Interaction-----')
         print("stop: Stops this window")
@@ -1482,10 +1481,10 @@ while xae == True:
         print('')
         print('-----Clocks & Alarms-----')
         print("alarm: Open the alarm clock")
-        print("clock: Tells you the exact time")
+        print("time: Tells you the exact time")
         print("counter: make a counter")
         print("sw: Stop watch!")
-        print("clk: Get an ongoing clock")
+        print("clock: Get an ongoing clock")
         
         print("timer: Pauseable Timer")
         print('')
@@ -2001,7 +2000,7 @@ while xae == True:
         rname = rname.replace('BooB','RooB')
         print(rname)
 
-    elif command == 'clk':
+    elif command == 'clock':
         newwindow()
         isfini = False
         def cloc():
@@ -3450,10 +3449,16 @@ while xae == True:
             except:
                 error(0)
             print("Your timer is done")
-            try:
-                winsound.Beep(1000,1000)
-            except:
-                error(2)
+            if APPDATA["useDownloadedSounds"]:
+                try:
+                    playsound("warning.mp3")
+                except:
+                    error(2)
+            else:
+                try:
+                    winsound.Beep(1000,1000)
+                except:
+                    error(2)
 
         def tmstart():
             global paused
@@ -4830,20 +4835,41 @@ while xae == True:
             print("Your timer is done")
             asdfgh = True
             while asdfgh == True:
-                try:
-                    winsound.Beep(1000,1000)
-                    asdfgh = False
-                except:
-                    error(2)
-                    crashed = True
-                    asdfgh = False
-                    break
+                if APPDATA["useDownloadedSounds"]:
+                    try:
+                        playsound("warning.mp3")
+                        asdfgh = False
+                    except:
+                        try:
+                            winsound.Beep(1000,1000)
+                        except:
+                            print("Could not play sound")
+                            crashed = True
+                            asdfgh = False
+                            break
+                else:
+                    try:
+                        winsound.Beep(1000,1000)
+                    except:
+                        print("Could not play sound")
+                        crashed = True
+                        asdfgh = False
+                        break
 
-            for i in range(1,5):
+            for i in range(5):
                 if crashed == False:
-                    winsound.Beep(1000,1000)
+                    if APPDATA["useDownloadedSounds"]:
+                        try:
+                            playsound("warning.mp3")
+                        except:
+                            crashed = True
+                    else:
+                        try:
+                            winsound.Beep(1000,1000)
+                        except:
+                            crashed=True
             ajh = False
-    elif command == "clock":
+    elif command == "time":
         x = datetime.datetime.now()
         print(x)
     elif command == "counter":
