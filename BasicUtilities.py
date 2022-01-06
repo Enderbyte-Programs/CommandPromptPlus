@@ -1,5 +1,5 @@
-print('Basic Utilities 2.24 Beta 7')
-print('Starting Up')
+print('Basic Utilities 2.24 Beta 8')
+print('Starting...')
 SYSVERSION = '2.24'
 
 from tkinter import messagebox, Tk
@@ -1074,6 +1074,22 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
                 pass
             else:
                 apd["bcount"] = bcount
+
+        if os.path.isfile("bday.txt"):
+
+            with open("bday.txt") as ad3:
+                bday = ad3.readlines()
+                
+                bmt = bday[0]
+                bdy = bday[1]
+            try:
+                bmt = int(bmt)
+                bdy = int(bdy)
+            except:
+                print("failed to port birthday")
+            else:
+                apd["bday"]["month"] = bmt
+                apd["bday"]["day"] = bdy
         
         with open("appdata.json","w+") as ad:
             ad.write(str(json.dumps(apd)))
@@ -1081,7 +1097,7 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
             APPDATA = json.load(appdat)
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
-        apt.write('{"besttime": null, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null, "useDownloadedSounds" : trues}')
+        apt.write('{"besttime": null, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null, "useDownloadedSounds" : true}')
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
@@ -1228,9 +1244,7 @@ def runfile(filename):
         os.startfile(filename)
     except:
         error(2)
-
-
-
+##US
 try:
     f = open('username.txt','r')
 except:
@@ -1254,12 +1268,10 @@ else:
     f.close()
 
 try:
-    f = open('bday.txt','r')
-    x = f.readlines()
-    mt = x[0]
-    dy = x[1]
+    mt = APPDATA["bday"]["month"]
+    dy = APPDATA["bday"]["day"]
 except:
-    print('')
+    pass
 else:
     t = datetime.datetime.now()
     p = t.month
@@ -3123,19 +3135,9 @@ while xae == True:
             except:
                 error(1)
             else:
-                mt = str(mt)
-                dy = str(dy)
-                mt = mt + '\n'
-                try:
-                    f = open('bday.txt','x')
-                    f.write(mt)
-                    f.write(dy)
-                except:
-                    f = open('bday.txt','w')
-                    f.write(mt)
-                    f.write(dy)
-                finally:
-                    f.close()
+                APPDATA["bday"]["month"] = mt
+                APPDATA["bday"]["day"] = dy
+                updateappdata()
         
     elif command == 'colour' or command == 'color':
         try:
