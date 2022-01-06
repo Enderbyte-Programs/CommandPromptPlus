@@ -11,11 +11,15 @@ if not has_windows:
     os.system('python3 -m pip install playsound')
     os.system('python3 -m pip install requests')
     os.system('python3 -m pip install keyboard')
+    os.system('python3 -m pip install termcolor')
+    os.system('python3 -m pip install packaging')
 else:
     os.system('py -m pip install playsound')
     os.system('py -m pip install requests')
     os.system('py -m pip install winsound')
     os.system('py -m pip install keyboard')
+    os.system('py -m pip install termcolor')
+    os.system('py -m pip install packaging')
 try:
     import pyutils39
 except:
