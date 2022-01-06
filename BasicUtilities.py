@@ -1038,7 +1038,8 @@ elif hasarg2 == True:
                 ool = []
             istr = False
             forcekillnl()
-      
+
+##@@##@@
 log('program started')
 
 if os.path.isfile("appdata.json"):
@@ -1049,7 +1050,7 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": None, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": None, "gamexp": None, "startsound": None}
+    apd = {"besttime": None, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": None, "gamexp": None, "startsound": None, "useDownloadedSounds" : True}
     if pa.lower().startswith("y"):
         log("Porting Appdata")
         isported = True
@@ -1080,7 +1081,7 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
             APPDATA = json.load(appdat)
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
-        apt.write('{"besttime": null, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null}')
+        apt.write('{"besttime": null, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null, "useDownloadedSounds" : trues}')
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
@@ -1260,7 +1261,7 @@ else:
             if mt == p and dy ==o:
                 print("Happy birthday to you!")
                 print("Happy birthday to you!")
-                print("Happy birthday, dear User")
+                print(f"Happy birthday, dear {sysuser}")
                 print("Happy birthday to you!")
                 print("")
                 print('press enter to continue to the command menu')
@@ -1271,7 +1272,7 @@ y = t.year
 p = t.month
 o = t.day
 if p == 1 and o ==1:
-    print('Happy New Year, User (gregorian calendar)')
+    print(f'Happy New Year, {sysuser} (gregorian calendar)')
 elif y == 2022 and p == 2 and o == 1:
     print('happy Chinese New Year')
 elif y == 2023 and p == 1 and o == 22:
@@ -1281,15 +1282,15 @@ elif y == 2024 and p == 2 and o == 10:
 elif y == 2025 and p == 1 and o == 29:
     print('happy Chinese New Year')
 elif p == 12 and o == 25:
-    print('Happy Holidays, User')
+    print(f'Happy Holidays, {sysuser}')
 elif p == 12 and o == 24:
-    print('Happy Holidays, User')
+    print(f'Happy Holidays, {sysuser}')
 elif p == 12 and o == 26:
-    print('Happy Holidays, User')
+    print(f'Happy Holidays, {sysuser}')
 elif p == 2 and o == 15:
-    print('Happy Parinirvana Day, User (If you are buddhist)')
+    print(f'Happy Parinirvana Day, {sysuser} (If you are buddhist)')
 elif p == 10 and o == 31:
-    print('Happy Halloween, User!')
+    print(f'Happy Halloween, {sysuser}!')
 #Couldn't find any more fixed-date holidays that are recognized globally.
 
 
@@ -1299,9 +1300,9 @@ x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
 if x.month == 7 and x.day == 1:
-    print('Happy Canada Day, User!')
+    print(f'Happy Canada Day, {sysuser}!')
 if x.month == 7 and x.day == 4:
-    print('Happy American Day, User( if you are american)')
+    print(f'Happy American Day, {sysuser} ( if you are american)')
 try:
     f = open('btime.txt','r')
 except:
@@ -1407,7 +1408,7 @@ while xae == True:
     print("-----Command Menu-----")
     print("Type your command under here and press enter")
     command = input()
-    log('User executed command '+command)
+    log(f'{sysuser} executed command '+command)
     if command == "help" or command == "?":
         
         print("-----Commands List-----")
@@ -2149,7 +2150,7 @@ while xae == True:
             fcln +=0
         
         print(fcln,' useless files removed.')
-        log('User cleaned out old files')
+        log(f'{sysuser} cleaned out old files')
 
 
     elif command == 'emc2':
