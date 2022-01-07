@@ -1,4 +1,4 @@
-print('Basic Utilities 2.24 Beta 8')
+print('Basic Utilities 2.24 Beta 10')
 print('Starting...')
 SYSVERSION = '2.24'
 SNAPSHOT = True
@@ -1053,7 +1053,7 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": None, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": None, "gamexp": None, "startsound": None, "useDownloadedSounds" : True}
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": None, "gamexp": None, "startsound": None, "useDownloadedSounds" : True}
     if pa.lower().startswith("y"):
         log("Porting Appdata")
         isported = True
@@ -1093,6 +1093,20 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
             else:
                 apd["bday"]["month"] = bmt
                 apd["bday"]["day"] = bdy
+        if os.path.isfile("notifs.txt"):
+            with open("notifs.txt") as ad:
+                nt = ad.read()
+                if nt == "0" or nt == "false":
+                    apd["showCommandsRun"] = False
+                elif nt == "1" or nt == "true":
+                    apd["showCommandsRun"] = True
+                else:
+                    Tk().withdraw()
+                    mpo0 = messagebox.askyesno("Appdata Porting","Do you want to see how many commands you have run?")
+                    if mpo0:
+                        apd["showCommandsRun"] = True
+                    else:
+                        apd["showCommandsRun"] = False
         
         with open("appdata.json","w+") as ad:
             ad.write(str(json.dumps(apd)))
@@ -1100,7 +1114,7 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
             APPDATA = json.load(appdat)
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
-        apt.write('{"besttime": null, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null, "useDownloadedSounds" : true}')
+        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null, "useDownloadedSounds" : true}')
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
@@ -1456,10 +1470,7 @@ while xae == True:
         print("bday: Input your birthday to get a surprise on startup when it matches")
         print("wb: Visit our website")
         print("lockdown: lockdown your screen until you enter a password")
-        
-        
-        
-        print('notifs: Change your commmand-running notification settings.')
+        print('settings: Change your settings')
         print('rev: Reverse the contents of a file')
         print("stat: Get some statistics of this program.")
         print('usr: change your username')
@@ -1578,7 +1589,7 @@ while xae == True:
         print('-----Uninstalling and cleaning-----')
         print("uninstall: Uninstall this program completely")
         print("clr: Reset Basic Utilities' AppData.")
-        
+        print("rem: custom app data reset (you choose)")
         print('cln: Clean up files from old versions that you dont need')
 
         
@@ -1601,6 +1612,58 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == "rem":
+        Tk().withdraw()
+        da0 = messagebox.askyesno("rem","Do you want to reset best quiz time?")
+        if da0:
+            APPDATA["besttime"] = 0
+        Tk().withdraw()
+        da1 = messagebox.askyesno("rem","Do you want to reset boot count?")
+        if da1:
+            APPDATA["bcount"] = 0
+        Tk().withdraw()
+        da2 = messagebox.askyesno("rem","Do you want to reset boot time?")
+        if da2:
+            APPDATA["btime"]["year"] = None
+            APPDATA["btime"]["month"] = None
+            APPDATA["btime"]["day"] = None
+            APPDATA["btime"]["hour"] = None
+            APPDATA["btime"]["minute"] = None
+            APPDATA["btime"]["second"] = None
+        Tk().withdraw()
+        da3 = messagebox.askyesno("rem","Do you want to reset birthday?")
+        if da3:
+            APPDATA["bday"]["month"] = None
+            APPDATA["bday"]["day"] = None
+        Tk().withdraw()
+        da4 = messagebox.askyesno("rem","Do you want to reset web history?")
+        if da4:
+            APPDATA["webhistory"].clear()
+        Tk().withdraw()
+        da5 = messagebox.askyesno("rem","Do you want to reset username?")
+        if da5:
+            APPDATA["username"] = "DefaultUser"
+        Tk().withdraw()
+        da6 = messagebox.askyesno("rem","Do you want to reset notifications settings?")
+        if da6:
+            APPDATA["showCommandsRun"] = True
+        Tk().withdraw()
+        da7 = messagebox.askyesno("rem","Do you want to reset game statistics?")
+        if da7:
+            APPDATA["gamehealth"] = None
+            APPDATA["gamexp"] = None
+        Tk().withdraw()
+        da8 = messagebox.askyesno("rem","Do you want to reset start-up sound?")
+        if da8:
+            APPDATA["startsound"] = None
+        Tk().withdraw()
+        da9 = messagebox.askyesno("rem","Do you want to reset sound settings?")
+        if da9:
+            APPDATA["useDownloadedSounds"] = True
+        updateappdata()
+        print("Custom AppData cleaning complete")
+
 
     elif command == 'webdownload' :
         wbdl = input("Web page to download: ")
@@ -1705,7 +1768,7 @@ while xae == True:
             btn2.grid(column=1,row=0)
             yta.mainloop()
 
-    elif command == 'conceal':
+    elif command == 'lockdown':
         Tk().withdraw()
         xlmy = messagebox.askyesno('Q','WARNING! If used improperly, this command can damage your system! Are you sure you want to do this?')
         if xlmy == True:
@@ -2301,17 +2364,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5562')
-        print('print statements: 854')
-        print('Variables: 1433')
-        print('comparisons 425')
-        print('Exception handling loops 238')
-        print('While loops 49')
-        print('For loop 65')
-        print('Commands: 139')
-        print('Libraries Imported 22')
-        print('files utilized 100')
-        print('Tkinter windows used 103')
+        print('lines: 5577')
+        print('print statements: 825')
+        print('Variables: 1438')
+        print('comparisons 419')
+        print('Exception handling loops 227')
+        print('While loops 48')
+        print('For loop 57')
+        print('Commands: 141')
+        print('Libraries Imported 28')
+        print('files utilized 105')
+        print('Tkinter windows used 106')
 
     elif command == 'sysplat':
         print('-----')
@@ -2990,38 +3053,49 @@ while xae == True:
     elif command == 'crash':
         raise RuntimeError('Manual Crash')
         
-    elif command == 'notifs':
-        def nn():
+    elif command == 'settings':
+        def apsave():
             global nf
-            try:
-                f = open('notifs.txt','w')
-                f.write('false')
-            except:
-                f = open('notifs.txt','x')
-                f.write('false')
-            f.close()
+            global val_inside
+            global val_inside_2
+            global APPDATA
+            if val_inside.get() == "No notifications":
+                APPDATA["showCommandsRun"] = False
+            else:
+                APPDATA["showCommandsRun"] = True
+            if val_inside_2.get() == "No sound effects":
+                APPDATA["useDownloadedSounds"] = False
+            else:
+                APPDATA["useDownloadedSounds"] = True
+            updateappdata()
             nf.destroy()
-        def cn():
-            global nf
-            try:
-                f = open('notifs.txt','w')
-                f.write('true')
-            except:
-                f = open('notifs.txt','x')
-                f.write('true')
-            finally:
-                f.close()
-            nf.destroy()
-        
+
         nf = Tk()
-        nf.title('Notifications settings')
+        nf.title('Settings')
         lbl = Label(nf,text='Select your notification settings')
-        lbl.grid(column=1,row=0)
-        btn = Button(nf,text='no notifications',command=nn)
-        btn.grid(column=0,row=1)
-        btn = Button(nf,text='console notifications (default)',command=cn)
-        btn.grid(column=1,row=1)
+        lbl.grid(column=0,row=0)
+        lbl = Label(nf,text='Select your Sounds setting')
+        lbl.grid(column=0,row=1)
+        options_list = ["No notifications","Show how many commands you've run (default)"]
+        options_list_2 = ["No sound effects","Use sound effects (default)"]
+        val_inside = StringVar(nf)
+        val_inside_2 = StringVar(nf)
+        if APPDATA["showCommandsRun"]:
+            val_inside.set("Show how many commands you've run (default)")
+        else:
+            val_inside.set("No notifications")
+        if APPDATA["useDownloadedSounds"]:
+            val_inside_2.set("Use sound effects (default)")
+        else:
+            val_inside_2.set("No sound effects")
+        #A sound effect is like the beat the bank sound effect.
+        qmen = OptionMenu(nf,val_inside,*options_list)
+        qmen.grid(column=1,row=0)
+        qmen_2 = OptionMenu(nf,val_inside_2,*options_list_2)
+        qmen_2.grid(column=1,row=1)
         
+        btn = Button(nf,text="Done",bg="lime green",command=apsave)
+        btn.grid(column=0,row=2)
         nf.mainloop()
         
     elif command == 'encode':
@@ -3299,13 +3373,24 @@ while xae == True:
 
     elif command == 'clr':
         f.close()
-        try:
-            os.remove("appdata.json")
-        except Exception as e:
-            print("Failed to delete Appdata",e)
-
-        reload()
-
+        APPDATA["besttime"] = 0
+        APPDATA["bcount"] = 0
+        APPDATA["btime"]["year"] = None
+        APPDATA["btime"]["month"] = None
+        APPDATA["btime"]["day"] = None
+        APPDATA["btime"]["hour"] = None
+        APPDATA["btime"]["minute"] = None
+        APPDATA["btime"]["second"] = None
+        APPDATA["bday"]["month"] = None
+        APPDATA["bday"]["day"] = None
+        APPDATA["webhistory"].clear()
+        APPDATA["username"] = "DefaultUser"
+        APPDATA["showCommandsRun"] = True
+        APPDATA["gamehealth"] = None
+        APPDATA["gamexp"] = None
+        APPDATA["startsound"] = None
+        APPDATA["useDownloadedSounds"] = True
+        updateappdata()
     elif command == 'uninstall':
         f.close()
         
@@ -5472,25 +5557,18 @@ while xae == True:
         #Whew! That's a lot of code!
 #Wait! There is more!
     cmd_run = cmd_run + 1
-    try:
-        f = open('notifs.txt','r')
-        xlm = f.read()
-    except:
-        f = open('notifs.txt','x')
-        f.write('true')
-        xlm = 'true'
+    xlm = APPDATA["showCommandsRun"]
     xmls = str(cmd_run)
-    if xlm == 'false':
+    if not xlm:
         pass
-    elif xlm == 'true':
+    elif xlm:
         print('')
         print('You have run',cmd_run,'commands this session')
     
     else:
         log("Invalid notifs")
-        f = open('notifs.txt','w')
-        f.write('true')
-        
+        APPDATA["showCommandsRun"] = True
+        updateappdata()
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
         print('')
         print(xls)
