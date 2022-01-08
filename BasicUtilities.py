@@ -1107,6 +1107,11 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
                         apd["showCommandsRun"] = True
                     else:
                         apd["showCommandsRun"] = False
+
+        if os.path.isfile("username.txt"):
+            with open("username.txt") as ad:
+                sysuser = ad.read()
+                apd["username"] = sysuser
         
         with open("appdata.json","w+") as ad:
             ad.write(str(json.dumps(apd)))
@@ -1262,27 +1267,7 @@ def runfile(filename):
     except:
         error(2)
 ##US
-try:
-    f = open('username.txt','r')
-except:
-    try:
-        f = open('username.txt','x')
-    except:
-        try:
-            f = open('username.txt','w')
-        except:
-            print('Access Denied')
-        else:
-            f.write('DefaultUser')
-            f.close()
-            sysuser = 'DefaultUser'
-    else:
-        f.write('DefaultUser')
-        f.close()
-        sysuser = 'DefaultUser'
-else:
-    sysuser = str(f.read())
-    f.close()
+sysuser = APPDATA["username"]
 
 try:
     mt = APPDATA["bday"]["month"]
@@ -2052,23 +2037,8 @@ while xae == True:
         print(f"Your current username is {sysuser}")
         print('Please input your new name')
         sysuser = input()
-        try:
-            f = open('username.txt','w')
-        except:
-            try:
-                f = open('username.txt','x')
-            except:
-                print('Access denied. Your new name will only work for this session')
-            else:
-                f.write(sysuser)
-                f.close()
-                print('Sucess')
-                log('Changed username')
-        else:
-            f.write(sysuser)
-            f.close()
-            print('sucess')
-            log('Changed username')
+        APPDATA["username"] = sysuser
+        updateappdata()
     
 
     elif command == 'rname':
