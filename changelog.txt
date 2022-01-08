@@ -167,3 +167,4 @@
    2.24-a8: Chanegd the command "clock" to "time" and "clk" to "clock". Also added air horn support to alarms and timer. Control this through appdata.json, a GUI settings will be added later.
    2.24-a9: Added snapshot warning and fixed bugs in bday comparer (leap year discrepancy that has been there since 2.1.3)
    2.24-a10: Transferred notifs to json, changed command "notifs" to "settings" and overhauled it, re-added rem command, and fixed a bug.
+   2.24-a11: Transferred username to json.
