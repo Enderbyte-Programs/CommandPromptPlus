@@ -168,3 +168,4 @@
    2.24-a9: Added snapshot warning and fixed bugs in bday comparer (leap year discrepancy that has been there since 2.1.3)
    2.24-a10: Transferred notifs to json, changed command "notifs" to "settings" and overhauled it, re-added rem command, and fixed a bug.
    2.24-a11: Transferred username to json.
+   2.24-pr: Fixed bugs, transferred everything, everything is ready for final release!
