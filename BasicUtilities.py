@@ -1,4 +1,4 @@
-print('Basic Utilities 2.24 Beta 10')
+print('Basic Utilities 2.24 Pre-release')
 print('Starting...')
 SYSVERSION = '2.24'
 SNAPSHOT = True
@@ -117,12 +117,6 @@ pi = 3.14
 hasarg = True
 playedg2 = False
 hasarg2 = True
-
-
-
-
-
-
 pid = os.getpid()
 print(pid)
 def forcekill():
@@ -1053,7 +1047,7 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": None, "gamexp": None, "startsound": None, "useDownloadedSounds" : True}
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True}
     if pa.lower().startswith("y"):
         log("Porting Appdata")
         isported = True
@@ -1112,14 +1106,87 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
             with open("username.txt") as ad:
                 sysuser = ad.read()
                 apd["username"] = sysuser
-        
+
+        if os.path.isfile("health.txt"):
+            with open("health.txt") as ad:
+                hl = ad.read()
+                try:
+                    hl = float(hl)
+                except:
+                    pass
+                else:
+                    apd["gamehealth"] = hl
+
+        if os.path.isfile("xp.txt"):
+            with open("xp.txt") as ad:
+                xp = ad.read()
+                try:
+                    xp = float(xp)
+                except:
+                    pass
+                else:
+                    apd["gamexp"] = xp
+
+        if os.path.isfile("btime.txt"):
+            with open("btime.txt") as ad:
+                btime = ad.readlines()
+                try:
+                    b0 = int(btime[0])
+                except:
+                    pass
+                else:
+                    apd["btime"]["year"] = b0
+                try:
+                    b1 = int(btime[1])
+                except:
+                    pass
+                else:
+                    apd["btime"]["month"] = b1
+                try:
+                    b2 = int(btime[2])
+                except:
+                    pass
+                else:
+                    apd["btime"]["day"] = b2
+                try:
+                    b3 = int(btime[3])
+                except:
+                    pass
+                else:
+                    apd["btime"]["hour"] = b3
+                try:
+                    b4 = int(btime[4])
+                except:
+                    pass
+                else:
+                    apd["btime"]["minute"] = b4
+                try:
+                    b5 = int(btime[5])
+                except:
+                    pass
+                else:
+                    apd["btime"]["second"] = b5
+
+        if os.path.isfile("startsound.dat"):
+            with open("startsound.dat") as ad:
+                ss = ad.read()
+                if os.path.isfile(ss):
+                    apd["startsound"] = ss
+
+        if os.path.isfile("history.txt"):
+            with open("history.txt") as ad:
+                hs = ad.readlines()
+                for webentry in hs:
+                    apd["webhistory"].append(webentry.replace("\n",""))
+
         with open("appdata.json","w+") as ad:
             ad.write(str(json.dumps(apd)))
         with open("appdata.json") as appdat:
             APPDATA = json.load(appdat)
+        
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
-        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": null, "gamexp": null, "startsound": null, "useDownloadedSounds" : true}')
+        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true}')
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
@@ -1241,26 +1308,19 @@ def reload():
 
 
 def startsound():
-    if os.path.isfile('startsound.dat') == True:
-        try:
-            f = open('startsound.dat')
-            data = f.read()
-        except:
-            print('Startsound file could not be read. Will delete')
+    data = APPDATA["startsound"]
+    if data is not None:
+        if os.path.isfile(data):
             try:
-                f.close()
-            except:
-                pass
-            os.remove('startsound.dat')
-        else:
-            f.close()
-            if os.path.isfile(data):
                 playsound(data)
+            except Exception as e:
+                print("Could not play startsound:",e)
+        else:
+            print("Could not find start sound file")
     else:
-        print('You currently do not have a startup sound set. Set one via the startsound command')
+        print('You currently do not have a startup sound set. Set one via the startsound command\n')
 ss_po = threading.Thread(target=startsound)
-ss_po.start()
-       
+ss_po.start()       
 def runfile(filename):
     try:
         os.startfile(filename)
@@ -1282,7 +1342,7 @@ else:
         mt = int(mt)
         dy = int(dy)
     except:
-        print('Warning: Bday file cannot be converted to type <int>.',end='\r')
+        pass
     else:
         try:
             l = datetime.datetime(t.year,mt,dy,0,0,0)
@@ -1334,16 +1394,22 @@ if x.month == 7 and x.day == 1:
     print(f'Happy Canada Day, {sysuser}!')
 if x.month == 7 and x.day == 4:
     print(f'Happy American Day, {sysuser} ( if you are american)')
+
 try:
-    f = open('btime.txt','r')
+    
+    a = APPDATA["btime"]["year"]
+    b = APPDATA["btime"]["month"]
+    c = APPDATA["btime"]["day"]
+    d = APPDATA["btime"]["hour"]
+    e = APPDATA["btime"]["minute"]
+    g = APPDATA["btime"]["second"]
 except:
-    f = open('btime.txt','x')
-    f.write(str(x.year)+'\n')
-    f.write(str(x.month)+'\n')
-    f.write(str(x.day)+'\n')
-    f.write(str(x.hour)+'\n')
-    f.write(str(x.minute)+'\n')
-    f.write(str(x.second)+'\n')
+    APPDATA["btime"]["year"] = x.year
+    APPDATA["btime"]["month"] = x.month
+    APPDATA["btime"]["day"] = x.day
+    APPDATA["btime"]["hour"] = x.hour
+    APPDATA["btime"]["minute"] = x.minute
+    APPDATA["btime"]["second"] = x.second
     a = x.year
     b = x.month
     c = x.day
@@ -1352,64 +1418,41 @@ except:
     g = x.second
 else:
     try:
-        content = f.readlines()
-        a = content[0]
-        b = content[1]
-        c = content[2]
-        d = content[3]
-        e = content[4]
-        g = content[5]
+        a = int(a)
+        b = int(b)
+        c = int(c)
+        d = int(d)
+        e = int(e)
+        g = int(g)
     except:
-        f = open('btime.txt','w')
-        f.write(str(x.year)+'\n')
-        f.write(str(x.month)+'\n')
-        f.write(str(x.day)+'\n')
-        f.write(str(x.hour)+'\n')
-        f.write(str(x.minute)+'\n')
-        f.write(str(x.second)+'\n')
+        APPDATA["btime"]["year"] = x.year
+        APPDATA["btime"]["month"] = x.month
+        APPDATA["btime"]["day"] = x.day
+        APPDATA["btime"]["hour"] = x.hour
+        APPDATA["btime"]["minute"] = x.minute
+        APPDATA["btime"]["second"] = x.second
         a = x.year
         b = x.month
         c = x.day
         d = x.hour
         e = x.minute
         g = x.second
-    else:
-        try:
-            a = int(a)
-            b = int(b)
-            c = int(c)
-            d = int(d)
-            e = int(e)
-            g = int(g)
-        except:
-            f = open('btime.txt','w')
-            f.write(str(x.year)+'\n')
-            f.write(str(x.month)+'\n')
-            f.write(str(x.day)+'\n')
-            f.write(str(x.hour)+'\n')
-            f.write(str(x.minute)+'\n')
-            f.write(str(x.second)+'\n')
-            a = x.year
-            b = x.month
-            c = x.day
-            d = x.hour
-            e = x.minute
-            g = x.second
-d0 = datetime.datetime(a,b,c,d,e,g)
+try:
+    d0 = datetime.datetime(a,b,c,d,e,g)
+except:
+    print("Invalid btime!")
+    d0 = datetime.datetime(x.year,x.month,x.day,x.hour,x.minute,x.second)
 d1 = datetime.datetime(x.year,x.month,x.day,x.hour,x.minute,x.second)
 diff = d1-d0
 ts = diff.total_seconds()
 print('You opened Basic Utilities for the first time in',ts,'seconds!')
-f.close()
-f = open('btime.txt','w')
-f.write(str(x.year)+'\n')
-f.write(str(x.month)+'\n')
-f.write(str(x.day)+'\n')
-f.write(str(x.hour)+'\n')
-f.write(str(x.minute)+'\n')
-f.write(str(x.second)+'\n')
-f.close()
-
+APPDATA["btime"]["year"] = x.year
+APPDATA["btime"]["month"] = x.month
+APPDATA["btime"]["day"] = x.day
+APPDATA["btime"]["hour"] = x.hour
+APPDATA["btime"]["minute"] = x.minute
+APPDATA["btime"]["second"] = x.second
+updateappdata()
 
 print('')
 print("Welcome to Basic Utilities,",sysuser)
@@ -1427,12 +1470,14 @@ nua = False
 print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.23.1")
+    SYSVERSION = version.parse("2.24")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
         log('Found new update')
         nua = True
+if not os.path.isdir(".temp"):
+    os.mkdir(".temp")
 while xae == True:
     crashed = False
     print("")
@@ -1885,20 +1930,16 @@ while xae == True:
         os.startfile('log_000.log')
 
     elif command == 'startsound':
-        try:
-            f = open('startsound.dat')
-            data = f.read()
-            f.close()
-        except:
-            print('You do not have a start sound')
-        else:
-            if os.path.isfile(data) == True:
-                print('This is your current startup sound')
-                playsound(data)
-                
+        startsound = APPDATA["startsound"]
+        if startsound is not None:
+            if os.path.isfile(startsound):
+                print("Your startsound is currently",startsound)
             else:
-                print('startsound.dat contains invalid data.')
+                print("current startsound contains invalid data.")
+        else:
+            print("You currently do not have a start sound set")
         print('Please select a start sound')
+        print(".wav files and some .mp3 is supported.")
         Tk().withdraw()
         dlf = filedialog.askopenfilename()
         print(dlf)
@@ -1909,9 +1950,8 @@ while xae == True:
             Tk().withdraw()
             messagebox.showerror('BU','File is unreadable')
         else:
-            f = open('startsound.dat','w+')
-            f.write(dlf)
-            f.close()
+            APPDATA["startsound"] = dlf
+            updateappdata()
             print('Startup sound set to',dlf)
             log('Changed startsound')
 
@@ -2721,36 +2761,20 @@ while xae == True:
         monsters_battled = 0
         monsters_won = 0
         monsters_lost = 0
-        try:
-            f = open('xp.txt','r')
-            xp = f.read()
-        except:
-            f = open('xp.txt','x')
-            f.write('0')
-            f.close()
-            xp = 0
+        xp = APPDATA["gamexp"]
         try:
             xp = float(xp)
         except:
             xp = 0
-            f = open('xp.txt','w')
-            f.write('0')
-            f.close()
-        try:
-            f = open('health.txt','r')
-            health = f.read()
-        except:
-            f = open('health.txt','x')
-            f.write('100')
-            f.close()
-            health = 100
+            APPDATA["gamexp"] = 0
+        
+        health = APPDATA["gamehealth"]
         try:
             health = float(health)
         except:
             health = 100
-            f = open('health.txt','w')
-            f.write('100')
-            f.close()
+            APPDATA["gamehealth"] = 100
+        updateappdata()
         blhealth = health
         blxp = xp
         while fightmonsters == True:
@@ -2887,20 +2911,9 @@ while xae == True:
                 print('You gained',health-blhealth,'health This round for a total of',health)
                 print('')
                 print('Writing Statistics...',end='\r')
-                try:
-                    f = open('xp.txt','w')
-                    f.write(str(xp))
-                except:
-                    f = open('xp.txt','x')
-                    f.write(str(xp))
-                f.close()
-                try:
-                    f = open('health.txt','w')
-                    f.write(str(health))
-                except:
-                    f = open('health.txt','x')
-                    f.write(str(health))
-                f.close()
+                APPDATA["gamexp"] = xp
+                APPDATA["gamehealth"] = health
+                updateappdata()
                 print('Writing Statistics...done')
                 print('')
             elif battle == 'n':
@@ -4661,26 +4674,28 @@ while xae == True:
 
     elif command == "browser":
         try:
-            f = open('history.txt')
-            data = f.readlines()[len(f.readlines())]
+            data = APPDATA["webhistory"][-1]
+            if data is None:
+                data = "No History Yet"
         except:
-            
-            data = 'No History Yet'
-            
-        finally:
-            f.close()
+            data = "No History Yet"
         def gourl():
             global txt
             global res
             res = txt.get()
             webbrowser.open(res)
+            global data
+            data = res
             writehistory()
+            
         def sech():
             global txt
             global res
             res = txt.get()
             res = 'https://www.google.com/search?q='+res
             webbrowser.open(res)
+            global data
+            data = res
             writehistory()
         def sechb():
             global txt
@@ -4688,6 +4703,8 @@ while xae == True:
             res = txt.get()
             res = 'https://www.bing.com/search?q='+res
             webbrowser.open(res)
+            global data
+            data = res
             writehistory()
         def sechy():
             global txt
@@ -4695,6 +4712,8 @@ while xae == True:
             res = txt.get()
             res = 'https://www.yahoo.com/search?p='+res
             webbrowser.open(res)
+            global data
+            data = res
             writehistory()
         def sechw():
             global txt
@@ -4702,6 +4721,8 @@ while xae == True:
             res = txt.get()
             res = 'https://en.wikipedia.org/w/index.php?search='+res
             webbrowser.open(res)
+            global data
+            data = res
             writehistory()
         def sechyo():
             global txt
@@ -4709,29 +4730,37 @@ while xae == True:
             res = txt.get()
             res = 'https://www.youtube.com/results?search_query='+res
             webbrowser.open(res)
+            global data
+            data = res
             writehistory()
         def vh():
             global data
             if data == 'No History Yet':
                 Tk().withdraw()
-                messagebox.showinfo('','No History Yet')
+                messagebox.showinfo('Browser','No History Yet')
             else:
                 webbrowser.open(data)
         def writehistory():
             global res
             global lbl1
-            try:
-                f = open('history.txt','a+')
-                f.write(res+"\n")
-                f.close()
-            except:
-                f = open('history.txt','a+')
-                f.write(res+"\n")
-                f.close()
+            APPDATA["webhistory"].append(res)
             lbl1.configure(text=res)
+            updateappdata()
         def ddie():
-             wbx.destroy()
-             wbx.quit()
+            wbx.destroy()
+            wbx.quit()
+
+        def vhi():
+            x = datetime.datetime.now()
+            ftw = os.getcwd()+r"\.temp\webhistory_"+str(x).replace(" ","_").replace(":","_").replace(".","_")+".txt"
+            
+            wh = open(ftw,"w+")
+            for historyitem in APPDATA["webhistory"]:
+                wh.write(historyitem+"\n")
+            wh.close()
+            os.startfile(ftw)
+
+
         wbx = Tk()
         wbx.title('BU Browser')
         
@@ -4757,6 +4786,8 @@ while xae == True:
         lbl1.grid(column=0,row=3)
         btn3 = Button(wbx,text='Go to recent search',bg='SkyBlue1',command=vh)
         btn3.grid(column=1,row=3)
+        btn4 = Button(wbx,text='View history',bg='SkyBlue1',command=vhi)
+        btn4.grid(column=2,row=3)
         wbx.mainloop()
 
     elif command == "logoff":
@@ -5542,5 +5573,5 @@ while xae == True:
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
         print('')
         print(xls)
-    f.close()
+    
 #NOW were done        
