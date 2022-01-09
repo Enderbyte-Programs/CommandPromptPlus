@@ -1,7 +1,7 @@
-print('Basic Utilities 2.24 Pre-release')
+print('Basic Utilities 2.24')
 print('Starting...')
 SYSVERSION = '2.24'
-SNAPSHOT = True
+SNAPSHOT = False
 
 from tkinter import messagebox, Tk
 import os
@@ -2374,16 +2374,16 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5577')
-        print('print statements: 825')
-        print('Variables: 1438')
-        print('comparisons 419')
-        print('Exception handling loops 227')
+        print('lines: 5578')
+        print('print statements: 823')
+        print('Variables: 1461')
+        print('comparisons 427')
+        print('Exception handling loops 223')
         print('While loops 48')
-        print('For loop 57')
+        print('For loop 58')
         print('Commands: 141')
         print('Libraries Imported 28')
-        print('files utilized 105')
+        print('files utilized 101')
         print('Tkinter windows used 106')
 
     elif command == 'sysplat':
@@ -3355,7 +3355,7 @@ while xae == True:
         ct.mainloop()
 
     elif command == 'clr':
-        f.close()
+        
         APPDATA["besttime"] = 0
         APPDATA["bcount"] = 0
         APPDATA["btime"]["year"] = None
@@ -3375,7 +3375,7 @@ while xae == True:
         APPDATA["useDownloadedSounds"] = True
         updateappdata()
     elif command == 'uninstall':
-        f.close()
+        
         
         try:
             os.startfile('unins000.exe')
