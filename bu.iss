@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.23.1"
+#define MyAppVersion "2.24.1"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -25,12 +25,12 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\BasicUtilities
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
-LicenseFile=C:\Python39\Scripts\license.txt
+LicenseFile=C:\Python310\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities_2.23.1_installer
-SetupIconFile=C:\Python39\Scripts\bu.ico
+OutputBaseFilename=basicutilities_2.24.1_installer
+SetupIconFile=C:\Python310\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -51,7 +51,7 @@ Name: "notpad"; Description: "Create shortcuts for Notpad (Text Editor)"; GroupD
 
 [Files]
 
-Source: "C:\Python39\Scripts\BasicUtilities\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Python310\Scripts\BasicUtilities\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -83,6 +83,7 @@ Type: files; Name: "{app}\health.txt"; Tasks: clrapdat
 Type: files; Name: "{app}\xp.txt.txt"; Tasks: clrapdat
 Type: files; Name: "{app}\username.txt"; Tasks: clrapdat
 Type: files; Name: "{app}\startsound.dat"; Tasks: clrapdat
+Type: files; Name: "{app}\.temp\*"; Tasks: clrapdat
 Type: files; Name: "{app}\logoff.bat";Tasks: clrold
 Type: files; Name: "{app}\restart.bat";Tasks: clrold
 Type: files; Name: "{app}\clrapdat.bat";Tasks: clrold
@@ -98,7 +99,6 @@ Type: files; Name: "{app}\license.txt";Tasks: clrold
 
 Type: files; Name: "{app}\unins000.exe"
 Type: files; Name: "{app}\can.mp3";Tasks: clrold
-Type: files; Name: "{app}\warning.mp3";Tasks: clrold
 Type: files; Name: "{app}\startup.mp3";Tasks: clrold
 Type: files; Name: "{app}\error.vbs";Tasks: clrold
 Type: files; Name: "{app}\gameboard.jpg";Tasks: clrold
@@ -117,5 +117,9 @@ Type: files; Name: "{app}\xp.txt.txt"
 Type: files; Name: "{app}\username.txt"
 Type: files; Name: "{app}\startsound.dat"
 Type: files; Name: "{app}\log_000.log"
+Type: files; Name: "{app}\appdata.json"
+Type: files; Name: "{app}\warning.mp3"
+Type: files; Name: "{app}\.temp\*"
+Type: dirifempty; Name: "{app}\.temp"
 Type: dirifempty; Name: {app}
 
