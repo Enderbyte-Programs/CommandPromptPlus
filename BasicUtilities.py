@@ -1,6 +1,6 @@
-print('Basic Utilities 2.24')
+print('Basic Utilities 2.24.1')
 print('Starting...')
-SYSVERSION = '2.24'
+SYSVERSION = '2.24.1'
 SNAPSHOT = False
 
 from tkinter import messagebox, Tk
@@ -186,7 +186,7 @@ if hasarg == True and xxx == 'translate':
                 messagebox.showerror('Error','Could not write')
     print('Press enter to quit program.')
     input()
-    forcekill()
+    forcekillnl()
 
 
 elif hasarg2 == True:
@@ -1197,7 +1197,7 @@ except:
     print('Some features may be broken because you dont have requests installed.')
 else:
     try:
-        SYSVERDATA = get('https://pastebin.com/raw/htCBGFXf').text
+        SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
         reqins = True
     except:
         Tk().withdraw()
@@ -1469,17 +1469,18 @@ else:
 nua = False
 print(sysslash)
 if reqins == True and haspkg:
-    SYSVERNUM = version.parse(SYSVERDATA[0:6])
-    SYSVERSION = version.parse("2.24")
+    SYSVERNUM = version.parse(SYSVERDATA["version"])
+    SYSVERSION = version.parse("2.24.1")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
         log('Found new update')
         nua = True
-if not os.path.isdir(".temp"):
-    os.mkdir(".temp")
+
 while xae == True:
     crashed = False
+    if not os.path.isdir(".temp"):
+        os.mkdir(".temp")
     print("")
     print("-----Command Menu-----")
     print("Type your command under here and press enter")
@@ -1691,6 +1692,10 @@ while xae == True:
         da9 = messagebox.askyesno("rem","Do you want to reset sound settings?")
         if da9:
             APPDATA["useDownloadedSounds"] = True
+        Tk().withdraw()
+        da10 = messagebox.askyesno("rem","Do you want to clear the temporary directory?")
+        if da10:
+            shutil.rmtree(".temp")
         updateappdata()
         print("Custom AppData cleaning complete")
 
@@ -1918,9 +1923,9 @@ while xae == True:
         if nua == True:
             
             Tk().withdraw()
-            m = messagebox.askyesno('BU','A new update ('+SYSVERDATA[0:6]+') is available. Do you want to download it?')
+            m = messagebox.askyesno('BU','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download it?')
             if m == True:
-                webbrowser.open(SYSVERDATA[6:len(SYSVERDATA)])
+                webbrowser.open(SYSVERDATA["link"])
                 log('Download new update')
         else:
             Tk().withdraw()
@@ -2666,11 +2671,9 @@ while xae == True:
             toplevelerror('ERROR\n'+str(e))
 
     elif command == 'ip6':
-        try:
-            ip = get('https://api64.ipify.org').text
-            print('Your public IPv6 address is: {}'.format(ip))
-        except Exception as e:
-            toplevelerror('ERROR\n'+str(e))
+        ip = get("http://ip6only.me/api/").text
+        ip = ip.split(",")[1]
+        print(f"Your ipv6 adress is {ip}")
 
     elif command == 'rmg':
         if sysslash == '\\':
@@ -3373,6 +3376,7 @@ while xae == True:
         APPDATA["gamexp"] = None
         APPDATA["startsound"] = None
         APPDATA["useDownloadedSounds"] = True
+        shutil.rmtree(".temp")
         updateappdata()
     elif command == 'uninstall':
         
@@ -5159,11 +5163,11 @@ while xae == True:
                             t.pencolor("black")
                             t.goto(300,-100)
                             t.penup()
-                            t.goto(-300,-100)
+                            t.goto(-300,tlag)
                             t.pendown()
                             t.pencolor("red")
-                            lnp = (-300,-100)
-                            lanp = (-300,-100)
+                            lnp = (-300,talag)
+                            lanp = (-300,tlg)
                             tlan = lnp
                             averagelag = 0
                             lagcount = 0
