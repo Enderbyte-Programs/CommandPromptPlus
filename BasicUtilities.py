@@ -1,6 +1,6 @@
-print('Basic Utilities 2.24.1')
+print('Basic Utilities 2.24.3')
 print('Starting...')
-SYSVERSION = '2.24.1'
+SYSVERSION = '2.24.3'
 SNAPSHOT = False
 
 from tkinter import messagebox, Tk
@@ -1469,7 +1469,7 @@ nua = False
 print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.24.1")
+    SYSVERSION = version.parse("2.24.3")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -1505,6 +1505,7 @@ while xae == True:
         print("stat: Get some statistics of this program.")
         print('usr: change your username')
         print('startsound: Set your startup sound')
+        print("anim: Get a little animation of a wheel.")
         print('')
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
@@ -1560,7 +1561,7 @@ while xae == True:
         print('')
         print('-----Utility-----')
         print("lag: Measures your computer's lag.")
-        print("anim: Get a little animation of a wheel.")
+        
         print("pyterm: Open a python terminal prompt [potentially dangerous]")
         print("randpass: Get a random password.")
         print("erc: List of error codes")
@@ -1614,6 +1615,8 @@ while xae == True:
         print('sqrpyr: Calculate volume of a rectangular pyramid.')
         print('tripyr: Calculate volume of a triangular pyramid')
         print('emc2: Calcuate th energy(joules) in a given object.')
+        print("pyth: Use the pythagorean theorum")
+        print("pyth3: Use the 3d pythagorean theorum")
         
         print('')
         print('-----Uninstalling and cleaning-----')
@@ -1642,6 +1645,42 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == "pyth":
+        pya = input("What is the length of A? ")
+        try:
+            pya = float(pya)
+        except:
+            print("Please put only numbers here")
+        else:
+            pyb = input("What is the length of B? ")
+            try:
+                pyb = float(pyb)
+            except:
+                print("Please put only numbers here")
+            else:
+                print("Result:",((pya*pya)+(pyb*pyb))**(1/2))
+
+    elif command == "pyth3":
+        pya = input("What is the length of A? ")
+        try:
+            pya = float(pya)
+        except:
+            print("Please put only numbers here")
+        else:
+            pyb = input("What is the length of B? ")
+            try:
+                pyb = float(pyb)
+            except:
+                print("Please put only numbers here")
+            else:
+                pyc = input("What is the length of C? ")
+                try:
+                    pyc = float(pyc)
+                except:
+                    print("Please put only numbers here")
+                else:
+                    print("Result:",((pya*pya)+(pyb*pyb)+(pyc*pyc))**(1/2))
 
     elif command == "rem":
         Tk().withdraw()
@@ -4111,8 +4150,8 @@ while xae == True:
                     break
                 try:
                     exec(cmd)
-                except:
-                    error(3)
+                except Exception as e:
+                    print("ERROR",e)
 
     elif command == "gpap":
         print("GPA?")
