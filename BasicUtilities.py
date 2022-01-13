@@ -1263,41 +1263,40 @@ def newwindow():
         except:
             pyutils39.error('Could not find BasicUtilities.exe. Did you rename it?')
 
-def conv(start,end,formula):
-    global txt
-    global lbl2
-    def convert():
+class conv():
+    
+    def __init__(self,start,end,formula):
+        self.start = start
+        self.end = end
+        self.formula = formula
+        self.root = Tk()
+        self.root.title("Converter")
+        self.lbl = Label(self.root,text=f"Converting {self.start} to {self.end}")
+        self.lbl.grid(column=0,row=0)
+        self.ent = Entry(self.root,width=20)
+        self.ent.grid(column=0,row=1)
         
-        res = txt.get()
-        try:
-            res = float(res)
-        except:
-            lbl2.configure(text='error')
-        else:
-            c = str(res)+formula
-            c = float(eval(c))
-            lbl2.configure(text=c)
-    window = Tk()
-    def die():
-        window.destroy()
-        window.quit()
-    window.title('Converter')
-    lbl = Label(window,text='please input the amount of '+start+' and press convert.')
-    lbl.grid(column=0,row=0)
-    lbl1 = Label(window,text='Converting to '+end)
-    lbl1.grid(column=1,row=0)
-    txt = Entry(window,width=20)
-    txt.grid(column=0,row=1)
-    btn = Button(window,text='Convert',command=convert,bg='lime green')
-    btn.grid(column=1,row=1)
-    lbl2 = Label(window,text='')
-    lbl2.grid(column=0,row=2)
-    btn1 = Button(window,text='close',command=die,bg='yellow')
-    btn1.grid(column=1,row=2)
-    window.mainloop()
-
-
-
+        self.ent2 = Entry(self.root,width=20)
+        self.ent2.grid(column=0,row=2)
+        
+        self.btn = Button(self.root,text="Exit",command=self.root.destroy)
+        self.btn.grid(column=1,row=0)
+        while True:
+            try:
+                e = self.ent.get()
+                
+                self.ent2.delete(0,END)
+                try:
+                    e = float(e)
+                except:
+                    self.ent2.insert(END,"Error")
+                else:
+                    self.ent2.insert(END,str(eval(str(e)+formula)))
+                
+                sleep(0.1)
+                self.root.update()
+            except:
+                break
 def reload():
     try:
         os.startfile("BasicUtilities.exe")
@@ -3464,6 +3463,22 @@ while xae == True:
             else:
                 print('You typed in an unrecognized command. \n\
                     Type "help" or "?" for the commands list.')
+            cmd_run = cmd_run + 1
+            xlm = APPDATA["showCommandsRun"]
+            xmls = str(cmd_run)
+            if not xlm:
+                pass
+            elif xlm:
+                print('')
+                print('You have run',cmd_run,'commands this session')
+            
+            else:
+                log("Invalid notifs")
+                APPDATA["showCommandsRun"] = True
+                updateappdata()
+                xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
+                print('')
+                print(xls)
 
     elif command == 'conv len c-y':
         conv('centimeters','yards','*0.010936')
