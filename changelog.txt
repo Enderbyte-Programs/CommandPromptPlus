@@ -171,3 +171,5 @@
    2.24-pr: Fixed bugs, transferred everything, everything is ready for final release!
 2.24: Overhauled settings, added to browser, and combined all AppData into one file. There is a porting utility. Oh, and of course FIXED BUGS.
    2.24.1: Fixed multiple bugs, including one that is as old as 1.5.1. IMPORTANT: To upgrade past here from 2.24.0 or before, you will need to jump through this update as it uses a new update system.
+   2.24.2: Made major improvments to conv() (switched it to a class-based system)
+   2.24.3: Added pyth and pyth3 for the pythagorean theorum. Also pyterm will now print off actual error instead of "eRroR 3"
