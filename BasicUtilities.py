@@ -3083,7 +3083,7 @@ while xae == True:
             e = x.minute
             f = x.second
             d1 = datetime.datetime(a,b,c,d,e,f)
-            d0 = datetime.datetime(2021,4,14,15,30,0)
+            d0 = datetime.datetime(2021,4,12,15,30,0)
             difference = d1 - d0
             total_seconds = difference.total_seconds()
             total_min = total_seconds / 60
@@ -4567,7 +4567,7 @@ while xae == True:
         print('And Visual Studio Code for Python 3.7.3 and 3.9.6, 3.9.7, 3.10.0, and 3.10.1')
         print("Game board pictures by Kdog.")
         print("Insults by Arceus007")
-        print("Started on April 14, 2021")
+        print("Started on April 12, 2021")
 
 
     elif command == "prank":
