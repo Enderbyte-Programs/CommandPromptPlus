@@ -1,10 +1,10 @@
-print('Basic Utilities 2.24.3')
-print('Starting...')
-SYSVERSION = '2.24.3'
+print('Basic Utilities 2.24.4')
+SYSVERSION = '2.24.4'
 SNAPSHOT = False
 
 from tkinter import messagebox, Tk
 import os
+
 def toplevelerror(message,title='Error'):
     title = str(title)
     message = str(message)
@@ -102,14 +102,7 @@ import shutil
 
 import subprocess
 
-if str(platform.system()) == 'Windows':
-    sysslash = '\\'
-    print(str(platform.platform()))
-else:
-    sysslash = '/'
-    print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
 
-print(os.getcwd())
 sw = False
 gamees_played = 0
 gamees_won = 0
@@ -118,7 +111,7 @@ hasarg = True
 playedg2 = False
 hasarg2 = True
 pid = os.getpid()
-print(pid)
+
 def forcekill():
     log('Program stopped with exit code 0')
     global pid
@@ -138,7 +131,12 @@ try:
     fto = sys.argv[1]
 except:
     hasarg2 = False
-
+if str(platform.system()) == 'Windows':
+    sysslash = '\\'
+    
+else:
+    sysslash = '/'
+    
 if hasarg == True and xxx == 'translate':
     
     try:
@@ -357,13 +355,15 @@ elif hasarg2 == True:
                         if prevsavedata == '':
                             pass
                         else:
+                            istr = False
                             forcekillnl()
                     else:
                         save()
+                        istr = False
                         forcekillnl()
                 elif x == False:
                     
-                    forcekill()
+                    forcekillnl()
 
         
         def scanautosave():
@@ -617,7 +617,7 @@ elif hasarg2 == True:
         btn14 = Button(root,text='Count instances of',command=cio)
         btn14.place(x=580,y=30)
         
-        
+        root.protocol("WM_DELETE_WINDOW",terminat)
         root.mainloop()
         istr = False
         forcekillnl()
@@ -916,7 +916,7 @@ elif hasarg2 == True:
             scaus = threading.Thread(target=scanautosave)
             scaus.start()
             root = Tk()
-            root.title('Notpad [new file]')
+            root.title('Notpad: '+str(fto))
             root.state('zoomed')
             def chk_menu1(val):
                 global OptionVar0
@@ -1026,7 +1026,7 @@ elif hasarg2 == True:
             ent3.place(x=510,y=30)
             btn14 = Button(root,text='Count instances of',command=cio)
             btn14.place(x=580,y=30)
-            
+            root.protocol("WM_DELETE_WINDOW",terminat)
             root.mainloop()
             try:
                 f.close()
@@ -1041,7 +1041,14 @@ log('program started')
 
 if os.path.isfile("appdata.json"):
     with open("appdata.json") as appdat:
-        APPDATA = json.load(appdat)
+        try:
+            APPDATA = json.load(appdat)
+        except json.decoder.JSONDecodeError:
+            epo = 0
+        else:
+            epo = 1
+    if epo == 0:
+        os.remove("appdata.json")
         
 isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
@@ -1179,6 +1186,11 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
                 for webentry in hs:
                     apd["webhistory"].append(webentry.replace("\n",""))
 
+        apf = ["appdata.txt","bcount.txt","btime.txt","history.txt","startsound.dat","xp.txt","health.txt","notifs.txt","username.txt"]
+        for file in apf:
+            if os.path.isfile(file):
+                os.remove(file)
+        #reloading appdata
         with open("appdata.json","w+") as ad:
             ad.write(str(json.dumps(apd)))
         with open("appdata.json") as appdat:
@@ -1189,6 +1201,22 @@ if not os.path.isfile("appdata.json") and not isported:
         apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true}')
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
+
+if os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
+    apf = ["appdata.txt","bcount.txt","btime.txt","history.txt","startsound.dat","xp.txt","health.txt","notifs.txt","username.txt"]
+    for file in apf:
+        if os.path.isfile(file):
+            os.remove(file)
+
+if str(platform.system()) == 'Windows':
+    sysslash = '\\'
+    print(str(platform.platform()))
+else:
+    sysslash = '/'
+    print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
+
+print(os.getcwd())
+print(pid)
 
 try:   
     from requests import get
@@ -1469,7 +1497,7 @@ nua = False
 print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.24.3")
+    SYSVERSION = version.parse("2.24.4")
     if SYSVERNUM > SYSVERSION:
         print('!New update found. Run the update command to download it!')
 
@@ -4530,7 +4558,7 @@ while xae == True:
     elif command == "credits":
         print("Basic Utilities (c) 2021-2022 Enderbyte Programs")
         print("Installer by Inno Setup")
-        print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7")
+        print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7 and 4.8")
         print("Written by Enderbyte09")
         print("With IDLE for 64-bit Windows")
         print("And notepad++")
@@ -4668,7 +4696,7 @@ while xae == True:
                     playagain = 'n'
     elif command == "insult":
         adjec = ["Porkmouthed","Loggerheaded","Beefwitted","Cream-faced","","Stupid","Imbecilic","Rank","Gassy","Pork-witted","Zombified","Gelatin-bottomed","Picklebrained","@$%&TYFt767tT*^TT*%%RFft*^((%^$4&^^4"]
-        noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Lunatic","Idiot","Yellwe","Monkeybottom","Clackdish","Jellyfish","Nimrod","^%*yuygg&yguguyTUGUT87t83t868%&&^^&*^&*"]
+        noun = ["Applejohn","Loon","Creamface","Beefwit","Porkwit","Dummy","Callipygian","Lunatic","Idiot","Yellwe","Monkeybottom","Clackdish","Jellyfish","Nimrod","^%*yuygg&yguguyTUGUT87t83t868%&&^^&*^&*"]
         adjec1 = random.choice(adjec)
         adjec2 = random.choice(adjec)
         noun1 = random.choice(noun)
