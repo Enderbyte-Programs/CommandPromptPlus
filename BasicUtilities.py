@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25 Beta 3')
+print('Basic Utilities 2.25 Beta 4')
 SYSVERSION = '2.25'
 SNAPSHOT = True
 
@@ -12,12 +12,9 @@ def toplevelerror(message,title='Error'):
     root.wm_attributes("-topmost",True)
     root.withdraw()
     messagebox.showerror(title,message)
+
 try:
-    import pyutils39
-except Exception as e:
-    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
-try:
-    from pytube import YouTube
+    from pytube import *
 except Exception as e:
     toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 try:
@@ -101,7 +98,6 @@ from tkinter import filedialog
 import shutil
 
 import subprocess
-
 
 sw = False
 gamees_played = 0
@@ -1752,10 +1748,72 @@ while xae == True:
         print('-----YouTube-----')
         print('ytdownload: Download a single video from YouTube')
         print("ytaudio: Download a video's audio only")
+        print("ytplaylist: Download every video from a playlist")
+        print("ytplaylista: Download all audio from every video on a playlist")
         print('')
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == "ytplaylist":
+        ilk = input("Full url to playlist: ")
+        try:
+            p = Playlist(ilk)
+        except Exception as e:
+            print("Failed to download playlist:",e)
+        else:
+            print("Will download:")
+            for v in p.video_urls:
+                y = YouTube(v)
+                print(y.title)
+            print("What directory to save videos to?")
+            lts = filedialog.askdirectory()
+            if os.path.isdir(lts):
+                print("Downloading. This can take a few minutes")
+                for video in p.video_urls:
+                    y = YouTube(video)
+                    try:
+                        y.check_availability()
+                    except Exception as e:
+                        print("Failed to download video",y.title,e)
+                    else:
+                        try:
+                            stream = y.streams.get_highest_resolution()
+                            stream.download(lts)
+                        except Exception as e:
+                            print("Failed to download",e)
+                        else:
+                            print("Downloaded",y.title)
+
+    elif command == "ytplaylista":
+        ilk = input("Full url to playlist: ")
+        try:
+            p = Playlist(ilk)
+        except Exception as e:
+            print("Failed to download playlist:",e)
+        else:
+            print("Will download:")
+            for v in p.video_urls:
+                y = YouTube(v)
+                print(y.title)
+            print("What directory to save audio to?")
+            lts = filedialog.askdirectory()
+            if os.path.isdir(lts):
+                print("Downloading. This can take a few minutes")
+                for video in p.video_urls:
+                    y = YouTube(video)
+                    try:
+                        y.check_availability()
+                    except Exception as e:
+                        print("Failed to download audio for video",y.title,e)
+                    else:
+                        try:
+                            stream = y.streams.get_audio_only()
+                            stream.download(lts,filename=y.title+".mp3")
+                        except Exception as e:
+                            print("Failed to download",e)
+                        else:
+                            print("Downloaded",y.title)
 
     elif command == "pyth":
         pya = input("What is the length of A? ")
