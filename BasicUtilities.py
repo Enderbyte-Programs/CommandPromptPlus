@@ -1,5 +1,5 @@
-print('Basic Utilities 2.25 Beta 2')
-SYSVERSION = '2.24.4'
+print('Basic Utilities 2.25 Beta 3')
+SYSVERSION = '2.25'
 SNAPSHOT = True
 
 from tkinter import messagebox, Tk
@@ -500,11 +500,29 @@ elif hasarg2 == True:
             data = data[datalen::-1]
             txt.insert(END,data)
                 
-        
+        def charcountthr():
+            while True:
+                global istr
+                global lbl1
+                global lbl2
+                global lbl3
+                global txt
+                global isdef
+                if istr and isdef:
+                    try:
+                        data = txt.get('1.0','end-1c')
+                        lbl1.config(text="char: "+str(len(data)))
+                        lbl2.config(text="line: "+str(len(data.split("\n"))))
+                        lbl3.config(text="word: "+str(len(data.split(" "))))
+                    except Exception as e:
+                        print(e)
+                        break
+                sleep(0.1)
 
         prevsavedata = ''
         istr = True
         issy = False
+        isdef = False
         try:
             keyboard.add_hotkey('ctrl+q',terminat)
             keyboard.add_hotkey('ctrl+shift+s',saveas)
@@ -514,9 +532,10 @@ elif hasarg2 == True:
             pass
         scaus = threading.Thread(target=scanautosave)
         scaus.start()
+        scalen = threading.Thread(target=charcountthr).start()
         root = Tk()
         root.title('Notpad [new file]')
-        root.state('zoomed')
+        root.geometry("800x600")
         def chk_menu1(val):
             global OptionVar0
             OptionVar0.set('File Options')
@@ -585,10 +604,11 @@ elif hasarg2 == True:
         menu1['menu'].entryconfigure(8,state='disabled')
         menu1['menu'].entryconfigure(9,state='disabled')
         menu1.pack(side=TOP,anchor=NW)
-
+        
         txt = Text(root,wrap=NONE)
         txt.pack(expand=True,fill='both')
-
+        fontt = ("Times new Roman",12)
+        txt.config(font=fontt)
        
         chkc = IntVar(root)
         chkbx = Checkbutton(root,text='Autosave (10 s)',variable=chkc)
@@ -614,12 +634,20 @@ elif hasarg2 == True:
         ent2.place(x=600,y=0)
         ent3 = Entry(root,width=10)
         ent3.place(x=510,y=30)
-        btn14 = Button(root,text='Count instances of',command=cio)
+        btn14 = Button(root,text='Count instances',command=cio)
         btn14.place(x=580,y=30)
+        lbl1 = Label(root,text="char: waiting...")
+        lbl1.place(x=680,y=15)
+        lbl2 = Label(root,text="line: waiting...")
+        lbl2.place(x=680,y=30)
+        lbl3 = Label(root,text="word: waiting...")
+        lbl3.place(x=680,y=45)
         
         root.protocol("WM_DELETE_WINDOW",terminat)
+        isdef = True
         root.mainloop()
         istr = False
+        isdef = False
         forcekillnl()
     else:
         try:
@@ -897,6 +925,26 @@ elif hasarg2 == True:
                 datalen = len(data)
                 data = data[datalen::-1]
                 txt.insert(END,data)
+
+            def charcountthr():
+                while True:
+                    global istr
+                    global lbl1
+                    global lbl2
+                    global lbl3
+                    global txt
+                    global isdef
+                    if istr and isdef:
+                        try:
+                            data = txt.get('1.0','end-1c')
+                            lbl1.config(text="char: "+str(len(data)))
+                            lbl2.config(text="line: "+str(len(data.split("\n"))))
+                            lbl3.config(text="word: "+str(len(data.split(" "))))
+                        except Exception as e:
+                            print(e)
+                            break
+                    sleep(0.1)
+
             try:
                 prevsavedata = f.read()
             except:
@@ -906,6 +954,7 @@ elif hasarg2 == True:
 
             istr = True
             issy = True
+            isdef = False
             try:
                 keyboard.add_hotkey('ctrl+q',terminat)
                 keyboard.add_hotkey('ctrl+shift+s',saveas)
@@ -915,9 +964,10 @@ elif hasarg2 == True:
             
             scaus = threading.Thread(target=scanautosave)
             scaus.start()
+            scalen = threading.Thread(target=charcountthr).start()
             root = Tk()
             root.title('Notpad: '+str(fto))
-            root.state('zoomed')
+            root.geometry("800x600")
             def chk_menu1(val):
                 global OptionVar0
                 OptionVar0.set('File Options')
@@ -992,6 +1042,8 @@ elif hasarg2 == True:
 
             txt = Text(root,wrap=NONE)
             txt.pack(expand=True,fill='both')
+            fontt = ("Times new Roman",12)
+            txt.config(font=fontt)
             try:
                 txt.insert(END,prevsavedata)
             except:
@@ -1024,9 +1076,16 @@ elif hasarg2 == True:
             ent2.place(x=600,y=0)
             ent3 = Entry(root,width=10)
             ent3.place(x=510,y=30)
-            btn14 = Button(root,text='Count instances of',command=cio)
+            btn14 = Button(root,text='Count instances',command=cio)
             btn14.place(x=580,y=30)
+            lbl1 = Label(root,text="char: waiting...")
+            lbl1.place(x=680,y=15)
+            lbl2 = Label(root,text="line: waiting...")
+            lbl2.place(x=680,y=30)
+            lbl3 = Label(root,text="word: waiting...")
+            lbl3.place(x=680,y=45)
             root.protocol("WM_DELETE_WINDOW",terminat)
+            isdef = True
             root.mainloop()
             try:
                 f.close()
@@ -1034,10 +1093,11 @@ elif hasarg2 == True:
             except:
                 ool = []
             istr = False
+            isdef = False
             forcekillnl()
 
 ##@@##@@
-log('Basic Utilities has started. Running version '+SYSVERSION)
+log('Basic Utilities has started. Running version '+SYSVERSION+". Issnapshot is "+str(SNAPSHOT))
 
 if os.path.isfile("appdata.json"):
     with open("appdata.json") as appdat:
