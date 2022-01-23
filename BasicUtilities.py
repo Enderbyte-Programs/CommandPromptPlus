@@ -1,6 +1,6 @@
-print('Basic Utilities 2.24.4')
+print('Basic Utilities 2.25 Beta 2')
 SYSVERSION = '2.24.4'
-SNAPSHOT = False
+SNAPSHOT = True
 
 from tkinter import messagebox, Tk
 import os
@@ -1037,7 +1037,7 @@ elif hasarg2 == True:
             forcekillnl()
 
 ##@@##@@
-log('program started')
+log('Basic Utilities has started. Running version '+SYSVERSION)
 
 if os.path.isfile("appdata.json"):
     with open("appdata.json") as appdat:
@@ -1281,15 +1281,38 @@ def error(erc):
     Tk().withdraw()
     messagebox.showerror("Error",erm)
 
+#Porting pyutils39
+def toplevelquestion(message,title='Question'):
+    title = str(title)
+    message = str(message)
+    root = Tk()
+    root.wm_attributes("-topmost",True)
+    root.withdraw()
+    x = messagebox.askyesno(title,message)
+    return x
+
+def error(message,title='Error'):
+    title = str(title)
+    message = str(message)
+    Tk().withdraw()
+    messagebox.showerror(title,message)
+
+def toplevelerror(message,title='Error'):
+    title = str(title)
+    message = str(message)
+    root = Tk()
+    root.wm_attributes("-topmost",True)
+    root.withdraw()
+    messagebox.showerror(title,message)
 
 def newwindow():
 
-    x = pyutils39.toplevelquestion('Do you want to open a new window of Basic Utilities before you run this long/infinite command?')
+    x = toplevelquestion('Do you want to open a new window of Basic Utilities before you run this long/infinite command?')
     if x == True:
         try:
             os.startfile('BasicUtilities.exe')
         except:
-            pyutils39.error('Could not find BasicUtilities.exe. Did you rename it?')
+            error('Could not find BasicUtilities.exe. Did you rename it?')
 
 class conv():
     
@@ -1950,7 +1973,7 @@ while xae == True:
             shutil.copyfile(file_to_copy,file_to_save+sysslash+file_to_copy)
             os.remove(file_to_copy)
         except:
-            pyutils39.toplevelerror('Error when copying file. You can find your archive as archive.tar.gz in this program"s folder.')
+            toplevelerror('Error when copying file. You can find your archive as archive.tar.gz in this program"s folder.')
 
     elif command == 'untar':
         print('Please select file to uncompress')
@@ -1965,7 +1988,7 @@ while xae == True:
             f.extractall(ftx)
             f.close()
         except:
-            pyutils39.toplevelerror('Could not uncompress')
+            toplevelerror('Could not uncompress')
 
     elif command == 'scanall':
         print('Please choose directory')
@@ -3342,7 +3365,7 @@ while xae == True:
             try:
                 os.startfile('error.vbs')
             except:
-                pyutils39.toplevelerror('Please use version 2.19.4 or earlier!')
+                toplevelerror('Please use version 2.19.4 or earlier!')
                 break
             else:
                 c = random.randint(3,13)
