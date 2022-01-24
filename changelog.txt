@@ -175,3 +175,6 @@
    2.24.3: Added pyth and pyth3 for the pythagorean theorum. Also pyterm will now print off actual error instead of "eRroR 3"
    2.24.4: Fixed a TON of bugs with Notpad and Appdata, old versionUpdate will go to here.
    2.25-a1: Changed BU first publish date to the TRUE first publish date: 2021/4/12
+   2.25-a2: Removed pyutils39 dependency, will now log version on start
+   2.25-a3: Added character, line, and word count to text editor
+   2.25-a4: Added yt playlist download for both audio and video
