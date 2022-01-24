@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25 Beta 4')
+print('Basic Utilities 2.25 Beta 6')
 SYSVERSION = '2.25'
 SNAPSHOT = True
 
@@ -1282,13 +1282,14 @@ try:
     import requests
 except:
     print('Some features may be broken because you dont have requests installed.')
-else:
+
     try:
         SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
         reqins = True
     except:
-        Tk().withdraw()
-        messagebox.showerror('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
+        
+        print('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
+
 xae = True
 tcrash = False
 accessdenied = False
@@ -1302,11 +1303,13 @@ def updateappdata():
 try:
     ewqueo = requests.get("https://www.google.com")
 except (requests.ConnectionError,requests.Timeout):
-    print("You are not connected.")
+    termcolor.cprint("You are not connected to the internet. Some commands may not work as intended.","yellow")
     APPDATA["useDownloadedSounds"] = False
     updateappdata()
     log("User is not connected to the internet")
+    MESSAGE = "No message- Failed to get message."
 except NameError:
+    MESSAGE = "No message- Library not found."
     print("Please install requests library to use downloaded sounds")
     APPDATA["useDownloadedSounds"] = False
     updateappdata()
@@ -1314,6 +1317,14 @@ else:
     log("User is connected to the internet")
     if not os.path.isfile("warning.mp3"):
         urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3","warning.mp3")
+    try:
+        SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
+        reqins = True
+    except Exception as e:
+        
+        print('Failed to get Update data',e)
+    else:
+        MESSAGE = get("https://pastebin.com/raw/zYfU8JAP").text
 
 try:
     besttime = int(APPDATA["besttime"])
@@ -1581,11 +1592,12 @@ if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
     SYSVERSION = version.parse("2.24.4")
     if SYSVERNUM > SYSVERSION:
-        print('!New update found. Run the update command to download it!')
+        termcolor.cprint('New update found. Run the update command to download it',"green")
 
         log('Found new update')
         nua = True
-
+termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
+#now it begins...
 while xae == True:
     crashed = False
     if not os.path.isdir(".temp"):
@@ -1626,6 +1638,7 @@ while xae == True:
         print("stop: Stops this window")
         print("stopall: stops all BasicUtilities windows")
         print("reload: reloads this program.")
+        print("msg: View today's message! (Request messages by sending me an email)")
         if sysslash == '\\':
             print("logoff: Logs you out.")
             print("restart: Restarts your computer")
@@ -1757,6 +1770,11 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+    elif command == "msg":
+        print("=====")
+        print(MESSAGE)
+        print("=====")
 
     elif command == "ytplaylist":
         ilk = input("Full url to playlist: ")
