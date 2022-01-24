@@ -16,20 +16,20 @@ def toplevelerror(message,title='Error'):
 try:
     from pytube import *
 except Exception as e:
-    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+    print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 try:
     import keyboard
 except Exception as e:
-    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+    print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 try:
     import urllib.request
 except Exception as e:
-    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+    print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 
 try:
     import termcolor
 except Exception as e:
-    toplevelerror('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+    print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 
 from traceback import format_tb
 import sys
@@ -48,7 +48,10 @@ def handle_exception(type,value,traceback):
             log('!UNCAUGHT EXCPETION!'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
         except:
             pass
-        termcolor.cprint('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]),"red")
+        try:
+            termcolor.cprint('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]),"red")
+        except:
+            print('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
         input("press enter to quit program")
         
 from tkinter import *
