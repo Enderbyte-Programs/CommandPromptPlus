@@ -179,3 +179,4 @@
    2.25-a3: Added character, line, and word count to text editor
    2.25-a4: Added yt playlist download for both audio and video
    2.25-a5: Fixed bug where program could not start in CLI-only mode.
+   2.25-a6: Added message of the day
