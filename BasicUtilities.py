@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25 Beta 6')
+print('Basic Utilities 2.25 Beta 7')
 SYSVERSION = '2.25'
 SNAPSHOT = True
 
@@ -30,6 +30,9 @@ try:
     import termcolor
 except Exception as e:
     print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+    HASTC = False
+else:
+    HASTC = True
 
 from traceback import format_tb
 import sys
@@ -57,7 +60,10 @@ def handle_exception(type,value,traceback):
 from tkinter import *
 
 if SNAPSHOT:
-    termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
+    try:
+        termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
+    except:
+        print("Warning! You are using a beta version of Basic Utilities. There may be unexpected issues.")
 
 import tarfile
 import datetime
@@ -1113,7 +1119,9 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True}
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True}
+    if not HASTC:
+        apd["useColouredText"] = False
     if pa.lower().startswith("y"):
         log("Porting Appdata")
         isported = True
@@ -1257,7 +1265,10 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
         
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
-        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true}')
+        if HASTC:
+            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true}')
+        else:
+            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false}')
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
@@ -1266,6 +1277,10 @@ if os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     for file in apf:
         if os.path.isfile(file):
             os.remove(file)
+
+if not "useColouredText" in APPDATA:
+    APPDATA["useColouredText"] = True
+    
 
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
@@ -1299,11 +1314,14 @@ def updateappdata():
     global APPDATA
     with open("appdata.json","w+") as ad:
         ad.write(str(json.dumps(APPDATA)))
-
+updateappdata()
 try:
     ewqueo = requests.get("https://www.google.com")
 except (requests.ConnectionError,requests.Timeout):
-    termcolor.cprint("You are not connected to the internet. Some commands may not work as intended.","yellow")
+    if APPDATA["useColouredText"]:
+        termcolor.cprint("You are not connected to the internet. Some commands may not work as intended.","yellow")
+    else:
+        print("You are not connected to the internet. Some commands may not work as intended")
     APPDATA["useDownloadedSounds"] = False
     updateappdata()
     log("User is not connected to the internet")
@@ -1592,11 +1610,17 @@ if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
     SYSVERSION = version.parse("2.24.4")
     if SYSVERNUM > SYSVERSION:
-        termcolor.cprint('New update found. Run the update command to download it',"green")
+        if APPDATA["useColouredText"]:
+            termcolor.cprint('New update found. Run the update command to download it',"green")
+        else:
+            print("A new update has been found. Run the update command to download it.")
 
-        log('Found new update')
+        log('Found new update '+SYSVERDATA["version"])
         nua = True
-termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
+if APPDATA["useColouredText"]:
+    termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
+else:
+    print("Today's Mesasge",MESSAGE)
 #now it begins...
 while xae == True:
     crashed = False
@@ -2154,7 +2178,7 @@ while xae == True:
             m = messagebox.askyesno('BU','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download it?')
             if m == True:
                 webbrowser.open(SYSVERDATA["link"])
-                log('Download new update')
+                log('Downloaded new update '+SYSVERDATA["version"])
         else:
             Tk().withdraw()
             messagebox.showinfo('BU','No new updates are available')
@@ -3267,11 +3291,12 @@ while xae == True:
     elif command == 'crash':
         raise RuntimeError('Manual Crash')
         
-    elif command == 'settings':
+    elif command == 'settings' or command == "options":
         def apsave():
             global nf
             global val_inside
             global val_inside_2
+            global val_inside_3
             global APPDATA
             if val_inside.get() == "No notifications":
                 APPDATA["showCommandsRun"] = False
@@ -3281,6 +3306,10 @@ while xae == True:
                 APPDATA["useDownloadedSounds"] = False
             else:
                 APPDATA["useDownloadedSounds"] = True
+            if val_inside_3.get() == "No coloured text":
+                APPDATA["useColouredText"] = False
+            else:
+                APPDATA["useColouredText"] = True
             updateappdata()
             nf.destroy()
 
@@ -3290,10 +3319,14 @@ while xae == True:
         lbl.grid(column=0,row=0)
         lbl = Label(nf,text='Select your Sounds setting')
         lbl.grid(column=0,row=1)
+        lbl = Label(nf,text="Select your coloured text setting")
+        lbl.grid(column=0,row=2)
         options_list = ["No notifications","Show how many commands you've run (default)"]
         options_list_2 = ["No sound effects","Use sound effects (default)"]
+        options_list_3 = ["No coloured text","Use coloured text (default)"]
         val_inside = StringVar(nf)
         val_inside_2 = StringVar(nf)
+        val_inside_3 = StringVar(nf)
         if APPDATA["showCommandsRun"]:
             val_inside.set("Show how many commands you've run (default)")
         else:
@@ -3302,14 +3335,20 @@ while xae == True:
             val_inside_2.set("Use sound effects (default)")
         else:
             val_inside_2.set("No sound effects")
+        if APPDATA["useColouredText"]:
+            val_inside_3.set("Use coloured text (default)")
+        else:
+            val_inside_3.set("No coloured text")
         #A sound effect is like the beat the bank sound effect.
         qmen = OptionMenu(nf,val_inside,*options_list)
         qmen.grid(column=1,row=0)
         qmen_2 = OptionMenu(nf,val_inside_2,*options_list_2)
         qmen_2.grid(column=1,row=1)
+        qmen_3 = OptionMenu(nf,val_inside_3,*options_list_3)
+        qmen_3.grid(column=1,row=2)
         
         btn = Button(nf,text="Done",bg="lime green",command=apsave)
-        btn.grid(column=0,row=2)
+        btn.grid(column=0,row=3)
         nf.mainloop()
         
     elif command == 'encode':
