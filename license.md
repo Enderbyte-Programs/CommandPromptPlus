@@ -39,3 +39,35 @@ Basic Utilities has some first guarantees from the developer.
 
 1. Times that someone has started Basic Utilities (this is only sent if user is connected to the internet at exact time of startup
 2. When someone runs the "msg" or "update" command (Those make requests to a webserver, and said webserver has a visits count)
+
+### Individual information collected by Basic Utilities and sent to Enderbyte Programs
+
+None
+Note: This does not include third parties, and Enderbyte Programs is not responsible for any information collected by third parties
+
+## Third Party Notice
+
+Basic Utilities relies on many third party libraries and services. These libraries may have bugs. Basic Utilities is not responsible for any bugs or exploits that are in these third party services. Basic Utilities tries to use the latest versions of all libraries, and may apply custom fixes to bugs. If there is a severe bug in an update of a library, Basic Utilities will NOT update (example: Playsound has big bugs in 1.2.3 and above, so Basic Utilities uses 1.2.2)
+
+**BASIC UTILITIES IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER THAT COMES FROM BUGS, EXPLOITS, OR ISSUES FROM THIRD PARTY LIBRARIES OR SERVICES**
+
+## Copyright
+
+**Basic Utilities is Copyright (c) 2021-2022 Enderbyte Programs, some rights reserved.**
+
+Basic Utilities is an open-source free program. If you wish to distribute Basic Utilities AS-IS, you may only do so if you cite Enderbyte Programs, and said distribution is free of charge. If you wish to distribute a modified version of Basic Utilities, you still must cite Enderbyte Programs, but I don't care if you sell it for money. **ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR DEVICE OR PROPERTY CAUSED BY A MODIFIED VERSION OF BASIC UTILITIES.
+You may have noticed that Basic Utilities says "Some rights reserved". The following rights are reserved by Enderbyte Programs:
+
+1. The right to call Basic Utilities as a whole "Yours"
+
+The following rights are open, or copyleft:
+
+1. The ability to access and edit the source code of Basic Utilities
+2. The right to download Basic Utilities
+
+##Final Clauses
+
+**ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER FROM BASIC UTILITIES**
+**ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER FROM OTHER PEOPLE USING BASIC UTILITIES**
+
+_END TERMS AND CONDITIONS_
