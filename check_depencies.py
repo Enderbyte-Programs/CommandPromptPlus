@@ -1,4 +1,3 @@
-from tkinter import messagebox, Tk
 import platform
 import os
 if str(platform.system()) == 'Windows':
@@ -7,7 +6,7 @@ else:
     has_windows = False
 if not has_windows:
     Tk().withdraw()
-    messagebox.showwarning('BUchk','You do not have the reccomended OS for this program. Some features may work incorrectly.')
+    print('You do not have the reccomended OS for this program. Some features may work incorrectly.')
     os.system('python3 -m pip install playsound')
     os.system('python3 -m pip install requests')
     os.system('python3 -m pip install keyboard')
@@ -24,5 +23,4 @@ input('All Finished! Press enter to start Basic Utilities.')
 try:
     os.startfile("BasicUtilities.py")
 except:
-    Tk().withdraw()
-    messagebox.showerror('Error','Could not find BasicUtilities.py')
+    print("Failed to start Basic Utilities. You will have to do it manually")
