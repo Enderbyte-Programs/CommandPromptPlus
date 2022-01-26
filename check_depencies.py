@@ -19,8 +19,4 @@ else:
     os.system('py -m pip install keyboard')
     os.system('py -m pip install termcolor')
     os.system('py -m pip install packaging')
-input('All Finished! Press enter to start Basic Utilities.')
-try:
-    os.startfile("BasicUtilities.py")
-except:
-    print("Failed to start Basic Utilities. You will have to do it manually")
+input('All Finished! Press enter to complete source-code setup')
