@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25 Beta 7')
+print('Basic Utilities 2.25 Beta 8 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25'
 SNAPSHOT = True
 
@@ -12,6 +12,18 @@ def toplevelerror(message,title='Error'):
     root.wm_attributes("-topmost",True)
     root.withdraw()
     messagebox.showerror(title,message)
+
+def consoleask(message) -> bool:
+    while True:
+        xkl = input(str(message)+" (y/n): ")
+        if xkl.lower().startswith("y"):
+            return True
+            break
+        elif xkl.lower().startswith("n"):
+            return False
+            break
+        else:
+            print("Invalid. Please type 'yes' or 'no'")
 
 try:
     from pytube import *
@@ -162,9 +174,8 @@ if hasarg == True and xxx == 'translate':
     print('')
     print('Tranlation:',tra)
     print('size:',len(tra),'bytes')
-    print("Do you want to write this to a txt file?(y/n)")
-    wt = input()
-    if wt == 'y':
+    wt = consoleask("Do you want to write this to a file?")
+    if wt:
         print('What folder to save to?')
         Tk().withdraw()
         fexx = filedialog.askdirectory()
@@ -1119,7 +1130,8 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True}
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True, "legacyStartups" : True}
+
     if not HASTC:
         apd["useColouredText"] = False
     if pa.lower().startswith("y"):
@@ -1266,9 +1278,10 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
         if HASTC:
-            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true}')
+            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true, "legacyStartups" : false}')
         else:
-            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false}')
+            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false}')
+
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
 
@@ -1280,17 +1293,24 @@ if os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
 
 if not "useColouredText" in APPDATA:
     APPDATA["useColouredText"] = True
-    
-
+if not "legacyStartups" in APPDATA:
+    APPDATA["legacyStartups"] = False    
+def updateappdata():
+    global APPDATA
+    with open("appdata.json","w+") as ad:
+        ad.write(str(json.dumps(APPDATA)))
+updateappdata()
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
-    print(str(platform.platform()))
+    if not APPDATA["legacyStartups"]:
+        print(str(platform.platform()))
 else:
     sysslash = '/'
-    print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
-
-print(os.getcwd())
-print(pid)
+    if not APPDATA["legacyStartups"]:
+        print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
+if not APPDATA["legacyStartups"]:
+    print(os.getcwd())
+    print(pid)
 
 try:   
     from requests import get
@@ -1302,26 +1322,23 @@ except:
         SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
         reqins = True
     except:
-        
-        print('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
+        if not APPDATA["legacyStartups"]:
+            print('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
 
 xae = True
 tcrash = False
 accessdenied = False
 cmd_run = 0
 
-def updateappdata():
-    global APPDATA
-    with open("appdata.json","w+") as ad:
-        ad.write(str(json.dumps(APPDATA)))
-updateappdata()
+
 try:
     ewqueo = requests.get("https://www.google.com")
 except (requests.ConnectionError,requests.Timeout):
-    if APPDATA["useColouredText"]:
-        termcolor.cprint("You are not connected to the internet. Some commands may not work as intended.","yellow")
-    else:
-        print("You are not connected to the internet. Some commands may not work as intended")
+    if not APPDATA["legacyStartups"]:
+        if APPDATA["useColouredText"]:
+            termcolor.cprint("You are not connected to the internet. Some commands may not work as intended.","yellow")
+        else:
+            print("You are not connected to the internet. Some commands may not work as intended")
     APPDATA["useDownloadedSounds"] = False
     updateappdata()
     log("User is not connected to the internet")
@@ -1452,11 +1469,14 @@ def startsound():
             try:
                 playsound(data)
             except Exception as e:
-                print("Could not play startsound:",e)
+                if not APPDATA["legacyStartups"]:
+                    print("Could not play startsound:",e)
         else:
-            print("Could not find start sound file")
+            if not APPDATA["legacyStartups"]:
+                print("Could not find start sound file")
     else:
-        print('You currently do not have a startup sound set. Set one via the startsound command\n')
+        if not APPDATA["legacyStartups"]:
+            print('You currently do not have a startup sound set. Set one via the startsound command\n')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()       
 def runfile(filename):
@@ -1522,9 +1542,8 @@ elif p == 10 and o == 31:
     print(f'Happy Halloween, {sysuser}!')
 #Couldn't find any more fixed-date holidays that are recognized globally.
 
-
-
-print('You have booted up Basic Utilities',bootcount+1,'times.')
+if not APPDATA["legacyStartups"]:
+    print('You have booted up Basic Utilities',bootcount+1,'times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
@@ -1578,12 +1597,14 @@ else:
 try:
     d0 = datetime.datetime(a,b,c,d,e,g)
 except:
-    print("Invalid btime!")
+    if not APPDATA["legacyStartups"]:
+        print("Invalid btime!")
     d0 = datetime.datetime(x.year,x.month,x.day,x.hour,x.minute,x.second)
 d1 = datetime.datetime(x.year,x.month,x.day,x.hour,x.minute,x.second)
 diff = d1-d0
 ts = diff.total_seconds()
-print('You opened Basic Utilities for the first time in',ts,'seconds!')
+if not APPDATA["legacyStartups"]:
+    print('You opened Basic Utilities for the first time in',ts,'seconds!')
 APPDATA["btime"]["year"] = x.year
 APPDATA["btime"]["month"] = x.month
 APPDATA["btime"]["day"] = x.day
@@ -1591,44 +1612,51 @@ APPDATA["btime"]["hour"] = x.hour
 APPDATA["btime"]["minute"] = x.minute
 APPDATA["btime"]["second"] = x.second
 updateappdata()
-
-print('')
-print("Welcome to Basic Utilities,",sysuser)
-print(datetime.datetime.now())
+if not APPDATA["legacyStartups"]:
+    print('')
+    print("Welcome to Basic Utilities,",sysuser)
+if not APPDATA["legacyStartups"]:
+    print(datetime.datetime.now())
 x = datetime.datetime.now()
-if x.hour > 0 and x.hour < 12:
-    print('Good morning,',sysuser)
-elif x.hour > 11 and x.hour < 18:
-    print('Good afternoon,',sysuser)
-elif x.hour > 17 and x.hour < 22:
-    print('Good evening,',sysuser)
-else:
-    print('Good night,',sysuser)
+if not APPDATA["legacyStartups"]:
+    if x.hour > 0 and x.hour < 12:
+        print('Good morning,',sysuser)
+    elif x.hour > 11 and x.hour < 18:
+        print('Good afternoon,',sysuser)
+    elif x.hour > 17 and x.hour < 22:
+        print('Good evening,',sysuser)
+    else:
+        print('Good night,',sysuser)
 nua = False
-print(sysslash)
+if not APPDATA["legacyStartups"]:
+    print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
     SYSVERSION = version.parse("2.24.4")
     if SYSVERNUM > SYSVERSION:
-        if APPDATA["useColouredText"]:
-            termcolor.cprint('New update found. Run the update command to download it',"green")
-        else:
-            print("A new update has been found. Run the update command to download it.")
+        if not APPDATA["legacyStartups"]:
+            if APPDATA["useColouredText"]:
+                termcolor.cprint('New update found. Run the update command to download it',"green")
+            else:
+                print("A new update has been found. Run the update command to download it.")
 
         log('Found new update '+SYSVERDATA["version"])
         nua = True
-if APPDATA["useColouredText"]:
-    termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
-else:
-    print("Today's Mesasge",MESSAGE)
+if not APPDATA["legacyStartups"]:
+    if APPDATA["useColouredText"]:
+        termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
+    else:
+        print("Today's Mesasge",MESSAGE)
 #now it begins...
 while xae == True:
     crashed = False
     if not os.path.isdir(".temp"):
         os.mkdir(".temp")
+
     print("")
     print("-----Command Menu-----")
-    print("Type your command under here and press enter")
+    if not APPDATA["legacyStartups"]:
+        print("Type your command under here and press enter")
     command = input()
     log(f'{sysuser} executed command '+command)
     if command == "help" or command == "?":
