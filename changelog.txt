@@ -180,3 +180,5 @@
    2.25-a4: Added yt playlist download for both audio and video
    2.25-a5: Fixed bug where program could not start in CLI-only mode.
    2.25-a6: Added message of the day
+   2.25-a7: Added useColouredText key and added settings for it. Defaults true, and if false will not use the termcolor library. Auto-set to false if termcolor is not found, also fixed CLI bugs
+   2.25-a8: Added legacyStartups key. I HAVE NOT YET added a settings for it. Defaults to false. If true removes all startup text excpet for version no. and ----cmd menu-----
