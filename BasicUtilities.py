@@ -1133,7 +1133,7 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True, "legacyStartups" : True}
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : False, "legacyStartups" : False}
 
     if not HASTC:
         apd["useColouredText"] = False
@@ -1280,10 +1280,9 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
         
 if not os.path.isfile("appdata.json") and not isported:
     with open("appdata.json","w+") as apt:
-        if HASTC:
-            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true, "legacyStartups" : false}')
-        else:
-            apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false}')
+        
+        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false}')
+
 
     with open("appdata.json") as appdat:
         APPDATA = json.load(appdat)
@@ -1649,7 +1648,7 @@ if not APPDATA["legacyStartups"]:
     if APPDATA["useColouredText"]:
         termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
     else:
-        print("Today's Mesasge",MESSAGE)
+        print("Today's Mesasge:",MESSAGE)
 #now it begins...
 while xae == True:
     crashed = False
