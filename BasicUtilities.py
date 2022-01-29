@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25 Beta 8 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.25 Beta 9 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25'
 SNAPSHOT = True
 
@@ -3325,6 +3325,7 @@ while xae == True:
             global val_inside
             global val_inside_2
             global val_inside_3
+            global val_inside_4
             global APPDATA
             if val_inside.get() == "No notifications":
                 APPDATA["showCommandsRun"] = False
@@ -3334,13 +3335,17 @@ while xae == True:
                 APPDATA["useDownloadedSounds"] = False
             else:
                 APPDATA["useDownloadedSounds"] = True
-            if val_inside_3.get() == "No coloured text":
+            if val_inside_3.get() == "No coloured text (default)":
                 APPDATA["useColouredText"] = False
             else:
                 APPDATA["useColouredText"] = True
+            if val_inside_4.get() == "Legacy startups":
+                APPDATA["legacyStartups"] = True
+            else:
+                APPDATA["legacyStartups"] = False
             updateappdata()
             nf.destroy()
-
+        
         nf = Tk()
         nf.title('Settings')
         lbl = Label(nf,text='Select your notification settings')
@@ -3349,12 +3354,17 @@ while xae == True:
         lbl.grid(column=0,row=1)
         lbl = Label(nf,text="Select your coloured text setting")
         lbl.grid(column=0,row=2)
+        lbl = Label(nf,text="Select your startup setting")
+        lbl.grid(column=0,row=3)
+        
         options_list = ["No notifications","Show how many commands you've run (default)"]
         options_list_2 = ["No sound effects","Use sound effects (default)"]
-        options_list_3 = ["No coloured text","Use coloured text (default)"]
+        options_list_3 = ["No coloured text (default)","Use coloured text"]
+        options_list_4 = ["Detailed startups (default)","Legacy startups"]
         val_inside = StringVar(nf)
         val_inside_2 = StringVar(nf)
         val_inside_3 = StringVar(nf)
+        val_inside_4 = StringVar(nf)
         if APPDATA["showCommandsRun"]:
             val_inside.set("Show how many commands you've run (default)")
         else:
@@ -3364,9 +3374,13 @@ while xae == True:
         else:
             val_inside_2.set("No sound effects")
         if APPDATA["useColouredText"]:
-            val_inside_3.set("Use coloured text (default)")
+            val_inside_3.set("Use coloured text")
         else:
-            val_inside_3.set("No coloured text")
+            val_inside_3.set("No coloured text (default)")
+        if APPDATA["legacyStartups"]:
+            val_inside_4.set("Legacy startups")
+        else:
+            val_inside_4.set("Detailed startups (default)")
         #A sound effect is like the beat the bank sound effect.
         qmen = OptionMenu(nf,val_inside,*options_list)
         qmen.grid(column=1,row=0)
@@ -3374,9 +3388,11 @@ while xae == True:
         qmen_2.grid(column=1,row=1)
         qmen_3 = OptionMenu(nf,val_inside_3,*options_list_3)
         qmen_3.grid(column=1,row=2)
+        qmen_4 = OptionMenu(nf,val_inside_4,*options_list_4)
+        qmen_4.grid(column=1,row=3)
         
         btn = Button(nf,text="Done",bg="lime green",command=apsave)
-        btn.grid(column=0,row=3)
+        btn.grid(column=0,row=4)
         nf.mainloop()
         
     elif command == 'encode':
