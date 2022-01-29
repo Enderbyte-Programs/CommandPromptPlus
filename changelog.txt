@@ -184,4 +184,4 @@
    2.25-a8: Added legacyStartups key. I HAVE NOT YET added a settings for it. Defaults to false. If true removes all startup text excpet for version no. and ----cmd menu-----
    2.25-a9: Added settings key to legacyStartups
    2.25-pr Added auto-update
-2.25: Added ytplaylist download, added legacy startups as an option, and added message of the day
+2.25: Added ytplaylist download, added legacy startups as an option, and added message of the day, and of course AUTO UPDATE (test coming today)
