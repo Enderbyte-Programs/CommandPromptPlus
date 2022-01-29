@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25 Beta 9 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.25 Pre-Relase (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25'
 SNAPSHOT = True
 
@@ -14,6 +14,9 @@ def toplevelerror(message,title='Error'):
     messagebox.showerror(title,message)
 
 def consoleask(message) -> bool:
+    """
+    Asks the user a question in the console. Returns true if they say yes, returns false if they say no.
+    """
     while True:
         xkl = input(str(message)+" (y/n): ")
         if xkl.lower().startswith("y"):
@@ -1632,7 +1635,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.24.4")
+    SYSVERSION = version.parse("2.25")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2203,10 +2206,16 @@ while xae == True:
         if nua == True:
             
             Tk().withdraw()
-            m = messagebox.askyesno('BU','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download it?')
+            m = messagebox.askyesno('BU','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download and install it?')
             if m == True:
-                webbrowser.open(SYSVERDATA["link"])
+                fname = os.getcwd()+"\\.temp\\update_"+SYSVERDATA["version"]+".exe"
+                urllib.request.urlretrieve(SYSVERDATA["link"],fname)
                 log('Downloaded new update '+SYSVERDATA["version"])
+                CREATE_NEW_PROCESS_GROUP = 0x00000200
+                DETACHED_PROCESS = 0x00000008
+                
+                p = subprocess.Popen([fname], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+                os.system("taskkill /f /im BasicUtilities.exe")
         else:
             Tk().withdraw()
             messagebox.showinfo('BU','No new updates are available')
