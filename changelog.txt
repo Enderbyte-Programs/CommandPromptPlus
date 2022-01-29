@@ -182,3 +182,5 @@
    2.25-a6: Added message of the day
    2.25-a7: Added useColouredText key and added settings for it. Defaults true, and if false will not use the termcolor library. Auto-set to false if termcolor is not found, also fixed CLI bugs
    2.25-a8: Added legacyStartups key. I HAVE NOT YET added a settings for it. Defaults to false. If true removes all startup text excpet for version no. and ----cmd menu-----
+   2.25-a9: Added settings key to legacyStartups
+   2.25-pr Added auto-update
