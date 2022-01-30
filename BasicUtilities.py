@@ -1,5 +1,5 @@
-print('Basic Utilities 2.25 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.25'
+print('Basic Utilities 2.25.2 (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.25.2'
 SNAPSHOT = False
 
 from tkinter import messagebox, Tk
@@ -525,6 +525,8 @@ elif hasarg2 == True:
                 global lbl1
                 global lbl2
                 global lbl3
+                global lbl4
+                global lbl5
                 global txt
                 global isdef
                 if istr and isdef:
@@ -533,6 +535,11 @@ elif hasarg2 == True:
                         lbl1.config(text="char: "+str(len(data)))
                         lbl2.config(text="line: "+str(len(data.split("\n"))))
                         lbl3.config(text="word: "+str(len(data.split(" "))))
+                        ln = str(txt.index(INSERT)).split(".")[0]
+                        char = str(txt.index(INSERT)).split(".")[1]
+                        lbl4.config(text="ln: "+ln)
+                        lbl5.config(text="col: "+char)
+
                     except Exception as e:
                         print(e)
                         break
@@ -639,7 +646,7 @@ elif hasarg2 == True:
         scr1.pack(side='bottom',fill='x',expand=False)
         txt.config(xscrollcommand=scr1.set)
         scr1.config(command=txt.xview)
-        lbl = Label(root,text='Regular save will save to the directory in the title.')
+        lbl = Label(root,text='Will save to directory in title')
         lbl.place(x=120,y=30)
         ent = Entry(root,width=20)
         ent.place(x=120,y=0)
@@ -661,6 +668,10 @@ elif hasarg2 == True:
         lbl2.place(x=680,y=30)
         lbl3 = Label(root,text="word: waiting...")
         lbl3.place(x=680,y=45)
+        lbl4 = Label(root,text="ln: waiting...")
+        lbl4.place(x=300,y=25)
+        lbl5 = Label(root,text="col: waiting...")
+        lbl5.place(x=300,y=40)
         
         root.protocol("WM_DELETE_WINDOW",terminat)
         isdef = True
@@ -951,6 +962,8 @@ elif hasarg2 == True:
                     global lbl1
                     global lbl2
                     global lbl3
+                    global lbl4
+                    global lbl5
                     global txt
                     global isdef
                     if istr and isdef:
@@ -959,6 +972,10 @@ elif hasarg2 == True:
                             lbl1.config(text="char: "+str(len(data)))
                             lbl2.config(text="line: "+str(len(data.split("\n"))))
                             lbl3.config(text="word: "+str(len(data.split(" "))))
+                            ln = str(txt.index(INSERT)).split(".")[0]
+                            char = str(txt.index(INSERT)).split(".")[1]
+                            lbl4.config(text="ln: "+ln)
+                            lbl5.config(text="col: "+char)
                         except Exception as e:
                             print(e)
                             break
@@ -1081,7 +1098,7 @@ elif hasarg2 == True:
             scr1.pack(side='bottom',fill='x',expand=False)
             txt.config(xscrollcommand=scr1.set)
             scr1.config(command=txt.xview)
-            lbl = Label(root,text='Regular save will save to the directory in the title.')
+            lbl = Label(root,text='Will save to directory in title.')
             lbl.place(x=120,y=30)
             ent = Entry(root,width=20)
             ent.place(x=120,y=0)
@@ -1103,6 +1120,10 @@ elif hasarg2 == True:
             lbl2.place(x=680,y=30)
             lbl3 = Label(root,text="word: waiting...")
             lbl3.place(x=680,y=45)
+            lbl4 = Label(root,text="ln: waiting...")
+            lbl4.place(x=300,y=25)
+            lbl5 = Label(root,text="col: waiting...")
+            lbl5.place(x=300,y=40)
             root.protocol("WM_DELETE_WINDOW",terminat)
             isdef = True
             root.mainloop()
@@ -1385,8 +1406,7 @@ def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
     erm = erm + erc
-    Tk().withdraw()
-    messagebox.showerror("Error",erm)
+    print(erm)
 
 #Porting pyutils39
 def toplevelquestion(message,title='Question'):
@@ -1414,12 +1434,12 @@ def toplevelerror(message,title='Error'):
 
 def newwindow():
 
-    x = toplevelquestion('Do you want to open a new window of Basic Utilities before you run this long/infinite command?')
-    if x == True:
+    c = consoleask("You have executed a long/infinite command. Do you wish to open a new windows of Basic Utilities?")
+    if c:
         try:
-            os.startfile('BasicUtilities.exe')
-        except:
-            error('Could not find BasicUtilities.exe. Did you rename it?')
+            os.startfile("BasicUtilities.exe")
+        except Exception as e:
+            print("ERROR",e)
 
 class conv():
     
@@ -1525,13 +1545,13 @@ o = t.day
 if p == 1 and o ==1:
     print(f'Happy New Year, {sysuser} (gregorian calendar)')
 elif y == 2022 and p == 2 and o == 1:
-    print('happy Chinese New Year')
+    print('Happy Lunar New Year!')
 elif y == 2023 and p == 1 and o == 22:
-    print('happy Chinese New Year')
+    print('Happy Lunar New Year!')
 elif y == 2024 and p == 2 and o == 10:
-    print('happy Chinese New Year')
+    print('Happy Lunar New Year!')
 elif y == 2025 and p == 1 and o == 29:
-    print('happy Chinese New Year')
+    print('Happy Lunar New Year!')
 elif p == 12 and o == 25:
     print(f'Happy Holidays, {sysuser}')
 elif p == 12 and o == 24:
@@ -1634,7 +1654,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.25")
+    SYSVERSION = version.parse("2.25.2")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -1650,16 +1670,17 @@ if not APPDATA["legacyStartups"]:
     else:
         print("Today's Mesasge:",MESSAGE)
 #now it begins...
+print("\nType the command you wish to execute and press enter")
 while xae == True:
     crashed = False
     if not os.path.isdir(".temp"):
         os.mkdir(".temp")
-
-    print("")
-    print("-----Command Menu-----")
-    if not APPDATA["legacyStartups"]:
-        print("Type your command under here and press enter")
-    command = input()
+    if APPDATA["legacyStartups"]:
+        print("")        
+        print("-----Command Menu-----")
+        command = input()
+    else:
+        command = input(f"Basic Utilities {SYSVERSION} on {platform.system()}: ")
     log(f'{sysuser} executed command '+command)
     if command == "help" or command == "?":
         
@@ -2928,28 +2949,17 @@ while xae == True:
         ping.quit()
 
     
-    elif command =='cmd':
-        def go2():
-            global txt
-            cmdtr = txt.get()
-            try:
-                os.system(cmdtr)
-            except:
-                error(3)
-        cmdc = Tk()
-        cmdc.title('Command Executor')
-        lbl = Label(cmdc,text='Command to execute')
-        lbl.grid(column=0,row=0)
-        btn = Button(cmdc,text='Close',command=cmdc.destroy,bg='yellow')
-        btn.grid(column=1,row=0)
-        txt = Entry(cmdc,width=50)
-        txt.grid(column=0,row=1)
-        btn1 = Button(cmdc,text='Go',command=go2,bg='green')
-        btn1.grid(column=1,row=1)
-        cmdc.mainloop()
-        cmdc.quit()
-
-        
+    elif command == 'cmd':
+        print("Type 'breakout' to exit back to the command menu. Execute multiple commands at once by seperating them with the & symbol.")
+        while True:
+            cmdtr = input(platform.platform()+" Command processor: ")
+            if cmdtr.lower().replace("'","") == "breakout":
+                break
+            else:
+                try:
+                    os.system(cmdtr)
+                except Exception as e:
+                    print("ERROR",e)
         
     elif command == 'ip':
         try:
@@ -4426,7 +4436,7 @@ while xae == True:
             print("Warning: This will give you access to most python commands. This could be dangerous. Make sure you know what you are doing!")
             print("type something in python and press enter. To return to the command menu, type 'breakout' and press enter")
             while True:
-                cmd = input()
+                cmd = input("Python 3.10.2: ")
                 if cmd == "breakout":
                     break
                 try:
@@ -5902,7 +5912,7 @@ while xae == True:
     if not xlm:
         pass
     elif xlm:
-        print('')
+        
         print('You have run',cmd_run,'commands this session')
     
     else:
@@ -5910,7 +5920,7 @@ while xae == True:
         APPDATA["showCommandsRun"] = True
         updateappdata()
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
-        print('')
+        
         print(xls)
     
 #NOW were done        
