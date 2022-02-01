@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25.3 Pre Release (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.25.3 Pre Release 2 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25.3'
 SNAPSHOT = True
 
@@ -2251,7 +2251,7 @@ while xae == True:
                 CREATE_NEW_PROCESS_GROUP = 0x00000200
                 DETACHED_PROCESS = 0x00000008
                 
-                p = subprocess.Popen([fname], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+                p = subprocess.Popen([fname,"/SILENT","/CLOSEAPPLICATIONS"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
                 os.system("taskkill /f /im BasicUtilities.exe")
         else:
             Tk().withdraw()
