@@ -190,3 +190,4 @@
       2.25.3-a1: Added y axis markings for lag meter
       2.25.3-a2: Minor logging improvements
       2.25.3-pr: Decided to release this as its own patch, chanegd everything to 2.25.3
+      2.25.3-pr2: Made updates fully automatic. Warning: It does not re-open after installation, it will throw a messagebox error
