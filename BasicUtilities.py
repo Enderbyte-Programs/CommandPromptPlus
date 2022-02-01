@@ -1,4 +1,4 @@
-print('Basic Utilities 2.26 Beta 1 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.26 Beta 2 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.26'
 SNAPSHOT = True
 
@@ -52,18 +52,29 @@ else:
 from traceback import format_tb
 import sys
 import json
-def log(stuff_to_log):
-    
+INFO = "info"
+WARN = "warn"
+ERROR = "error"
+FATAL = "fatal"
+def log(stuff_to_log,level=INFO):
+    if level == "info":
+        l = "INFO"
+    if level == "warn":
+        l = "WARN"
+    if level == "error":
+        l = "ERROR"
+    if level == "fatal":
+        l = "FATAL"
     f = open('log_000.log','a+')
 
-    f.write(str('['+str(datetime.datetime.now())+'] '+stuff_to_log)+'\n')
-    f.close()  
+    f.write(str(str(str(datetime.datetime.now())[0:len(str(datetime.datetime.now()))-3])+' '+l+" "+stuff_to_log)+'\n')
+    f.close()     
 def handle_exception(type,value,traceback):
     if issubclass(type, KeyboardInterrupt):
         pass
     else:
         try:
-            log('!UNCAUGHT EXCPETION!'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+            log(str(type).split(" ")[1].replace("'","").replace(">","")+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]),FATAL)
         except:
             pass
         try:
@@ -1364,7 +1375,7 @@ except (requests.ConnectionError,requests.Timeout):
             print("You are not connected to the internet. Some commands may not work as intended")
     APPDATA["useDownloadedSounds"] = False
     updateappdata()
-    log("User is not connected to the internet")
+    log("User is not connected to the internet",WARN)
     MESSAGE = "No message- Failed to get message."
 except NameError:
     MESSAGE = "No message- Library not found."
@@ -1372,8 +1383,10 @@ except NameError:
     APPDATA["useDownloadedSounds"] = False
     updateappdata()
 else:
-    log("User is connected to the internet")
+    log("User is connected to the internet",INFO)
+
     if not os.path.isfile("warning.mp3"):
+        log("Could not find sound file. Downloading",WARN)
         urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3","warning.mp3")
     try:
         SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
@@ -1381,6 +1394,7 @@ else:
     except Exception as e:
         
         print('Failed to get Update data',e)
+        log(e,ERROR)
     else:
         MESSAGE = get("https://pastebin.com/raw/zYfU8JAP").text
 
@@ -1407,6 +1421,7 @@ def error(erc):
     erm = "An error has occured. Error code "
     erm = erm + erc
     print(erm)
+    log(erc,ERROR)
 
 #Porting pyutils39
 def toplevelquestion(message,title='Question'):
@@ -3805,7 +3820,7 @@ while xae == True:
                 print('You have run',cmd_run,'commands this session')
             
             else:
-                log("Invalid notifs")
+                log("Invalid notifs settings",WARN)
                 APPDATA["showCommandsRun"] = True
                 updateappdata()
                 xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
@@ -4905,18 +4920,16 @@ while xae == True:
                                 try:
                                     playsound("warning.mp3")
                                 except:
-                                    log("Could not play sound, will try beep")
+                                    log("Could not play sound, will try beep",WARN)
                                     try:
                                         winsound.Beep(1000,1000)
                                     except:
-                                        Tk().withdraw()
-                                        messagebox.showerror("Beat The bank","Could not play alarm sound.")
+                                        log("Failed to play sound",ERROR)
                             else:
                                 try:
                                     winsound.Beep(1000,1000)
                                 except:
-                                    Tk().withdraw()
-                                    messagebox.showerror("Beat The bank","Could not play alarm sound.")
+                                    log("Failed to play sound",ERROR)
                         elif alarm == False:
                             money = money + moneyadd
                     if not alarm:
@@ -5972,7 +5985,7 @@ while xae == True:
         print('You have run',cmd_run,'commands this session')
     
     else:
-        log("Invalid notifs")
+        log("Invalid notifs",ERROR)
         APPDATA["showCommandsRun"] = True
         updateappdata()
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
