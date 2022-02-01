@@ -1,6 +1,6 @@
-print('Basic Utilities 2.25.2 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.25.2'
-SNAPSHOT = False
+print('Basic Utilities 2.26 Beta 1 (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.26'
+SNAPSHOT = True
 
 from tkinter import messagebox, Tk
 import os
@@ -1562,7 +1562,9 @@ elif p == 2 and o == 15:
     print(f'Happy Parinirvana Day, {sysuser} (If you are buddhist)')
 elif p == 10 and o == 31:
     print(f'Happy Halloween, {sysuser}!')
-#Couldn't find any more fixed-date holidays that are recognized globally.
+elif p == 4 and o == 14:
+    print(f"Happy Vaisakhi if you are sikh")
+#Couldn't find any more fixed-date holidays that are recognized globally. I am trying to be as inclusive as possible.
 
 if not APPDATA["legacyStartups"]:
     print('You have booted up Basic Utilities',bootcount+1,'times.')
@@ -5432,12 +5434,47 @@ while xae == True:
                 s = turtle.getscreen()
                 t = turtle.Turtle()
             turtle.title("Lag Graph")
+            def isneg(var):
+                if var < 0:
+                    return True
+                else:
+                    return False
+            def tlwrite(y,colour):
+                global t
+                t.penup()
+                x = 100+y
+                t.goto(-300,y)
+                t.pencolor(colour)
+                t.pendown()
+                
+                t.write(str(x))
+                t.goto(300,y)
+                t.penup()
             t.speed(0)
             t.penup()
             t.goto(-300,-100)
             t.pendown()
             t.goto(300,-100)
             t.penup()
+            t.goto(-300,-50)
+            t.pendown()
+            t.pencolor("green")
+            t.write("50")
+            t.goto(300,-50)
+            t.penup()
+            t.goto(-300,0)
+            t.pendown()
+            t.pencolor("yellow")
+            t.write("100")
+            t.goto(300,0)
+            tlwrite(-60,"green")
+            tlwrite(-70,"green")
+            tlwrite(-80,"green")
+            tlwrite(-90,"green")
+            tlwrite(100,"orange")
+            tlwrite(200,"red")
+            tlwrite(300,"red")
+            tlwrite(400,"black")
             t.goto(-300,-100)
             t.pendown()
             t.pencolor("red")
@@ -5508,6 +5545,25 @@ while xae == True:
                             t.pencolor("black")
                             t.goto(300,-100)
                             t.penup()
+                            t.goto(-300,-50)
+                            t.pendown()
+                            t.pencolor("green")
+                            t.write("50")
+                            t.goto(300,-50)
+                            t.penup()
+                            t.goto(-300,0)
+                            t.pendown()
+                            t.pencolor("yellow")
+                            t.write("100")
+                            t.goto(300,0)
+                            tlwrite(-60,"green")
+                            tlwrite(-70,"green")
+                            tlwrite(-80,"green")
+                            tlwrite(-90,"green")
+                            tlwrite(100,"orange")
+                            tlwrite(200,"red")
+                            tlwrite(300,"red")
+                            tlwrite(400,"black")
                             t.goto(-300,tlag)
                             t.pendown()
                             t.pencolor("red")
