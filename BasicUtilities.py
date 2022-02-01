@@ -1,5 +1,5 @@
-print('Basic Utilities 2.26 Beta 2 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.26'
+print('Basic Utilities 2.25.3 Pre Release (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.25.3'
 SNAPSHOT = True
 
 from tkinter import messagebox, Tk
@@ -1671,7 +1671,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.25.2")
+    SYSVERSION = version.parse("2.25.3")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
