@@ -187,3 +187,5 @@
 2.25: Added ytplaylist download, added legacy startups as an option, and added message of the day, and of course AUTO UPDATE (test coming today)
    2.25.1: Fixed some bugs :)
    2.25.2: Made some things more CLI friendly, and changed the command menu UI. You can still get the old one by enabling legacy Startups
+   2.25-a1: Added y axis markings for lag meter
+   2.25-a2: Minor logging improvements
