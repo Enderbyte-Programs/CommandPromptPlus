@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25.3 Pre Release 2 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.25.3 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25.3'
 SNAPSHOT = True
 
@@ -2250,8 +2250,9 @@ while xae == True:
                 log('Downloaded new update '+SYSVERDATA["version"])
                 CREATE_NEW_PROCESS_GROUP = 0x00000200
                 DETACHED_PROCESS = 0x00000008
-                
-                p = subprocess.Popen([fname,"/SILENT","/CLOSEAPPLICATIONS"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+                insnm = "install_"+str(datetime.datetime.now()).replace(" ","_").replace(":","_").replace(".","_")+".log"
+                insfn = os.getcwd()+sysslash+".temp"+sysslash+insnm
+                p = subprocess.Popen([fname,"/SILENT","/CLOSEAPPLICATIONS",f"/LOG={insfn}"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
                 os.system("taskkill /f /im BasicUtilities.exe")
         else:
             Tk().withdraw()
@@ -2705,17 +2706,17 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 5918')
-        print('print statements: 872')
-        print('Variables: 1551')
-        print('comparisons 430')
+        print('lines: 5996')
+        print('print statements: 875')
+        print('Variables: 1564')
+        print('comparisons 436')
         print('Exception handling loops 239')
         print('While loops 53')
         print('For loop 69')
         print('Commands: 145')
         print('Libraries Imported 27')
         print('files utilized 66')
-        print('Tkinter windows used 109')
+        print('Tkinter windows used 105')
 
     elif command == 'sysplat':
         print('-----')
