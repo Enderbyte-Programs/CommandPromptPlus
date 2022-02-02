@@ -195,3 +195,4 @@
    2.25.4: Fixed a huge bug
       2.25.5-a1: Fixed series mixup in lag (been in there since 2.24.1)
       2.25.5-a2: Fixed line overextending graph
+      2.25.5-a3: More logging improvments
