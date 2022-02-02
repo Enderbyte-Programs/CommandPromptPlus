@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25.5 Beta 1 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.25.5 Beta 2 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25.5'
 SNAPSHOT = True
 
@@ -1671,7 +1671,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.25.5s")
+    SYSVERSION = version.parse("2.25.5")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -5549,7 +5549,7 @@ while xae == True:
                         t.pencolor('red')
                         t.goto(lnp[0],lnp[1])
                         t.pendown()
-                        if tgotototal > 300:
+                        if tgotototal > 290:
                             t.pencolor("red")
                             t.clear()
                             ttotal = 0
