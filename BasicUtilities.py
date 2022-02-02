@@ -1,4 +1,4 @@
-print('Basic Utilities 2.25.5 Beta 2 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.25.5 Beta 3 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.25.5'
 SNAPSHOT = True
 
@@ -1148,9 +1148,11 @@ elif hasarg2 == True:
             forcekillnl()
 
 ##@@##@@
-log('Basic Utilities has started. Running version '+SYSVERSION+". Issnapshot is "+str(SNAPSHOT))
+log('Basic Utilities is starting. Running version '+SYSVERSION+". Issnapshot is "+str(SNAPSHOT))
+STIME = datetime.datetime.now()
 
 if os.path.isfile("appdata.json"):
+    log("Loading Appdata")
     with open("appdata.json") as appdat:
         try:
             APPDATA = json.load(appdat)
@@ -1159,6 +1161,7 @@ if os.path.isfile("appdata.json"):
         else:
             epo = 1
     if epo == 0:
+        log("Appdata is corrupt. Regenerating",ERROR)
         os.remove("appdata.json")
         
 isported = False
@@ -1311,6 +1314,7 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
             APPDATA = json.load(appdat)
         
 if not os.path.isfile("appdata.json") and not isported:
+    log("Could not find Appdata file.",WARN)
     with open("appdata.json","w+") as apt:
         
         apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false}')
@@ -1320,6 +1324,7 @@ if not os.path.isfile("appdata.json") and not isported:
         APPDATA = json.load(appdat)
 
 if os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
+    log("Deleting old appdata")
     apf = ["appdata.txt","bcount.txt","btime.txt","history.txt","startsound.dat","xp.txt","health.txt","notifs.txt","username.txt"]
     for file in apf:
         if os.path.isfile(file):
@@ -1331,8 +1336,11 @@ if not "legacyStartups" in APPDATA:
     APPDATA["legacyStartups"] = False    
 def updateappdata():
     global APPDATA
+    global INFO
+    log("Updated Appdata with "+str(APPDATA))
     with open("appdata.json","w+") as ad:
         ad.write(str(json.dumps(APPDATA)))
+log("Appdata initialization is complete")
 updateappdata()
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
@@ -1687,6 +1695,10 @@ if not APPDATA["legacyStartups"]:
     else:
         print("Today's Mesasge:",MESSAGE)
 #now it begins...
+
+ETIME = datetime.datetime.now()
+stimetotal = ETIME - STIME
+log(f"Startup is finished. Took {int(stimetotal.total_seconds()*1000)} milliseconds")
 print("\nType the command you wish to execute and press enter")
 while xae == True:
     crashed = False
