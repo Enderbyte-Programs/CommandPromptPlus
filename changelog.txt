@@ -194,3 +194,4 @@
    2.25.3: Quality of life updates, and full auto updates
    2.25.4: Fixed a huge bug
       2.25.5-a1: Fixed series mixup in lag (been in there since 2.24.1)
+      2.25.5-a2: Fixed line overextending graph
