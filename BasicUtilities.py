@@ -1,4 +1,4 @@
-print('Basic Utilities 2.26 Snapshot 22w05a (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.26 Beta 2 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.26'
 SNAPSHOT = True
 
@@ -4407,13 +4407,22 @@ while xae == True:
         def calcu():
             global lbl1
             global txt
+            global data
             res = txt.get()
+            lbl1.delete(0,END)
             try:
                 data = eval(res)
-                
-                lbl1.configure(text=data)
+                               
+                lbl1.insert(END,data)
             except Exception as e:
-                lbl1.configure(text='error '+str(e))
+                lbl1.insert(END,'error '+str(e))
+            
+        def ctt():
+            global cal
+            
+            cal.clipboard_clear()
+            cal.clipboard_append(str(data))
+            cal.update()
         cal = Tk()
         cal.title('Calculator')
         lbl = Label(cal,text='Please input full equation and press calculate')
@@ -4424,8 +4433,11 @@ while xae == True:
         txt.grid(column=0,row=1)
         btn1 = Button(cal,text='Calculate',command=calcu,bg='lime green')
         btn1.grid(column=1,row=1)
-        lbl1 = Label(cal,text='')
+        lbl1 = Entry(cal,width=50)
         lbl1.grid(column=0,row=2)
+        lbl1.insert(END,"Don't put your equation here please.")
+        btn2 = Button(cal,text="Copy",command=ctt,bg="yellow")
+        btn2.grid(column=1,row=2)
         cal.mainloop()
         
 
