@@ -1,6 +1,6 @@
-print('Basic Utilities 2.25.5 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.25.5'
-SNAPSHOT = False
+print('Basic Utilities 2.26 Snapshot 22w05a (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.26'
+SNAPSHOT = True
 
 from tkinter import messagebox, Tk
 import os
@@ -52,6 +52,7 @@ else:
 from traceback import format_tb
 import sys
 import json
+from math import * #This could be a big mistake...
 INFO = "info"
 WARN = "warn"
 ERROR = "error"
@@ -168,7 +169,7 @@ if str(platform.system()) == 'Windows':
 else:
     sysslash = '/'
     
-if hasarg == True and xxx == 'translate':
+if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
     
     try:
         f = open(openfile_dir,'r')
@@ -221,7 +222,7 @@ elif hasarg2 == True:
     
     cwd = os.getcwd()
     fto = sys.argv[1]
-    if fto == 'new':
+    if fto == '--new' or fto == '-n':
         
         def saveas():
             global txt
@@ -1679,7 +1680,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.25.5")
+    SYSVERSION = version.parse("2.26")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -4398,6 +4399,7 @@ while xae == True:
         print("**: Exponents, command usage: 10 ** 3")
         print("// Floor Division, command usage: 93 // 12")
         print("() Parentheses, used to execute some math first. Example: (12+6)/3")
+        print("You may also use any thing using the math library. For example sqrt(9)")
 
 
     elif command == "calc":
@@ -4408,10 +4410,10 @@ while xae == True:
             res = txt.get()
             try:
                 data = eval(res)
-                print(data)
+                
                 lbl1.configure(text=data)
-            except:
-                lbl1.configure(text='error')
+            except Exception as e:
+                lbl1.configure(text='error '+str(e))
         cal = Tk()
         cal.title('Calculator')
         lbl = Label(cal,text='Please input full equation and press calculate')
