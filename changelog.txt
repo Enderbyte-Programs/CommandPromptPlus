@@ -197,3 +197,5 @@
       2.25.5-a2: Fixed line overextending graph
       2.25.5-a3: More logging improvments
    2.25.5: Bug fixes and logging improvements
+   2.26-a1: Changed cli arguments. translate is now -t and new is now -n
+   2.26-a2: Calculator improvements
