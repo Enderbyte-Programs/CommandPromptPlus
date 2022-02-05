@@ -1475,10 +1475,10 @@ class conv():
         self.root.title("Converter")
         self.lbl = Label(self.root,text=f"Converting {self.start} to {self.end}")
         self.lbl.grid(column=0,row=0)
-        self.ent = Entry(self.root,width=20)
+        self.ent = Entry(self.root,width=50)
         self.ent.grid(column=0,row=1)
         
-        self.ent2 = Entry(self.root,width=20)
+        self.ent2 = Entry(self.root,width=50)
         self.ent2.grid(column=0,row=2)
         
         self.btn = Button(self.root,text="Exit",command=self.root.destroy)
@@ -1490,10 +1490,13 @@ class conv():
                 self.ent2.delete(0,END)
                 try:
                     e = float(e)
-                except:
-                    self.ent2.insert(END,"Error")
+                except Exception as ex:
+                    self.ent2.insert(END,"Error "+str(ex))
                 else:
-                    self.ent2.insert(END,str(eval(str(e)+formula)))
+                    try:
+                        self.ent2.insert(END,str(eval(str(e)+formula)))
+                    except Exception as ex:
+                        self.ent2.insert(END,"Error "+str(ex))
                 
                 sleep(0.1)
                 self.root.update()
@@ -1712,7 +1715,8 @@ while xae == True:
         command = input()
     else:
         command = input(f"Basic Utilities {SYSVERSION} on {platform.system()}: ")
-    log(f'{sysuser} executed command '+command)
+    if command != "":
+        log(f'{sysuser} executed command '+command)
     if command == "help" or command == "?":
         
         print("-----Commands List-----")
@@ -1734,6 +1738,7 @@ while xae == True:
         print('usr: change your username')
         print('startsound: Set your startup sound')
         print("anim: Get a little animation of a wheel.")
+        print("erc: List of error codes")
         print('')
         print("-----USELESS COMMANDS-----")
         print("insult: Get insulted")
@@ -1793,7 +1798,7 @@ while xae == True:
         
         print("pyterm: Open a python terminal prompt [potentially dangerous]")
         print("randpass: Get a random password.")
-        print("erc: List of error codes")
+        
         print("encode: encode stuff so no one can read it")
         print("translate: Translate files back to readable") 
         print('ping: Ping an IP address')
@@ -1836,6 +1841,7 @@ while xae == True:
         print("calc help: Help with the calculator")
         print("calc: Calculator")
         print("quiz: get a multiplication quiz up to 12x12")
+        print("decbin: Convert decimal to binary")
         
         print("conv len: length converters [sc]")
         print('fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares')
@@ -1854,9 +1860,6 @@ while xae == True:
         print("rem: custom app data reset (you choose)")
         print('cln: Clean up files from old versions that you dont need')
 
-        
-        print('')
-        
         if sysslash == '\\':
             print('-----Sound-----')
             print('beep: Get a beep')
@@ -1876,6 +1879,11 @@ while xae == True:
         print("There are also some easter egg commands :)")
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
+
+
+
+    elif command == "":
+        pass
 
     elif command == "msg":
         print("=====")
@@ -6008,7 +6016,7 @@ while xae == True:
     xmls = str(cmd_run)
     if not xlm:
         pass
-    elif xlm:
+    elif xlm and command != "":
         
         print('You have run',cmd_run,'commands this session')
     
@@ -6017,7 +6025,7 @@ while xae == True:
         APPDATA["showCommandsRun"] = True
         updateappdata()
         xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
-        
-        print(xls)
+        if command != "":
+            print(xls)
     
 #NOW were done        
