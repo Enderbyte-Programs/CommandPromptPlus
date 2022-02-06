@@ -12,6 +12,7 @@ if not has_windows:
     os.system('python3 -m pip install keyboard')
     os.system('python3 -m pip install termcolor')
     os.system('python3 -m pip install packaging')
+    os.system('python3 -m pip install pytube')
 else:
     os.system('py -m pip install playsound')
     os.system('py -m pip install requests')
@@ -19,4 +20,5 @@ else:
     os.system('py -m pip install keyboard')
     os.system('py -m pip install termcolor')
     os.system('py -m pip install packaging')
+    os.system('py -m pip install pytube')
 input('All Finished! Press enter to complete source-code setup')
