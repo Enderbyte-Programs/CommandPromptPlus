@@ -200,3 +200,4 @@
    2.26-a1: Changed cli arguments. translate is now -t and new is now -n
    2.26-a2: Calculator improvements
    2.26-a3: Improvments to conv()
+   2.26-a4: Added base2 and base16 converters
