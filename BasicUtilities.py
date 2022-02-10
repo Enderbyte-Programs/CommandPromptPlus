@@ -1,4 +1,4 @@
-print('Basic Utilities 2.26 Beta 2 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.26 Beta 4 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.26'
 SNAPSHOT = True
 
@@ -52,7 +52,7 @@ else:
 from traceback import format_tb
 import sys
 import json
-from math import * #This could be a big mistake...
+
 INFO = "info"
 WARN = "warn"
 ERROR = "error"
@@ -1698,11 +1698,145 @@ if not APPDATA["legacyStartups"]:
         termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
     else:
         print("Today's Mesasge:",MESSAGE)
-#now it begins...
+class fconv():
+    
+    def __init__(self,start,end,formula):
+        self.start = start
+        self.end = end
+        self.formula = formula
+        self.root = Tk()
+        self.root.title("Converter")
+        self.lbl = Label(self.root,text=f"Converting {self.start} to {self.end}")
+        self.lbl.grid(column=0,row=0)
+        self.ent = Entry(self.root,width=50)
+        self.ent.grid(column=0,row=1)
+        
+        self.ent2 = Entry(self.root,width=50)
+        self.ent2.grid(column=0,row=2)
+        
+        self.btn = Button(self.root,text="Exit",command=self.root.destroy)
+        self.btn.grid(column=1,row=0)
+        while True:
+            try:
+                e = self.ent.get()
+                
+                self.ent2.delete(0,END)
+                try:
+                    e = int(e)
+                except Exception as ex:
+                    self.ent2.insert(END,"Error "+str(ex))
+                else:
+                    try:
+                        self.ent2.insert(END,str(eval(formula)))
+                    except Exception as ex:
+                        self.ent2.insert(END,"Error "+str(ex))
+                
+                sleep(0.1)
+                self.root.update()
+            except:
+                break
+
+class fconv():
+    
+    def __init__(self,start,end,formula):
+        self.start = start
+        self.end = end
+        self.formula = formula
+        self.root = Tk()
+        self.root.title("Converter")
+        self.lbl = Label(self.root,text=f"Converting {self.start} to {self.end}")
+        self.lbl.grid(column=0,row=0)
+        self.ent = Entry(self.root,width=50)
+        self.ent.grid(column=0,row=1)
+        
+        self.ent2 = Entry(self.root,width=50)
+        self.ent2.grid(column=0,row=2)
+        
+        self.btn = Button(self.root,text="Exit",command=self.root.destroy)
+        self.btn.grid(column=1,row=0)
+        while True:
+            try:
+                e = self.ent.get()
+                
+                self.ent2.delete(0,END)
+                try:
+                    e = int(e)
+                except Exception as ex:
+                    self.ent2.insert(END,"Error "+str(ex))
+                else:
+                    try:
+                        self.ent2.insert(END,str(eval(formula)))
+                    except Exception as ex:
+                        self.ent2.insert(END,"Error "+str(ex))
+                
+                sleep(0.1)
+                self.root.update()
+            except:
+                break
+class dconv():
+    
+    def __init__(self,start,end,formula):
+        self.start = start
+        self.end = end
+        self.formula = formula
+        self.root = Tk()
+        self.root.title("Converter")
+        self.lbl = Label(self.root,text=f"Converting {self.start} to {self.end}")
+        self.lbl.grid(column=0,row=0)
+        self.ent = Entry(self.root,width=50)
+        self.ent.grid(column=0,row=1)
+        
+        self.ent2 = Entry(self.root,width=50)
+        self.ent2.grid(column=0,row=2)
+        
+        self.btn = Button(self.root,text="Exit",command=self.root.destroy)
+        self.btn.grid(column=1,row=0)
+        
+        while True:
+            try:
+                e = self.ent.get()
+                
+                self.ent2.delete(0,END)
+                try:
+                    if self.start.lower().startswith("b") and self.end.lower().startswith("h"):
+                        e = "0b"+str(int(e))
+                        
+                        e = int(e,base=2)
+                        
+                        e = hex(e)
+                    if self.start.lower().startswith("h") and self.end.lower().startswith("b"):
+                        e = "0x"+str(e)
+                        
+                        e = int(e,base=16)
+                        
+                        e = bin(e)
+                        
+                    elif self.start.lower().startswith("b"):
+                        e = "0b"+str(int(e))
+                        
+                        e = int(e,base=2)
+                    elif self.start.lower().startswith("h"):
+                        e = "0x"+e
+                        e = int(e,base=16)
+                    
+                except Exception as ex:
+                    self.ent2.insert(END,"Error "+str(ex))
+                else:
+                    try:
+                        self.ent2.insert(END,str(e))
+                    except Exception as ex:
+                        self.ent2.insert(END,"Error "+str(ex))
+                
+                sleep(0.1)
+                self.root.update()
+            except:
+                break
+
 
 ETIME = datetime.datetime.now()
 stimetotal = ETIME - STIME
 log(f"Startup is finished. Took {int(stimetotal.total_seconds()*1000)} milliseconds")
+#now it begins...
 print("\nType the command you wish to execute and press enter")
 while xae == True:
     crashed = False
@@ -1842,7 +1976,11 @@ while xae == True:
         print("calc: Calculator")
         print("quiz: get a multiplication quiz up to 12x12")
         print("decbin: Convert decimal to binary")
-        
+        print("dechex: Convert decimal to hexadecimal")
+        print("bindec: Convert binary to decimal")
+        print("hexdec: Convert hexadecimal to decimal")
+        print("binhex: Convert binary to hexadecimal")
+        print("hexbin: Convert hexadecimal to binary")
         print("conv len: length converters [sc]")
         print('fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares')
         print('prime: Generate all prime numbers up to a number')
@@ -1880,7 +2018,24 @@ while xae == True:
         print('-----Contact and Support-----')
         print('If you need help, contact me with the contact command')
 
+    elif command == "hexbin":
+        dconv("Hexadecimal","Binary","int(e)")
 
+    elif command == "binhex":
+        dconv("Binary","Hexadecimal","int(e)")
+
+    elif command == "hexdec":
+        dconv("Hexadecimal","Decimal","int(e)")
+
+    elif command == "bindec":
+        dconv("Binary","Decimal","int(e)")
+
+    elif command == "decbin":
+        fconv("Decimal","Binary","bin(e)")
+    #code this later
+
+    elif command == "dechex":
+        fconv("Decimal","Hexadecimal","hex(e)")
 
     elif command == "":
         pass
@@ -4407,7 +4562,7 @@ while xae == True:
         print("**: Exponents, command usage: 10 ** 3")
         print("// Floor Division, command usage: 93 // 12")
         print("() Parentheses, used to execute some math first. Example: (12+6)/3")
-        print("You may also use any thing using the math library. For example sqrt(9)")
+        print("You can square-root with **(1/2). For example 9**(1/2) = 3")
 
 
     elif command == "calc":
