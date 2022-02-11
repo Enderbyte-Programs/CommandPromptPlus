@@ -1,4 +1,4 @@
-print('Basic Utilities 2.26 Beta 4 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.26 Beta 5 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.26'
 SNAPSHOT = True
 
@@ -85,7 +85,31 @@ def handle_exception(type,value,traceback):
         input("press enter to quit program")
         
 from tkinter import *
+def get_pixel_color(x, y):
 
+    # canvas use different coordinates than turtle
+    y = -y
+
+    # get access to tkinter.Canvas
+    canvas = turtle.getcanvas()
+    
+    # find IDs of all objects in rectangle (x, y, x, y)
+    ids = canvas.find_overlapping(x, y, x, y)
+    
+    # if found objects
+    if ids: 
+        # get ID of last object (top most)
+        index = ids[-1]
+        
+        # get its color
+        color = canvas.itemcget(index, "fill")
+        
+        # if it has color then return it
+        if color:
+            return color
+    
+    # if there was no object then return "white" - background color in turtle
+    return "#ffffff" # default color
 if SNAPSHOT:
     try:
         termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
@@ -216,7 +240,29 @@ if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
     print('Press enter to quit program.')
     input()
     forcekillnl()
+elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
+    s = turtle.getscreen()
+    t = turtle.Turtle()
+    turtle.hideturtle()
+    t.hideturtle()
+    t.speed(0)
+    fto = arguments[1]
 
+    with open(fto) as f:
+        data = f.read()
+    for instruction in data.split("\n"):
+        
+        l = instruction.split(" ")
+        if instruction.split(" ")[0] == "b":
+            turtle.Screen().bgcolor(str(l[1]))
+        elif l[0] == "p":
+            t.penup()
+            t.goto(float(l[1]),float(l[2]))
+            t.pencolor(str(l[3]))
+            t.pendown()
+            t.forward(1)
+        
+    input("Finished. Press enter to quit")
 
 elif hasarg2 == True:
     
@@ -1860,6 +1906,7 @@ while xae == True:
         print('seelog: View the log')
         
         print("draw: Draw with Turtle!")
+        #print("opendraw: Open a .trt file")
         print("credits: View credits.")
         print("contact: Get my email and Discord")
         print("colour: Find a colour")
@@ -4140,7 +4187,7 @@ while xae == True:
         print("Please turn your attention to the Tkinter windows. If there are errors, they will be in the console.")
         window = Tk()
         window.title('LetsDraw')
-        window.geometry('700x400')
+        window.geometry('700x500')
         try:
             s = turtle.getscreen()
             t = turtle.Turtle()
@@ -4257,13 +4304,13 @@ while xae == True:
                 except:
                     error(0)
 
-        def save():
+        def dsave():
             global txt10
             res = txt10.get()
             res1 = ".eps"
             res = res + res1
             s.getcanvas().postscript(file=res)
-        def conv():
+        def dconv():
             webbrowser.open("https://epsviewer.org/onlineviewer.aspx")
         def circ():
             global txt11
@@ -4294,10 +4341,12 @@ while xae == True:
 
         def byebye():
             global tcrash
+            window.quit()
             window.destroy()
             turtle.bye()
             tcrash = True
-
+        turtle.hideturtle()
+        BACKGROUND = "#ffffff"
 
         lbl = Label(window,text='Lets Draw',font=("Arial Bold",12))
         lbl.grid(column=0,row=0)
@@ -4350,13 +4399,13 @@ while xae == True:
         txt4.grid(column=0,row=7)
         btn11 = Button(window,text='go',command=changecolor,bg="green")
         btn11.grid(column=1,row=7)
-        lbl6 = Label(window,text='Change the pen colour')
+        lbl6 = Label(window,text='Change the pen colour (use a valid hex code starting with #)')
         lbl6.grid(column=2,row=7)
         txt5 = Entry(window,width=20)
         txt5.grid(column=0,row=8)
         btn12 = Button(window,text='go',command=changefill,bg="green")
         btn12.grid(column=1,row=8)
-        lbl7 = Label(window,text='Change the fill colour')
+        lbl7 = Label(window,text='Change the fill colour (use a valid hex code starting with #)')
         lbl7.grid(column=2,row=8)
 
         txt6 = Entry(window,width=10)
@@ -4385,11 +4434,11 @@ while xae == True:
 
         txt10 = Entry(window,width=20)
         txt10.grid(column=0,row=12)
-        btn16 = Button(window,text='Save to file',command=save,bg="blue")
+        btn16 = Button(window,text='Export',command=dsave,bg="blue")
         btn16.grid(column=1,row=12)
-        lbl11 = Label(window,text='Save image to the file of your choice .eps')
+        lbl11 = Label(window,text='Export your drawing to .eps')
         lbl11.grid(column=2,row=12)
-        btn18 = Button(window,text='Convert eps',command=conv)
+        btn18 = Button(window,text='Convert eps',command=dconv)
         btn18.grid(column=3,row=12)
         txt11 = Entry(window,width=10)
         txt11.grid(column=0,row=13)
@@ -4404,6 +4453,40 @@ while xae == True:
         btn20.grid(column=1,row=14)
         lbl13 = Label(window,text='Draw a square with a side length of this.')
         lbl13.grid(column=2,row=14)
+        def tsave():
+            print("saving...")
+            
+            global BACKGROUND
+            
+            t.hideturtle()
+            try:
+                
+                e = []
+                print("Assembling list...")
+                for x in range(int(-1000),int(1000)):
+                    for y in range(int(-1000),int(1000)):
+                        e.append((x,y))
+                files = [('Turtle file','*.trt')]
+                print("Please select save file")    
+                g = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
+                print("Writing...")
+                with open(g.name,"w+") as f:
+                    f.write("b "+BACKGROUND+"\n")
+                    for coord in e:
+                        l = get_pixel_color(coord[0],coord[1])
+                        if l != BACKGROUND:
+                            f.write("p "+str(coord[0])+" "+str(coord[1])+" "+l+"\n")
+                
+                print("Finished")
+            except Exception as ex:
+                toplevelerror("Failed to save "+str(ex))
+            finally:
+                t.showturtle()
+
+        btn21 = Button(window,text="Save",bg="lime green",command=tsave)
+        lbl13 = Label(window,text="Save drawing as a later-editable .trt file")
+        lbl13.grid(column=0,row=15)
+        btn21.grid(column=1,row=15)
         window.mainloop()
 
     elif command == "erc":
@@ -5638,6 +5721,8 @@ while xae == True:
                 s = turtle.getscreen()
                 t = turtle.Turtle()
             turtle.title("Lag Graph")
+            turtle.hideturtle()
+            t.hideturtle()
             def isneg(var):
                 if var < 0:
                     return True
