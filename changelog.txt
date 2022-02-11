@@ -201,3 +201,5 @@
    2.26-a2: Calculator improvements
    2.26-a3: Improvments to conv()
    2.26-a4: Added base2 and base16 converters
+   2.26-a5: Added the image viewer and exporter
+   2.26-a6: Added background set to draw
