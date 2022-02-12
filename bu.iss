@@ -1,10 +1,13 @@
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.25.5"
+#define MyAppVersion "2.26"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
 #define MyAppAssocName "BU Encrypted"
 #define MyAppAssocExt ".bue"
+#define Assocname2 "Turtle Drawing"
+#define Assocext2 ".trt"
+#define Assockey2 StringChange(Assocname2, " ", "") + Assocext2 
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
 #define Notpad "Notpad-New File"
 
@@ -26,7 +29,7 @@ LicenseFile=C:\Python310\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities_2.25.5_installer
+OutputBaseFilename=basicutilities_2.26_installer
 SetupIconFile=C:\Python310\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
@@ -39,6 +42,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Tasks]
 Name: "associate"; Description: "Associate the .bue file extension with Basic Utilities"; GroupDescription: "Registry"
 Name: "associate2"; Description: "Add Edit with Notpad (Text Editor) to file right click menu";GroupDescription: "Registry"
+Name: "assoc"; Description: "Associate the .trt file extension with Basic Utilities"; GroupDescription: "Registry"
 Name: "clrapdat"; Description: "Delete exisiting Appdata"; GroupDescription: "Cleanup"; Flags: unchecked
 Name: "clrold"; Description: "Delete unneeded files from old versions"; GroupDescription: "Cleanup"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
@@ -52,18 +56,23 @@ Source: "C:\Python310\Scripts\BasicUtilities\*"; DestDir: "{app}"; Flags: ignore
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocExt}\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppAssocKey}"; ValueData: ""; Flags: uninsdeletevalue; Tasks: associate
+Root: HKA; Subkey: "Software\Classes\{#Assocext2}\OpenWithProgids"; ValueType: string; ValueName: "{#Assockey2}"; ValueData: ""; Flags: uninsdeletevalue; Tasks: assoc
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppAssocName}"; Flags: uninsdeletekey; Tasks: associate
+Root: HKA; Subkey: "Software\Classes\{#Assockey2}"; ValueType: string; ValueName: ""; ValueData: "{#Assocname2}"; Flags: uninsdeletekey; Tasks: assoc
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"; Tasks: associate
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"" ""translate"""; Tasks: associate
-Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""; Tasks: associate
+Root: HKA; Subkey: "Software\Classes\{#Assockey2}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\turtle.ico"; Tasks: assoc
+Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"" ""-t"""; Tasks: associate
+Root: HKA; Subkey: "Software\Classes\{#Assockey2}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"" ""-d"""; Tasks: assoc
+Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".bue"; ValueData: ""; Tasks: associate
+Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".trt"; ValueData: ""; Tasks: assoc
 Root: HKA; Subkey: "Software\Classes\*\shell\BU"; ValueType: string; ValueName: ""; ValueData: "Edit with Notpad"; Flags: uninsdeletekey ;Tasks: associate2
 Root: HKA; Subkey: "Software\Classes\*\shell\BU\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1""" ;Tasks: associate2
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}";Tasks: openonstart
-Name: "{autoprograms}\{#Notpad}"; Filename: "{app}\{#MyAppExeName}"; Parameters: "new" ;Tasks: notpad
-Name: "{autodesktop}\{#Notpad}"; Filename: "{app}\{#MyAppExeName}"; Parameters: "new" ; Tasks: notpad
+Name: "{autoprograms}\{#Notpad}"; Filename: "{app}\{#MyAppExeName}"; Parameters: "-n" ;Tasks: notpad
+Name: "{autodesktop}\{#Notpad}"; Filename: "{app}\{#MyAppExeName}"; Parameters: "-n" ; Tasks: notpad
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
