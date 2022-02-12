@@ -1,5 +1,5 @@
-print('Basic Utilities 2.26 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.26'
+print('Basic Utilities 2.26.1 (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.26.1'
 SNAPSHOT = False
 
 from tkinter import messagebox, Tk
@@ -1586,7 +1586,8 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": True, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : False, "legacyStartups" : False}
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": False, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : False, "legacyStartups" : False,
+    "commandsRun" : 0}
 
     if not HASTC:
         apd["useColouredText"] = False
@@ -1735,7 +1736,7 @@ if not os.path.isfile("appdata.json") and not isported:
     log("Could not find Appdata file.",WARN)
     with open("appdata.json","w+") as apt:
         
-        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": true, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false}')
+        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": false, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false, "commandsRun" : 0}')
 
 
     with open("appdata.json") as appdat:
@@ -1751,7 +1752,9 @@ if os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
 if not "useColouredText" in APPDATA:
     APPDATA["useColouredText"] = True
 if not "legacyStartups" in APPDATA:
-    APPDATA["legacyStartups"] = False    
+    APPDATA["legacyStartups"] = False
+if not "commandsRun" in APPDATA:
+    APPDATA["commandsRun"] = 0
 def updateappdata():
     global APPDATA
     global INFO
@@ -2100,7 +2103,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.26")
+    SYSVERSION = version.parse("2.26.1")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2216,12 +2219,12 @@ class dconv():
                 self.ent2.delete(0,END)
                 try:
                     if self.start.lower().startswith("b") and self.end.lower().startswith("h"):
-                        e = "0b"+str(int(e))
+                        e = "0b"+str(e)
                         
                         e = int(e,base=2)
                         
                         e = hex(e)
-                    if self.start.lower().startswith("h") and self.end.lower().startswith("b"):
+                    elif self.start.lower().startswith("h") and self.end.lower().startswith("b"):
                         e = "0x"+str(e)
                         
                         e = int(e,base=16)
@@ -3985,7 +3988,7 @@ while xae == True:
     elif command == 'crash':
         raise RuntimeError('Manual Crash')
         
-    elif command == 'settings' or command == "options":
+    elif command == 'settings' or command == "options" or command == "config" or command == "cfg":
         def apsave():
             global nf
             global val_inside
@@ -3993,7 +3996,7 @@ while xae == True:
             global val_inside_3
             global val_inside_4
             global APPDATA
-            if val_inside.get() == "No notifications":
+            if val_inside.get() == "No notifications (default)":
                 APPDATA["showCommandsRun"] = False
             else:
                 APPDATA["showCommandsRun"] = True
@@ -4023,7 +4026,7 @@ while xae == True:
         lbl = Label(nf,text="Select your startup setting")
         lbl.grid(column=0,row=3)
         
-        options_list = ["No notifications","Show how many commands you've run (default)"]
+        options_list = ["No notifications (default)","Show how many commands you've run"]
         options_list_2 = ["No sound effects","Use sound effects (default)"]
         options_list_3 = ["No coloured text (default)","Use coloured text"]
         options_list_4 = ["Detailed startups (default)","Legacy startups"]
@@ -4032,9 +4035,9 @@ while xae == True:
         val_inside_3 = StringVar(nf)
         val_inside_4 = StringVar(nf)
         if APPDATA["showCommandsRun"]:
-            val_inside.set("Show how many commands you've run (default)")
+            val_inside.set("Show how many commands you've run")
         else:
-            val_inside.set("No notifications")
+            val_inside.set("No notifications (default)")
         if APPDATA["useDownloadedSounds"]:
             val_inside_2.set("Use sound effects (default)")
         else:
@@ -6693,25 +6696,35 @@ while xae == True:
             print(opponent,"won!")
 
     else:
-
-        print('Warning: You typed an unrecognized command. If you want to see the commands list, dismiss this message and run the command "help" or "?".')
-
+        if not APPDATA["useColouredText"]:
+            print('Warning: You typed an unrecognized command. If you want to see the commands list, dismiss this message and run the command "help" or "?".')
+        else:
+            termcolor.cprint('Warning: You typed an unrecognized command. If you want to see the commands list, dismiss this message and run the command "help" or "?".',"yellow")
         #Whew! That's a lot of code!
 #Wait! There is more!
     cmd_run = cmd_run + 1
+    try:
+        xlms = APPDATA["commandsRun"]
+    
+        xlms += 1
+        APPDATA["commandsRun"] = xlms
+    except:
+        APPDATA["commandsRun"] = 0
+    finally:
+        updateappdata()
     xlm = APPDATA["showCommandsRun"]
     xmls = str(cmd_run)
     if not xlm:
         pass
     elif xlm and command != "":
         
-        print('You have run',cmd_run,'commands this session')
+        print('You have run',cmd_run,'commands')
     
     else:
         log("Invalid notifs",ERROR)
         APPDATA["showCommandsRun"] = True
         updateappdata()
-        xls = 'You have run this many commands this session: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
+        xls = 'You have run this many commands: ' + xmls + ". If you don't want to see how many commands you have run, change it with the notifs command."
         if command != "":
             print(xls)
     
