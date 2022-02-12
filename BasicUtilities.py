@@ -1,4 +1,4 @@
-print('Basic Utilities 2.26 Beta 6 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.26 Pre-release (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.26'
 SNAPSHOT = True
 
@@ -254,9 +254,17 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
     t.hideturtle()
     t.speed(0)
     fto = arguments[1]
-
-    with open(fto) as f:
-        data = f.read()
+    if not os.path.isfile(fto):
+        toplevelerror("Could not find file.")
+        os.system("taskkill /f /pid "+str(os.getpid()))
+    try:
+        with open(fto) as f:
+            data = f.read()
+    except:
+        toplevelerror("Failed to read file")
+        os.system("taskkill /f /pid "+str(os.getpid()))
+    inslen = len(data.split("\n"))
+    print(f"Data file has {inslen} instructions.")
     for instruction in data.split("\n"):
         try:
             l = instruction.split(" ")
@@ -268,10 +276,364 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
                 t.pencolor(str(l[3]))
                 t.pendown()
                 t.forward(1)
+            elif l[0] == "t":
+                t.penup()
+                t.goto(float(l[1]),float(l[2]))
+                t.pendown()
+                txk = ""
+                for item in l[3:len(l)]:
+                    txk += " " + item
+                t.write(txk)
         except Exception as ex:
             print("Failed to draw",str(ex))
         
+    window = Tk()
+    window.title('LetsDraw')
+    window.geometry('800x500')
+    try:
+        s = turtle.getscreen()
+        t = turtle.Turtle()
+    except:
+        s = turtle.getscreen()
+        t = turtle.Turtle()
+    turtle.title("Let's Draw Canvas")
+    def go_forward():
+        global txt
+        res = txt.get()
+        try:
+            res = float(res)
+        except ValueError:
+            error(1)
+        else:
+            try:
+                t.forward(res)
+            except:
+                error(0)
+
+    def go_backward():
+        global txt1
+        res = txt1.get()
+        try:
+            res = float(res)
+        except:
+            error(1)
+        else:
+            try:
+                t.backward(res)
+            except:
+                error(0)
+
+    def turn_left():
+        global txt2
+        res = txt2.get()
+        try:
+            res = float(res)
+        except:
+            error(1)
+        else:
+            try:
+                t.left(res)
+            except:
+                error(0)
+    def turn_right():
+        global txt3
+        res = txt3.get()
+        try:
+            res = float(res)
+        except:
+            error(1)
+        else:
+            try:
+                t.right(res)
+            except:
+                error(0)
+
+    def changecolor():
+        global txt4
+        res = txt4.get()
+        try:
+            t.pencolor(res)
+        except:
+            error(1)
+
+    def changefill():
+        global txt5
+        res = txt5.get()
+        try:
+            t.fillcolor(res)
+        except:
+            error(1)
+
+    def go_to():
+        global txt6
+        global txt7
+        res = txt6.get()
+        res1 = txt7.get()
+        try:
+            res = int(res)
+            res1 = int(res1)
+        except:
+            error(1)
+        else:
+            try:
+                t.goto(res,res1)
+            except:
+                error(0)
+
+    def pensize():
+        global txt8
+        res = txt8.get()
+        try:
+            res = int(res)
+        except:
+            error(1)
+        else:
+            try:
+                t.pensize(res)
+            except:
+                error(0)
+
+    def dot():
+        global txt9
+        res = txt9.get()
+        try:
+            res = int(res)
+        except:
+            error(1)
+        else:
+            try:
+                t.dot(res)
+            except:
+                error(0)
+
+    def dsave():
+        global txt10
+        res = txt10.get()
+        res1 = ".eps"
+        res = res + res1
+        s.getcanvas().postscript(file=res)
+    def dconv2():
+        webbrowser.open("https://epsviewer.org/onlineviewer.aspx")
+    def circ():
+        global txt11
+        res = txt11.get()
+        try:
+            res = int(res)
+        except:
+            error(1)
+        else:
+            try:
+                t.circle(res)
+            except:
+                error(0)
+    def square():
+        global txt12
+        res = txt12.get()
+        try:
+            res = float(res)
+        except:
+            error(1)
+        else:
+            for i in range(4):
+                try:
+                    t.forward(res)
+                    t.right(90)
+                except:
+                    error(0)
+
+    def byebye():
+        global tcrash
+        window.quit()
+        window.destroy()
+        turtle.bye()
+        tcrash = True
+    turtle.hideturtle()
+    BACKGROUND = "#ffffff"
+
+    lbl = Label(window,text='Lets Draw',font=("Arial Bold",12))
+    lbl.grid(column=0,row=0)
+    btn = Button(window,text='Exit',command=byebye,bg="red")
+    btn.grid(column=1,row=0)
+
+    txt = Entry(window,width=10)
+    txt.grid(column=0,row=1)
+    btn1 = Button(window,text='Go',command=go_forward,bg="green")
+    btn1.grid(column=1,row=1)
+    lbl1 = Label(window,text='Go forward this many units')
+    lbl1.grid(column=2,row=1)
+
+    txt1 = Entry(window,width=10)
+    txt1.grid(column=0,row=2)
+    btn2 = Button(window,text='Go',command=go_backward,bg="green")
+    btn2.grid(column=1,row=2)
+    lbl2 = Label(window,text='Go backward this many units')
+    lbl2.grid(column=2,row=2)
+
+
+    txt2 = Entry(window,width=10)
+    txt2.grid(column=0,row=3)
+    btn3 = Button(window,text='Go',command=turn_left,bg="green")
+    btn3.grid(column=1,row=3)
+    lbl3 = Label(window,text='Turn left this many degrees')
+    lbl3.grid(column=2,row=3)
+
+    txt3 = Entry(window,width=10)
+    txt3.grid(column=0,row=4)
+    btn4 = Button(window,text='Go',command=turn_right,bg="green")
+    btn4.grid(column=1,row=4)
+    lbl4 = Label(window,text='Turn right this many degrees')
+    lbl4.grid(column=2,row=4)
+    btn5 = Button(window,text='pen up',command=t.penup)
+    btn5.grid(column=0,row=5)
+    btn6 = Button(window,text='pen down',command=t.pendown)
+    btn6.grid(column=1,row=5)
+    btn7 = Button(window,text='undo',command=t.undo,bg="yellow")
+    btn7.grid(column=2,row=5)
+    btn8 = Button(window,text='clear canvas',command=t.clear,bg="orange")
+    btn8.grid(column=3,row=5)
+    btn9 = Button(window,text='Start fill',command=t.begin_fill)
+    btn9.grid(column=0,row=6)
+    btn10 = Button(window,text='End fill',command=t.end_fill)
+    btn10.grid(column=1,row=6)
+    lbl5 = Label(window,text='Press start fill, draw a closed shape, and press end fill to fill.')
+    lbl5.grid(column=2,row=6)
+    txt4 = Entry(window,width=20)
+    txt4.grid(column=0,row=7)
+    btn11 = Button(window,text='go',command=changecolor,bg="green")
+    btn11.grid(column=1,row=7)
+    lbl6 = Label(window,text='Change the pen colour (use a valid hex code starting with #)')
+    lbl6.grid(column=2,row=7)
+    txt5 = Entry(window,width=20)
+    txt5.grid(column=0,row=8)
+    btn12 = Button(window,text='go',command=changefill,bg="green")
+    btn12.grid(column=1,row=8)
+    lbl7 = Label(window,text='Change the fill colour (use a valid hex code starting with #)')
+    lbl7.grid(column=2,row=8)
+
+    txt6 = Entry(window,width=10)
+    txt6.grid(column=0,row=9)
+    txt7 = Entry(window,width=10)
+    txt7.grid(column=1,row=9)
+
+    btn13 = Button(window,text='go',command=go_to,bg="green")
+    btn13.grid(column=2,row=9)
+    lbl8 = Label(window,text='Change draw to this location (x y)')
+    lbl8.grid(column=3,row=9)
+
+    txt8 = Entry(window,width=10)
+    txt8.grid(column=0,row=10)
+    btn14 = Button(window,text='go',command=pensize,bg="green")
+    btn14.grid(column=1,row=10)
+    lbl9 = Label(window,text='Change the pen size')
+    lbl9.grid(column=2,row=10)
+
+    txt9 = Entry(window,width=10)
+    txt9.grid(column=0,row=11)
+    btn15 = Button(window,text='go',command=dot,bg="green")
+    btn15.grid(column=1,row=11)
+    lbl10= Label(window,text='Draw a dot of this size')
+    lbl10.grid(column=2,row=11)
+
+    txt10 = Entry(window,width=20)
+    txt10.grid(column=0,row=12)
+    btn16 = Button(window,text='Export',command=dsave,bg="blue")
+    btn16.grid(column=1,row=12)
+    lbl11 = Label(window,text='Export your drawing to .eps')
+    lbl11.grid(column=2,row=12)
+    btn18 = Button(window,text='Convert eps',command=dconv2)
+    btn18.grid(column=3,row=12)
+    txt11 = Entry(window,width=10)
+    txt11.grid(column=0,row=13)
+    btn19 = Button(window,text='Go',command=circ,bg="green")
+    btn19.grid(column=1,row=13)
+    lbl12 = Label(window,text='Draw a circle of this radius')
+    lbl12.grid(column=2,row=13)
+
+    txt12 = Entry(window,width=10)
+    txt12.grid(column=0,row=14)
+    btn20 = Button(window,text='Go',command=square,bg="green")
+    btn20.grid(column=1,row=14)
+    lbl13 = Label(window,text='Draw a square with a side length of this.')
+    lbl13.grid(column=2,row=14)
+    def tsave():
+        print("saving...")
+        
+        global BACKGROUND
+        
+        t.hideturtle()
+        try:
+            
+            e = []
+            print("Assembling list...")
+            for x in range(int(-400),int(400)):
+                for y in range(int(-400),int(400)):
+                    e.append((x,y))
+            files = [('Turtle file','*.trt')]
+            print("Please select save file")    
+            
+            print("Writing...")
+            with open(fto,"w+") as f:
+                f.write("b "+BACKGROUND+"\n")
+                for coord in e:
+                    l = get_pixel_color(coord[0],coord[1])
+                    if l != BACKGROUND:
+                        f.write("p "+str(coord[0])+" "+str(coord[1])+" "+l+"\n")
+            
+            print("Finished")
+        except Exception as ex:
+            toplevelerror("Failed to save "+str(ex))
+        finally:
+            t.showturtle()
+    def sbk():
+        global BACKGROUND
+        global ent
+        e = ent.get()
+        try:
+            turtle.Screen().bgcolor(e)
+        except:
+            pass
+        else:
+            BACKGROUND = e
+    btn21 = Button(window,text="Save",bg="lime green",command=tsave)
+    lbl13 = Label(window,text="Save drawing as a later-editable .trt file")
+    lbl13.grid(column=0,row=15)
+    btn21.grid(column=1,row=15)
+    ent = Entry(window,width=20)
+    ent.grid(column=0,row=16)
+    lbl14 = Label(window,text="Set the background (must be a valid hex code starting with #)")
+    lbl14.grid(column=2,row=16)
+    btn22 = Button(window,text="Go",bg="green",command=sbk)
+    btn22.grid(column=1,row=16)
+    ent1 = Entry(window,width=30)
+    ent2 = Entry(window,width=10)
+    ent3 = Entry(window,width=10)
+    lbl15 = Label(window,text="Insert text")
+    lbl16 = Label(window,text="at xy")
+    def wtx():
+        x = t.pos()
+        global ent1
+        global ent2
+        global ent3
+        try:
+            t.penup()
+            t.goto(int(ent2.get()),int(ent3.get()))
+            t.pendown()
+            t.write(ent1.get())
+            t.penup()
+            t.goto(x[0],x[1])
+        except Exception as ex:
+            toplevelerror("Failed to complete write: "+str(ex))
+    btn23 = Button(window,text="Go",bg="green",command=wtx)
+    lbl15.place(y=440,x=0)
+    ent1.place(y=440,x=70)
+    lbl16.place(x=250,y=440)
+    ent2.place(x=280,y=440)
+    ent3.place(x=350,y=440)
+    btn23.place(x=400,y=440)
+    window.mainloop()
+
     input("Finished. Press enter to quit")
+    os.system("taskkill /f /pid "+str(os.getpid()))
 
 elif hasarg2 == True:
     
@@ -4229,7 +4591,7 @@ while xae == True:
         print("Please turn your attention to the Tkinter windows. If there are errors, they will be in the console.")
         window = Tk()
         window.title('LetsDraw')
-        window.geometry('700x500')
+        window.geometry('800x500')
         try:
             s = turtle.getscreen()
             t = turtle.Turtle()
@@ -4352,7 +4714,7 @@ while xae == True:
             res1 = ".eps"
             res = res + res1
             s.getcanvas().postscript(file=res)
-        def dconv():
+        def dconv2():
             webbrowser.open("https://epsviewer.org/onlineviewer.aspx")
         def circ():
             global txt11
@@ -4480,7 +4842,7 @@ while xae == True:
         btn16.grid(column=1,row=12)
         lbl11 = Label(window,text='Export your drawing to .eps')
         lbl11.grid(column=2,row=12)
-        btn18 = Button(window,text='Convert eps',command=dconv)
+        btn18 = Button(window,text='Convert eps',command=dconv2)
         btn18.grid(column=3,row=12)
         txt11 = Entry(window,width=10)
         txt11.grid(column=0,row=13)
@@ -4505,8 +4867,8 @@ while xae == True:
                 
                 e = []
                 print("Assembling list...")
-                for x in range(int(-1000),int(1000)):
-                    for y in range(int(-1000),int(1000)):
+                for x in range(int(-400),int(400)):
+                    for y in range(int(-400),int(400)):
                         e.append((x,y))
                 files = [('Turtle file','*.trt')]
                 print("Please select save file")    
@@ -4544,6 +4906,32 @@ while xae == True:
         lbl14.grid(column=2,row=16)
         btn22 = Button(window,text="Go",bg="green",command=sbk)
         btn22.grid(column=1,row=16)
+        ent1 = Entry(window,width=30)
+        ent2 = Entry(window,width=10)
+        ent3 = Entry(window,width=10)
+        lbl15 = Label(window,text="Insert text")
+        lbl16 = Label(window,text="at xy")
+        def wtx():
+            x = t.pos()
+            global ent1
+            global ent2
+            global ent3
+            try:
+                t.penup()
+                t.goto(int(ent2.get()),int(ent3.get()))
+                t.pendown()
+                t.write(ent1.get())
+                t.penup()
+                t.goto(x[0],x[1])
+            except Exception as ex:
+                toplevelerror("Failed to complete write: "+str(ex))
+        btn23 = Button(window,text="Go",bg="green",command=wtx)
+        lbl15.place(y=440,x=0)
+        ent1.place(y=440,x=70)
+        lbl16.place(x=250,y=440)
+        ent2.place(x=280,y=440)
+        ent3.place(x=350,y=440)
+        btn23.place(x=400,y=440)
         window.mainloop()
 
     elif command == "erc":
@@ -4764,7 +5152,7 @@ while xae == True:
                 total_hr = total_min / 60
                 total_dy = total_hr / 24
                 total_wk = total_dy /7
-                total_yr = total_dy / 365
+                total_yr = total_dy / 365.25
                 total_mt = total_yr * 12
                 print("")
                 print("There are",total_seconds,"seconds since")
@@ -5355,7 +5743,7 @@ while xae == True:
             hour = minutes / 60
             days = hour / 24
             weeks = days / 7
-            years = days /365
+            years = days /365.25
             months = years * 12
             print("It has been",years,"years")
             print("It has been",months,"months")
@@ -5603,7 +5991,7 @@ while xae == True:
                 total_hr = total_min / 60
                 total_dy = total_hr / 24
                 total_wk = total_dy /7
-                total_yr = total_dy / 365
+                total_yr = total_dy / 365.25
                 total_mt = total_yr * 12
                 print("")
                 print("There are",total_seconds,"seconds left")
@@ -5743,7 +6131,7 @@ while xae == True:
                 total_hr = total_min / 60
                 total_dy = total_hr / 24
                 total_wk = total_dy /7
-                total_yr = total_dy / 365
+                total_yr = total_dy / 365.25
                 total_mt = total_yr * 12
                 print("")
                 print("There are",total_seconds,"seconds since")
