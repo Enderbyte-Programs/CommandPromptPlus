@@ -1,5 +1,5 @@
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.26"
+#define MyAppVersion "2.26.1"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -29,7 +29,7 @@ LicenseFile=C:\Python310\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities_2.26_installer
+OutputBaseFilename=basicutilities_2.26.1_installer
 SetupIconFile=C:\Python310\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
@@ -41,8 +41,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "associate"; Description: "Associate the .bue file extension with Basic Utilities"; GroupDescription: "Registry"
-Name: "associate2"; Description: "Add Edit with Notpad (Text Editor) to file right click menu";GroupDescription: "Registry"
 Name: "assoc"; Description: "Associate the .trt file extension with Basic Utilities"; GroupDescription: "Registry"
+Name: "associate2"; Description: "Add Edit with Notpad (Text Editor) to file right click menu";GroupDescription: "Registry"
 Name: "clrapdat"; Description: "Delete exisiting Appdata"; GroupDescription: "Cleanup"; Flags: unchecked
 Name: "clrold"; Description: "Delete unneeded files from old versions"; GroupDescription: "Cleanup"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
