@@ -4,8 +4,7 @@ if str(platform.system()) == 'Windows':
     has_windows = True
 else:
     has_windows = False
-if not has_windows:
-    Tk().withdraw()
+if not has_windows:   
     print('You do not have the reccomended OS for this program. Some features may work incorrectly.')
     os.system('python3 -m pip install playsound')
     os.system('python3 -m pip install requests')
