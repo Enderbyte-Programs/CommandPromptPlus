@@ -204,3 +204,4 @@
    2.26-a5: Added the image viewer and exporter
    2.26-a6: Added background set to draw
    2.26-a4: Added edit to image viewer
+2.26: New converters, major improvements to letsdraw, including a way to save it, and of course bug fixes :D
