@@ -1,6 +1,6 @@
-print('Basic Utilities 2.26 Pre-release (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.26 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.26'
-SNAPSHOT = True
+SNAPSHOT = False
 
 from tkinter import messagebox, Tk
 import os
@@ -3334,17 +3334,19 @@ while xae == True:
                 messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
     elif command == 'stat':
-        print('lines: 6009')
-        print('print statements: 875')
-        print('Variables: 1564')
-        print('comparisons 436')
-        print('Exception handling loops 239')
-        print('While loops 53')
-        print('For loop 69')
-        print('Commands: 145')
+        print('lines: 6717')
+        print('print statements: 900')
+        print('Variables: 1744')
+        print('comparisons 449')
+        print('Exception handling loops 282')
+        print('While loops 57')
+        print('For loop 82')
+        print('Commands: 153')
         print('Libraries Imported 27')
-        print('files utilized 66')
-        print('Tkinter windows used 105')
+        print('files utilized 71')
+        print('Tkinter windows used 109')
+        print("Functions: 146")
+        print("Classes: 4")
 
     elif command == 'sysplat':
         print('-----')
@@ -6713,4 +6715,4 @@ while xae == True:
         if command != "":
             print(xls)
     
-#NOW were done        
+#NOW we're done        
