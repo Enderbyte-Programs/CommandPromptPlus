@@ -1,5 +1,5 @@
-print('Basic Utilities 2.26.2 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.26.2'
+print('Basic Utilities 2.26.3 (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.26.3'
 SNAPSHOT = False
 
 from tkinter import messagebox, Tk
@@ -1831,7 +1831,18 @@ else:
         RESTRICTIONS = requests.get("https://pastebin.com/raw/W7qMKqru").json()
     except requests.ConnectionError as e:
         print("Failed to get data",str(e))
-        FCON = True
+        if "restrictions" in APPDATA:
+        
+            FCON = True
+        else:
+            RESTRICTIONS = {
+            "disabled" : [
+
+            ],
+            "note" : {
+
+            }
+            }
     except json.decoder.JSONDecodeError:
         RESTRICTIONS = {
             "disabled" : [
@@ -2119,7 +2130,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.26.2")
+    SYSVERSION = version.parse("2.26.3")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2271,7 +2282,15 @@ if not FCON:
     try:
         APPDATA["restrictions"] = RESTRICTIONS
     except:
-        pass
+        RESTRICTIONS = {
+            "disabled" : [
+
+            ],
+            "note" : {
+
+            }
+        }
+        APPDATA["restrictions"] = RESTRICTIONS
 updateappdata()
 ETIME = datetime.datetime.now()
 stimetotal = ETIME - STIME
@@ -2292,14 +2311,24 @@ while xae == True:
         command = input(f"Basic Utilities {SYSVERSION} on {platform.system()}: ")
     
     for note in APPDATA["restrictions"]["note"].items():
-        if note[0] == command:
+        if note[0] == "*":
+            print("Note for this command:",note[1])
+            break
+        elif note[0] == command:
             print("Note for this command:",note[1])
     for restrict in APPDATA["restrictions"]["disabled"]:
-        if command == restrict:
+        if restrict == "*":
             if APPDATA["useColouredText"]:
                 termcolor.cprint("This command has been disabled.","red")
             else:
-                print("This command has been disbled.")
+                print("This command has been disabled.")
+            CAL = False
+            break
+        elif command == restrict:
+            if APPDATA["useColouredText"]:
+                termcolor.cprint("This command has been disabled.","red")
+            else:
+                print("This command has been disabled.")
             CAL = False
     if CAL:
         if command != "":
@@ -4911,8 +4940,8 @@ while xae == True:
                     
                     e = []
                     print("Assembling list...")
-                    for x in range(int(-400),int(400)):
-                        for y in range(int(-400),int(400)):
+                    for x in range(-1000,1000):
+                        for y in range(-1000,1000):
                             e.append((x,y))
                     files = [('Turtle file','*.trt')]
                     print("Please select save file")    
@@ -4924,7 +4953,7 @@ while xae == True:
                             l = get_pixel_color(coord[0],coord[1])
                             if l != BACKGROUND:
                                 f.write("p "+str(coord[0])+" "+str(coord[1])+" "+l+"\n")
-                    
+                    del e
                     print("Finished")
                 except Exception as ex:
                     toplevelerror("Failed to save "+str(ex))

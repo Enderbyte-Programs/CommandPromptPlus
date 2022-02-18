@@ -6,3 +6,8 @@ rmdir .\BasicUtilities\.temp
 xcopy /s /e .\dist\BasicUtilities .\BasicUtilities
 copy bu.ico .\BasicUtilities\bu.ico
 copy turtle.ico .\BasicUtilities\turtle.ico
+"C:\Program Files (x86)\Inno Setup 6\iscc.exe" bu.iss
+del /s /f /q .\BasicUtilities\*
+rmdir /s /q .\BasicUtilities\
+mkdir BasicUtilities
+move BasicUtilities.py .\BasicUtilities\BasicUtilities.py
