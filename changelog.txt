@@ -206,3 +206,5 @@
    2.26-a4: Added edit to image viewer
 2.26: New converters, major improvements to letsdraw, including a way to save it, and of course bug fixes :D
    2.26.1: Yay! More bug fixes!
+   2.26.2: Unspecified improvements
+   2.26.3: Fixed memory issue
