@@ -1,4 +1,4 @@
-print('Basic Utilities 2.27 Beta 2 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.27 Beta 3 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.27'
 SNAPSHOT = True
 
@@ -79,6 +79,8 @@ def handle_exception(type,value,traceback):
     if issubclass(type, KeyboardInterrupt):
         pass
     else:
+        os.system("cls")
+        os.system("color 17")
         l = format_tb(traceback)
         x = ""
         for item in l:
@@ -88,10 +90,9 @@ def handle_exception(type,value,traceback):
             log(str(type).split(" ")[1].replace("'","").replace(">","")+'\n'+str(value)+'\n'+str(x),FATAL)
         except:
             pass
-        try:
-            termcolor.cprint(':(                              \nA fatal exception has occured in Basic Utilities. \nIf you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform(),"white","on_blue")
-        except:
-            print('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform())
+        
+        print(':(                              \nA fatal exception has occured in Basic Utilities. \nIf you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform())
+        
         input("press enter to quit program")
         
 from tkinter import *
