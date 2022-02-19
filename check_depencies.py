@@ -15,7 +15,6 @@ if not has_windows:
 else:
     os.system('py -m pip install playsound')
     os.system('py -m pip install requests')
-    os.system('py -m pip install winsound')
     os.system('py -m pip install keyboard')
     os.system('py -m pip install termcolor')
     os.system('py -m pip install packaging')
