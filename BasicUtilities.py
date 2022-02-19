@@ -1,4 +1,4 @@
-print('Basic Utilities 2.27 Beta 1 (c) 2021-2022 Enderbyte Programs')
+print('Basic Utilities 2.27 Beta 2 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.27'
 SNAPSHOT = True
 
@@ -54,7 +54,7 @@ import sys
 import json
 
 
-
+os.system("color")
 INFO = "info"
 WARN = "warn"
 ERROR = "error"
@@ -1596,7 +1596,7 @@ isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
-    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": False, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : False, "legacyStartups" : False,
+    apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": False, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True, "legacyStartups" : False,
     "commandsRun" : 0}
 
     if not HASTC:
@@ -1746,7 +1746,7 @@ if not os.path.isfile("appdata.json") and not isported:
     log("Could not find Appdata file.",WARN)
     with open("appdata.json","w+") as apt:
         
-        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": false, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : false, "legacyStartups" : false, "commandsRun" : 0}')
+        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": false, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true, "legacyStartups" : false, "commandsRun" : 0}')
 
 
     with open("appdata.json") as appdat:
@@ -2701,7 +2701,7 @@ while xae == True:
             if da6:
                 APPDATA["showCommandsRun"] = False
                 APPDATA["useDownloadedSounds"] = True
-                APPDATA["useColouredText"] = False
+                APPDATA["useColouredText"] = True
                 APPDATA["legacyStartups"] = False
             Tk().withdraw()
             da7 = messagebox.askyesno("rem","Do you want to reset game statistics?")
@@ -4100,7 +4100,7 @@ while xae == True:
                     APPDATA["useDownloadedSounds"] = False
                 else:
                     APPDATA["useDownloadedSounds"] = True
-                if val_inside_3.get() == "No coloured text (default)":
+                if val_inside_3.get() == "No coloured text":
                     APPDATA["useColouredText"] = False
                 else:
                     APPDATA["useColouredText"] = True
@@ -4124,7 +4124,7 @@ while xae == True:
             
             options_list = ["No notifications (default)","Show how many commands you've run"]
             options_list_2 = ["No sound effects","Use sound effects (default)"]
-            options_list_3 = ["No coloured text (default)","Use coloured text"]
+            options_list_3 = ["No coloured text","Use coloured text (default)"]
             options_list_4 = ["Detailed startups (default)","Legacy startups"]
             val_inside = StringVar(nf)
             val_inside_2 = StringVar(nf)
@@ -4139,9 +4139,9 @@ while xae == True:
             else:
                 val_inside_2.set("No sound effects")
             if APPDATA["useColouredText"]:
-                val_inside_3.set("Use coloured text")
+                val_inside_3.set("Use coloured text (default)")
             else:
-                val_inside_3.set("No coloured text (default)")
+                val_inside_3.set("No coloured text")
             if APPDATA["legacyStartups"]:
                 val_inside_4.set("Legacy startups")
             else:
