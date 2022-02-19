@@ -210,3 +210,4 @@
    2.26.3: Fixed memory issue
    2.27-a1: Fixed bugs with clr and rem
    2.27-a2: ADDED COLOURED TEXT TO COMMAND PROMPT!!!!
+   2.27-a3: Updated crash screens
