@@ -1,6 +1,6 @@
 SYSVERSION = '2.27'
 SNAPSHOT = True
-SNAPSHOTVERSION = 4
+SNAPSHOTVERSION = 5
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -5322,7 +5322,7 @@ while xae == True:
 
         elif command == "pyterm":
             crashed = False
-            newwindow()
+            
             print("")
             if crashed == False:
                 print("Warning: This will give you access to most python commands. This could be dangerous. Make sure you know what you are doing!")
@@ -5331,10 +5331,13 @@ while xae == True:
                     cmd = input("Python 3.10.2: ")
                     if cmd == "breakout":
                         break
-                    try:
+                    if cmd.split(" ")[0] == "raise":
                         exec(cmd)
-                    except Exception as e:
-                        print("ERROR",e)
+                    else:
+                        try:
+                            exec(cmd)
+                        except Exception as e:
+                            print("ERROR",e)
 
         elif command == "gpap":
             print("GPA?")
