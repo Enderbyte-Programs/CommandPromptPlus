@@ -1,7 +1,11 @@
-print('Basic Utilities 2.27 Beta 3 (c) 2021-2022 Enderbyte Programs')
 SYSVERSION = '2.27'
 SNAPSHOT = True
+SNAPSHOTVERSION = 4
+ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
+if SNAPSHOT:
+    ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
 
+print(ASSEMBLEDVERSION,'(c) 2021-2022 Enderbyte Programs')
 from tkinter import messagebox, Tk
 import os
 
@@ -76,6 +80,7 @@ def log(stuff_to_log,level=INFO):
     except PermissionError:
         raise RuntimeError("Access is denied.")
 def handle_exception(type,value,traceback):
+    global ASSEMBLEDVERSION
     if issubclass(type, KeyboardInterrupt):
         pass
     else:
@@ -91,9 +96,32 @@ def handle_exception(type,value,traceback):
         except:
             pass
         
-        print(':(                              \nA fatal exception has occured in Basic Utilities. \nIf you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform())
-        
-        input("press enter to quit program")
+        print(':(                              \n\nBasic Utilities has encountered a critical error. \nIf you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform())
+        print("Preparing dump of variables...")
+        crashtypes = ["Oh no, not again!","HA HA HA HA HA! I CRASH A LOT!","GEEGEGGEGEOOOGOOGA","An unhandled exception? I don't see any around here!","Basic Utilities: Completely free of crashes"]#These are from my little sister
+        vars = globals().items()
+        print("Creating crash report...")
+        try:
+            if not os.path.isdir("crash_reports"):
+                os.mkdir("crash_reports")
+            with open(os.getcwd()+"/crash_reports/"+"crash_"+str(datetime.datetime.now()).replace(":","").replace(" ","_")+".txt","w+") as f:
+                f.write("-----Basic Utilities Crash Report-----\n")
+                f.write(random.choice(crashtypes)+"\n\n")
+                f.write("CWD: "+os.getcwd())
+                f.write("\nPlatform: "+platform.system())
+                f.write("\nPlatformVersion: "+platform.version()+"\n")
+                f.write("Version: "+ASSEMBLEDVERSION+"\n")
+                for item in list(vars):
+                    f.write(str(item[0]))
+                    f.write(" : ")
+                    f.write(str(item[1]))
+                    f.write("\n")
+                f.write("End of crash report")
+        except:
+            print("Failed to create crash report")
+        print("Crash report and variable dump complete")
+        del vars
+        input("Press enter or return to exit")
         
 from tkinter import *
 def get_pixel_color(x, y):
@@ -2426,7 +2454,7 @@ while xae == True:
             print('-----Utility-----')
             print("lag: Measures your computer's lag.")
             
-            print("pyterm: Open a python terminal prompt [potentially dangerous]")
+            
             print("randpass: Get a random password.")
             
             print("encode: encode stuff so no one can read it")
@@ -2512,9 +2540,32 @@ while xae == True:
             print('')
             print("There are also some easter egg commands :)")
             print("")
-            print('Debug')
+            print('-----Debug-----')
             print('crash: Crash this program by raising a RuntimeError()')
             print("relapdat: Reload the appdata of this program (may cause severe issues!)")
+            print("pyterm: Open a python terminal prompt [potentially dangerous]")
+            print("dumpvar: Dump all variables to a file")
+
+        elif command == "dumpvar":
+            log("Dumping variables")
+            
+            #rip my RAM 2017-2022
+            LVAR_PRSE = locals().items()
+            dprse = str(datetime.datetime.now()).replace(":","").replace(" ","_")
+            with open(os.getcwd()+"/.temp/"+f"vardump_{dprse}"+".txt","w+") as f:
+                f.write("Variable dump at ")
+                f.write(str(datetime.datetime.now()))
+                f.write("\n")
+                for item in list(LVAR_PRSE):
+                    if item[0] != "LVAR_PRSE":
+                        f.write(str(item[0]))
+                        f.write(" : ")
+                        f.write(str(item[1]))
+                        f.write("\n")
+            
+            del LVAR_PRSE
+            print("Module variables were dumped to \\.temp\\"+dprse+".txt")
+
 
         elif command == "relapdat":
             try:
