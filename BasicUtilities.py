@@ -1,6 +1,6 @@
-print('Basic Utilities 2.26.3 (c) 2021-2022 Enderbyte Programs')
-SYSVERSION = '2.26.3'
-SNAPSHOT = False
+print('Basic Utilities 2.27 Beta 1 (c) 2021-2022 Enderbyte Programs')
+SYSVERSION = '2.27'
+SNAPSHOT = True
 
 from tkinter import messagebox, Tk
 import os
@@ -53,6 +53,8 @@ from traceback import format_tb
 import sys
 import json
 
+
+
 INFO = "info"
 WARN = "warn"
 ERROR = "error"
@@ -66,22 +68,30 @@ def log(stuff_to_log,level=INFO):
         l = "ERROR"
     if level == "fatal":
         l = "FATAL"
-    f = open('log_000.log','a+')
+    try:
+        f = open('log_000.log','a+')
 
-    f.write(str(str(str(datetime.datetime.now())[0:len(str(datetime.datetime.now()))-3])+' '+l+" "+stuff_to_log)+'\n')
-    f.close()     
+        f.write(str(str(str(datetime.datetime.now())[0:len(str(datetime.datetime.now()))-3])+' '+l+" "+stuff_to_log)+'\n')
+        f.close()
+    except PermissionError:
+        raise RuntimeError("Access is denied.")
 def handle_exception(type,value,traceback):
     if issubclass(type, KeyboardInterrupt):
         pass
     else:
+        l = format_tb(traceback)
+        x = ""
+        for item in l:
+            x += item
+            x += "\n"
         try:
-            log(str(type).split(" ")[1].replace("'","").replace(">","")+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]),FATAL)
+            log(str(type).split(" ")[1].replace("'","").replace(">","")+'\n'+str(value)+'\n'+str(x),FATAL)
         except:
             pass
         try:
-            termcolor.cprint(':(                              \nA fatal exception has occured in Basic Utilities. \nIf you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0])+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform(),"white","on_blue")
+            termcolor.cprint(':(                              \nA fatal exception has occured in Basic Utilities. \nIf you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform(),"white","on_blue")
         except:
-            print('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+str(format_tb(traceback)[0]))
+            print('A fatal exception has occured in Basic Utilities. If you didn\'t expect this, please send the following text to the developer:'+'\n'+str(type)+'\n'+str(value)+'\n'+x+"\nDir: "+os.getcwd()+"\nSystem: "+platform.platform())
         input("press enter to quit program")
         
 from tkinter import *
@@ -2130,7 +2140,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.26.3")
+    SYSVERSION = version.parse("2.27")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2357,17 +2367,18 @@ while xae == True:
             print("anim: Get a little animation of a wheel.")
             print("erc: List of error codes")
             print("cmdrun: See how many commands you have run")
+            print("msg: View today's message! (Request messages by sending me an email)")
             print('')
             print("-----USELESS COMMANDS-----")
             print("insult: Get insulted")
             print("prank: try it out :P")
-            print('crash: Crash this program')       
+                 
             print('')
             print('-----System Interaction-----')
             print("stop: Stops this window")
             print("stopall: stops all BasicUtilities windows")
             print("reload: reloads this program.")
-            print("msg: View today's message! (Request messages by sending me an email)")
+            
             if sysslash == '\\':
                 print("logoff: Logs you out.")
                 print("restart: Restarts your computer")
@@ -2499,8 +2510,22 @@ while xae == True:
             print("ytplaylista: Download all audio from every video on a playlist")
             print('')
             print("There are also some easter egg commands :)")
-            print('-----Contact and Support-----')
-            print('If you need help, contact me with the contact command')
+            print("")
+            print('Debug')
+            print('crash: Crash this program by raising a RuntimeError()')
+            print("relapdat: Reload the appdata of this program (may cause severe issues!)")
+
+        elif command == "relapdat":
+            try:
+                with open("appdata.json") as f:
+                    a2 = json.load(f)
+            except FileNotFoundError:
+                print("Failed to find appdata file.")
+            except json.decoder.JSONDecodeError:
+                print("Appdata file is corrupt.")
+            else:
+                APPDATA = a2
+                print("Appdata reloaded succesfully")
 
         elif command == "cmdrun":
             print("-----")
@@ -2672,9 +2697,12 @@ while xae == True:
             if da5:
                 APPDATA["username"] = "DefaultUser"
             Tk().withdraw()
-            da6 = messagebox.askyesno("rem","Do you want to reset notifications settings?")
+            da6 = messagebox.askyesno("rem","Do you want to reset customization settings?")
             if da6:
-                APPDATA["showCommandsRun"] = True
+                APPDATA["showCommandsRun"] = False
+                APPDATA["useDownloadedSounds"] = True
+                APPDATA["useColouredText"] = False
+                APPDATA["legacyStartups"] = False
             Tk().withdraw()
             da7 = messagebox.askyesno("rem","Do you want to reset game statistics?")
             if da7:
@@ -2685,9 +2713,9 @@ while xae == True:
             if da8:
                 APPDATA["startsound"] = None
             Tk().withdraw()
-            da9 = messagebox.askyesno("rem","Do you want to reset sound settings?")
+            da9 = messagebox.askyesno("rem","Do you want to clear how many commands you have run?")
             if da9:
-                APPDATA["useDownloadedSounds"] = True
+                APPDATA["commandsRun"] = 0
             Tk().withdraw()
             da10 = messagebox.askyesno("rem","Do you want to clear the temporary directory?")
             if da10:
@@ -4419,11 +4447,14 @@ while xae == True:
             APPDATA["bday"]["day"] = None
             APPDATA["webhistory"].clear()
             APPDATA["username"] = "DefaultUser"
-            APPDATA["showCommandsRun"] = True
+            APPDATA["showCommandsRun"] = False
             APPDATA["gamehealth"] = None
             APPDATA["gamexp"] = None
             APPDATA["startsound"] = None
             APPDATA["useDownloadedSounds"] = True
+            APPDATA["useColouredText"] = False
+            APPDATA["legacyStartups"] = False
+            APPDATA["commandsRun"] = 0
             shutil.rmtree(".temp")
             updateappdata()
         elif command == 'uninstall':
