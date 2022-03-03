@@ -1,6 +1,6 @@
 SYSVERSION = '2.27'
 SNAPSHOT = True
-SNAPSHOTVERSION = 5
+SNAPSHOTVERSION = 6
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -8,6 +8,7 @@ if SNAPSHOT:
 print(ASSEMBLEDVERSION,'(c) 2021-2022 Enderbyte Programs')
 from tkinter import messagebox, Tk
 import os
+os.system("")
 
 def toplevelerror(message,title='Error'):
     title = str(title)
@@ -84,8 +85,10 @@ def handle_exception(type,value,traceback):
     if issubclass(type, KeyboardInterrupt):
         pass
     else:
+        
         os.system("cls")
         os.system("color 17")
+        
         l = format_tb(traceback)
         x = ""
         for item in l:
@@ -1605,7 +1608,7 @@ elif hasarg2 == True:
             forcekillnl()
 
 ##@@##@@
-log('Basic Utilities is starting. Running version '+SYSVERSION+". Issnapshot is "+str(SNAPSHOT))
+log('Basic Utilities is starting. Running version '+ASSEMBLEDVERSION)
 STIME = datetime.datetime.now()
 
 if os.path.isfile("appdata.json"):
@@ -1617,6 +1620,8 @@ if os.path.isfile("appdata.json"):
             epo = 0
         else:
             epo = 1
+        if str(type(APPDATA)).split("'")[1] != "dict":
+            epo = 0
     if epo == 0:
         log("Appdata is corrupt. Regenerating",ERROR)
         os.remove("appdata.json")
@@ -1857,6 +1862,7 @@ else:
     if not os.path.isfile("warning.mp3"):
         log("Could not find sound file. Downloading",WARN)
         urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3","warning.mp3")
+    
     try:
         SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
         reqins = True
@@ -1928,11 +1934,7 @@ def toplevelquestion(message,title='Question'):
     x = messagebox.askyesno(title,message)
     return x
 
-def error(message,title='Error'):
-    title = str(title)
-    message = str(message)
-    Tk().withdraw()
-    messagebox.showerror(title,message)
+
 
 def toplevelerror(message,title='Error'):
     title = str(title)
@@ -1950,6 +1952,21 @@ def newwindow():
             os.startfile("BasicUtilities.exe")
         except Exception as e:
             print("ERROR",e)
+
+def tkkill(windowname):
+    windowname.quit()
+    windowname.destroy()
+
+def clipboardadd(value):
+    """
+    Copies a value to the clipboard, not suitable for CLI mode.
+    """
+    r = Tk()
+    r.withdraw()
+    r.clipboard_clear()
+    r.clipboard_append(value)
+    r.update()
+    r.destroy()
 
 class conv():
     
@@ -2543,7 +2560,7 @@ while xae == True:
             print('-----Debug-----')
             print('crash: Crash this program by raising a RuntimeError()')
             print("relapdat: Reload the appdata of this program (may cause severe issues!)")
-            print("pyterm: Open a python terminal prompt [potentially dangerous]")
+            print("pyterm: Execute Python code")
             print("dumpvar: Dump all variables to a file")
 
         elif command == "dumpvar":
@@ -5328,7 +5345,7 @@ while xae == True:
                 print("Warning: This will give you access to most python commands. This could be dangerous. Make sure you know what you are doing!")
                 print("type something in python and press enter. To return to the command menu, type 'breakout' and press enter")
                 while True:
-                    cmd = input("Python 3.10.2: ")
+                    cmd = input("Python "+str(sys.version).split(" ")[0]+": ")
                     if cmd == "breakout":
                         break
                     if cmd.split(" ")[0] == "raise":
@@ -5411,130 +5428,122 @@ while xae == True:
                 pr = False
 
         elif command == "randpass":
-            randpass = True
-            while randpass == True:
-                print("How many characters?")
-                hmchar = input()
-                hmchart = hmchar.isnumeric()
-                if hmchart == False:
-                    error(1)
-                    break
-                hmchar = int(hmchar)
-                if hmchar > 24:
-                    print("Please only make passwords 24 characters or less. Your password will only be 24 long")
-                    hmchar = 24
-                    input("press eneter to generate the password of 24 characters.")
-                letter = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-                numbers = ["1","2","3","4","5","6","7","8","9","0"]
-                symbols = ["!","@","#","$","%","^","&","*","'"]
-                password = ["","","","","","","","","","","","","","","","","","","","","","","","",""]
-                chgx = [0,0,1,2]
-                characters = 0
-                for i in range(hmchar):
-                    chgxy = random.choice(chgx)
-                    if chgxy == 0:
-                        password[characters] = random.choice(letter)
-                    elif chgxy == 1:
-                        password[characters] = random.choice(numbers)
-                    elif chgxy == 2:
-                        password[characters] = random.choice(symbols)
-                    characters = characters + 1
-                print("-----")
-                qpo = 0
-                for len in password:
-                    print(password[qpo])
-                    qpo = qpo + 1
-                    if password[qpo] == "":
-                        break
-                print("-----")
-                print("This is the randomly generated password.")
-                print("Do you want to write your password to a txt file?(y/n)")
-                writetofile = input()
-                if writetofile.lower().startswith('y'):
-                    print("What should the file containing the password be called?")
-                    print("example: myfile.txt")
-                    print("Make sure to include the .txt at the end, otherwise your file may be unreadable.")
-                    filesext = input()
-                    Tk().withdraw()
-                    filesname = filedialog.askdirectory()
-                    if filesname == '()':
-                        break
-                    filesname = filesname + sysslash + filesext
-                    
-                    try:
-                        f = open(filesname,"x")
-                    except:
-                        print("This file already exists. Do you want to overwrite it?(y/n)")
-                        overwrite = input()
-                        if overwrite.lower().startswith('y'):
-                            try:
-                                f = open(filesname,"w")
-                                print("writing to file 0%")
-                                f.write(password[0])
-                                f.write(password[1])
-                                f.write(password[2])
-                                f.write(password[3])
-                                f.write(password[4])
-                                f.write(password[5])
-                                f.write(password[6])
-                                f.write(password[7])
-                                f.write(password[8])
-                                f.write(password[9])
-                                f.write(password[10])
-                                f.write(password[11])
-                                f.write(password[12])
-                                print("writing to file 50%")
-                                f.write(password[13])
-                                f.write(password[14])
-                                f.write(password[15])
-                                f.write(password[16])
-                                f.write(password[17])
-                                f.write(password[18])
-                                f.write(password[19])
-                                f.write(password[20])
-                                f.write(password[21])
-                                f.write(password[22])
-                                f.write(password[23])
-                                f.write(password[24])
-                                print("writing to file 100%")
-                                f.close()
-                                print("File overwritten successfully.")
-                            except:
-                                Tk().withdraw()
-                                messagebox.showerror('Error','Access Denied')
+            lleters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+            uleters = []
+            for letter in lleters:
+                uleters.append(letter.upper())
+            nums = [0,1,2,3,4,5,6,7,8,9]
+            sym = ["!","@","#","$","%","^","&","*","_","-","+","=",",","'","<",">","/","?","\\"]
+            hexes = [1,2,3,4,5,6,7,8,9,0,"a","b","c","d","e","f"]
+            bins = [0,1]
+            def gennp():
+                global lleters
+                global uleters
+                global nums
+                global sym
+                global ii
+                global ii2
+                global ii3
+                global ii1
+                global ent
+                global ent2
+                e = ent.get()
+                try:
+                    e = int(e)
+                    if e < 1:
+                        raise ValueError()
+                except:
+                    toplevelerror("Invalid input")
+                else:
+                    valpas = []
+                    if ii.get() == 1:
+                        valpas += lleters
+                    if ii1.get() == 1:
+                        valpas += uleters
+                    if ii2.get() == 1:
+                        valpas += nums
+                    if ii3.get() == 1:
+                        valpas += sym
+                    passw = ""
+                    if valpas:
+                        for i in range(e):
+                            passw += str(random.choice(valpas))
+                        print(passw)
+                        ent2["state"] = "normal"
+                        ent2.delete(0,END)
+                        ent2.insert(0,passw)
                     else:
-                        print("Writing to file 0%")
-                        f.write(password[0])
-                        f.write(password[1])
-                        f.write(password[2])
-                        f.write(password[3])
-                        f.write(password[4])
-                        f.write(password[5])
-                        f.write(password[6])
-                        f.write(password[7])
-                        f.write(password[8])
-                        f.write(password[9])
-                        f.write(password[10])
-                        f.write(password[11])
-                        f.write(password[12])
-                        print("Writing to file 50%")
-                        f.write(password[13])
-                        f.write(password[14])
-                        f.write(password[15])
-                        f.write(password[16])
-                        f.write(password[17])
-                        f.write(password[18])
-                        f.write(password[19])
-                        f.write(password[20])
-                        f.write(password[21])
-                        f.write(password[22])
-                        f.write(password[23])
-                        f.write(password[24])
-                        print("writing to file 100%")
-                        f.close()
-                        print("File written to",filesname,"successfully.")
-                        
-                randpass = False
+                        toplevelerror("Please check at least one box")
+            def gennb():
+                global bins
+                global ent
+                global ent2
+                e = ent.get()
+                try:
+                    e = int(e)
+                    if e < 1:
+                        raise ValueError()
+                except:
+                    toplevelerror("Invalid input")
+                else:
+                    passw = ""
+                    for i in range(e):
+                        passw += str(random.choice(bins))
+                    print(passw)
+                    ent2["state"] = "normal"
+                    ent2.delete(0,END)
+                    ent2.insert(0,passw)
+            def gennx():
+                global hexes
+                global ent
+                global ent2
+                e = ent.get()
+                try:
+                    e = int(e)
+                    if e < 1:
+                        raise ValueError()
+                except:
+                    toplevelerror("Invalid input")
+                else:
+                    passw = ""
+                    for i in range(e):
+                        passw += str(random.choice(hexes))
+                    print(passw)
+                    ent2["state"] = "normal"
+                    ent2.delete(0,END)
+                    ent2.insert(0,passw)
+            rpw = Tk()
+            rpw.title("Random password")
+            ent = Entry(rpw,width=10)
+            ent.grid(column=0,row=0)
+            lbl = Label(rpw,text="The length of the password")
+            lbl.grid(column=1,row=0)
+            btn = Button(rpw,text="Exit",command=lambda:tkkill(rpw))
+            btn.grid(column=2,row=0)
+            ii = IntVar(value=1)
+            ii1 = IntVar(value=1)
+            ii2 = IntVar(value=1)
+            ii3 = IntVar(value=1)
+            ci = Checkbutton(rpw,text="Allow lowercase letters",variable=ii)
+            ci.grid(column=0,row=1)
+            c2 = Checkbutton(rpw,text="Allow uppercase letters",variable=ii1)
+            c2.grid(column=0,row=2)
+            c3 = Checkbutton(rpw,text="Allow numbers",variable=ii2)
+            c3.grid(column=0,row=3)
+            c4 = Checkbutton(rpw,text="Allow symbols",variable=ii3)
+            c4.grid(column=0,row=4)
+            btn2 = Button(rpw,text="Generate Password",command=gennp)
+            btn2.grid(column=1,row=1)
+            btn3 = Button(rpw,text="Generate Binary Password",command=gennb)
+            ent2 = Entry(rpw,width=50)
+            ent2.grid(column=0,row=5)
+            ent2["state"] = "disabled"
+            btn3.grid(column=1,row=2)
+            btn4 = Button(rpw,text="Copy to clipboard",command=lambda:clipboardadd(str(ent2.get())))
+            btn4.grid(column=1,row=4)
+            btn5 = Button(rpw,text="Generate Hex Password",command=gennx)
+            btn5.grid(column=1,row=3)
+            rpw.mainloop()
 
         elif command == "apv":
             print("-----Subcommands for Area, Perimeter, Volume-----")
