@@ -212,3 +212,5 @@
    2.27-a2: ADDED COLOURED TEXT TO COMMAND PROMPT!!!!
    2.27-a3: Updated crash screens
    2.27-a4: Debug improvements
+   2.27-a5: Bug fixes
+   2.27-a6: Overhauled randpass with a GUI
