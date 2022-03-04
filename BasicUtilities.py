@@ -1,6 +1,6 @@
 SYSVERSION = '2.27'
 SNAPSHOT = True
-SNAPSHOTVERSION = 6
+SNAPSHOTVERSION = 7
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -702,7 +702,7 @@ elif hasarg2 == True:
                     q = 0
                 else:
                     try:
-                        file = open(fname,'w')
+                        file = open(fname,'w',encoding="utf-8")
                         file.write(txt.get('1.0','end-1c'))
                         file.close()
                     except:
@@ -721,7 +721,7 @@ elif hasarg2 == True:
             global prevsavedata
             
             try:
-                file = open(fname,'w')
+                file = open(fname,'w',encoding="utf-8")
             except:
                 saveas()
             else:
@@ -1174,7 +1174,7 @@ elif hasarg2 == True:
                         q = 0
                     else:
                         try:
-                            file = open(fname,'w')
+                            file = open(fname,'w',encoding="utf-8")
                             file.write(txt.get('1.0','end-1c'))
                             file.close()
                         except:
@@ -1191,7 +1191,7 @@ elif hasarg2 == True:
                 global fto
                 global prevsavedata
                 try:
-                    file = open(fto,'w')
+                    file = open(fto,'w',encoding="utf-8")
                 except:
                     saveas()
                 else:
@@ -1456,8 +1456,14 @@ elif hasarg2 == True:
                 prevsavedata = f.read()
             except:
                 Tk().withdraw()
-                messagebox.showerror('Text Editor','Could not read file')
-                forcekillnl()
+                ee = messagebox.askyesno('Text Editor','This file contains unreadable characters. Do you wish to read it? (unreadable characters will be replaced)')
+                if not ee:
+                    forcekillnl()
+                elif ee:
+                    f.close()
+                    f = open(fto,"rb")
+                    ddt = f.read()
+                    prevsavedata = ddt.decode("ASCII",errors="replace")
 
             istr = True
             issy = True
