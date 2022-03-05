@@ -1,6 +1,6 @@
 SYSVERSION = '2.27'
 SNAPSHOT = True
-SNAPSHOTVERSION = 8
+SNAPSHOTVERSION = 9
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -1626,7 +1626,7 @@ if os.path.isfile("appdata.json"):
             epo = 0
         else:
             epo = 1
-        if str(type(APPDATA)).split("'")[1] != "dict":
+        if epo == 0 or str(type(APPDATA)).split("'")[1] != "dict":
             epo = 0
     if epo == 0:
         log("Appdata is corrupt. Regenerating",ERROR)
@@ -3039,8 +3039,22 @@ while xae == True:
                 messagebox.showinfo('BU','No new updates are available')
 
         elif command == 'seelog':
-            os.startfile('log_000.log')
-
+            if os.path.isfile("log_000.log"):
+                with open("log_000.log") as f:
+                    lns = f.readlines()
+                for logval in lns:
+                    try:
+                        if logval.split(" ")[2] == "INFO":
+                            print(logval.replace("\n",""))
+                        if logval.split(" ")[2] == "WARN":
+                            termcolor.cprint(logval.replace("\n",""),"yellow")
+                        if logval.split(" ")[2] == "ERROR":
+                            termcolor.cprint(logval.replace("\n",""),"red")
+                        if logval.split(" ")[2] == "ERROR":
+                            termcolor.print(logval.replace("\n",""),"white","on_red")
+                    except:
+                        termcolor.cprint(logval.replace("\n",""),"white","on_red")
+                del lns
         elif command == 'startsound':
             startsound = APPDATA["startsound"]
             if startsound is not None:
