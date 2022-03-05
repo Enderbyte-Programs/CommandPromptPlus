@@ -6466,7 +6466,7 @@ while xae == True:
                 ttotal = 0
                 qwe = datetime.datetime.now()
                 while True:
-
+                    qwe = datetime.datetime.now()
                     
                     qwer = qwe.second
                     if qwer > 57:
@@ -6478,7 +6478,7 @@ while xae == True:
                     lagcount = lagcount + 1
                     tlagcount += 1
                     tims = 0
-                    
+                    sleep(1)
                     tims = 1
                     qwert = datetime.datetime.now()
                     ft = qwert.strftime('%S.%f')[:-3]
@@ -6557,7 +6557,7 @@ while xae == True:
                     except:
                         xsgued = 0
                     qwe = datetime.datetime.now()
-                    sleep(1)
+                    
                     print(" "*80)
                     print(" "*80)
                     print(" "*80)
