@@ -217,3 +217,4 @@
    2.27-a7: Added UTF-8 support for text editor, got rid of "could not read file"
    2.27-a8: Added ANSI to the counters (overwrite each other)
    2.27-a9: Seelog command now prints to console
+2.27: Overhauled randpass and huge UI improvements
