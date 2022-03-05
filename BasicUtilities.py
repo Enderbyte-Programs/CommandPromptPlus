@@ -1,6 +1,6 @@
 SYSVERSION = '2.27'
 SNAPSHOT = True
-SNAPSHOTVERSION = 7
+SNAPSHOTVERSION = 8
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -1808,9 +1808,10 @@ if not "commandsRun" in APPDATA:
 def updateappdata():
     global APPDATA
     global INFO
-    log("Updated Appdata with "+str(APPDATA))
+    
     with open("appdata.json","w+") as ad:
         ad.write(str(json.dumps(APPDATA)))
+    log("Updated Appdata with "+str(APPDATA))
 log("Appdata initialization is complete")
 updateappdata()
 if str(platform.system()) == 'Windows':
@@ -4154,7 +4155,18 @@ while xae == True:
                 print("There are",total_wk,"weeks since")
                 print("There are",total_mt,"month since")
                 print("There are",total_yr,"years since This program exisited.")
+                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    
                 sleep(1)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
             
         elif command == 'crash':
             raise RuntimeError('Manual Crash')
@@ -5314,6 +5326,7 @@ while xae == True:
         elif command == "lnmeter":
             newwindow()
             print('')
+            
             if crashed == False:
                 while True:
                     x = datetime.datetime.now()
@@ -5334,14 +5347,25 @@ while xae == True:
                     total_yr = total_dy / 365.25
                     total_mt = total_yr * 12
                     print("")
-                    print("There are",total_seconds,"seconds since")
-                    print("There are",total_min,"minutes since")
-                    print("There are",total_hr,"hours since")
-                    print("There are",total_dy,"days since")
-                    print("There are",total_wk,"weeks since")
-                    print("There are",total_mt,"month since")
-                    print("There are",total_yr,"years since life was normal.")
+                    print("There are",total_seconds,"seconds since",flush=True)
+                    print("There are",total_min,"minutes since",flush=True)
+                    print("There are",total_hr,"hours since",flush=True)
+                    print("There are",total_dy,"days since",flush=True)
+                    print("There are",total_wk,"weeks since",flush=True)
+                    print("There are",total_mt,"month since",flush=True)
+                    print("There are",total_yr,"years since life was normal.",flush=True)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    
                     sleep(1)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
 
         elif command == "pyterm":
             crashed = False
@@ -5925,9 +5949,20 @@ while xae == True:
                 print("It has been",days,"days")
                 print("It has been",hour,"hours")
                 print("It has been",minutes,"minutes")
-                print("It has been",second,"seconds since COVID-19 infected its first human")
+                print("It has been",second,"seconds since COVID-19 started")
                 print("")
+                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    
                 sleep(1)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print(" "*50)
+                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
 
         elif command == "browser":
             try:
@@ -6144,7 +6179,7 @@ while xae == True:
                     break
                 print("Alarm will ring at",g,"-",h,"-",i,"at",j,":",k,":",l)
                 isdone = False
-                while isdone == False:
+                while True:
                     x = datetime.datetime.now()
                     a = x.year
                     b = x.month
@@ -6175,9 +6210,22 @@ while xae == True:
                     print("There are",total_wk,"weeks left")
                     print("There are",total_mt,"month left")
                     print("There are",total_yr,"years left")
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    
                     if d0 == d1 or d0 > d1:
-                        isdone = True
-                    sleep(1)
+                        print("\n"*7)
+                        break
+                    if not isdone:
+                        sleep(1)
+                        print(" "*50)
+                        print(" "*50)
+                        print(" "*50)
+                        print(" "*50)
+                        print(" "*50)
+                        print(" "*50)
+                        print(" "*50)
+                        print(" "*50)
+                        print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
                 if crashed == True:
                     break
                 print("Your timer is done")
@@ -6315,7 +6363,18 @@ while xae == True:
                     print("There are",total_wk,"weeks since")
                     print("There are",total_mt,"month since")
                     print("There are",total_yr,"years since")
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    
                     sleep(1)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
                 if crashed == True:
                     break
 
@@ -6405,7 +6464,7 @@ while xae == True:
                     lagcount = lagcount + 1
                     tlagcount += 1
                     tims = 0
-                    sleep(1)
+                    
                     tims = 1
                     qwert = datetime.datetime.now()
                     ft = qwert.strftime('%S.%f')[:-3]
@@ -6484,11 +6543,15 @@ while xae == True:
                     except:
                         xsgued = 0
                     qwe = datetime.datetime.now()
-                    
+                    sleep(1)
+                    print(" "*80)
+                    print(" "*80)
+                    print(" "*80)
+                    print("\033[F\033[F\033[F",end="")
                     print("your computer is lagging by",lag,"milliseconds")
                     print("Your moving average.60 computer lag is",avglag,"milliseconds")
                     print("Your all-time average computer lag is",xavglag,"milliseconds")
-                    print("")
+                    print("\033[F\033[F\033[F",end="")
                     
 
         elif command == "avg":
