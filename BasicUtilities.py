@@ -1,4 +1,4 @@
-SYSVERSION = '2.27'
+SYSVERSION = '2.27.2'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -6,10 +6,10 @@ if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
 
 print(ASSEMBLEDVERSION,'(c) 2021-2022 Enderbyte Programs')
-from tkinter import messagebox, Tk
+
 import os
 os.system("")
-
+from tkinter import messagebox, Tk
 def toplevelerror(message,title='Error'):
     title = str(title)
     message = str(message)
@@ -2193,7 +2193,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.27")
+    SYSVERSION = version.parse("2.27.2")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2796,6 +2796,18 @@ while xae == True:
             da10 = messagebox.askyesno("rem","Do you want to clear the temporary directory?")
             if da10:
                 shutil.rmtree(".temp")
+            da11 = messagebox.askyesno("rem","Do you want to clear the crash report directory?")
+            if da11:
+                try:
+                    shutil.rmtree("crash_reports")
+                except:
+                    pass
+            da12 = messagebox.askyesno("rem","Do you want to clear the lag log?")
+            if da12:
+                try:
+                    os.remove("lag.csv")
+                except:
+                    pass
             updateappdata()
             print("Custom AppData cleaning complete")
 
@@ -3523,18 +3535,18 @@ while xae == True:
                     messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
         elif command == 'stat':
-            print('lines: 6717')
-            print('print statements: 900')
-            print('Variables: 1744')
-            print('comparisons 449')
-            print('Exception handling loops 282')
+            print('lines: 7014')
+            print('print statements: 967')
+            print('Variables: 1801')
+            print('comparisons 460')
+            print('Exception handling loops 294')
             print('While loops 57')
-            print('For loop 82')
-            print('Commands: 153')
+            print('For loop 92')
+            print('Commands: 159')
             print('Libraries Imported 27')
-            print('files utilized 71')
-            print('Tkinter windows used 109')
-            print("Functions: 146")
+            print('files utilized 77')
+            print('Tkinter windows used 108')
+            print("Functions: 150")
             print("Classes: 4")
 
         elif command == 'sysplat':
@@ -4557,6 +4569,14 @@ while xae == True:
             APPDATA["legacyStartups"] = False
             APPDATA["commandsRun"] = 0
             shutil.rmtree(".temp")
+            try:
+                shutil.rmtree("crash_reports") 
+            except:
+                pass
+            try:
+                os.remove("lag.csv")
+            except:
+                pass
             updateappdata()
         elif command == 'uninstall':
             
@@ -6465,8 +6485,18 @@ while xae == True:
                 noscreen = False
                 ttotal = 0
                 qwe = datetime.datetime.now()
+                if not os.path.isfile("lag.csv"):
+                    cycle = 0
+                else:
+                    with open("lag.csv") as la:
+                        lla = la.readlines()
+                    cyclee = lla[len(lla)-1].split(",")[5]
+                    try:
+                        cycle = int(cyclee)+1
+                    except:
+                        cycle = 0
                 while True:
-                    qwe = datetime.datetime.now()
+                    
                     
                     qwer = qwe.second
                     if qwer > 57:
@@ -6486,6 +6516,8 @@ while xae == True:
                     lag = ft - fa
                     lag = lag - tims
                     lag = lag * 1000
+                    if lag < 0:
+                        lag = 3000
                     averagelag = averagelag + lag
                     avglag = averagelag / lagcount
                     tavglag += lag
@@ -6553,9 +6585,10 @@ while xae == True:
                                 tlan = (-300,tlg)
                                 averagelag = 0
                                 lagcount = 0
-                                
+                                cycle += 1
                     except:
                         xsgued = 0
+                    oqwe = qwe
                     qwe = datetime.datetime.now()
                     
                     print(" "*80)
@@ -6566,8 +6599,11 @@ while xae == True:
                     print("Your moving average.60 computer lag is",avglag,"milliseconds")
                     print("Your all-time average computer lag is",xavglag,"milliseconds")
                     print("\033[F\033[F\033[F",end="")
-                    
-
+                    if not os.path.isfile("lag.csv"):
+                        with open("lag.csv","w+") as l:
+                            l.write("m-start,m-end,lag,cycleaverage,allaverage,cycle\n")
+                    with open("lag.csv","a") as l:
+                        l.write(f"{oqwe},{qwert},{lag},{avglag},{xavglag},{cycle}\n")
         elif command == "avg":
             nums = 0
             total = 0
@@ -6930,6 +6966,7 @@ while xae == True:
                     opponent_square = 27
 
                     print(opponent,"slid to square",opponent_square)
+                #NO!!!!!!!!!!!!!!!!!!! THE IMMATURITY!! I CANT STAND IT!!!!
                 elif opponent_square == 99:
                     print(opponent,"landed on a snake square!")
                     opponent_square = 21
