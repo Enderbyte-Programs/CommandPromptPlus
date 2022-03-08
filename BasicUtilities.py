@@ -1,6 +1,6 @@
-SYSVERSION = '2.27.2'
-SNAPSHOT = False
-SNAPSHOTVERSION = 0
+SYSVERSION = '2.28'
+SNAPSHOT = True
+SNAPSHOTVERSION = 1
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -57,7 +57,7 @@ else:
 from traceback import format_tb
 import sys
 import json
-
+import collections
 
 os.system("color")
 INFO = "info"
@@ -2193,7 +2193,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.27.2")
+    SYSVERSION = version.parse("2.28")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2503,6 +2503,8 @@ while xae == True:
             print('search: Search folders for files that contain things you input. Warning: Can take up lots of resources!')
             print('speed: How many equations can your computer do in 1 second?')
             print("webdownload: Download a web page to file")
+            print("searchext: Search for files with a certain extension")
+            print("allext: Get how many files with each extension are in a directory")
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
                 print('te: Open the Text Editor that comes with this program.')
@@ -2570,6 +2572,52 @@ while xae == True:
             print("pyterm: Execute Python code")
             print("dumpvar: Dump all variables to a file")
 
+        elif command == "allext":
+            print('Please choose directory to search')
+            Tk().withdraw()
+
+            root = filedialog.askdirectory()
+            allf = []
+            
+            if os.path.isdir(root):
+                print("Scanning... (Please wait, this may take some time.)")
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        e = os.path.join(path,name).replace("/","\\").lower().split("\\")
+                        if "." in e[len(e)-1]:
+                            try:
+                                n = os.path.join(path, name).replace("/","\\").lower().split(".")
+                                n = n[len(n)-1]
+                            except:
+                                pass
+                            else:
+                                allf.append(n)
+                
+                print("Counting...")
+                
+                cval = collections.Counter(allf)
+                cval_s = {k: v for k, v in sorted(cval.items(), key=lambda item: item[1])}
+                for item in cval_s.keys():
+                    print(f"{item}: {cval_s[item]}")
+
+        elif command == "searchext":
+            print('Please choose directory to search')
+            Tk().withdraw()
+
+            root = filedialog.askdirectory()
+            wts = input("Search for what extension? (1 extension only, no dot required): ")
+            wts = wts.replace(".","")
+            how_many_files = 0
+            print("Scanning...")
+            if os.path.isdir(root):
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        n = os.path.join(path, name)
+                        if n.split(".")[len(n.split("."))-1] == wts:
+                            print(n.replace("/","\\"))
+                            how_many_files += 1
+                print(f"{how_many_files} files were found matching your criteria.")
+                
         elif command == "dumpvar":
             log("Dumping variables")
             
@@ -5789,7 +5837,7 @@ while xae == True:
         elif command == "credits":
             print("Basic Utilities (c) 2021-2022 Enderbyte Programs")
             print("Installer by Inno Setup")
-            print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1, 3.10.2 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7 and 4.8")
+            print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1, 3.10.2 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7 and 4.8 and 4.10")
             print("Written by Enderbyte09")
             print("With IDLE for 64-bit Windows")
             print("And notepad++")
