@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 1
+SNAPSHOTVERSION = 2
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2599,6 +2599,9 @@ while xae == True:
                 cval_s = {k: v for k, v in sorted(cval.items(), key=lambda item: item[1])}
                 for item in cval_s.keys():
                     print(f"{item}: {cval_s[item]}")
+                del allf
+                del cval
+                del cval_s
 
         elif command == "searchext":
             print('Please choose directory to search')
