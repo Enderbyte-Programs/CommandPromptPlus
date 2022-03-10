@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 2
+SNAPSHOTVERSION = 3
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -125,6 +125,7 @@ def handle_exception(type,value,traceback):
         print("Crash report and variable dump complete")
         del vars
         input("Press enter or return to exit")
+        os.system("color 07")
         
 from tkinter import *
 def get_pixel_color(x, y):
@@ -2505,6 +2506,7 @@ while xae == True:
             print("webdownload: Download a web page to file")
             print("searchext: Search for files with a certain extension")
             print("allext: Get how many files with each extension are in a directory")
+            print("allextval: allext, but values are sorted by value instead of alphabetized.")
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
                 print('te: Open the Text Editor that comes with this program.')
@@ -2597,6 +2599,41 @@ while xae == True:
                 
                 cval = collections.Counter(allf)
                 cval_s = {k: v for k, v in sorted(cval.items(), key=lambda item: item[1])}
+                cvals = list(cval_s.keys())
+                cvals.sort()
+                for item in cvals:
+                    print(f"{item}: {cval_s[item]}")
+                del allf
+                del cval
+                del cval_s
+                del cvals
+
+        elif command == "allextval":
+            print('Please choose directory to search')
+            Tk().withdraw()
+
+            root = filedialog.askdirectory()
+            allf = []
+            
+            if os.path.isdir(root):
+                print("Scanning... (Please wait, this may take some time.)")
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        e = os.path.join(path,name).replace("/","\\").lower().split("\\")
+                        if "." in e[len(e)-1]:
+                            try:
+                                n = os.path.join(path, name).replace("/","\\").lower().split(".")
+                                n = n[len(n)-1]
+                            except:
+                                pass
+                            else:
+                                allf.append(n)
+                
+                print("Counting...")
+                
+                cval = collections.Counter(allf)
+                cval_s = {k: v for k, v in sorted(cval.items(), key=lambda item: item[1])}
+                
                 for item in cval_s.keys():
                     print(f"{item}: {cval_s[item]}")
                 del allf
