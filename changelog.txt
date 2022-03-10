@@ -220,3 +220,4 @@
 2.27: Overhauled randpass and huge UI improvements
    2.27.1: Fixed critical lag meter bug
    2.27.2: Fixed multiple lag meter bugs and added lag.csv
+   2.27.3: Lag meter additions and bug fix
