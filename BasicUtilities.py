@@ -1,6 +1,6 @@
-SYSVERSION = '2.28'
-SNAPSHOT = True
-SNAPSHOTVERSION = 3
+SYSVERSION = '2.27.3'
+SNAPSHOT = False
+SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2194,7 +2194,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.28")
+    SYSVERSION = version.parse("2.27.3")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -3186,7 +3186,7 @@ while xae == True:
             CREATE_NEW_PROCESS_GROUP = 0x00000200
             DETACHED_PROCESS = 0x00000008
             try:
-                p = subprocess.Popen(["BasicUtilities.exe", "new"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
+                p = subprocess.Popen(["BasicUtilities.exe", "-n"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
             except:
                 Tk().withdraw()
                 messagebox.showerror('BU','Unable to start.')

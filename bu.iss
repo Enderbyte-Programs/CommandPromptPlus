@@ -1,5 +1,5 @@
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.27.2"
+#define MyAppVersion "2.27.3"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -29,7 +29,7 @@ LicenseFile=C:\Python310\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities_2.27.2_installer
+OutputBaseFilename=basicutilities_2.27.3_installer
 SetupIconFile=C:\Python310\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
