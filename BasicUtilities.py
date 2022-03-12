@@ -1,6 +1,6 @@
-SYSVERSION = '2.27.3'
-SNAPSHOT = False
-SNAPSHOTVERSION = 0
+SYSVERSION = '2.28'
+SNAPSHOT = True
+SNAPSHOTVERSION = 4
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -5458,10 +5458,12 @@ while xae == True:
                     d = x.hour
                     e = x.minute
                     f = x.second
-                    d1 = datetime.datetime(a,b,c,d,e,f)
-                    d0 = datetime.datetime(2020,3,13,15,30,0)
+                    f2 = x.microsecond
+                    d1 = datetime.datetime(a,b,c,d,e,f,f2)
+                    d0 = datetime.datetime(2020,3,13,15,30,0,000000)
                     difference = d1 - d0
-                    total_seconds = difference.total_seconds()
+                    total_seconds = difference.total_seconds()*1000
+                    total_seconds = total_seconds/1000
                     total_min = total_seconds / 60
                     total_hr = total_min / 60
                     total_dy = total_hr / 24
@@ -5478,7 +5480,7 @@ while xae == True:
                     print("There are",total_yr,"years since life was normal.",flush=True)
                     print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
                     
-                    sleep(1)
+                    sleep(0.1)
                     print(" "*50)
                     print(" "*50)
                     print(" "*50)
