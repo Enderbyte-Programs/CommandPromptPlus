@@ -220,4 +220,9 @@
 2.27: Overhauled randpass and huge UI improvements
    2.27.1: Fixed critical lag meter bug
    2.27.2: Fixed multiple lag meter bugs and added lag.csv
+   2.28-a1: Added searchext and allext command
+   2.28-a2: Fixed memory issue
+   2.28-a3: Fixed bug in crash screen
    2.27.3: Lag meter additions and bug fix
+   2.28-a4: Increased lnmeter refresh rate to 0.1s
+   2.28-a5: Added clrclp and clipboard commands
