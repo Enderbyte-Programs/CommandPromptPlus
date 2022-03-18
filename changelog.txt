@@ -227,3 +227,4 @@
    2.28-a4: Increased lnmeter refresh rate to 0.1s
    2.28-a5: Added clrclp and clipboard commands
    2.28-a6: Increased all counter refresh rates and rounded lag counts
+   2.28-a7: Added some psutils stuff and improved lag graph performance
