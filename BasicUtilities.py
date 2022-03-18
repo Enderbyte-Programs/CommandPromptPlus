@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 4
+SNAPSHOTVERSION = 5
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2507,6 +2507,7 @@ while xae == True:
             print("searchext: Search for files with a certain extension")
             print("allext: Get how many files with each extension are in a directory")
             print("allextval: allext, but values are sorted by value instead of alphabetized.")
+
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
                 print('te: Open the Text Editor that comes with this program.')
@@ -2573,7 +2574,30 @@ while xae == True:
             print("relapdat: Reload the appdata of this program (may cause severe issues!)")
             print("pyterm: Execute Python code")
             print("dumpvar: Dump all variables to a file")
+            print("")
+            print("-----Clipboard-----")
+            print("clrclp: Clear the clipboard")
+            print("clipboard: Write something to the clipboard")
 
+        elif command == "clrclp":
+            cllp = Tk()
+            cllp.withdraw()
+            cllp.clipboard_clear()
+            cllp.clipboard_append("")
+            cllp.update()
+            cllp.destroy()
+            
+
+        elif command == "clipboard":
+            clp = input("What to put on the clipboard: ")
+            r = Tk()
+            r.withdraw()
+            r.clipboard_clear()
+            r.clipboard_append(clp)
+            r.update()
+            r.destroy()
+            
+            
         elif command == "allext":
             print('Please choose directory to search')
             Tk().withdraw()
