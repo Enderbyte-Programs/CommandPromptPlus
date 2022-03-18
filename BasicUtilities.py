@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 5
+SNAPSHOTVERSION = 6
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -4267,44 +4267,47 @@ while xae == True:
             newwindow()
             print('')
             
-            while True:
-                x = datetime.datetime.now()
-                a = x.year
-                b = x.month
-                c = x.day
-                d = x.hour
-                e = x.minute
-                f = x.second
-                d1 = datetime.datetime(a,b,c,d,e,f)
-                d0 = datetime.datetime(2021,4,12,15,30,0)
-                difference = d1 - d0
-                total_seconds = difference.total_seconds()
-                total_min = total_seconds / 60
-                total_hr = total_min / 60
-                total_dy = total_hr / 24
-                total_wk = total_dy /7
-                total_yr = total_dy / 365
-                total_mt = total_yr * 12
-                print("")
-                print("There are",total_seconds,"seconds since")
-                print("There are",total_min,"minutes since")
-                print("There are",total_hr,"hours since")
-                print("There are",total_dy,"days since")
-                print("There are",total_wk,"weeks since")
-                print("There are",total_mt,"month since")
-                print("There are",total_yr,"years since This program exisited.")
-                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+            if crashed == False:
+                while True:
+                    x = datetime.datetime.now()
+                    a = x.year
+                    b = x.month
+                    c = x.day
+                    d = x.hour
+                    e = x.minute
+                    f = x.second
+                    f2 = x.microsecond
+                    d1 = datetime.datetime(a,b,c,d,e,f,f2)
+                    d0 = datetime.datetime(2021,4,12,16,0,0,000000)
+                    difference = d1 - d0
+                    total_seconds = difference.total_seconds()*1000
+                    total_seconds = total_seconds/1000
+                    total_min = total_seconds / 60
+                    total_hr = total_min / 60
+                    total_dy = total_hr / 24
+                    total_wk = total_dy /7
+                    total_yr = total_dy / 365.25
+                    total_mt = total_yr * 12
+                    print("")
+                    print("There are",total_seconds,"seconds since",flush=True)
+                    print("There are",total_min,"minutes since",flush=True)
+                    print("There are",total_hr,"hours since",flush=True)
+                    print("There are",total_dy,"days since",flush=True)
+                    print("There are",total_wk,"weeks since",flush=True)
+                    print("There are",total_mt,"month since",flush=True)
+                    print("There are",total_yr,"years since life was normal.",flush=True)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
                     
-                sleep(1)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    sleep(0.1)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
             
         elif command == 'crash':
             raise RuntimeError('Manual Crash')
@@ -6067,50 +6070,49 @@ while xae == True:
 
         elif command == "meter":
             newwindow()
-            while True:
-                x = datetime.datetime.now()
-                a = x.year
-                b = x.month
-                c = x.day
-                d = x.hour
-                e = x.minute
-                f = x.second
-                d1 = datetime.date(a,b,c)
-                d0 = datetime.date(2019,12,30)
-                delta = d1 - d0
-                daysy = delta.days
-                second = daysy * 24
-                second = second + d
-                second = second * 60
-                second = second + e
-                second = second * 60
-                second = second + f
-                minutes = second / 60
-                hour = minutes / 60
-                days = hour / 24
-                weeks = days / 7
-                years = days /365.25
-                months = years * 12
-                print("It has been",years,"years")
-                print("It has been",months,"months")
-                print("It has been",weeks,"weeks")
-                print("It has been",days,"days")
-                print("It has been",hour,"hours")
-                print("It has been",minutes,"minutes")
-                print("It has been",second,"seconds since COVID-19 started")
-                print("")
-                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+            print('')
+            
+            if crashed == False:
+                while True:
+                    x = datetime.datetime.now()
+                    a = x.year
+                    b = x.month
+                    c = x.day
+                    d = x.hour
+                    e = x.minute
+                    f = x.second
+                    f2 = x.microsecond
+                    d1 = datetime.datetime(a,b,c,d,e,f,f2)
+                    d0 = datetime.datetime(2019,12,31,0,0,0,000000)
+                    difference = d1 - d0
+                    total_seconds = difference.total_seconds()*1000
+                    total_seconds = total_seconds/1000
+                    total_min = total_seconds / 60
+                    total_hr = total_min / 60
+                    total_dy = total_hr / 24
+                    total_wk = total_dy /7
+                    total_yr = total_dy / 365.25
+                    total_mt = total_yr * 12
+                    print("")
+                    print("There are",total_seconds,"seconds since",flush=True)
+                    print("There are",total_min,"minutes since",flush=True)
+                    print("There are",total_hr,"hours since",flush=True)
+                    print("There are",total_dy,"days since",flush=True)
+                    print("There are",total_wk,"weeks since",flush=True)
+                    print("There are",total_mt,"month since",flush=True)
+                    print("There are",total_yr,"years since life was normal.",flush=True)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
                     
-                sleep(1)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print(" "*50)
-                print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
+                    sleep(0.1)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
 
         elif command == "browser":
             try:
@@ -6335,15 +6337,17 @@ while xae == True:
                     d = x.hour
                     e = x.minute
                     f = x.second
-                    d0 = datetime.datetime(a,b,c,d,e,f)
+                    f2 = x.microsecond
+                    d0 = datetime.datetime(a,b,c,d,e,f,f2)
                     try:
-                        d1 = datetime.datetime(g,h,i,j,k,l)
+                        d1 = datetime.datetime(g,h,i,j,k,l,000000)
                     except:
                         error(5)
                         crashed = True
                         break
                     difference = d1 - d0
                     total_seconds = difference.total_seconds()
+                    total_seconds = total_seconds * 1000 / 1000
                     total_min = total_seconds / 60
                     total_hr = total_min / 60
                     total_dy = total_hr / 24
@@ -6364,7 +6368,7 @@ while xae == True:
                         print("\n"*7)
                         break
                     if not isdone:
-                        sleep(1)
+                        sleep(0.1)
                         print(" "*50)
                         print(" "*50)
                         print(" "*50)
@@ -6400,7 +6404,7 @@ while xae == True:
                             asdfgh = False
                             break
 
-                for i in range(5):
+                for i in range(4):
                     if crashed == False:
                         if APPDATA["useDownloadedSounds"]:
                             try:
@@ -6486,9 +6490,10 @@ while xae == True:
                     d = x.hour
                     e = x.minute
                     f = x.second
-                    d0 = datetime.datetime(a,b,c,d,e,f)
+                    f2 = x.microsecond
+                    d0 = datetime.datetime(a,b,c,d,e,f,f2)
                     try:
-                        d1 = datetime.datetime(g,h,i,j,k,l)
+                        d1 = datetime.datetime(g,h,i,j,k,l,000000)
                     except:
                         error(5)
                         crashed = True
@@ -6497,6 +6502,7 @@ while xae == True:
 
                     difference = d0 - d1
                     total_seconds = difference.total_seconds()
+                    total_seconds = total_seconds * 1000 / 1000
                     total_min = total_seconds / 60
                     total_hr = total_min / 60
                     total_dy = total_hr / 24
@@ -6513,7 +6519,7 @@ while xae == True:
                     print("There are",total_yr,"years since")
                     print("\033[F\033[F\033[F\033[F\033[F\033[F\033[F\033[F",end="")
                     
-                    sleep(1)
+                    sleep(0.1)
                     print(" "*50)
                     print(" "*50)
                     print(" "*50)
@@ -6632,10 +6638,13 @@ while xae == True:
                     lag = lag * 1000
                     if lag < 0:
                         lag = 3000
+                    lag = int(str(lag).split(".")[0])
                     averagelag = averagelag + lag
                     avglag = averagelag / lagcount
+                    avglag = round(avglag,3)
                     tavglag += lag
                     xavglag = tavglag / tlagcount
+                    xavglag = round(avglag,3)
                     
                     try:
                         if noscreen == False:
