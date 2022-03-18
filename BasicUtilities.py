@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 6
+SNAPSHOTVERSION = 7
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -58,6 +58,7 @@ from traceback import format_tb
 import sys
 import json
 import collections
+import psutil
 
 os.system("color")
 INFO = "info"
@@ -2194,7 +2195,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.27.3")
+    SYSVERSION = version.parse("2.28")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2372,7 +2373,7 @@ while xae == True:
         print("-----Command Menu-----")
         command = input()
     else:
-        command = input(f"Basic Utilities {SYSVERSION} on {platform.system()}: ")
+        command = input(f"Basic Utilities {SYSVERSION} on {platform.system()}> ")
     
     for note in APPDATA["restrictions"]["note"].items():
         if note[0] == "*":
@@ -2507,6 +2508,7 @@ while xae == True:
             print("searchext: Search for files with a certain extension")
             print("allext: Get how many files with each extension are in a directory")
             print("allextval: allext, but values are sorted by value instead of alphabetized.")
+            print("cputimes: Get some statistics about how much time your CPU has spent doing things.")
 
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
@@ -2578,6 +2580,60 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "cputimes":
+            cputimes = psutil.cpu_times()
+            print("-----")
+            print("User",cputimes.user)
+            print("Idle",cputimes.idle)
+            print("System",cputimes.system)
+            print("All times in seconds.")
+            print("-----")
+
+        elif command == "cputimeg":
+            try:
+                s = turtle.getscreen()
+                t = turtle.Turtle()
+            except:
+                s = turtle.getscreen()
+                t = turtle.Turtle()
+            turtle.hideturtle()
+            t.hideturtle()
+            turtle.tracer(False)
+            t.penup()
+            t.goto(-300,-100)
+            t.pendown()
+            t.goto(300,-100)
+            t.goto(300,100)
+            t.penup()
+            t.goto(-300,100)
+            t.pendown()
+            t.write("100%")
+            t.goto(-300,-100)
+            t.write("0%")
+            for i in range(9):
+                t.penup()
+                t.goto(-300,-100+(i*20+20))
+                t.pendown()
+                t.write(str(int((t.pos()[1]+100)/2))+"%")
+                t.goto(300,-100+(i*20+20))
+            turtle.update()
+            t.penup()
+            t.goto(-300,-100)
+            cputimes = psutil.cpu_times()
+            idle = cputimes.idle
+            while True:
+                sleep(1)
+                newcputimes = psutil.cpu_times()
+
+        elif command == "cpuper":
+            print("Overall:",str(psutil.cpu_percent())+"%")
+            cpuperd = psutil.cpu_percent(percpu=True)
+            print("cores:")
+            o = 0
+            for core in cpuperd:
+                o += 1
+                print(str(o)+":",str(core)+"%")
 
         elif command == "clrclp":
             cllp = Tk()
@@ -6554,7 +6610,9 @@ while xae == True:
                     t = turtle.Turtle()
                 turtle.title("Lag Graph")
                 turtle.hideturtle()
+                
                 t.hideturtle()
+                turtle.tracer(False)
                 def isneg(var):
                     if var < 0:
                         return True
@@ -6599,6 +6657,7 @@ while xae == True:
                 t.goto(-300,-100)
                 t.pendown()
                 t.pencolor("red")
+                turtle.update()
                 lnp = t.pos()
                 lanp = t.pos()
                 tlan = t.pos()
@@ -6671,6 +6730,7 @@ while xae == True:
                             t.pencolor('red')
                             t.goto(lnp[0],lnp[1])
                             t.pendown()
+                            turtle.update()
                             if tgotototal > 290:
                                 t.pencolor("red")
                                 t.clear()
@@ -6703,6 +6763,7 @@ while xae == True:
                                 t.goto(-300,tlag)
                                 t.pendown()
                                 t.pencolor("red")
+                                turtle.update()
                                 lnp = (-300,tlag)
                                 lanp = (-300,talag)
                                 tlan = (-300,tlg)
