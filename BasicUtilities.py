@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 8
+SNAPSHOTVERSION = 9
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2512,6 +2512,12 @@ while xae == True:
             print("allextval: allext, but values are sorted by value instead of alphabetized.")
             print("cputimes: Get some statistics about how much time your CPU has spent doing things.")
             print("cpuper: Get the cpu utilization percentage")
+            print("cputimeg: Get a graph of the percentage of time that your CPU is doing something")
+            print("cpucount: Get how many cpu cores you have")
+            print("clockspeed: Get the cpu clock speed")
+            print("vmem: Get how much RAM you have")
+            print("pidlen: See how many PIDS you have running")
+            print("progmem: See how much RAM Basic Utilities is using")
 
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
@@ -2583,6 +2589,36 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "progmem":
+            process = psutil.Process(os.getpid())
+            print(process.memory_info().rss/1000000,"MegaBytes")
+
+        elif command == "pidlen":
+            ssdsaf = psutil.pids()
+            print("=====")
+            print(len(ssdsaf))
+            print("=====")
+
+        elif command == "vmem":
+            vmem = psutil.virtual_memory()
+            print("Total:",vmem.total/1000000000,"Gigabytes")
+            print("Available:",vmem.available/1000000000,"Gigabytes")
+            print("In use:",100-(vmem.available/vmem.total)*100,"%")
+
+        elif command == "clockspeed":
+            print("-----")
+            clockspeed = psutil.cpu_freq()
+            print("Current:",clockspeed.current)
+            print("Minimum:",clockspeed.min)
+            print("Maximum:",clockspeed.max)
+            print("-----")
+
+        elif command == "cpucount":
+            print("-----")
+            print("Count:",str(psutil.cpu_count()))
+            print("Non-logical:",str(psutil.cpu_count(logical=False)))
+            print("-----")
 
         elif command == "cputimes":
             cputimes = psutil.cpu_times()
