@@ -229,3 +229,4 @@
    2.28-a6: Increased all counter refresh rates and rounded lag counts
    2.28-a7: Added some psutils stuff and improved lag graph performance
    2.28-a8: Added a cpu times graph
+   2.28-a9: Added multiple psutil commands
