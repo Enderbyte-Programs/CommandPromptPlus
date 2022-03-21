@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 7
+SNAPSHOTVERSION = 8
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -86,8 +86,10 @@ def handle_exception(type,value,traceback):
     if issubclass(type, KeyboardInterrupt):
         pass
     else:
-        
-        os.system("cls")
+        if platform.system() == "Windows":
+            os.system("cls")
+        else:
+            os.system("clear")
         os.system("color 17")
         
         l = format_tb(traceback)
@@ -2509,6 +2511,7 @@ while xae == True:
             print("allext: Get how many files with each extension are in a directory")
             print("allextval: allext, but values are sorted by value instead of alphabetized.")
             print("cputimes: Get some statistics about how much time your CPU has spent doing things.")
+            print("cpuper: Get the cpu utilization percentage")
 
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
@@ -2591,6 +2594,7 @@ while xae == True:
             print("-----")
 
         elif command == "cputimeg":
+            newwindow()
             try:
                 s = turtle.getscreen()
                 t = turtle.Turtle()
@@ -2622,9 +2626,101 @@ while xae == True:
             t.goto(-300,-100)
             cputimes = psutil.cpu_times()
             idle = cputimes.idle
+            user = cputimes.user
+            systm = cputimes.system
+            ipos = t.pos()
+            upos = t.pos()
+            spos = t.pos()
+            bpos = t.pos()
+            wpos = -300
+            print("\n\n\n")
             while True:
-                sleep(1)
-                newcputimes = psutil.cpu_times()
+                try:
+                    sleep(1)
+                    wpos += 10
+                    newcputimes = psutil.cpu_times()
+                    nidle = newcputimes.idle
+                    nuser = newcputimes.user
+                    nsystm = newcputimes.system
+                    idle = nidle-idle
+                    user = nuser-user
+                    systm = nsystm-systm
+                    
+                    idlep = idle / len(psutil.cpu_percent(percpu=True)) * 200
+                    userp = user / len(psutil.cpu_percent(percpu=True)) * 200
+                    systmp = systm / len(psutil.cpu_percent(percpu=True)) * 200
+                    busytime = userp+systmp
+                    bustime = user+systm
+                    print("\033[F\033[F\033[F\033[F",end="")
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print(" "*50)
+                    print("\033[F\033[F\033[F\033[F",end="")
+                    print(f"Idle: {idle/len(psutil.cpu_percent(percpu=True))*100}%")
+                    print(f"user: {user/len(psutil.cpu_percent(percpu=True))*100}%")
+                    print(f"system: {systm/len(psutil.cpu_percent(percpu=True))*100}%")
+                    print(f"Overall busy: {bustime/len(psutil.cpu_percent(percpu=True))*100}%")
+                    t.goto(ipos)
+                    t.pencolor("red")
+                    t.pendown()
+                    t.goto(wpos,idlep-100)
+                    ipos = t.pos()
+                    t.penup()
+                    t.pencolor("green")
+                    t.goto(upos)
+                    t.pendown()
+                    t.goto(wpos,userp-100)
+                    upos = t.pos()
+                    t.penup()
+                    t.pencolor("blue")
+                    t.goto(spos)
+                    t.pendown()
+                    t.goto(wpos,systmp-100)
+                    spos = t.pos()
+                    t.penup()
+                    t.pencolor("purple")
+                    t.goto(bpos)
+                    t.pendown()
+                    t.goto(wpos,busytime-100)
+                    bpos = t.pos()
+                    cputimes = psutil.cpu_times()
+                    idle = cputimes.idle
+                    user = cputimes.user
+                    systm = cputimes.system
+                    turtle.update()
+                    t.penup()
+                    t.goto(ipos)
+                    if wpos > 290:
+                        t.clear()
+                        t.pencolor("black")
+                        t.penup()
+                        t.goto(-300,-100)
+                        t.pendown()
+                        t.goto(300,-100)
+                        t.goto(300,100)
+                        t.penup()
+                        t.goto(-300,100)
+                        t.pendown()
+                        t.write("100%")
+                        t.goto(-300,-100)
+                        t.write("0%")
+                        for i in range(9):
+                            t.penup()
+                            t.goto(-300,-100+(i*20+20))
+                            t.pendown()
+                            t.write(str(int((t.pos()[1]+100)/2))+"%")
+                            t.goto(300,-100+(i*20+20))
+                        turtle.update()
+                        t.penup()
+                        t.goto(-300,-100)
+                        wpos = -300
+                        ipos = (-300,idlep-100)
+                        upos = (-300,userp-100)
+                        spos = (-300,systmp-100)
+                        bpos = (-300,busytime-100)
+                except:
+                    break
 
         elif command == "cpuper":
             print("Overall:",str(psutil.cpu_percent())+"%")
@@ -6654,6 +6750,24 @@ while xae == True:
                 tlwrite(200,"red")
                 tlwrite(300,"red")
                 tlwrite(400,"black")
+                t.goto(-300,-150)
+                t.pencolor("red")
+                t.pendown()
+                t.forward(50)
+                t.write("lag")
+                t.penup()
+                t.pencolor("green")
+                t.forward(50)
+                t.pendown()
+                t.forward(50)
+                t.write("Average cycle lag")
+                t.penup()
+                t.pencolor("blue")
+                t.forward(50)
+                t.pendown()
+                t.forward(50)
+                t.write("Overall average lag")
+                t.penup()
                 t.goto(-300,-100)
                 t.pendown()
                 t.pencolor("red")
@@ -6760,6 +6874,24 @@ while xae == True:
                                 tlwrite(200,"red")
                                 tlwrite(300,"red")
                                 tlwrite(400,"black")
+                                t.goto(-300,-150)
+                                t.pencolor("red")
+                                t.pendown()
+                                t.forward(50)
+                                t.write("lag")
+                                t.penup()
+                                t.pencolor("green")
+                                t.forward(50)
+                                t.pendown()
+                                t.forward(50)
+                                t.write("Average cycle lag")
+                                t.penup()
+                                t.pencolor("blue")
+                                t.forward(50)
+                                t.pendown()
+                                t.forward(50)
+                                t.write("Overall average lag")
+                                t.penup()
                                 t.goto(-300,tlag)
                                 t.pendown()
                                 t.pencolor("red")
