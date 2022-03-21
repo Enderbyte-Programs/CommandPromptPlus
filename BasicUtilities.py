@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
-SNAPSHOT = True
-SNAPSHOTVERSION = 10
+SNAPSHOT = False
+SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -58,7 +58,10 @@ from traceback import format_tb
 import sys
 import json
 import collections
-import psutil
+try:
+    import psutil
+except:
+    print("Library psutil could not be found. Please run check_dependencies.py to install it.")
 
 os.system("color")
 INFO = "info"
@@ -3850,15 +3853,15 @@ while xae == True:
                     messagebox.showerror('Error','Basic utilities is not able to access this folder.')
 
         elif command == 'stat':
-            print('lines: 7014')
-            print('print statements: 967')
-            print('Variables: 1801')
-            print('comparisons 460')
-            print('Exception handling loops 294')
-            print('While loops 57')
-            print('For loop 92')
-            print('Commands: 159')
-            print('Libraries Imported 27')
+            print('lines: 7382')
+            print('print statements: 1035')
+            print('Variables: 1879')
+            print('comparisons 482')
+            print('Exception handling loops 300')
+            print('While loops 56')
+            print('For loop 103')
+            print('Commands: 173')
+            print('Libraries Imported 28')
             print('files utilized 77')
             print('Tkinter windows used 108')
             print("Functions: 150")
