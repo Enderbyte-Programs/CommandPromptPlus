@@ -1,6 +1,6 @@
 SYSVERSION = '2.28'
 SNAPSHOT = True
-SNAPSHOTVERSION = 9
+SNAPSHOTVERSION = 10
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2518,6 +2518,7 @@ while xae == True:
             print("vmem: Get how much RAM you have")
             print("pidlen: See how many PIDS you have running")
             print("progmem: See how much RAM Basic Utilities is using")
+            print("procmem: See how much RAM any process is using.")
 
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
@@ -2589,6 +2590,20 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "procmem":
+            proc = input("Process to retrieve: ")
+            try:
+                proc = int(proc)
+            except:
+                print("Invalid input")
+            else:
+                try:
+                    process = psutil.Process(proc)
+                except:
+                    print("Invalid process")
+                else:
+                    print(process.memory_info().rss/1000000,"MegaBytes")
 
         elif command == "progmem":
             process = psutil.Process(os.getpid())
