@@ -228,3 +228,4 @@
    2.28-a5: Added clrclp and clipboard commands
    2.28-a6: Increased all counter refresh rates and rounded lag counts
    2.28-a7: Added some psutils stuff and improved lag graph performance
+   2.28-a8: Added a cpu times graph
