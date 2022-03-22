@@ -1,4 +1,4 @@
-SYSVERSION = '2.28'
+SYSVERSION = '2.28.1'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -6,7 +6,7 @@ if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
 
 print(ASSEMBLEDVERSION,'(c) 2021-2022 Enderbyte Programs')
-
+print("Initializing...",end="\r")
 import os
 os.system("")
 from tkinter import messagebox, Tk
@@ -2200,7 +2200,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.28")
+    SYSVERSION = version.parse("2.28.1")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -6871,7 +6871,7 @@ while xae == True:
                     avglag = round(avglag,3)
                     tavglag += lag
                     xavglag = tavglag / tlagcount
-                    xavglag = round(avglag,3)
+                    xavglag = round(xavglag,3)
                     
                     try:
                         if noscreen == False:
