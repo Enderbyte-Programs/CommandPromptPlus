@@ -231,3 +231,5 @@
    2.28-a8: Added a cpu times graph
    2.28-a9: Added multiple psutil commands
    2.28-a10: Added procmem command, everything is ready for the release
+2.28: Added lots of psutils features
+   2.28.1: Fixed critical bug in lag meter
