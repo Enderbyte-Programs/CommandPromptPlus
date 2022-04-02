@@ -233,3 +233,4 @@
    2.28-a10: Added procmem command, everything is ready for the release
 2.28: Added lots of psutils features
    2.28.1: Fixed critical bug in lag meter
+   2.28.2: Fixed multiple bugs
