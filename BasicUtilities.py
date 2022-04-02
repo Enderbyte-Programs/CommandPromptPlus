@@ -320,7 +320,7 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
     ee = 0
     turtle.tracer(False)
     print("Drawing... The turtle window may stop responding, but this is normal. YOur drawing will appear when it is ready.")
-    bar = ProgressBar(len(data.split("\n")),bar_length=70,prefix="Drawing",fill="#",spinner_type="s")
+    bar = ProgressBar(len(data.split("\n")),bar_length=100,prefix="Drawing",fill="#",spinner_type="s")
     for instruction in data.split("\n"):
         ee += 1
         try:
@@ -345,8 +345,9 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
             print("Unexpected Tk error. Exiting")
             os.system("taskkill /f /pid "+str(os.getpid()))
         except Exception as ex:
-            print(f"Failed to draw instruction {ee}:",str(ex))
+            print(f"\rFailed to draw instruction {ee}:",str(ex))
         bar.iter()
+        bar.suffix = " "+str(ee)+"/"+str(bar.total)
     bar.wait()
     print("Done!")
     turtle.tracer(True)   
