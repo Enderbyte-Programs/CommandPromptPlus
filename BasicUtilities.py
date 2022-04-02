@@ -1,4 +1,4 @@
-SYSVERSION = '2.28.1'
+SYSVERSION = '2.28.2'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -45,7 +45,10 @@ try:
     import urllib.request
 except Exception as e:
     print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
-
+try:
+    from awesome_progress_bar import ProgressBar
+except Exception as e:
+    print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
 try:
     import termcolor
 except Exception as e:
@@ -314,7 +317,12 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
         os.system("taskkill /f /pid "+str(os.getpid()))
     inslen = len(data.split("\n"))
     print(f"Data file has {inslen} instructions.")
+    ee = 0
+    turtle.tracer(False)
+    print("Drawing... The turtle window may stop responding, but this is normal. YOur drawing will appear when it is ready.")
+    bar = ProgressBar(len(data.split("\n")),bar_length=70,prefix="Drawing",fill="#",spinner_type="s")
     for instruction in data.split("\n"):
+        ee += 1
         try:
             l = instruction.split(" ")
             if instruction.split(" ")[0] == "b":
@@ -322,7 +330,7 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
             elif l[0] == "p":
                 t.penup()
                 t.goto(float(l[1]),float(l[2]))
-                t.pencolor(str(l[3]))
+                t.pencolor(" ".join(l[3:len(l)]))
                 t.pendown()
                 t.forward(1)
             elif l[0] == "t":
@@ -333,18 +341,18 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
                 for item in l[3:len(l)]:
                     txk += " " + item
                 t.write(txk)
+        except TclError:
+            print("Unexpected Tk error. Exiting")
+            os.system("taskkill /f /pid "+str(os.getpid()))
         except Exception as ex:
-            print("Failed to draw",str(ex))
-        
+            print(f"Failed to draw instruction {ee}:",str(ex))
+        bar.iter()
+    bar.wait()
+    print("Done!")
+    turtle.tracer(True)   
     window = Tk()
     window.title('LetsDraw')
     window.geometry('800x500')
-    try:
-        s = turtle.getscreen()
-        t = turtle.Turtle()
-    except:
-        s = turtle.getscreen()
-        t = turtle.Turtle()
     turtle.title("Let's Draw Canvas")
     def go_forward():
         global txt
@@ -681,7 +689,7 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
     btn23.place(x=400,y=440)
     window.mainloop()
 
-    input("Finished. Press enter to quit")
+    
     os.system("taskkill /f /pid "+str(os.getpid()))
 
 elif hasarg2 == True:
@@ -2200,7 +2208,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.28.1")
+    SYSVERSION = version.parse("2.28.2")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
