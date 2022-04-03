@@ -196,7 +196,7 @@ def get_pixel_color(x, y):
         return "#ffffff" # default color
 if SNAPSHOT:
     try:
-        termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
+        log("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
     except:
         log("Warning! You are using a beta version of Basic Utilities. There may be unexpected issues.")
 #bar breakpoint
