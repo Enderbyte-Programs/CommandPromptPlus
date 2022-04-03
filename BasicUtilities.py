@@ -1,14 +1,20 @@
-SYSVERSION = '2.28.2'
-SNAPSHOT = False
-SNAPSHOTVERSION = 0
+SYSVERSION = '2.29'
+SNAPSHOT = True
+SNAPSHOTVERSION = 1
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
 
 print(ASSEMBLEDVERSION,'(c) 2021-2022 Enderbyte Programs')
-print("Initializing...",end="\r")
+
 import os
 os.system("")
+try:
+    from awesome_progress_bar import ProgressBar
+except Exception as e:
+    os.system("py -m pip install awesome-progress-bar")
+bar = ProgressBar(total=37,prefix="Initializing",suffix="Defining functions pass 1",fill="#",bar_length=100,spinner_type="s")
+#bar init
 from tkinter import messagebox, Tk
 def toplevelerror(message,title='Error'):
     title = str(title)
@@ -32,23 +38,28 @@ def consoleask(message) -> bool:
             break
         else:
             print("Invalid. Please type 'yes' or 'no'")
-
+def bbiter(bb,suff):
+    bb.iter()
+    bb.suffix = " "+suff
+bbiter(bar,"Importing module 1")
 try:
     from pytube import *
 except Exception as e:
     print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+#bar breakpoint
+bbiter(bar,"Importing module 2")
 try:
     import keyboard
 except Exception as e:
     print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+#bar breakpoint
+bbiter(bar,"Importing module 3")
 try:
     import urllib.request
 except Exception as e:
     print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
-try:
-    from awesome_progress_bar import ProgressBar
-except Exception as e:
-    print('An error occured in Basic Utilities. ERROR:\n'+str(e)+'\nSome features may work incorrectly or fail')
+#bar breakpoint
+bbiter(bar,"Importing module 4")
 try:
     import termcolor
 except Exception as e:
@@ -56,16 +67,26 @@ except Exception as e:
     HASTC = False
 else:
     HASTC = True
-
+#bar breakpoint
+bbiter(bar,"Importing module 5")
 from traceback import format_tb
+#bar breakpoint
+bbiter(bar,"Importing module 6")
 import sys
+#bar breakpoint
+bbiter(bar,"Importing module 7")
 import json
+#bar breakpoint
+bbiter(bar,"Importing module 8")
 import collections
+#bar breakpoint
+bbiter(bar,"Importing module 9")
 try:
     import psutil
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
-
+#bar breakpoint
+bbiter(bar,"Defining functions pass 2")
 os.system("color")
 INFO = "info"
 WARN = "warn"
@@ -88,6 +109,11 @@ def log(stuff_to_log,level=INFO):
     except PermissionError:
         raise RuntimeError("Access is denied.")
 def handle_exception(type,value,traceback):
+    try:
+        global bar
+        bar.stop()
+    except:
+        pass
     global ASSEMBLEDVERSION
     if issubclass(type, KeyboardInterrupt):
         pass
@@ -172,51 +198,66 @@ if SNAPSHOT:
     try:
         termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
     except:
-        print("Warning! You are using a beta version of Basic Utilities. There may be unexpected issues.")
-
+        log("Warning! You are using a beta version of Basic Utilities. There may be unexpected issues.")
+#bar breakpoint
+bbiter(bar,"Importing module 10")
 import tarfile
+#bar breakpoint
+bbiter(bar,"Importing module 11")
 import datetime
 sys.excepthook = handle_exception
-
+#bar breakpoint
+bbiter(bar,"Importing module 12")
 try:
     import winsound
 except:
     print('Your device does not support Winsound. Some features may be broken.') 
-
-import os
-
+#bar breakpoint
+bbiter(bar,"Importing module 13")
 import webbrowser
-
+#bar breakpoint
+bbiter(bar,"Importing module 14")
 import platform
-
+#bar breakpoint
+bbiter(bar,"Importing module 15")
 import random
+#bar breakpoint
+bbiter(bar,"Importing module 16")
 try:
     from packaging import version
 except:
-    print('The update command WILL NOT WORK. ')
+    log('The update command WILL NOT WORK. ')
     haspkg = False
 else:
     haspkg = True
-
+#bar breakpoint
+bbiter(bar,"Importing module 17")
 
 from time import sleep
+#bar breakpoint
+bbiter(bar,"Importing module 18")
 try:
     from playsound import playsound
 except:
-    print('Your device does not support playsound. Some features may be broken')
-
+    log('Your device does not support playsound. Some features may be broken')
+#bar breakpoint
+bbiter(bar,"Importing module 19")
 import turtle
-
+#bar breakpoint
+bbiter(bar,"Importing module 20")
 import threading
 reqins = False
-
-
+#bar breakpoint
+bbiter(bar,"Importing module 21")
 from tkinter import filedialog
-
+#bar breakpoint
+bbiter(bar,"Importing module 22")
 import shutil
-
+#bar breakpoint
+bbiter(bar,"Importing module 23")
 import subprocess
-
+#bar breakpoint
+bbiter(bar,"Scanning args")
 sw = False
 gamees_played = 0
 gamees_won = 0
@@ -252,7 +293,7 @@ else:
     sysslash = '/'
     
 if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
-    
+    bar.stop()
     try:
         f = open(openfile_dir,'r')
         mes = f.read()
@@ -299,6 +340,7 @@ if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
     input()
     forcekillnl()
 elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
+    bar.stop()
     print("Drawing...")
     s = turtle.getscreen()
     t = turtle.Turtle()
@@ -694,7 +736,7 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
     os.system("taskkill /f /pid "+str(os.getpid()))
 
 elif hasarg2 == True:
-    
+    bar.stop()
     cwd = os.getcwd()
     fto = sys.argv[1]
     if fto == '--new' or fto == '-n':
@@ -1628,7 +1670,8 @@ elif hasarg2 == True:
             istr = False
             isdef = False
             forcekillnl()
-
+#bar breakpoint
+bbiter(bar,"Initializing appdata phase 1")
 ##@@##@@
 log('Basic Utilities is starting. Running version '+ASSEMBLEDVERSION)
 STIME = datetime.datetime.now()
@@ -1647,11 +1690,12 @@ if os.path.isfile("appdata.json"):
     if epo == 0:
         log("Appdata is corrupt. Regenerating",ERROR)
         os.remove("appdata.json")
-        
+#bar breakpoint
+bbiter(bar,"Initializing appdata phase 2")    
 isported = False
 if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
-    pa = input()
+    pa = "y"
     apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": False, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True, "legacyStartups" : False,
     "commandsRun" : 0}
 
@@ -1704,12 +1748,9 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
                 elif nt == "1" or nt == "true":
                     apd["showCommandsRun"] = True
                 else:
-                    Tk().withdraw()
-                    mpo0 = messagebox.askyesno("Appdata Porting","Do you want to see how many commands you have run?")
-                    if mpo0:
-                        apd["showCommandsRun"] = True
-                    else:
-                        apd["showCommandsRun"] = False
+                    
+                    
+                    apd["showCommandsRun"] = False
 
         if os.path.isfile("username.txt"):
             with open("username.txt") as ad:
@@ -1830,18 +1871,25 @@ def updateappdata():
     log("Updated Appdata with "+str(APPDATA))
 log("Appdata initialization is complete")
 updateappdata()
+bbiter(bar,"Scanning OS")
+def rprint(data):
+    print("\r",end="")
+    print(" "*100,end="")
+    print("\r",end="")
+    print(data)
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
-    if not APPDATA["legacyStartups"]:
-        print(str(platform.platform()))
+    
 else:
     sysslash = '/'
     if not APPDATA["legacyStartups"]:
         print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
-if not APPDATA["legacyStartups"]:
-    print(os.getcwd())
-    print(pid)
 
+if not APPDATA["legacyStartups"]:
+    rprint(os.getcwd())
+    rprint(pid)
+#bar breakpoint
+bbiter(bar,"Importing module 24")
 try:   
     from requests import get
     import requests
@@ -1854,7 +1902,8 @@ except:
     except:
         if not APPDATA["legacyStartups"]:
             print('Error','Some features may work improperly or fail because you are not connected to the internet. (ip, ip6, update)')
-
+#bar breakpoint
+bbiter(bar,"Retrieving update data")
 xae = True
 tcrash = False
 accessdenied = False
@@ -1921,14 +1970,16 @@ else:
             }
         }
         FCON = True
-
+#bar breakpoint
+bbiter(bar,"Initializing Appdata phase 3")
 try:
     besttime = int(APPDATA["besttime"])
 except:
     besttime = 0
     APPDATA["besttime"] = 0
     updateappdata()
-###
+#bar breakpoint
+bbiter(bar,"Initializing appdata phase 4")
 bootcount = APPDATA["bcount"]
 try:
     bootcount = int(bootcount)
@@ -1939,7 +1990,7 @@ except:
 else:
     APPDATA["bcount"] = bootcount + 1
     updateappdata()
-
+bbiter(bar,"Defining functions")
 def error(erc):
     erc = str(erc)
     erm = "An error has occured. Error code "
@@ -2045,13 +2096,15 @@ def startsound():
                 playsound(data)
             except Exception as e:
                 if not APPDATA["legacyStartups"]:
-                    print("Could not play startsound:",e)
+                    rprint("Could not play startsound:",e)
         else:
             if not APPDATA["legacyStartups"]:
-                print("Could not find start sound file")
+                rprint("Could not find start sound file")
     else:
         if not APPDATA["legacyStartups"]:
-            print('You currently do not have a startup sound set. Set one via the startsound command\n')
+            rprint('You currently do not have a startup sound set. Set one via the startsound command\n')
+#bar breakpoint
+bbiter(bar,"Initializing appdata phase 5")
 ss_po = threading.Thread(target=startsound)
 ss_po.start()       
 def runfile(filename):
@@ -2080,55 +2133,55 @@ else:
         try:
             l = datetime.datetime(t.year,mt,dy,0,0,0)
         except:
-            print('Warning: Bday out of range',end='\r')
+            pass
         else:
             if mt == p and dy ==o:
-                print("Happy birthday to you!")
-                print("Happy birthday to you!")
-                print(f"Happy birthday, dear {sysuser}")
-                print("Happy birthday to you!")
-                print("")
-                print('press enter to continue to the command menu')
-                input()
-
+                rprint("Happy birthday to you!")
+                rprint("Happy birthday to you!")
+                rprint(f"Happy birthday, dear {sysuser}")
+                rprint("Happy birthday to you!")
+                rprint("")
+#bar breakpoint
+bbiter(bar,"Checking Date")
 t = datetime.datetime.now()
 y = t.year
 p = t.month
 o = t.day
 if p == 1 and o ==1:
-    print(f'Happy New Year, {sysuser} (gregorian calendar)')
+    rprint(f'Happy New Year, {sysuser} (gregorian calendar)')
 elif y == 2022 and p == 2 and o == 1:
-    print('Happy Lunar New Year!')
+    rprint('Happy Lunar New Year!')
 elif y == 2023 and p == 1 and o == 22:
-    print('Happy Lunar New Year!')
+    rprint('Happy Lunar New Year!')
 elif y == 2024 and p == 2 and o == 10:
-    print('Happy Lunar New Year!')
+    rprint('Happy Lunar New Year!')
 elif y == 2025 and p == 1 and o == 29:
-    print('Happy Lunar New Year!')
+    rprint('Happy Lunar New Year!')
 elif p == 12 and o == 25:
-    print(f'Happy Holidays, {sysuser}')
+    rprint(f'Happy Holidays, {sysuser}')
 elif p == 12 and o == 24:
-    print(f'Happy Holidays, {sysuser}')
+    rprint(f'Happy Holidays, {sysuser}')
 elif p == 12 and o == 26:
-    print(f'Happy Holidays, {sysuser}')
+    rprint(f'Happy Holidays, {sysuser}')
 elif p == 2 and o == 15:
-    print(f'Happy Parinirvana Day, {sysuser} (If you are buddhist)')
+    rprint(f'Happy Parinirvana Day, {sysuser} (If you are buddhist)')
 elif p == 10 and o == 31:
-    print(f'Happy Halloween, {sysuser}!')
+    rprint(f'Happy Halloween, {sysuser}!')
 elif p == 4 and o == 14:
-    print(f"Happy Vaisakhi if you are sikh")
+    rprint(f"Happy Vaisakhi if you are sikh")
 #Couldn't find any more fixed-date holidays that are recognized globally. I am trying to be as inclusive as possible.
 
 if not APPDATA["legacyStartups"]:
-    print('You have booted up Basic Utilities',bootcount+1,'times.')
+    rprint(f'You have booted up Basic Utilities {bootcount+1} times.')
 x = datetime.datetime.now()
 if x.month == 4 and x.day == 1 and x.hour < 12:
     webbrowser.open('https://www.youtube.com/watch?v=xvFZjo5PgG0')
 if x.month == 7 and x.day == 1:
-    print(f'Happy Canada Day, {sysuser}!')
+    rprint(f'Happy Canada Day, {sysuser}!')
 if x.month == 7 and x.day == 4:
-    print(f'Happy American Day, {sysuser} ( if you are american)')
-
+    rprint(f'Happy American Day, {sysuser} ( if you are american)')
+#bar breakpoint
+bbiter(bar,"Initializing appdata phase 6")
 try:
     
     a = APPDATA["btime"]["year"]
@@ -2190,26 +2243,26 @@ APPDATA["btime"]["minute"] = x.minute
 APPDATA["btime"]["second"] = x.second
 updateappdata()
 if not APPDATA["legacyStartups"]:
-    print('')
-    print("Welcome to Basic Utilities,",sysuser)
+    rprint('')
+    rprint(f"Welcome to Basic Utilities, {sysuser}")
 if not APPDATA["legacyStartups"]:
-    print(datetime.datetime.now())
+    rprint(datetime.datetime.now())
 x = datetime.datetime.now()
 if not APPDATA["legacyStartups"]:
     if x.hour > 0 and x.hour < 12:
-        print('Good morning,',sysuser)
+        rprint(f'Good morning, {sysuser}')
     elif x.hour > 11 and x.hour < 18:
-        print('Good afternoon,',sysuser)
+        rprint(f'Good afternoon, {sysuser}')
     elif x.hour > 17 and x.hour < 22:
-        print('Good evening,',sysuser)
+        rprint(f'Good evening, {sysuser}')
     else:
-        print('Good night,',sysuser)
+        rprint(f'Good night, {sysuser}')
 nua = False
 if not APPDATA["legacyStartups"]:
-    print(sysslash)
+    rprint(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.28.2")
+    SYSVERSION = version.parse("2.29")
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -2357,6 +2410,8 @@ class dconv():
                 self.root.update()
             except:
                 break
+#bar breakpoint
+bbiter(bar,"Finishing up")
 if not FCON:
     try:
         APPDATA["restrictions"] = RESTRICTIONS
@@ -2375,6 +2430,8 @@ ETIME = datetime.datetime.now()
 stimetotal = ETIME - STIME
 log(f"Startup is finished. Took {int(stimetotal.total_seconds()*1000)} milliseconds")
 #now it begins...
+#Bar end
+bar.stop()
 print("\nType the command you wish to execute and press enter")
 while xae == True:
     crashed = False
