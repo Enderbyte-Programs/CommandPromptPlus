@@ -234,3 +234,4 @@
 2.28: Added lots of psutils features
    2.28.1: Fixed critical bug in lag meter
    2.28.2: Fixed multiple bugs
+   2.29-a1: Added startup progress bar
