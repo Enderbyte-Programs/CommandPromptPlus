@@ -194,11 +194,7 @@ def get_pixel_color(x, y):
         return BACKGROUND
     except:
         return "#ffffff" # default color
-if SNAPSHOT:
-    try:
-        log("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
-    except:
-        log("Warning! You are using a beta version of Basic Utilities. There may be unexpected issues.")
+
 #bar breakpoint
 bbiter(bar,"Importing module 10")
 import tarfile
