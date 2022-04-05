@@ -236,3 +236,6 @@
    2.28.2: Fixed multiple bugs
    2.29-a1: Added startup progress bar
    2.29-a2: Fixed bug
+   2.29-a3: Revoked all changes
+   2.29-a4: Slight tweaks
+   2.29-a5: Added progress bar to write
