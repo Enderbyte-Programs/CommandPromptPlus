@@ -1,6 +1,6 @@
 SYSVERSION = '2.29'
 SNAPSHOT = True
-SNAPSHOTVERSION = 4
+SNAPSHOTVERSION = 5
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -3361,9 +3361,12 @@ while xae == True:
                 Tk().withdraw()
                 m = messagebox.askyesno('BU','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download and install it?')
                 if m == True:
+                    print("Preparing...")
                     fname = os.getcwd()+"\\.temp\\update_"+SYSVERDATA["version"]+".exe"
+                    print("Downloading...")
                     urllib.request.urlretrieve(SYSVERDATA["link"],fname)
                     log('Downloaded new update '+SYSVERDATA["version"])
+                    print("starting...")
                     CREATE_NEW_PROCESS_GROUP = 0x00000200
                     DETACHED_PROCESS = 0x00000008
                     insnm = "install_"+str(datetime.datetime.now()).replace(" ","_").replace(":","_").replace(".","_")+".log"
@@ -3534,21 +3537,25 @@ while xae == True:
                         
                         e = []
                         print("Assembling list...")
-                        for x in range(int(-300),int(355)):
+                        for x in range(int(-300),int(300)):
                             for y in range(int(-300),int(300)):
                                 e.append((x,y))
                         files = [('Turtle file','*.trt')]
                         print("Please select save file")    
                         g = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
-                        print("Writing...")
+                        
+                        bar = ProgressBar(total=360000,bar_length=100,prefix="Writing",spinner_type="s")
                         with open(g.name,"w+") as f:
                             f.write("b "+BACKGROUND+"\n")
                             for coord in e:
                                 l = get_pixel_color(coord[0],coord[1])
                                 if l != BACKGROUND:
                                     f.write("p "+str(coord[0])+" "+str(coord[1])+" "+l+"\n")
-                        
-                        print("Finished")
+                                bar.iter()
+                                bar.suffix = " "+str(coord[0])+" "+str(coord[1])
+                        space = " "
+                        bar.stop()
+                        print(f"\r{space*100}\rFinished")
                     except Exception as ex:
                         toplevelerror("Failed to save "+str(ex))
                     finally:
@@ -5425,14 +5432,17 @@ while xae == True:
                     files = [('Turtle file','*.trt')]
                     print("Please select save file")    
                     g = filedialog.asksaveasfile(filetypes=files,defaultextension=files)
-                    print("Writing...")
+                    bar = ProgressBar(total=4000000,spinner_type="s",bar_length=100,prefix="Writing")
                     with open(g.name,"w+") as f:
                         f.write("b "+BACKGROUND+"\n")
                         for coord in e:
                             l = get_pixel_color(coord[0],coord[1])
                             if l != BACKGROUND:
                                 f.write("p "+str(coord[0])+" "+str(coord[1])+" "+l+"\n")
+                            bar.iter()
                     del e
+                    bar.stop()
+                    print("\n")
                     print("Finished")
                 except Exception as ex:
                     toplevelerror("Failed to save "+str(ex))
