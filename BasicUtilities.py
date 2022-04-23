@@ -1,6 +1,6 @@
 SYSVERSION = '2.29'
 SNAPSHOT = True
-SNAPSHOTVERSION = 5
+SNAPSHOTVERSION = 6
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2528,6 +2528,7 @@ while xae == True:
             print("pidlen: See how many PIDS you have running")
             print("progmem: See how much RAM Basic Utilities is using")
             print("procmem: See how much RAM any process is using.")
+            print("diskspeed: Find out your disk speed")
 
             if sysslash == '\\':
                 print('diran: Get directory statistics and write to file')
@@ -2599,6 +2600,22 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "diskspeed":
+            print("Assembling writeable")
+            writreable = 1000000*"o"
+            print("What directory do you want to test?")
+            dtt = filedialog.askdirectory()
+            if dtt != "":
+                stime0 = datetime.datetime.now()
+                with open(dtt+sysslash+"__speedtest__.null","w+") as f:
+                    f.write(writreable)
+                stime1 = datetime.datetime.now()
+                os.remove(dtt+sysslash+"__speedtest__.null")
+                diff = stime1-stime0
+                diffms = diff.total_seconds()*1000
+                print("Wrote 1 MB to disk in",diffms,"milliseconds")
+                print("Speed:",round(1/diff.total_seconds(),2),"MB/s")
 
         elif command == "procmem":
             proc = input("Process to retrieve: ")
