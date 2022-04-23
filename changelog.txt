@@ -239,3 +239,4 @@
    2.29-a3: Revoked all changes
    2.29-a4: Slight tweaks
    2.29-a5: Added progress bar to write
+   2.29-a6: Added diskspeed command
