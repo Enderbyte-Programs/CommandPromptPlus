@@ -1,6 +1,6 @@
 SYSVERSION = '2.29'
-SNAPSHOT = True
-SNAPSHOTVERSION = 6
+SNAPSHOT = False
+SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2614,6 +2614,7 @@ while xae == True:
                 os.remove(dtt+sysslash+"__speedtest__.null")
                 diff = stime1-stime0
                 diffms = diff.total_seconds()*1000
+                del writeable
                 print("Wrote 1 MB to disk in",diffms,"milliseconds")
                 print("Speed:",round(1/diff.total_seconds(),2),"MB/s")
 
