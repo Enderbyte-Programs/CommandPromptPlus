@@ -242,3 +242,4 @@
    2.29-a6: Added diskspeed command
 2.29: Added assorted stuff
    2.29.1: Fixed multiple bugs
+   2.29.2: Updated email address
