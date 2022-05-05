@@ -1,4 +1,4 @@
-SYSVERSION = '2.29.1'
+SYSVERSION = '2.29.2'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -2209,7 +2209,7 @@ if not APPDATA["legacyStartups"]:
     print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
-    SYSVERSION = version.parse("2.29")
+    SYSVERSION = version.parse(SYSVERSION)
     if SYSVERNUM > SYSVERSION:
         if not APPDATA["legacyStartups"]:
             if APPDATA["useColouredText"]:
@@ -6140,7 +6140,7 @@ while xae == True:
 
 
         elif command == "contact":
-            print("Email: enderbyte09@gmail.com")
+            print("Email: enderbyteprograms@gmail.com")
             print("Discord: Enderbyte09#0542")
 
         elif command == "credits":

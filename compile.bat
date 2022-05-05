@@ -1,5 +1,6 @@
 move .\BasicUtilities\BasicUtilities.py BasicUtilities.py
 del /s /f /q .\BasicUtilities\*
+del .\dist\BasicUtilities.exe
 rmdir .\BasicUtilities\.temp
 rmdir .\BasicUtilities\crash_reports
 .\pyinstaller --icon=bu.ico --version-file=vf.txt --noconfirm BasicUtilities.py
