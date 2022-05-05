@@ -240,3 +240,5 @@
    2.29-a4: Slight tweaks
    2.29-a5: Added progress bar to write
    2.29-a6: Added diskspeed command
+2.29: Added assorted stuff
+   2.29.1: Fixed multiple bugs
