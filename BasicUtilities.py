@@ -1,4 +1,4 @@
-SYSVERSION = '2.29'
+SYSVERSION = '2.29.1'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -299,7 +299,7 @@ if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
     input()
     forcekillnl()
 elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
-    print("Drawing...")
+    print("Turtle Drawing Loader for Basic Utilities")
     s = turtle.getscreen()
     t = turtle.Turtle()
     turtle.hideturtle()
@@ -694,7 +694,7 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
     os.system("taskkill /f /pid "+str(os.getpid()))
 
 elif hasarg2 == True:
-    
+    print("Notpad Text Editor for Basic Utilities")
     cwd = os.getcwd()
     fto = sys.argv[1]
     if fto == '--new' or fto == '-n':
@@ -2614,7 +2614,7 @@ while xae == True:
                 os.remove(dtt+sysslash+"__speedtest__.null")
                 diff = stime1-stime0
                 diffms = diff.total_seconds()*1000
-                del writeable
+                del writreable
                 print("Wrote 1 MB to disk in",diffms,"milliseconds")
                 print("Speed:",round(1/diff.total_seconds(),2),"MB/s")
 
