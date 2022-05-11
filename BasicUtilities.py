@@ -1,4 +1,4 @@
-SYSVERSION = '2.29.2'
+SYSVERSION = '2.29.3'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -260,7 +260,7 @@ if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
         print("encoded message is",len(mes),"bytes")
     except:
         Tk().wihdraw()
-        messagebox.showerror('Basic utilities','we culd not open the file for you. It may have been deleted, moved, unreadable, or we lack permissions.')
+        messagebox.showerror('Basic utilities','we could not open the file for you. It may have been deleted, moved, unreadable, or we lack permissions.')
     else:
         tra = mes.replace('GLHAC.P','z').replace('EXE','y').replace('ENDER','x').replace('BITLY','w').replace('OTW','v')\
     .replace('MOM','u').replace('CUED','t').replace('GHQ[W]','s').replace('QYIF','r').replace('FKUWEUI','q').replace('VAN','p')\
@@ -1628,6 +1628,7 @@ elif hasarg2 == True:
             istr = False
             isdef = False
             forcekillnl()
+    sys.exit()
 
 ##@@##@@
 log('Basic Utilities is starting. Running version '+ASSEMBLEDVERSION)
@@ -2607,16 +2608,21 @@ while xae == True:
             print("What directory do you want to test?")
             dtt = filedialog.askdirectory()
             if dtt != "":
-                stime0 = datetime.datetime.now()
-                with open(dtt+sysslash+"__speedtest__.null","w+") as f:
-                    f.write(writreable)
-                stime1 = datetime.datetime.now()
-                os.remove(dtt+sysslash+"__speedtest__.null")
-                diff = stime1-stime0
-                diffms = diff.total_seconds()*1000
-                del writreable
-                print("Wrote 1 MB to disk in",diffms,"milliseconds")
-                print("Speed:",round(1/diff.total_seconds(),2),"MB/s")
+                try:
+                    stime0 = datetime.datetime.now()
+                    with open(dtt+sysslash+"__speedtest__.null","w+") as f:
+                        f.write(writreable)
+                    stime1 = datetime.datetime.now()
+                    os.remove(dtt+sysslash+"__speedtest__.null")
+                    diff = stime1-stime0
+                    diffms = diff.total_seconds()*1000
+                    del writreable
+                    print("Wrote 1 MB to disk in",diffms,"milliseconds")
+                    print("Speed:",round(1/diff.total_seconds(),2),"MB/s")
+                except PermissionError:
+                    print("Error: Permission denied.")
+                except ZeroDivisionError:
+                    print("Your computer is so fast that we divided by zero.")
 
         elif command == "procmem":
             proc = input("Process to retrieve: ")
