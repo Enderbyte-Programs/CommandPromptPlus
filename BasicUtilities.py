@@ -1,4 +1,4 @@
-SYSVERSION = '2.29.3'
+SYSVERSION = '2.29.4'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -6,7 +6,7 @@ if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
 
 print(ASSEMBLEDVERSION,'(c) 2021-2022 Enderbyte Programs')
-print("Initializing...",end="\r")
+print("Initializing core functions",end="\r")
 import os
 os.system("")
 from tkinter import messagebox, Tk
@@ -32,7 +32,10 @@ def consoleask(message) -> bool:
             break
         else:
             print("Invalid. Please type 'yes' or 'no'")
-
+def pinit(text):
+    print(" "*50,end="\r")
+    print(text,end="\r")
+pinit("Preparing Libraries")
 try:
     from pytube import *
 except Exception as e:
@@ -66,6 +69,7 @@ try:
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
 
+pinit("Defining core functions part 2")
 os.system("color")
 INFO = "info"
 WARN = "warn"
@@ -173,7 +177,7 @@ if SNAPSHOT:
         termcolor.cprint("Warning! You are using a beta version of Basic Utilities! There may be lots of bugs.","yellow")
     except:
         print("Warning! You are using a beta version of Basic Utilities. There may be unexpected issues.")
-
+pinit("Initializing libraries part 2")
 import tarfile
 import datetime
 sys.excepthook = handle_exception
@@ -250,7 +254,7 @@ if str(platform.system()) == 'Windows':
     
 else:
     sysslash = '/'
-    
+pinit("Scanning arguments") 
 if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
     
     try:
@@ -1633,7 +1637,7 @@ elif hasarg2 == True:
 ##@@##@@
 log('Basic Utilities is starting. Running version '+ASSEMBLEDVERSION)
 STIME = datetime.datetime.now()
-
+pinit("Loading Appdata")
 if os.path.isfile("appdata.json"):
     log("Loading Appdata")
     with open("appdata.json") as appdat:
@@ -1833,16 +1837,12 @@ log("Appdata initialization is complete")
 updateappdata()
 if str(platform.system()) == 'Windows':
     sysslash = '\\'
-    if not APPDATA["legacyStartups"]:
-        print(str(platform.platform()))
 else:
     sysslash = '/'
     if not APPDATA["legacyStartups"]:
         print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
-if not APPDATA["legacyStartups"]:
-    print(os.getcwd())
-    print(pid)
 
+pinit("Requesting data from server (1/4) (update data)")
 try:   
     from requests import get
     import requests
@@ -1882,7 +1882,7 @@ except NameError:
     updateappdata()
 else:
     log("User is connected to the internet",INFO)
-
+    pinit("Requesting data from server (2/4) (missing files)")
     if not os.path.isfile("warning.mp3"):
         log("Could not find sound file. Downloading",WARN)
         urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3","warning.mp3")
@@ -1895,7 +1895,9 @@ else:
         print('Failed to get Update data',str(e))
         log(str(e),ERROR)
     else:
+        pinit("Requesting data from server (3/4) (message)")
         MESSAGE = get("https://pastebin.com/raw/zYfU8JAP").text
+    pinit("Requesting data from server (4/4) (secret stuff)")
     try:
         RESTRICTIONS = requests.get("https://pastebin.com/raw/W7qMKqru").json()
     except requests.ConnectionError as e:
@@ -1940,6 +1942,8 @@ except:
 else:
     APPDATA["bcount"] = bootcount + 1
     updateappdata()
+
+pinit("Loading functions part 3")
 
 def error(erc):
     erc = str(erc)
@@ -2062,7 +2066,7 @@ def runfile(filename):
         error(2)
 ##US
 sysuser = APPDATA["username"]
-
+pinit("Checking dates (1/4) (Birthday)")
 try:
     mt = APPDATA["bday"]["month"]
     dy = APPDATA["bday"]["day"]
@@ -2084,6 +2088,7 @@ else:
             print('Warning: Bday out of range',end='\r')
         else:
             if mt == p and dy ==o:
+                pinit("")
                 print("Happy birthday to you!")
                 print("Happy birthday to you!")
                 print(f"Happy birthday, dear {sysuser}")
@@ -2091,7 +2096,7 @@ else:
                 print("")
                 print('press enter to continue to the command menu')
                 input()
-
+pinit("Checking dates (2/4) (Holidays)")
 t = datetime.datetime.now()
 y = t.year
 p = t.month
@@ -2119,7 +2124,7 @@ elif p == 10 and o == 31:
 elif p == 4 and o == 14:
     print(f"Happy Vaisakhi if you are sikh")
 #Couldn't find any more fixed-date holidays that are recognized globally. I am trying to be as inclusive as possible.
-
+pinit("Checking dates (3/4) (Times booted)")
 if not APPDATA["legacyStartups"]:
     print('You have booted up Basic Utilities',bootcount+1,'times.')
 x = datetime.datetime.now()
@@ -2129,7 +2134,7 @@ if x.month == 7 and x.day == 1:
     print(f'Happy Canada Day, {sysuser}!')
 if x.month == 7 and x.day == 4:
     print(f'Happy American Day, {sysuser} ( if you are american)')
-
+pinit("Checking dates (4/4) (Start dates)")
 try:
     
     a = APPDATA["btime"]["year"]
@@ -2193,8 +2198,7 @@ updateappdata()
 if not APPDATA["legacyStartups"]:
     print('')
     print("Welcome to Basic Utilities,",sysuser)
-if not APPDATA["legacyStartups"]:
-    print(datetime.datetime.now())
+
 x = datetime.datetime.now()
 if not APPDATA["legacyStartups"]:
     if x.hour > 0 and x.hour < 12:
@@ -2225,6 +2229,7 @@ if not APPDATA["legacyStartups"]:
         termcolor.cprint("TODAY'S MESSAGE: "+MESSAGE,"blue")
     else:
         print("Today's Mesasge:",MESSAGE)
+pinit("Preparing functions part 4")
 class fconv():
     
     def __init__(self,start,end,formula):
@@ -2372,9 +2377,11 @@ if not FCON:
         }
         APPDATA["restrictions"] = RESTRICTIONS
 updateappdata()
+pinit("Finishing up")
 ETIME = datetime.datetime.now()
 stimetotal = ETIME - STIME
 log(f"Startup is finished. Took {int(stimetotal.total_seconds()*1000)} milliseconds")
+pinit("")
 #now it begins...
 print("\nType the command you wish to execute and press enter")
 while xae == True:
@@ -2385,7 +2392,7 @@ while xae == True:
         os.mkdir(".temp")
     
     
-    command = input(f"Basic Utilities {SYSVERSION} on {platform.system()}> ")
+    command = input("Basic Utilities> ")
     
     for note in APPDATA["restrictions"]["note"].items():
         if note[0] == "*":
@@ -2435,6 +2442,7 @@ while xae == True:
             print("erc: List of error codes")
             print("cmdrun: See how many commands you have run")
             print("msg: View today's message! (Request messages by sending me an email)")
+            print("cver: See the current version")
             print('')
             print("-----USELESS COMMANDS-----")
             print("insult: Get insulted")
@@ -2597,10 +2605,20 @@ while xae == True:
             print("relapdat: Reload the appdata of this program (may cause severe issues!)")
             print("pyterm: Execute Python code")
             print("dumpvar: Dump all variables to a file")
+            print("cver: See the current version")
+            print("adprintout: Print out appdata")
+            
             print("")
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "cver":
+            print("=====Basic Utilities Version Information=====")
+            print("Version",SYSVERSION)
+            print("IsBeta",SNAPSHOT)
+            print("SnapshotVersion",SNAPSHOTVERSION)
+            print("AssembledVersion",ASSEMBLEDVERSION)
 
         elif command == "diskspeed":
             print("Assembling writeable")
@@ -3383,7 +3401,7 @@ while xae == True:
             if nua == True:
                 
                 Tk().withdraw()
-                m = messagebox.askyesno('BU','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download and install it?')
+                m = messagebox.askyesno('Update Services','A new update ('+SYSVERDATA["version"]+') is available. Do you want to download and install it?\nChangelog:\n'+SYSVERDATA["changelog"].replace(",","\n"))
                 if m == True:
                     print("Preparing...")
                     fname = os.getcwd()+"\\.temp\\update_"+SYSVERDATA["version"]+".exe"
