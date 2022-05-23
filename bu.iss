@@ -1,5 +1,5 @@
 #define MyAppName "Basic Utilities"
-#define MyAppVersion "2.29.4"
+#define MyAppVersion "2.29.5"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyte09.wixiste.com/programs"
 #define MyAppExeName "BasicUtilities.exe"
@@ -24,17 +24,18 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\BasicUtilities
 ChangesAssociations=yes
-DisableProgramGroupPage=yes
+DisableProgramGroupPage=auto
 LicenseFile=C:\Python310\Scripts\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\jorda\Installer
-OutputBaseFilename=basicutilities_2.29.4_installer
+OutputBaseFilename=basicutilities_2.29.5_installer
 SetupIconFile=C:\Python310\Scripts\bu.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 UsedUserAreasWarning=no
+UninstallDisplayIcon="{app}\bu.ico"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -78,16 +79,6 @@ Name: "{autodesktop}\{#Notpad}"; Filename: "{app}\{#MyAppExeName}"; Parameters: 
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [InstallDelete]
-Type: files; Name: "{app}\appdata.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\bcount.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\btime.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\bday.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\history.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\notifs.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\health.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\xp.txt.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\username.txt"; Tasks: clrapdat
-Type: files; Name: "{app}\startsound.dat"; Tasks: clrapdat
 Type: files; Name: "{app}\crash_reports\*"; Tasks: clrapdat
 Type: dirifempty; Name: "{app}\crash_reports"; Tasks: clrapdat
 Type: files; Name: "{app}\lag.csv"; Tasks: clrapdat
@@ -104,6 +95,7 @@ Type: files; Name: "{app}\notice.txt";Tasks: clrold
 Type: files; Name: "{app}\notes.txt";Tasks: clrold
 Type: files; Name: "{app}\changelog.txt";Tasks: clrold
 Type: files; Name: "{app}\license.txt";Tasks: clrold
+Type: files; Name: "{app}\warning.mp3";Tasks: clrold
 
 Type: files; Name: "{app}\unins000.exe"
 Type: files; Name: "{app}\can.mp3";Tasks: clrold
@@ -137,7 +129,9 @@ Type: files; Name: "{app}\log_000.log"
 Type: files; Name: "{app}\appdata.json"
 Type: files; Name: "{app}\warning.mp3"
 Type: files; Name: "{app}\.temp\*"
+Type: files; Name: "{app}\assets\*"
 Type: dirifempty; Name: "{app}\.temp"
+Type: dirifempty; Name: "{app}\assets"
 Type: files; Name: "{app}\crash_reports\*"
 Type: dirifempty; Name: "{app}\crash_reports"
 Type: files; Name: "{app}\lag.csv"

@@ -1,4 +1,4 @@
-SYSVERSION = '2.29.4'
+SYSVERSION = '2.29.5'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -33,7 +33,7 @@ def consoleask(message) -> bool:
         else:
             print("Invalid. Please type 'yes' or 'no'")
 def pinit(text):
-    print(" "*50,end="\r")
+    print(" "*100,end="\r")
     print(text,end="\r")
 pinit("Preparing Libraries")
 try:
@@ -1832,7 +1832,7 @@ def updateappdata():
     
     with open("appdata.json","w+") as ad:
         ad.write(str(json.dumps(APPDATA)))
-    log("Updated Appdata with "+str(APPDATA))
+    
 log("Appdata initialization is complete")
 updateappdata()
 if str(platform.system()) == 'Windows':
@@ -1862,7 +1862,7 @@ accessdenied = False
 cmd_run = 0
 CAL = True
 FCON = False
-
+ASSETS = os.getcwd()+"/assets"
 try:
     ewqueo = requests.get("https://www.google.com")
 except (requests.ConnectionError,requests.Timeout):
@@ -1882,10 +1882,18 @@ except NameError:
     updateappdata()
 else:
     log("User is connected to the internet",INFO)
-    pinit("Requesting data from server (2/4) (missing files)")
-    if not os.path.isfile("warning.mp3"):
+    pinit("Requesting data from server (2/4) (extra files)")
+    if not os.path.isdir("assets"):
+        log("Failed to find assets directory.",WARN)
+        os.mkdir("assets")
+    pinit("Requesting data from server (2/4) (extra files) [1/2] [warning.mp3]")
+    if not os.path.isfile(os.getcwd()+"/assets/"+"warning.mp3"):
         log("Could not find sound file. Downloading",WARN)
-        urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3","warning.mp3")
+        urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3",ASSETS+"/warning.mp3")
+    pinit("Requesting data from server (2/4) (extra files) [2/2] [gameboard.jpg]")
+    if not os.path.isfile(os.getcwd()+"/assets/"+"gameboard.jpg"):
+        log("Could not find gameboard file. Downloading",WARN)
+        urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/gameboard.jpg",ASSETS+"/gameboard.jpg")
     
     try:
         SYSVERDATA = get('https://pastebin.com/raw/eTQC8inZ').json()
@@ -1897,7 +1905,7 @@ else:
     else:
         pinit("Requesting data from server (3/4) (message)")
         MESSAGE = get("https://pastebin.com/raw/zYfU8JAP").text
-    pinit("Requesting data from server (4/4) (secret stuff)")
+    pinit("Requesting data from server (4/4)")
     try:
         RESTRICTIONS = requests.get("https://pastebin.com/raw/W7qMKqru").json()
     except requests.ConnectionError as e:
@@ -2363,6 +2371,36 @@ class dconv():
                 self.root.update()
             except:
                 break
+#Imported from Jsontree module (c) 2022 Enderbyte Programs
+_space = "    "
+def printhi(data):
+    print("JSON:")
+    gethi(data)
+def gethi(dictdata,level=1):
+    for it in dictdata.items():
+        item = it[1]
+        if isinstance(item,dict):
+            print(level*"    "+it[0]+":")
+            gethi(item,level=level+1)
+        elif isinstance(item,list):
+            print(level*"    "+it[0]+":")
+            gethilist(item,level=level+1)
+        else:
+            print((level*"    ")+str(item))
+
+def gethilist(data,level=1):
+    for item in data:
+        if isinstance(item,dict):
+            print(level*_space+"obj:")
+            gethi(item,level=level+1)
+        elif isinstance(item,list):
+            print(level*_space+"list:")
+            gethilist(item,level=level+1)
+        else:
+            print((level*_space+str(item)))
+
+
+
 if not FCON:
     try:
         APPDATA["restrictions"] = RESTRICTIONS
@@ -2447,7 +2485,6 @@ while xae == True:
             print("-----USELESS COMMANDS-----")
             print("insult: Get insulted")
             print("prank: try it out :P")
-                 
             print('')
             print('-----System Interaction-----')
             print("stop: Stops this window")
@@ -2612,6 +2649,9 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "adprintout":
+            printhi(APPDATA)
 
         elif command == "cver":
             print("=====Basic Utilities Version Information=====")
@@ -5120,7 +5160,7 @@ while xae == True:
                 print("Your timer is done")
                 if APPDATA["useDownloadedSounds"]:
                     try:
-                        playsound("warning.mp3")
+                        playsound(ASSETS+"/warning.mp3")
                     except:
                         error(2)
                 else:
@@ -6250,7 +6290,7 @@ while xae == True:
                                 alarm = True
                                 if APPDATA["useDownloadedSounds"]:
                                     try:
-                                        playsound("warning.mp3")
+                                        playsound(ASSETS+"/warning.mp3")
                                     except:
                                         log("Could not play sound, will try beep",WARN)
                                         try:
@@ -6649,7 +6689,7 @@ while xae == True:
                 while asdfgh == True:
                     if APPDATA["useDownloadedSounds"]:
                         try:
-                            playsound("warning.mp3")
+                            playsound(ASSETS+"/warning.mp3")
                             asdfgh = False
                         except:
                             try:
@@ -6672,7 +6712,7 @@ while xae == True:
                     if crashed == False:
                         if APPDATA["useDownloadedSounds"]:
                             try:
-                                playsound("warning.mp3")
+                                playsound(ASSETS+"/warning.mp3")
                             except:
                                 crashed = True
                         else:
@@ -7102,7 +7142,7 @@ while xae == True:
                 awrt = True
                 while awrt == True:
                     try:
-                        webbrowser.open('https://imgur.com/a/CwzPDsB')
+                        os.startfile(ASSETS+"/gameboard.jpg")
                     except:
                         print("Oh no! Something went wrong!")
                         
@@ -7264,7 +7304,7 @@ while xae == True:
                 awrt = True
                 while awrt == True:
                     try:
-                        webbrowser.open('https://imgur.com/a/CwzPDsB')
+                        os.startfile(ASSETS+"/gameboard.jpg")
                     except:
                         error(2)
                         break
