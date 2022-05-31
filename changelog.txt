@@ -246,3 +246,4 @@
    2.29.3: Fixed bugs
    2.29.4: Added update changelog, more detailed startup progress
    2.29.5: Added assets directory and re-added gameboard
+   2.29.6: Fixed bugs and added an autoclicker
