@@ -14,6 +14,7 @@ if not has_windows:
     os.system('python3 -m pip install pytube')
     os.system('python3 -m pip install psutil')
     os.system('python3 -m pip install awesome-progress-bar')
+    os.system('python3 -m pip install pyuserinput')
 else:
     os.system('py -m pip install playsound==1.2.2')
     os.system('py -m pip install requests')
@@ -23,4 +24,5 @@ else:
     os.system('py -m pip install pytube')
     os.system('py -m pip install psutil')
     os.system('py -m pip install awesome-progress-bar')
+    os.system('py -m pip install pyuserinput')
 input('All Finished! Press enter to complete source-code setup')
