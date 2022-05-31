@@ -1,4 +1,4 @@
-SYSVERSION = '2.29.5'
+SYSVERSION = '2.29.6'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -66,6 +66,10 @@ import json
 import collections
 try:
     import psutil
+except:
+    print("Library psutil could not be found. Please run check_dependencies.py to install it.")
+try:
+    from pymouse import PyMouse
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
 
@@ -2218,8 +2222,6 @@ if not APPDATA["legacyStartups"]:
     else:
         print('Good night,',sysuser)
 nua = False
-if not APPDATA["legacyStartups"]:
-    print(sysslash)
 if reqins == True and haspkg:
     SYSVERNUM = version.parse(SYSVERDATA["version"])
     SYSVERSION = version.parse(SYSVERSION)
@@ -2536,7 +2538,7 @@ while xae == True:
             print('')
             print('-----Utility-----')
             print("lag: Measures your computer's lag.")
-            
+            print("autoclick: Click at ridiculous speeds")
             
             print("randpass: Get a random password.")
             
@@ -2649,6 +2651,21 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+
+        elif command == "autoclick":
+            input("Press enter to begin autoclicking. Run the keybind ctrl+alt+s to stop it")
+            runnnn = True
+            def srun():
+                global runnnn
+                runnnn  = False
+            keyboard.add_hotkey("ctrl+alt+s",srun)
+            while runnnn:
+                m = PyMouse()
+                x,y = m.position() #gets mouse current position coordinates
+                m.move(x,y)
+                m.click(x,y) #the third argument "1" represents the mouse button
+                m.press(x,y) #mouse button press
+                m.release(x,y) #mouse button release
 
         elif command == "adprintout":
             printhi(APPDATA)
@@ -3214,9 +3231,17 @@ while xae == True:
                     os.remove("lag.csv")
                 except:
                     pass
+            da13 = messagebox.askyesno("rem","Do you want to clear the assets folder?")
+            if da13:
+                try:
+                    shutil.rmtree("assets")
+                except:
+                    pass
             updateappdata()
             print("Custom AppData cleaning complete")
-
+            if da13:
+                if consoleask("Do you want to reload? Not doing so could have unintended consequences."):
+                    reload()
 
         elif command == 'webdownload' :
             wbdl = input("Web page to download: ")
@@ -3823,6 +3848,11 @@ while xae == True:
                 fcln +=0
             try:
                 os.remove('license.txt')
+                fcln +=1
+            except:
+                fcln +=0
+            try:
+                os.remove('warning.mp3')
                 fcln +=1
             except:
                 fcln +=0
@@ -4993,7 +5023,10 @@ while xae == True:
                 os.remove("lag.csv")
             except:
                 pass
+            shutil.rmtree("assets")
             updateappdata()
+            if consoleask("Would you like to reload now? (Failing to do so may have some unintended consequences)"):
+                reload()
         elif command == 'uninstall':
             
             
