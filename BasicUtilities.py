@@ -1,4 +1,4 @@
-SYSVERSION = '2.29.6'
+SYSVERSION = '2.29.7'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -2068,7 +2068,7 @@ def startsound():
                 print("Could not find start sound file")
     else:
         if not APPDATA["legacyStartups"]:
-            print('You currently do not have a startup sound set. Set one via the startsound command\n')
+            log('You currently do not have a startup sound set. Set one via the startsound command\n')
 ss_po = threading.Thread(target=startsound)
 ss_po.start()       
 def runfile(filename):
@@ -2767,18 +2767,22 @@ while xae == True:
             t.goto(-300,-100)
             t.pendown()
             t.goto(300,-100)
-            t.goto(300,100)
+            t.goto(300,300)
             t.penup()
-            t.goto(-300,100)
+            t.goto(-300,300)
             t.pendown()
-            t.write("100%")
+            t.write("100% 1000 ms lag")
             t.goto(-300,-100)
             t.write("0%")
-            for i in range(9):
+            for i in range(19):
                 t.penup()
                 t.goto(-300,-100+(i*20+20))
                 t.pendown()
-                t.write(str(int((t.pos()[1]+100)/2))+"%")
+                if -100+(i*20+20) < 110:
+                    wst = str(int((t.pos()[1]+100)/2))+"%"
+                else:
+                    wst = "100% "+str(round((i-9)/10*1000))+" ms lag"
+                t.write(wst)
                 t.goto(300,-100+(i*20+20))
             turtle.update()
             t.penup()
@@ -2795,7 +2799,7 @@ while xae == True:
             print("\n\n\n")
             while True:
                 try:
-                    sleep(1)
+                    
                     wpos += 10
                     newcputimes = psutil.cpu_times()
                     nidle = newcputimes.idle
@@ -2850,7 +2854,7 @@ while xae == True:
                     turtle.update()
                     t.penup()
                     t.goto(ipos)
-                    if wpos > 290:
+                    if wpos > 300:
                         t.clear()
                         t.pencolor("black")
                         t.penup()
@@ -2878,6 +2882,7 @@ while xae == True:
                         upos = (-300,userp-100)
                         spos = (-300,systmp-100)
                         bpos = (-300,busytime-100)
+                    sleep(1)
                 except:
                     break
 
@@ -6973,26 +6978,25 @@ while xae == True:
                         cycle = int(cyclee)+1
                     except:
                         cycle = 0
+                sleep(1)
                 while True:
-                    
-                    
+
                     qwer = qwe.second
                     if qwer > 57:
                         sleep(3)
                         qwe = datetime.datetime.now()
                         qwer = qwe.second
+                        sleep(1)
                     fa = qwe.strftime('%S.%f')[:-3]
                     fa = float(fa)
                     lagcount = lagcount + 1
                     tlagcount += 1
-                    tims = 0
-                    sleep(1)
-                    tims = 1
+                    
                     qwert = datetime.datetime.now()
                     ft = qwert.strftime('%S.%f')[:-3]
                     ft = float(ft)
                     lag = ft - fa
-                    lag = lag - tims
+                    lag = lag - 1
                     lag = lag * 1000
                     if lag < 0:
                         lag = 3000
@@ -7014,7 +7018,7 @@ while xae == True:
                             t.goto(tgotototal,tlag)
                             lnp = t.pos()
                             t.penup()
-                            t.pencolor("green")
+                            t.pencolor("purple")
                             t.goto(lanp[0],lanp[1])
                             t.pendown()
                             t.goto(tgotototal,talag)
@@ -7030,7 +7034,7 @@ while xae == True:
                             t.goto(lnp[0],lnp[1])
                             t.pendown()
                             turtle.update()
-                            if tgotototal > 290:
+                            if tgotototal > 300:                               
                                 t.pencolor("red")
                                 t.clear()
                                 ttotal = 0
@@ -7065,7 +7069,7 @@ while xae == True:
                                 t.forward(50)
                                 t.write("lag")
                                 t.penup()
-                                t.pencolor("green")
+                                t.pencolor("purple")
                                 t.forward(50)
                                 t.pendown()
                                 t.forward(50)
@@ -7082,7 +7086,7 @@ while xae == True:
                                 t.pencolor("red")
                                 turtle.update()
                                 lnp = (-300,tlag)
-                                lanp = (-300,talag)
+                                lanp = (-300,-100)
                                 tlan = (-300,tlg)
                                 averagelag = 0
                                 lagcount = 0
@@ -7105,6 +7109,7 @@ while xae == True:
                             l.write("m-start,m-end,lag,cycleaverage,allaverage,cycle\n")
                     with open("lag.csv","a") as l:
                         l.write(f"{oqwe},{qwert},{lag},{avglag},{xavglag},{cycle}\n")
+                    sleep(1)
         elif command == "avg":
             nums = 0
             total = 0
