@@ -5020,7 +5020,7 @@ while xae == True:
             APPDATA["gamexp"] = None
             APPDATA["startsound"] = None
             APPDATA["useDownloadedSounds"] = True
-            APPDATA["useColouredText"] = False
+            APPDATA["useColouredText"] = True
             APPDATA["legacyStartups"] = False
             APPDATA["commandsRun"] = 0
             shutil.rmtree(".temp")
