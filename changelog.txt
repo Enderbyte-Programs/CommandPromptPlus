@@ -248,3 +248,4 @@
    2.29.5: Added assets directory and re-added gameboard
    2.29.6: Fixed bugs and added an autoclicker
    2.29.7: Fixed bugs and tweaked lag and cputimeg
+   2.30-a1: Fixed bugs in cputimeg
