@@ -1,6 +1,6 @@
-SYSVERSION = '2.29.7'
-SNAPSHOT = False
-SNAPSHOTVERSION = 0
+SYSVERSION = '2.30'
+SNAPSHOT = True
+SNAPSHOTVERSION = 1
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2861,18 +2861,22 @@ while xae == True:
                         t.goto(-300,-100)
                         t.pendown()
                         t.goto(300,-100)
-                        t.goto(300,100)
+                        t.goto(300,300)
                         t.penup()
-                        t.goto(-300,100)
+                        t.goto(-300,300)
                         t.pendown()
-                        t.write("100%")
+                        t.write("100% 1000 ms lag")
                         t.goto(-300,-100)
                         t.write("0%")
-                        for i in range(9):
+                        for i in range(19):
                             t.penup()
                             t.goto(-300,-100+(i*20+20))
                             t.pendown()
-                            t.write(str(int((t.pos()[1]+100)/2))+"%")
+                            if -100+(i*20+20) < 110:
+                                wst = str(int((t.pos()[1]+100)/2))+"%"
+                            else:
+                                wst = "100% "+str(round((i-9)/10*1000))+" ms lag"
+                            t.write(wst)
                             t.goto(300,-100+(i*20+20))
                         turtle.update()
                         t.penup()
