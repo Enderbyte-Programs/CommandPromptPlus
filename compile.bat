@@ -1,4 +1,5 @@
 move .\BasicUtilities\BasicUtilities.py BasicUtilities.py
+move .\BasicUtilities\scupdate.py scupdate.py
 del /s /f /q .\BasicUtilities\*
 del .\dist\BasicUtilities.exe
 rmdir .\BasicUtilities\.temp
@@ -13,3 +14,4 @@ del /s /f /q .\BasicUtilities\*
 rmdir /s /q .\BasicUtilities\
 mkdir BasicUtilities
 move BasicUtilities.py .\BasicUtilities\BasicUtilities.py
+move scupdate.py .\BasicUtilities\scupdate.py
