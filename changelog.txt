@@ -250,3 +250,4 @@
    2.29.7: Fixed bugs and tweaked lag and cputimeg
    2.30-a1: Fixed bugs in cputimeg
    2.30-a2: Fixed bugs in clr
+   2.30-a3: Prepared script for differences in clion/off mode
