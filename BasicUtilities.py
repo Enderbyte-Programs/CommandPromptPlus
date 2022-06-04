@@ -1,6 +1,6 @@
 SYSVERSION = '2.30'
 SNAPSHOT = True
-SNAPSHOTVERSION = 1
+SNAPSHOTVERSION = 3
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -10,6 +10,20 @@ print("Initializing core functions",end="\r")
 import os
 os.system("")
 from tkinter import messagebox, Tk
+import sys
+try:
+    testtk = Tk()
+except:
+    CLI = True
+else:
+    testtk.update()
+    testtk.destroy()
+    del testtk
+    CLI = False
+if "--noclicheck" in sys.argv:
+    CLI = False
+elif "--nogui" in sys.argv:
+    CLI = True
 def toplevelerror(message,title='Error'):
     title = str(title)
     message = str(message)
@@ -61,7 +75,7 @@ else:
     HASTC = True
 
 from traceback import format_tb
-import sys
+
 import json
 import collections
 try:
@@ -307,6 +321,9 @@ if (hasarg and xxx == '--translate') or (hasarg and xxx == "-t"):
     input()
     forcekillnl()
 elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
+    if CLI:
+        print("Program is not correctly initialized for this function.")
+        sys.exit(1)
     print("Turtle Drawing Loader for Basic Utilities")
     s = turtle.getscreen()
     t = turtle.Turtle()
@@ -702,6 +719,9 @@ elif (hasarg and xxx == "-d") or (hasarg and xxx == "--draw"):
     os.system("taskkill /f /pid "+str(os.getpid()))
 
 elif hasarg2 == True:
+    if CLI:
+        print("Program is not correctly initialized")
+        sys.exit(1)
     print("Notpad Text Editor for Basic Utilities")
     cwd = os.getcwd()
     fto = sys.argv[1]
@@ -1662,7 +1682,7 @@ if not os.path.isfile("appdata.json") and os.path.isfile("bcount.txt"):
     print("You are using an old version of appdata (<2.23). Would you like to port it?")
     pa = input()
     apd = {"besttime": 0, "bcount" : 0, "btime": {"year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None}, "bday": {"month": None, "day": None}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": False, "gamehealth": 100, "gamexp": 0, "startsound": None, "useDownloadedSounds" : True, "useColouredText" : True, "legacyStartups" : False,
-    "commandsRun" : 0}
+    "commandsRun" : 0,"climode":CLI}
 
     if not HASTC:
         apd["useColouredText"] = False
@@ -1811,7 +1831,7 @@ if not os.path.isfile("appdata.json") and not isported:
     log("Could not find Appdata file.",WARN)
     with open("appdata.json","w+") as apt:
         
-        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": false, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true, "legacyStartups" : false, "commandsRun" : 0}')
+        apt.write('{"besttime": 0, "bcount" : 0, "btime": {"year": null, "month": null, "day": null, "hour": null, "minute": null, "second": null}, "bday": {"month": null, "day": null}, "webhistory": [], "username": "DefaultUser", "showCommandsRun": false, "gamehealth": 100, "gamexp": 0, "startsound": null, "useDownloadedSounds" : true, "useColouredText" : true, "legacyStartups" : false, "commandsRun" : 0,"climode":false}')
 
 
     with open("appdata.json") as appdat:
@@ -1830,6 +1850,9 @@ if not "legacyStartups" in APPDATA:
     APPDATA["legacyStartups"] = False
 if not "commandsRun" in APPDATA:
     APPDATA["commandsRun"] = 0
+if not "climode" in APPDATA:
+    APPDATA["climode"] = CLI
+CLI = APPDATA["climode"]
 def updateappdata():
     global APPDATA
     global INFO
@@ -2430,10 +2453,9 @@ while xae == True:
     if not os.path.isdir(".temp"):
         log("Could not find temp dir",WARN)
         os.mkdir(".temp")
-    
-    
-    command = input("Basic Utilities> ")
-    
+    CLIBANNED = ["te"]
+    CLICHG = []
+    command = input("Basic Utilities> ") 
     for note in APPDATA["restrictions"]["note"].items():
         if note[0] == "*":
             print("Note for this command:",note[1])
@@ -2454,6 +2476,12 @@ while xae == True:
             else:
                 print("This command has been disabled.")
             CAL = False
+    if CLI:
+        if command in CLIBANNED:
+            print("This command does not support nogui mode.")
+            CAL = False
+        elif command in CLICHG:
+            command += ".cli"
     if CAL:
         if command != "":
             log(f'{sysuser} executed command '+command)
@@ -2651,6 +2679,16 @@ while xae == True:
             print("-----Clipboard-----")
             print("clrclp: Clear the clipboard")
             print("clipboard: Write something to the clipboard")
+            print("\n-----Modes-----")
+            print("clion: Start CLI only mode")
+            print("clioff: Stop CLI only mode")
+
+        elif command == "clion" :
+            APPDATA["climode"] = True
+            CLI = True
+        elif command == "clioff":
+            APPDATA["climode"] = False
+            CLI = False
 
         elif command == "autoclick":
             input("Press enter to begin autoclicking. Run the keybind ctrl+alt+s to stop it")
