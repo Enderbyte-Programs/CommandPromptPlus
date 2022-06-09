@@ -1,6 +1,6 @@
 SYSVERSION = '2.30'
 SNAPSHOT = True
-SNAPSHOTVERSION = 3
+SNAPSHOTVERSION = 4
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2453,9 +2453,11 @@ while xae == True:
     if not os.path.isdir(".temp"):
         log("Could not find temp dir",WARN)
         os.mkdir(".temp")
-    CLIBANNED = ["te"]
+    CLIBANNED = ["te","art","letsdraw","clrclp","clipboard","rem","ytdownload","ytaudio","ytplaylist","ytplaylista","tar","untar","startsound","clock","diran","cmaj","permaping","ping","encode","translate","color","colour","cpg","timer","draw","sw","prank","browser"]
     CLICHG = []
     command = input("Basic Utilities> ") 
+    if command != "":
+        log(f'{sysuser} executed command '+command)
     for note in APPDATA["restrictions"]["note"].items():
         if note[0] == "*":
             print("Note for this command:",note[1])
@@ -2483,8 +2485,7 @@ while xae == True:
         elif command in CLICHG:
             command += ".cli"
     if CAL:
-        if command != "":
-            log(f'{sysuser} executed command '+command)
+        
         if command == "help" or command == "?":
             
             print("-----Commands List-----")
@@ -2697,8 +2698,9 @@ while xae == True:
                 global runnnn
                 runnnn  = False
             keyboard.add_hotkey("ctrl+alt+s",srun)
+            m = PyMouse()
             while runnnn:
-                m = PyMouse()
+                
                 x,y = m.position() #gets mouse current position coordinates
                 m.move(x,y)
                 m.click(x,y) #the third argument "1" represents the mouse button
@@ -4442,8 +4444,7 @@ while xae == True:
                     elif monsterbattle_name == 'The Kraken':
                         monster_spells = ['Wave','Tsunami','Horror of the Deep']
                     else:
-                        Tk().withdraw()
-                        messagebox.showwarning('Exception','Unrecognized monster name. Will revert to base spells')
+                        print("Unrecognized monster name. Reverting")
                         monster_spells = ['spell.placeholder.small','spell.placeholder.med','spell.placeholder.large']
                     spells = ['Wingardium Leviosa','Impedimenta','Avada Kedavra']
                     while monster_health > 0 and health > 0:
@@ -4558,12 +4559,6 @@ while xae == True:
                     print('')
                 elif battle == 'n':
                     break
-                
-        
-        elif command == 'ls':
-            runfile('license.txt')
-        
-            
         elif command == 'degp':
             print('How many degrees?')
             der = input()
@@ -4614,11 +4609,9 @@ while xae == True:
                             res = vtc + 273
                             print('Converted is',res)
                         else:
-                            Tk().withdraw()
-                            messagebox.showwarning('Warning','Invalid Command Combination')
+                            print("Invalid command")
                 else:
-                    Tk().withdraw()
-                    messagebox.showwarning('Warning','Invalid Command Combination')           
+                    print("Invalid command")        
 
         elif command == 'cpicker':
             colours = ['red','orange','yellow','lime','green','turquois','blue','navy','purple','magenta','pink','brown','black','white']
@@ -4953,17 +4946,6 @@ while xae == True:
         elif command == 'ur mom':
             Tk().withdraw()
             messagebox.showerror('Error','Shut up, you inmature child')
-        elif command == 'spam':
-            for i in range(20):
-                try:
-                    os.startfile('error.vbs')
-                except:
-                    toplevelerror('Please use version 2.19.4 or earlier!')
-                    break
-                else:
-                    c = random.randint(3,13)
-                    c = c/10
-                    sleep(c)
 
         elif command == 'cpg':
             print("To return to the command menu, make sure all other Tk windows are closed.")
