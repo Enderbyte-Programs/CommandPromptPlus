@@ -1,6 +1,6 @@
 SYSVERSION = '2.30'
 SNAPSHOT = True
-SNAPSHOTVERSION = 4
+SNAPSHOTVERSION = 5
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2454,7 +2454,7 @@ while xae == True:
         log("Could not find temp dir",WARN)
         os.mkdir(".temp")
     CLIBANNED = ["te","art","letsdraw","clrclp","clipboard","rem","ytdownload","ytaudio","ytplaylist","ytplaylista","tar","untar","startsound","clock","diran","cmaj","permaping","ping","encode","translate","color","colour","cpg","timer","draw","sw","prank","browser"]
-    CLICHG = []
+    CLICHG = ["allext","allextval","searchext","webdownload","search","scanall","folmem","filemem","rev","settings","config","cfg","options","clean your room"]
     command = input("Basic Utilities> ") 
     if command != "":
         log(f'{sysuser} executed command '+command)
@@ -2484,6 +2484,7 @@ while xae == True:
             CAL = False
         elif command in CLICHG:
             command += ".cli"
+            log("Command found in CLI change list")
     if CAL:
         
         if command == "help" or command == "?":
@@ -2992,6 +2993,36 @@ while xae == True:
                 del cval_s
                 del cvals
 
+        elif command == "allext.cli":
+            root = input("Directory to sort: ")
+            
+            if os.path.isdir(root):
+                print("Scanning... (Please wait, this may take some time.)")
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        e = os.path.join(path,name).replace("/","\\").lower().split("\\")
+                        if "." in e[len(e)-1]:
+                            try:
+                                n = os.path.join(path, name).replace("/","\\").lower().split(".")
+                                n = n[len(n)-1]
+                            except:
+                                pass
+                            else:
+                                allf.append(n)
+                
+                print("Counting...")
+                
+                cval = collections.Counter(allf)
+                cval_s = {k: v for k, v in sorted(cval.items(), key=lambda item: item[1])}
+                cvals = list(cval_s.keys())
+                cvals.sort()
+                for item in cvals:
+                    print(f"{item}: {cval_s[item]}")
+                del allf
+                del cval
+                del cval_s
+                del cvals
+
         elif command == "allextval":
             print('Please choose directory to search')
             Tk().withdraw()
@@ -3024,11 +3055,53 @@ while xae == True:
                 del cval
                 del cval_s
 
+        elif command == "allextval.cli":
+            root = input("Directory to sort: ")
+            
+            if os.path.isdir(root):
+                print("Scanning... (Please wait, this may take some time.)")
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        e = os.path.join(path,name).replace("/","\\").lower().split("\\")
+                        if "." in e[len(e)-1]:
+                            try:
+                                n = os.path.join(path, name).replace("/","\\").lower().split(".")
+                                n = n[len(n)-1]
+                            except:
+                                pass
+                            else:
+                                allf.append(n)
+                
+                print("Counting...")
+                
+                cval = collections.Counter(allf)
+                cval_s = {k: v for k, v in sorted(cval.items(), key=lambda item: item[1])}
+                
+                for item in cval_s.keys():
+                    print(f"{item}: {cval_s[item]}")
+                del allf
+                del cval
+                del cval_s
+
         elif command == "searchext":
             print('Please choose directory to search')
             Tk().withdraw()
 
             root = filedialog.askdirectory()
+            wts = input("Search for what extension? (1 extension only, no dot required): ")
+            wts = wts.replace(".","")
+            how_many_files = 0
+            print("Scanning...")
+            if os.path.isdir(root):
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        n = os.path.join(path, name)
+                        if n.split(".")[len(n.split("."))-1] == wts:
+                            print(n.replace("/","\\"))
+                            how_many_files += 1
+                print(f"{how_many_files} files were found matching your criteria.")
+        elif command == "searchext.cli":
+            root = input("Directory to search: ")
             wts = input("Search for what extension? (1 extension only, no dot required): ")
             wts = wts.replace(".","")
             how_many_files = 0
@@ -3304,6 +3377,15 @@ while xae == True:
                 pass
             else:
                 print("Download is complete")
+        elif command == 'webdownload.cli' :
+            wbdl = input("Web page to download: ")
+            file = input("File to save it to: ")
+            try:
+                urllib.request.urlretrieve(wbdl,file)
+            except Exception as e: 
+                print(f"Error {e}")
+            else:
+                print("Download is complete")
 
         elif command == 'ytdownload':
             print('Please input the full URL to the video of your choice and press enter')
@@ -3437,6 +3519,17 @@ while xae == True:
                         fin = os.path.join(path, name)
                         if searchfor.lower() in name.lower():
                             print(fin.replace('/','\\'))
+        elif command == 'search.cli':
+            print('What to search for?')
+            searchfor = input()
+            root = input("Directory to search in: ")
+            
+            if os.path.isdir(root):
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        fin = os.path.join(path, name)
+                        if searchfor.lower() in name.lower():
+                            print(fin.replace('/','\\'))
 
         elif command == 'speed':
             has_finished_counting = False
@@ -3498,6 +3591,20 @@ while xae == True:
             Tk().withdraw()
 
             root = filedialog.askdirectory()
+            how_many_files = 0
+            if os.path.isdir(root):
+                for path, subdirs, files in os.walk(root):
+                    for name in files:
+                        print(os.path.join(path, name).replace('/','\\'))
+                        how_many_files += 1
+                print('Files:',how_many_files)
+                
+            else:
+            
+                print('Invalid directory')
+            
+        elif command == 'scanall.cli':
+            root = input("Directory to scan: ")
             how_many_files = 0
             if os.path.isdir(root):
                 for path, subdirs, files in os.walk(root):
@@ -3984,12 +4091,21 @@ while xae == True:
                 print('we are using',(total_size / shutil.disk_usage(sysslash)[1]*100),'% of YOUR used memory :)')
                 print('we are using',(total_size / shutil.disk_usage(sysslash)[0]*100),'% of YOUR total memory :)')
             except:
-                Tk().withdraw()
-                messagebox.showerror('Error','Basic utilities is not able to access its own folder. What a shame.')
+                print("Basic Utilities in unable to access its own folder. What a shame")
 
         elif command == 'filemem':
             Tk().withdraw()
             file_path = filedialog.askopenfilename()
+            try:
+                fsize = os.path.getsize(file_path)
+                print('Size:',fsize,'Bytes')
+                print('This file accounts for',(fsize / shutil.disk_usage(sysslash)[1]*100),'% of used memory')
+                print('This file accounts for',(fsize / shutil.disk_usage(sysslash)[0]*100),'% of total memory')
+            except:
+                error(1)
+
+        elif command == 'filemem.cli':
+            file_path = input("File to scan: ")
             try:
                 fsize = os.path.getsize(file_path)
                 print('Size:',fsize,'Bytes')
@@ -4022,10 +4138,27 @@ while xae == True:
                     print("Directory size: " + str(total_size),'Bytes')
                     print('This folder accounts for',(total_size / shutil.disk_usage(sysslash)[1]*100),'% of used memory')
                     print('This folder accounts for',(total_size / shutil.disk_usage(sysslash)[0]*100),'% of total memory')
-                except:
-                    Tk().withdraw()
-                    messagebox.showerror('Error','Basic utilities is not able to access this folder.')
+                except Exception as e:
+                    print(f"ERROR in command: {e}")
 
+        elif command == 'folmem.cli':
+            total = 0
+            dirpath = input("Folder to scan: ")
+            if str(dirpath) == '()':
+                pass
+            else:
+                try:
+                    total_size = 0
+                    
+                    for path, dirs, files in os.walk(dirpath):
+                        for f in files:
+                            fp = os.path.join(path, f)
+                            total_size += os.path.getsize(fp)
+                    print("Directory size: " + str(total_size),'Bytes')
+                    print('This folder accounts for',(total_size / shutil.disk_usage(sysslash)[1]*100),'% of used memory')
+                    print('This folder accounts for',(total_size / shutil.disk_usage(sysslash)[0]*100),'% of total memory')
+                except Exception as e:
+                    print(f"ERROR in command: {e}")
         elif command == 'stat':
             print('lines: 7382')
             print('print statements: 1035')
@@ -4093,6 +4226,25 @@ while xae == True:
                 f = open(file_path+'rev','x')
             f.write(newstr)
             f.close()
+
+        elif command == 'rev.cli':
+
+            file_path = input("File to reverse: ")
+            try:
+                f = open(file_path)
+                data = f.read()
+                strlen = len(data)
+                newstr = data[strlen::-1]
+                print(newstr)
+                f.close()
+                try:
+                    f = open(file_path+'rev','x')
+                except:
+                    f = open(file_path+'rev','x')
+                f.write(newstr)
+                f.close()
+            except:
+                error(1)
         elif command == 'pi':
             print('How many units')
             units = input()
@@ -4167,10 +4319,7 @@ while xae == True:
                 messagebox.showerror('BU','This command is not compatible with your device')
 
         elif command == 'fstat':
-            print('What file to analyse? ')
-            Tk().withdraw()
-            fta = filedialog.askopenfilename()
-            
+            fta = input("File to analyze: ")
             try:
                 f = open(fta,'r')
             except:
@@ -4319,8 +4468,7 @@ while xae == True:
                 for i in range(random.randint(20,50)):
                     winsound.Beep(random.randint(200,1000),random.randint(200,1000))
             else:
-                Tk().withdraw()
-                messagebox.showerror('BU','Please use a microsoft device to run this command.')
+                print("This command is only supported on Microsoft Windows (r) devices.")
                 
 
         elif command == 'toneup':
@@ -4344,8 +4492,7 @@ while xae == True:
                             st = st + 10
                             print('Played tone of',st,'Hertz')
             else:
-                Tk().withdraw()
-                messagebox.showerror('BU','Please use a microsoft device to run this command.')
+                print("This command is only supported on Microsoft Windows (r) devices.")
 
         elif command == 'hex':
             print(random.choice([0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F']))
@@ -4359,8 +4506,7 @@ while xae == True:
                     print(random.randint(1,10)*'*')
                     sleep(random.randint(1,10)/10)
             else:
-                Tk().withdraw()
-                messagebox.showerror('BU','Please use a microsoft device to execute this command.')
+                print("This command is only supported on Microsoft Windows (r) devices.")
                 
 
         elif command == 'beep':
@@ -4385,8 +4531,7 @@ while xae == True:
                             error(1)
 
             else:
-                Tk().withdraw()
-                messagebox.showerror('BU','Please use a Microsoft device to execute this comamnd.')
+                print("This command is only supported on Microsoft Windows (r) devices.")
 
         elif command == 'game2':
             newwindow()
@@ -4758,6 +4903,33 @@ while xae == True:
             btn = Button(nf,text="Done",bg="lime green",command=apsave)
             btn.grid(column=0,row=4)
             nf.mainloop()
+
+        elif command == "settings.cli" or command == "options.cli" or command == "config.cli" or command == "cfg.cli":
+            print("Please type in the key name")
+            jsonpath = input()
+            if jsonpath in APPDATA:
+                print("Answer _d to delete or _r to keep existing value. Have _i before a space it to set as integer,have _b0 or _b1 to set as boolean")
+                print(f"CURRENT VALUE: {APPDATA[jsonpath]}")
+                nv = input(f"New value for {jsonpath}:")
+                if nv == "_d":
+                    del APPDATA[jsonpath]
+                elif nv == "_r":
+                    pass
+                elif "_i" in nv:
+                    try:
+                        nv = int(nv.split(" ")[0])
+                    except:
+                        print("Error")
+                        pass
+                    else:
+                        APPDATA[jsonpath] = nv
+                elif "_b0" in nv:
+                    APPDATA[jsonpath] = False
+                elif "_b1" in nv:
+                    APPDATA[jsonpath] = True
+                else:
+                    APPDATA[jsonpath] = nv
+                print("Set value to",APPDATA[jsonpath])
             
         elif command == 'encode':
             print("Please select the file to encode.")
@@ -4944,9 +5116,12 @@ while xae == True:
             Tk().withdraw()
             messagebox.showerror('Error','Computers cannot clean their rooms')
         elif command == 'ur mom':
-            Tk().withdraw()
-            messagebox.showerror('Error','Shut up, you inmature child')
+            class ImmatureError(Exception):
+                pass
+            raise ImmatureError("You are extremely immature.")
 
+        elif command == 'clean your room.cli':
+            print("Error: Computers cannot clean their rooms.")
         elif command == 'cpg':
             print("To return to the command menu, make sure all other Tk windows are closed.")
             def rot():
