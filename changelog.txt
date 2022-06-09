@@ -227,3 +227,5 @@
    2.30-a1: Fixed bugs in cputimeg
    2.30-a2: Fixed bugs in clr
    2.30-a3: Prepared script for differences in clion/off mode
+   2.30-a4: Added a few clion commands
+   2.30-a5: Added the rest of the clion commands
