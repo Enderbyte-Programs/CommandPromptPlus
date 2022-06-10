@@ -1,4 +1,3 @@
 # Basic-Utilities
-Download BasicUtilities
 
-A mostly console-based utilities program for things you probably never thought of that are mostly useless. Our main usefull features are under "utilities" section of commands.txt
+Basic Utilities is a medium sized program for some utilities. MOst are rather stupid and useless but some are actually quite useful in certain situations. It is written in Python and is compiled for Windows but works on Linux too.
