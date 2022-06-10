@@ -1,6 +1,6 @@
 SYSVERSION = '2.30'
-SNAPSHOT = True
-SNAPSHOTVERSION = 5
+SNAPSHOT = False
+SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -4160,17 +4160,17 @@ while xae == True:
                 except Exception as e:
                     print(f"ERROR in command: {e}")
         elif command == 'stat':
-            print('lines: 7382')
-            print('print statements: 1035')
-            print('Variables: 1879')
-            print('comparisons 482')
-            print('Exception handling loops 300')
+            print('lines: 7720')
+            print('print statements: 1106')
+            print('Variables: 1954')
+            print('comparisons 2000')
+            print('Exception handling loops 313')
             print('While loops 56')
             print('For loop 103')
-            print('Commands: 173')
+            print('Commands: 192')
             print('Libraries Imported 28')
             print('files utilized 77')
-            print('Tkinter windows used 108')
+            print('Tkinter windows used 103')
             print("Functions: 150")
             print("Classes: 4")
 
