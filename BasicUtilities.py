@@ -6448,16 +6448,17 @@ while xae == True:
         elif command == "credits":
             print("Basic Utilities (c) 2021-2022 Enderbyte Programs")
             print("Installer by Inno Setup")
-            print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1, 3.10.2 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7 and 4.8 and 4.10")
+            print("Coded in Python 3.7.3, 3.9.2, 3.9.6, 3.9.7, 3.10.0, 3.10.1, 3.10.2, 3.10.4, 3.10.5 and 3.9.5; compiled in Pyinstaller 4.2, 4.3, 4.4, 4.5.1, 4.6, and 4.7 and 4.8 and 4.10 and 5.0 and 5.1")
             print("Written by Enderbyte09")
             print("With IDLE for 64-bit Windows")
             print("And notepad++")
             print("And Thonny IDE for Raspberry Pi 4")
             print('AND IDLE 3.7.3 for Raspberry Pi 4')
-            print('And Visual Studio Code for Python 3.7.3 and 3.9.6, 3.9.7, 3.10.0, and 3.10.1 and 3.10.2')
+            print('And Visual Studio Code')
             print("Game board pictures by Kdog.")
             print("Insults by Arceus007")
             print("Started on April 12, 2021")
+            print("Warning.mp3 sound by MyInstants")
 
 
         elif command == "prank":
