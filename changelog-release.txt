@@ -150,4 +150,4 @@
    2.29.5: Added assets directory and re-added gameboard [2022-05-23]
    2.29.6: Fixed bugs and added an autoclicker [2022-05-31]
    2.29.7: Fixed bugs and tweaked lag and cputimeg [2021-06-01]
-2.30: Adds CLI mode and fixes bugs [COMING SOON]
+2.30: Added CLI mode and fixes bugs [2021-06-10]
