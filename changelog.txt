@@ -229,3 +229,6 @@
    2.30-a3: Prepared script for differences in clion/off mode
    2.30-a4: Added a few clion commands
    2.30-a5: Added the rest of the clion commands
+2.30: Added CLI mode and fixed bugs
+      2.30.1-a1: Made tktest less intrusive
+      2.30.1-a2: Updated credits
