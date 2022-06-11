@@ -1,6 +1,6 @@
-SYSVERSION = '2.30'
-SNAPSHOT = False
-SNAPSHOTVERSION = 0
+SYSVERSION = '2.30.1'
+SNAPSHOT = True
+SNAPSHOTVERSION = 1
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -13,6 +13,7 @@ from tkinter import messagebox, Tk
 import sys
 try:
     testtk = Tk()
+    testtk.withdraw()
 except:
     CLI = True
 else:
