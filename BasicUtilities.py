@@ -1,6 +1,6 @@
 SYSVERSION = '2.30.1'
-SNAPSHOT = True
-SNAPSHOTVERSION = 1
+SNAPSHOT = False
+SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -2694,20 +2694,35 @@ while xae == True:
             CLI = False
 
         elif command == "autoclick":
-            input("Press enter to begin autoclicking. Run the keybind ctrl+alt+s to stop it")
-            runnnn = True
-            def srun():
-                global runnnn
-                runnnn  = False
-            keyboard.add_hotkey("ctrl+alt+s",srun)
-            m = PyMouse()
-            while runnnn:
-                
-                x,y = m.position() #gets mouse current position coordinates
-                m.move(x,y)
-                m.click(x,y) #the third argument "1" represents the mouse button
-                m.press(x,y) #mouse button press
-                m.release(x,y) #mouse button release
+            clickspeed = input("What do you want your CPS to be? (use 0 for as much as possible)")
+            try:
+                clickspeed = int(clickspeed)
+            except:
+                print("Please only use numbers")
+            else:
+                if clickspeed < 0:
+                    print("Invalid.")
+                else:
+                    try:
+                        cps = 1/clickspeed
+                    except ZeroDivisionError:
+                        clickspeed = None
+                    input("Press enter to begin autoclicking. Run the keybind ctrl+alt+s to stop it")
+                    runnnn = True
+                    def srun():
+                        global runnnn
+                        runnnn  = False
+                    keyboard.add_hotkey("ctrl+alt+s",srun)
+                    m = PyMouse()
+                    while runnnn:
+                        
+                        x,y = m.position() #gets mouse current position coordinates
+                        m.move(x,y)
+                        m.click(x,y) #the third argument "1" represents the mouse button
+                        m.press(x,y) #mouse button press
+                        m.release(x,y) #mouse button release
+                        if clickspeed is not None:
+                            sleep(cps)
 
         elif command == "adprintout":
             printhi(APPDATA)
