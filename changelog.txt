@@ -232,3 +232,4 @@
 2.30: Added CLI mode and fixed bugs
       2.30.1-a1: Made tktest less intrusive
       2.30.1-a2: Updated credits
+   2.30.1: Fixed bugs and customized autoclicker
