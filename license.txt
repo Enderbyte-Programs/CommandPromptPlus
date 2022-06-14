@@ -1,0 +1,135 @@
+Basic Utilities License
+=======================
+
+Ninth Edition, Fifth Revision
+---------------------------
+
+Published at 19:16 Pacific Standard Time on June 8th, 2022 by
+Enderbyte09. If you agree to these terms and conditions, check the "I
+agree" box, and press Next.
+
+Definitions
+-----------
+
+"We" or "us" or "The Operator" or "The Company" refers to Enderbyte
+Programs inc.
+
+"They", "Them" refers to a third-party that will be specified
+
+"The Developer" refers to the developers at Enderbyte Programs inc.
+
+"The End-User" or "the User" refers to you, the user of this software
+that does not intend to distribute Basic Utilities to anyone else, and
+intends to use this software for personal or corporate use only.
+
+"The software" or "This software" refers to Basic Utilities.
+
+Section 0: What you are downloading and installing
+--------------------------------------------------
+By proceeding, you agree to install:
+	Basic Utilities.exe (3.5 MB)
+	Basic Utilities (python 310 standalone) runtime
+	(21 MB)
+	Tcl/Tk Runtime (5 MB)
+	pyinstaller runtime (150 KB)
+	Additional library files (960 KB)
+	Inno setup files (3.6 MB)
+
+	=Application: 3.5 MB
+	=Runtimes: 26.5 MB
+	=Uninstallers: 3.6 MB
+	=Libraries: 1 MB
+
+All runtimes will not create shortcuts and only ensure
+the safe operation of the software
+
+Section 1: Guarantees from the Developer
+----------------------------------------
+
+Basic Utilities has some first guarantees from the developer.
+
+1.  The Developer promises that Basic Utilities does not contain any
+    malware, adware, or any other software that executes code considered
+    "malicious".
+2. The Developer promises that Basic Utilities does not send any data to
+    advertisers.
+
+Section 2: Information collected by Basic Utilities
+---------------------------------------------------
+
+### Information collected by Basic Utilities and stored locally (not sent to The Company, mostly for debug)
+
+1.  Software version that is running
+2.  Commands run by name
+3.  Any unhandled excptions or errors
+4.  If version running is a developer version or a release
+5.  Operating system
+6.  If a new update is available
+7.  User preferences, such as useColouredText or useDownloadedSounds
+8.  If the User is connected to the Internet
+9.  How many commands the User has run
+
+### Anonymous information collected by Basic Utilities and sent to Enderbyte Programs
+
+1.  Times that someone has started Basic Utilities (this is only sent if
+    user is connected to the internet at exact time of startup
+2.  When someone runs the "msg" or "update" command (Those make requests
+    to a webserver, and said webserver has a visits count)
+
+### Individual information collected by Basic Utilities and sent to Enderbyte Programs
+
+1. Your IP address
+2. Your OS version
+3. Your Basic Utilities version
+All of this is for purely analytical reasons and is kept confidential.
+
+Third Party Notice
+------------------
+
+Basic Utilities relies on many third party libraries and services. These
+libraries may have bugs. Basic Utilities is not responsible for any bugs
+or exploits that are in these third party services. Basic Utilities
+tries to use the latest versions of all libraries, and may apply custom
+fixes to bugs. If there is a severe bug in an update of a library, Basic
+Utilities will NOT update (example: Playsound has big bugs in 1.2.3 and
+above, so Basic Utilities uses 1.2.2)
+
+**BASIC UTILITIES IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER
+THAT COMES FROM BUGS, EXPLOITS, OR ISSUES FROM THIRD PARTY LIBRARIES OR
+SERVICES**
+
+Copyright
+---------
+
+**Basic Utilities is Copyright (c) 2021-2022 Enderbyte Programs, some
+rights reserved.**
+
+Basic Utilities is an open-source free program. If you wish to
+distribute Basic Utilities AS-IS, you may only do so if you cite
+Enderbyte Programs, and said distribution is free of charge. If you wish
+to distribute a modified version of Basic Utilities, you still must cite
+Enderbyte Programs, but I don't care if you sell it for money.
+\*\*ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR DEVICE
+OR PROPERTY CAUSED BY A MODIFIED VERSION OF BASIC UTILITIES. You may
+have noticed that Basic Utilities says "Some rights reserved". The
+following rights are reserved by Enderbyte Programs:
+
+1.  The right to call Basic Utilities as a whole "Yours"
+
+The following rights are open, or copyleft:
+
+1.  The ability to access and edit the source code of Basic Utilities
+2.  The right to download Basic Utilities
+
+4: Your responsibilites as user:
+	Do not commit crimes with Basic Utilities. I know that there is an autoclicker and a pinger and a searcher and all sorts of stuff that could be misued.
+
+\#\#Final Clauses
+
+**ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER
+FROM BASIC UTILITIES**
+ **ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY
+DAMAGE TO YOUR COMPUTER FROM OTHER PEOPLE USING BASIC UTILITIES**
+
+
+*END TERMS AND CONDITIONS*

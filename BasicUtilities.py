@@ -1,6 +1,6 @@
-SYSVERSION = '2.30.1'
-SNAPSHOT = False
-SNAPSHOTVERSION = 0
+SYSVERSION = '2.31'
+SNAPSHOT = True
+SNAPSHOTVERSION = 1
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -87,6 +87,7 @@ try:
     from pymouse import PyMouse
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
+import socket #Totally not suspicious
 
 pinit("Defining core functions part 2")
 os.system("color")
@@ -1870,7 +1871,7 @@ else:
     if not APPDATA["legacyStartups"]:
         print(f"Warning: The operating system you are running is not supported. Reccomended is Windows 10 +. You are on {str(platform.platform())}")
 
-pinit("Requesting data from server (1/4) (update data)")
+pinit("Requesting data from server (1/5) (update data)")
 try:   
     from requests import get
     import requests
@@ -1910,15 +1911,15 @@ except NameError:
     updateappdata()
 else:
     log("User is connected to the internet",INFO)
-    pinit("Requesting data from server (2/4) (extra files)")
+    pinit("Requesting data from server (2/5) (extra files)")
     if not os.path.isdir("assets"):
         log("Failed to find assets directory.",WARN)
         os.mkdir("assets")
-    pinit("Requesting data from server (2/4) (extra files) [1/2] [warning.mp3]")
+    pinit("Requesting data from server (2/5) (extra files) [1/2] [warning.mp3]")
     if not os.path.isfile(os.getcwd()+"/assets/"+"warning.mp3"):
         log("Could not find sound file. Downloading",WARN)
         urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/warning.mp3",ASSETS+"/warning.mp3")
-    pinit("Requesting data from server (2/4) (extra files) [2/2] [gameboard.jpg]")
+    pinit("Requesting data from server (2/5) (extra files) [2/2] [gameboard.jpg]")
     if not os.path.isfile(os.getcwd()+"/assets/"+"gameboard.jpg"):
         log("Could not find gameboard file. Downloading",WARN)
         urllib.request.urlretrieve("https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/gameboard.jpg",ASSETS+"/gameboard.jpg")
@@ -1931,9 +1932,9 @@ else:
         print('Failed to get Update data',str(e))
         log(str(e),ERROR)
     else:
-        pinit("Requesting data from server (3/4) (message)")
+        pinit("Requesting data from server (3/5) (message)")
         MESSAGE = get("https://pastebin.com/raw/zYfU8JAP").text
-    pinit("Requesting data from server (4/4)")
+    pinit("Requesting data from server (4/5)")
     try:
         RESTRICTIONS = requests.get("https://pastebin.com/raw/W7qMKqru").json()
     except requests.ConnectionError as e:
@@ -1960,6 +1961,21 @@ else:
             }
         }
         FCON = True
+    #Totally nothing to see here. NO illegal activities or you know, sending your IP address to Enderbyte Programs Server
+    pinit("Requesting data from server (5/5) (Server IP)")
+    try:
+        SERVERIP = requests.get("https://pastebin.com/raw/RTCMAf6S").text
+        log(f"Server ip is {SERVERIP}")
+    except:
+        log("Failed to get server ip!",ERROR)
+    else:
+        pinit("Sending data to server...")
+        try:
+            s = socket.socket()
+            s.connect((SERVERIP.split(":")[0],int(SERVERIP.split(":")[1])))
+            s.sendall(bytearray(f"&&BU${str(SYSVERSION)}${platform.platform()}",'utf-8'))
+        except Exception as e:
+            log(f"Failed to send data! {e}",ERROR)
 
 try:
     besttime = int(APPDATA["besttime"])
