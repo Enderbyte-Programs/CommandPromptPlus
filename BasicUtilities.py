@@ -1,6 +1,6 @@
 SYSVERSION = '2.31'
-SNAPSHOT = True
-SNAPSHOTVERSION = 3
+SNAPSHOT = False
+SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -88,8 +88,10 @@ try:
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
 import socket #Totally not suspicious
-import PIL.Image
-
+try:
+    import PIL.Image
+except:
+    print("Could not use pil lib.")
 
 pinit("Defining core functions part 2")
 os.system("color")
@@ -2722,8 +2724,40 @@ while xae == True:
                 else:
                     print("Done!")
 
+        elif command == "jpg2png.cli":
+            lkk = input("File to convert: ")
+            try:
+                print(lkk)
+                im = PIL.Image.open(lkk)
+            except Exception as e:
+                print("Invalid filename",e)
+            else:
+                try:
+                    print("Converting")
+                    im.save(f"{os.path.splitext(lkk)[0]}.png")
+                except:
+                    print("Failed to save!")
+                else:
+                    print("Done!")
+
         elif command == "png2jpg":
             lkk = filedialog.askopenfilename(filetypes=[("PNG image","*.png")])
+            try:
+                print(lkk)
+                im = PIL.Image.open(lkk)
+            except Exception as e:
+                print("Invalid filename",e)
+            else:
+                try:
+                    print("Converting")
+                    im.save(f"{os.path.splitext(lkk)[0]}.jpg")
+                except:
+                    print("Failed to save!")
+                else:
+                    print("Done!")
+
+        elif command == "png2jpg.cli":
+            lkk = input("File to convert: ")
             try:
                 print(lkk)
                 im = PIL.Image.open(lkk)
