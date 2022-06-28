@@ -1,6 +1,6 @@
 SYSVERSION = '2.31'
 SNAPSHOT = True
-SNAPSHOTVERSION = 1
+SNAPSHOTVERSION = 3
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 if SNAPSHOT:
     ASSEMBLEDVERSION += f" Beta {SNAPSHOTVERSION}"
@@ -88,6 +88,8 @@ try:
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
 import socket #Totally not suspicious
+import PIL.Image
+
 
 pinit("Defining core functions part 2")
 os.system("color")
@@ -2471,7 +2473,7 @@ while xae == True:
         log("Could not find temp dir",WARN)
         os.mkdir(".temp")
     CLIBANNED = ["te","art","letsdraw","clrclp","clipboard","rem","ytdownload","ytaudio","ytplaylist","ytplaylista","tar","untar","startsound","clock","diran","cmaj","permaping","ping","encode","translate","color","colour","cpg","timer","draw","sw","prank","browser"]
-    CLICHG = ["allext","allextval","searchext","webdownload","search","scanall","folmem","filemem","rev","settings","config","cfg","options","clean your room"]
+    CLICHG = ["allext","allextval","searchext","webdownload","search","scanall","folmem","filemem","rev","settings","config","cfg","options","clean your room","png2jpg","jpg2png"]
     command = input("Basic Utilities> ") 
     if command != "":
         log(f'{sysuser} executed command '+command)
@@ -2654,6 +2656,8 @@ while xae == True:
             print("conv len: length converters [sc]")
             print('fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares')
             print('prime: Generate all prime numbers up to a number')
+            print('jpg2png: Convert a jpg to png')
+            print('png2jpg: Convert a png to jpg')
             
             print('sqrpyr: Calculate volume of a rectangular pyramid.')
             print('tripyr: Calculate volume of a triangular pyramid')
@@ -2701,6 +2705,38 @@ while xae == True:
             print("\n-----Modes-----")
             print("clion: Start CLI only mode")
             print("clioff: Stop CLI only mode")
+
+        elif command == "jpg2png":
+            lkk = filedialog.askopenfilename(filetypes=[("JPG images",".jpg")])
+            try:
+                print(lkk)
+                im = PIL.Image.open(lkk)
+            except Exception as e:
+                print("Invalid filename",e)
+            else:
+                try:
+                    print("Converting")
+                    im.save(f"{os.path.splitext(lkk)[0]}.png")
+                except:
+                    print("Failed to save!")
+                else:
+                    print("Done!")
+
+        elif command == "png2jpg":
+            lkk = filedialog.askopenfilename(filetypes=[("PNG image","*.png")])
+            try:
+                print(lkk)
+                im = PIL.Image.open(lkk)
+            except Exception as e:
+                print("Invalid filename",e)
+            else:
+                try:
+                    print("Converting")
+                    im.save(f"{os.path.splitext(lkk)[0]}.jpg")
+                except:
+                    print("Failed to save!")
+                else:
+                    print("Done!")
 
         elif command == "clion" :
             APPDATA["climode"] = True
