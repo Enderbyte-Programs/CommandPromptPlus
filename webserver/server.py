@@ -14,7 +14,7 @@ Content-Type: text/html
 <p style="font-size:50px;color:green;">Have a nice day</p>
 <p>Thank you for visiting :) Also here is a nice dog v</p>
 <button type="button" onClick="parent.location='https://enderbyte09.wixsite.com/programs'">Visit My Main Website</button>
-<img src="dog.JPG" alt="A dog">
+<img src="https://github.com/Enderbyte-Programs/Basic-Utilities/raw/main/webserver/dog.jpg" alt="A dog">
 </body>
 </html>
 """
@@ -83,6 +83,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                             for version in user["versions"]:
                                 if version != buver:
                                     budict["ulist"][i]["versions"].append(buver)
+                            break
                         else:
                             nu = True
                 else:
