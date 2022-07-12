@@ -1974,12 +1974,13 @@ else:
         log("Failed to get server ip!",ERROR)
     else:
         pinit("Sending data to server...")
-        try:
-            s = socket.socket()
-            s.connect((SERVERIP.split(":")[0],int(SERVERIP.split(":")[1])))
-            s.sendall(bytearray(f"&&BU${str(SYSVERSION)}${platform.platform()}",'utf-8'))
-        except Exception as e:
-            log(f"Failed to send data! {e}",ERROR)
+        
+        #try:
+         #   s = socket.socket()
+          #  s.connect((SERVERIP.split(":")[0],int(SERVERIP.split(":")[1])))
+           # s.sendall(bytearray(f"&&BU${str(SYSVERSION)}${platform.platform()}",'utf-8'))
+        #except Exception as e:
+         #   log(f"Failed to send data! {e}",ERROR)
 
 try:
     besttime = int(APPDATA["besttime"])
