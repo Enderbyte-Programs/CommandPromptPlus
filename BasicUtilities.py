@@ -1,4 +1,4 @@
-SYSVERSION = '2.31'
+SYSVERSION = '2.31.1'
 SNAPSHOT = False
 SNAPSHOTVERSION = 0
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -84,9 +84,10 @@ try:
 except:
     print("Library psutil could not be found. Please run check_dependencies.py to install it.")
 try:
-    from pymouse import PyMouse
+    from pynput.mouse import Controller
+    from pynput.mouse import Button as MButton
 except:
-    print("Library psutil could not be found. Please run check_dependencies.py to install it.")
+    print("Library pymouse could not be found. Please run check_dependencies.py to install it.")
 import socket #Totally not suspicious
 try:
     import PIL.Image
@@ -1974,13 +1975,14 @@ else:
         log("Failed to get server ip!",ERROR)
     else:
         pinit("Sending data to server...")
-        
-        try:
-            s = socket.socket()
-            s.connect((SERVERIP.split(":")[0],int(SERVERIP.split(":")[1])))
-            s.sendall(bytearray(f"&&BU${str(SYSVERSION)}${platform.platform()}",'utf-8'))
-        except Exception as e:
-            log(f"Failed to send data! {e}",ERROR)
+        def sd():
+            try:
+                s = socket.socket()
+                s.connect((SERVERIP.split(":")[0],int(SERVERIP.split(":")[1])))
+                s.sendall(bytearray(f"&&BU${str(SYSVERSION)}${platform.platform()}",'utf-8'))
+            except Exception as e:
+                log(f"Failed to send data! {e}",ERROR)
+        threading.Thread(target=sd).start()
 
 try:
     besttime = int(APPDATA["besttime"])
@@ -2800,14 +2802,11 @@ while xae == True:
                         global runnnn
                         runnnn  = False
                     keyboard.add_hotkey("ctrl+alt+s",srun)
-                    m = PyMouse()
+                    
+                    m = Controller()
                     while runnnn:
                         
-                        x,y = m.position() #gets mouse current position coordinates
-                        m.move(x,y)
-                        m.click(x,y) #the third argument "1" represents the mouse button
-                        m.press(x,y) #mouse button press
-                        m.release(x,y) #mouse button release
+                        m.click(MButton.left,1)
                         if clickspeed is not None:
                             sleep(cps)
 
