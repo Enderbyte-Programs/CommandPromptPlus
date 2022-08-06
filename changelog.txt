@@ -236,3 +236,5 @@
    2.31-a1: Basic Utilities now collects user information. Please check section 2 of the license for more details.
    2.31-a2: Added jpg2png
    2.31-a3: Added png2jpg
+2.31: Added image converters and UIC
+   2.31.1: Fixed bugs
