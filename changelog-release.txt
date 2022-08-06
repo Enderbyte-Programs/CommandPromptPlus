@@ -153,3 +153,4 @@
 2.30: Added CLI mode and fixes bugs [2022-06-10]
    2.30.1: Added to autoclicker and fixed tktest [2022-06-11]
 2.31: Added picture converters and an information collection service [2022-06-27]
+   2.31.1: Fixed bugs [2022-08-06]
