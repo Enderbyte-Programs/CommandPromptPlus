@@ -70,6 +70,7 @@ art: Get some random art
 
 -----Utility-----
 lag: Measures your computer's lag.
+autoclick: Click at ridiculous speeds
 randpass: Get a random password.
 encode: encode stuff so no one can read it
 translate: Translate files back to readable
@@ -132,6 +133,8 @@ hexbin: Convert hexadecimal to binary
 conv len: length converters [sc]
 fibb: Generate the Fibbonacci sequence <-- Spelled wrong but who cares
 prime: Generate all prime numbers up to a number
+jpg2png: Convert a jpg to png
+png2jpg: Convert a png to jpg
 sqrpyr: Calculate volume of a rectangular pyramid.
 tripyr: Calculate volume of a triangular pyramid
 emc2: Calcuate th energy(joules) in a given object.
@@ -170,3 +173,7 @@ adprintout: Print out appdata
 -----Clipboard-----
 clrclp: Clear the clipboard
 clipboard: Write something to the clipboard
+
+-----Modes-----
+clion: Start CLI only mode
+clioff: Stop CLI only mode
