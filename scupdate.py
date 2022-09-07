@@ -13,7 +13,7 @@ except (requests.ConnectionError,requests.HTTPError):
 
 print("Getting Data (1/2) [Changelog]",end="\r")
 try:
-    chl = requests.get("https://github.com/Enderbyte-Programs/Basic-Utilities/blob/3.0-beta/BasicUtilities.py").text.splitlines()[-1].split(" ")
+    chl = requests.get("https://github.com/Enderbyte-Programs/Basic-Utilities/blob/3.0-beta/changelog.txt").text.splitlines()[-1].split(" ")
     while '' in chl:
         chl.remove('')
     ver = chl[0].replace(":","")
@@ -24,7 +24,7 @@ except (requests.ConnectionError,requests.HTTPError):
 print("Getting Data (2/2) [Data]             ")
 
 try:
-    dat = requests.get("https://raw.githubusercontent.com/Enderbyte-Programs/Basic-Utilities/main/BasicUtilities.py").text.splitlines()
+    dat = requests.get("https://github.com/Enderbyte-Programs/Basic-Utilities/blob/3.0-beta/BasicUtilities.py").text.splitlines()
 except (requests.ConnectionError,requests.HTTPError):
     print("An unexpected connection error occured.")
     sys.exit(1)
