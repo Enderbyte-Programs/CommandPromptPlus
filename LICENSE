@@ -1,10 +1,10 @@
 Basic Utilities License
 =======================
 
-Ninth Edition, Second Revision
+Tenth Editio
 ---------------------------
 
-Published at 9:14 AM Pacific Standard Time on February 12th, 2022 by
+Published at 15:43 Pacific Daylight Savings Time on September 29th, 2022 by
 Enderbyte09. If you agree to these terms and conditions, check the "I
 agree" box, and press Next.
 
@@ -25,53 +25,37 @@ intends to use this software for personal or corporate use only.
 "The software" or "This software" refers to Basic Utilities.
 
 Section 1: Guarantees from the Developer
+-----------------------------------------
+0. What you are downloading
+".net version":
+Basic_Utilities.exe: 169 KB
+Basic Utilities Libraries: 37 KB
+Runtime data: 1 KB
+"standalone version":
+Basic_Utilities.exe: 169 KB
+Basic Utilities Libraries: 37 KB
+Microsoft .NET Runtime: 62 MB
 ----------------------------------------
 
 Basic Utilities has some first guarantees from the developer.
 
 1.  The Developer promises that Basic Utilities does not contain any
     malware, adware, or any other software that executes code considered
-    "malicious" or annoyoing without the confirmation of the end-user.
-    (eg. Prank command executes annoying code, but the end-user must
-    manually run it)
+    "malicious" or annoying.
 
 Section 2: Information collected by Basic Utilities
----------------------------------------------------
+--------------------------------------------------
+None 
 
-### Information collected by Basic Utilities and stored locally (not sent to The Company, mostly for debug)
-
-1.  Software version that is running
-2.  Commands run by name
-3.  Any unhandled excptions or errors
-4.  If version running is a developer version or a release
-5.  Operating system
-6.  If a new update is available
-7.  User preferences, such as useColouredText or useDownloadedSounds
-8.  If the User is connected to the Internet
-9.  How many commands the User has run
-
-### Anonymous information collected by Basic Utilities and sent to Enderbyte Programs
-
-1.  Times that someone has started Basic Utilities (this is only sent if
-    user is connected to the internet at exact time of startup
-2.  When someone runs the "msg" or "update" command (Those make requests
-    to a webserver, and said webserver has a visits count)
-
-### Individual information collected by Basic Utilities and sent to Enderbyte Programs
-
-None Note: This does not include third parties, and Enderbyte Programs
+Note: This does not include third parties, and Enderbyte Programs
 is not responsible for any information collected by third parties
 
 Third Party Notice
 ------------------
 
-Basic Utilities relies on many third party libraries and services. These
+Basic Utilities relies on some third party libraries and services. These
 libraries may have bugs. Basic Utilities is not responsible for any bugs
-or exploits that are in these third party services. Basic Utilities
-tries to use the latest versions of all libraries, and may apply custom
-fixes to bugs. If there is a severe bug in an update of a library, Basic
-Utilities will NOT update (example: Playsound has big bugs in 1.2.3 and
-above, so Basic Utilities uses 1.2.2)
+or exploits that are in these third party services.
 
 **BASIC UTILITIES IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER
 THAT COMES FROM BUGS, EXPLOITS, OR ISSUES FROM THIRD PARTY LIBRARIES OR
@@ -89,16 +73,8 @@ Enderbyte Programs, and said distribution is free of charge. If you wish
 to distribute a modified version of Basic Utilities, you still must cite
 Enderbyte Programs, but I don't care if you sell it for money.
 \*\*ENDERBYTE PROGRAMS IS NOT RESPONSIBLE FOR ANY DAMAGE TO YOUR DEVICE
-OR PROPERTY CAUSED BY A MODIFIED VERSION OF BASIC UTILITIES. You may
-have noticed that Basic Utilities says "Some rights reserved". The
-following rights are reserved by Enderbyte Programs:
-
-1.  The right to call Basic Utilities as a whole "Yours"
-
-The following rights are open, or copyleft:
-
-1.  The ability to access and edit the source code of Basic Utilities
-2.  The right to download Basic Utilities
+OR PROPERTY CAUSED BY A MODIFIED VERSION OF BASIC UTILITIES. THIS
+PROGRAM IS ALSO SUBJECT TO THE MICROSOFT .NET TERMS AND CONDITIONS.
 
 \#\#Final Clauses
 
