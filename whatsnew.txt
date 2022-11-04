@@ -1,0 +1,6 @@
+3.0.0 [id. 242] [2022-10-25]
+-Begun recoding
+-Further beta releases will follow 3.0.x
+-Dropped support for Microsoft (R) Windows 7
+-Dropped support for Microsoft (R) Windows 8 and 8.1
+-Dropped binary support for Linux. You will have to build it yourself.
