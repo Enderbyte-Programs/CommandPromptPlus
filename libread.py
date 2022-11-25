@@ -1,3 +1,10 @@
+"""
+Libread is a lightweight module implementation of Teleread and allows you to read books. I find it useful to write documentations. To run, use libread.read(filename).
+DEPENDS ON OTHER ENDERBYTE PROGRAMS LIBRARIES libcurses
+
+(c) 2022 Enderbyte Programs
+"""
+
 import curses
 from curses.textpad import rectangle
 import os

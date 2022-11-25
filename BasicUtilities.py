@@ -1,9 +1,9 @@
-SYSVERSION = "3.0.0"
-VERID = 242
+SYSVERSION = "3.0.1"
+VERID = 244
 HASINTERNET = False
 
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
-print("Basic Utilities",ASSEMBLEDVERSION,"(c) 2021-2022 Enderbyte Programs LLC")
+print(ASSEMBLEDVERSION,"(c) 2021-2022 Enderbyte Programs LLC")
 import logging
 logging.basicConfig(filename="BasicUtilities.log",filemode="a+",level=logging.INFO,format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logging.info("Starting Basic Utilities")
@@ -73,6 +73,8 @@ import json
 import platform
 import threading
 import termcolor
+import libread
+from shlex import split as parse_args
 try:
     urllib.request.urlretrieve("https://www.pastebin.com")
 except:
@@ -121,25 +123,26 @@ if TPDATA["message"]["emergency"]:
         print("URGENT MESSAGE: "+TPDATA["message"]["msg"])
 
 cwd = os.getcwd()
-
+args = sys.argv[1:]
 def interpret(cmd):
     command = cmd.split(" ")[0]
+    commanddata = parse_args(cmd)
     if command.replace(" ","") == "":
         return
-    elif command == "help":
-        if len(cmd.split(" ")) < 1:
-            _cd = cmd.split(" ")[1]
-            if _cd == "help":
-                print("Help Command Version 2.0\nPlaceholder")
-            elif _cd == "stop":
-                print("")
+    elif command == "help" or command == "?":
+        if len(commanddata) > 1:
+            _cd = commanddata[1]
+            libread.read(appdatadir+f"\\docs\\{_cd}.book")
         else:
             print("Commands Reference:")
-            print("help           | 2.0 | Prints Help Menu")
+            print("help           | 2.0 | Prints concise Help Menu")
+            print("docs           | 1.0 | Shows documentation")
             print("stop           | 2.0 | Stops Basic Utilities")
 
             print("\nFor more information about a command run command <command name>")
-    elif command == "stop":
+    elif command == "docs" :
+        libread.read(appdatadir+"\\docs\\fullmanual.book")
+    elif command == "stop" or command == "exit":
         if len(cmd.split(" ")) < 1:
             _cd = cmd.split(" ")[1]
             if _cd == "-a":
@@ -149,6 +152,23 @@ def interpret(cmd):
                     raise NotImplementedError("This function is not available")
         else:
             sys.exit()
+if len(args) > 0:
+    #Args
+    if args[0] == "-c" or args[0] == "--command":
+        try:
+            largs = " ".join(args[1:])
+        except:
+            print("Incorrect use. Please run BasicUtilities -c <command>")
+        else:
+            interpret(largs)
+            sys.exit()
+    if os.path.isfile(args[0]):
+        with open(args[0]) as f:
+            d = f.read().splitlines()
+        #print(d)
+        for dline in d:
+            interpret(dline)
+        sys.exit()
 
 logging.info("Startup finished")
 

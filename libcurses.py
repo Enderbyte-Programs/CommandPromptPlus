@@ -1,3 +1,9 @@
+"""
+Libcurses is an extension to the curses module that provides some useful featues. This library will be distributed as part of many Enderbyte Programs software
+
+(c) 2022 Enderbyte Programs, no rights reserved
+"""
+
 import curses
 from curses.textpad import rectangle, Textbox
 import os
