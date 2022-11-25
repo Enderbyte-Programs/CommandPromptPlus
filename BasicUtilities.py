@@ -5,7 +5,7 @@ HASINTERNET = False
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
 print(ASSEMBLEDVERSION,"(c) 2021-2022 Enderbyte Programs LLC")
 import logging
-logging.basicConfig(filename="BasicUtilities.log",filemode="a+",level=logging.INFO,format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logging.basicConfig(filename="C:\\ProgramData\\BasicUtilities.log",filemode="a+",level=logging.INFO,format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logging.info("Starting Basic Utilities")
 import os
 os.system("")
