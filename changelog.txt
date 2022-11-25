@@ -240,3 +240,4 @@
    2.31.1: Fixed bugs
 3.0-A1 (VID 241) [2022-08-28] "NONE"
 3.0-B1 (VID 242) [2022-09-29] Added core in C#
+3.0 (VID 243) [2022-11-25] Re-added Python Core
