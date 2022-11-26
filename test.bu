@@ -1,3 +1,6 @@
+#This is a test comment
+!breakonerror
 help
-docs
-stop
+cd ..
+printdir
+cd fdsfdssfdewhofu
