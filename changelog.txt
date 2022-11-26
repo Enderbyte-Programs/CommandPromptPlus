@@ -242,3 +242,4 @@
 3.0-B1 (VID 242) [2022-09-29] Added core in C#
 3.0 (VID 243) [2022-11-25] Re-added Python Core
    3.0.1 (VID 244): Added BU files and documentation
+   3.0.2 (VID 245): Added cd and dir commands
