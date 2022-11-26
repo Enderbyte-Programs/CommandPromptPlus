@@ -158,7 +158,14 @@ def interpret(cmd: str) -> int:
         else:
             sys.exit()
     elif command == "cd" or command == "setdir":
-        ldset = commanddata[1]
+        if len(commanddata)==0 or not commanddata or commanddata == []:
+            print(f"setdir failed: No path given.")
+            return -1
+        try:
+            ldset = commanddata[1]
+        except IndexError:
+            print(f"setdir failed: No path given.")
+            return -1
         try:
             os.chdir(ldset)
         except Exception as e:
