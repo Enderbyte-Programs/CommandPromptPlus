@@ -1,5 +1,5 @@
-SYSVERSION = "3.0.1"
-VERID = 244
+SYSVERSION = "3.0.2"
+VERID = 245
 HASINTERNET = False
 
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -122,13 +122,13 @@ if TPDATA["message"]["emergency"]:
     else:
         print("URGENT MESSAGE: "+TPDATA["message"]["msg"])
 
-cwd = os.getcwd()
+
 args = sys.argv[1:]
-def interpret(cmd):
+def interpret(cmd: str) -> int:
     command = cmd.split(" ")[0]
     commanddata = parse_args(cmd)
     if command.replace(" ","") == "":
-        return
+        return 0
     elif command == "help" or command == "?":
         if len(commanddata) > 1:
             _cd = commanddata[1]
@@ -138,20 +138,37 @@ def interpret(cmd):
             print("help           | 2.0 | Prints concise Help Menu")
             print("docs           | 1.0 | Shows documentation")
             print("stop           | 2.0 | Stops Basic Utilities")
-
+            print("setdir             | 1.0 | Set the working directory of this program.")
+            print("dir            | 1.0 | Print the workign directory of this program")
             print("\nFor more information about a command run command <command name>")
+        return 0
     elif command == "docs" :
         libread.read(appdatadir+"\\docs\\fullmanual.book")
+        return 0
     elif command == "stop" or command == "exit":
         if len(cmd.split(" ")) < 1:
             _cd = cmd.split(" ")[1]
             if _cd == "-a":
                 if ONWINDOWS:
                     os.system("taskkill /f /im BasicUtilities.exe")
+                    return 0
                 else:
                     raise NotImplementedError("This function is not available")
+                    return -1
         else:
             sys.exit()
+    elif command == "cd" or command == "setdir":
+        ldset = commanddata[1]
+        try:
+            os.chdir(ldset)
+        except Exception as e:
+            print(f"setdir failed: {str(e)}")
+            return -1
+        return 0
+    elif command == "dir":
+        print(os.getcwd())
+        return 0
+    return 0
 if len(args) > 0:
     #Args
     if args[0] == "-c" or args[0] == "--command":
@@ -166,12 +183,25 @@ if len(args) > 0:
         with open(args[0]) as f:
             d = f.read().splitlines()
         #print(d)
+        d = [dx for dx in d if dx[0] != "#" and dx.replace(" ","") != ""]
+        if d[0] == "!breakonerror":
+            bone = True
+        else:
+            bone = False
+        lcount = 0
+        if bone:
+            d = d[1:]
         for dline in d:
-            interpret(dline)
+            lcount += 1
+            lx = interpret(dline)
+            if lx != 0:
+                print(f"ERROR: Line {lcount} of {args[0]} failed with exit code {lx}")
+                sys.exit(-1)
         sys.exit()
 
 logging.info("Startup finished")
 
 while True:
+    cwd = os.getcwd()
     cmd = input(cwd+">")
     interpret(cmd)
