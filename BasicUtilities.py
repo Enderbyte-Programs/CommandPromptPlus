@@ -1,5 +1,5 @@
-SYSVERSION = "3.0.2"
-VERID = 245
+SYSVERSION = "3.0.3"
+VERID = 246
 HASINTERNET = False
 
 ASSEMBLEDVERSION = f"Basic Utilities {SYSVERSION}"
@@ -125,7 +125,9 @@ if TPDATA["message"]["emergency"]:
 
 args = sys.argv[1:]
 def interpret(cmd: str) -> int:
+    #cmd = repr(cmd)
     command = cmd.split(" ")[0]
+    cmd = cmd.replace("\\","/")
     commanddata = parse_args(cmd)
     if command.replace(" ","") == "":
         return 0
@@ -140,7 +142,7 @@ def interpret(cmd: str) -> int:
             print("docs           | Shows documentation")
             print("stop           | Stops Basic Utilities")
             print("setdir         | Set the working directory of this program.")
-            print("dir            | Print the workign directory of this program")
+            print("dir            | Print the working directory of this program")
             print("\nFor more information about a command run command <command name>")
         return 0
     elif command == "docs" :
