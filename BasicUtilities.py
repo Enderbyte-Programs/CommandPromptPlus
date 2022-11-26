@@ -135,11 +135,12 @@ def interpret(cmd: str) -> int:
             libread.read(appdatadir+f"\\docs\\{_cd}.book")
         else:
             print("Commands Reference:")
-            print("help           | 2.0 | Prints concise Help Menu")
-            print("docs           | 1.0 | Shows documentation")
-            print("stop           | 2.0 | Stops Basic Utilities")
-            print("setdir             | 1.0 | Set the working directory of this program.")
-            print("dir            | 1.0 | Print the workign directory of this program")
+            print("     NAME      |          Description")
+            print("help           | Prints concise Help Menu")
+            print("docs           | Shows documentation")
+            print("stop           | Stops Basic Utilities")
+            print("setdir         | Set the working directory of this program.")
+            print("dir            | Print the workign directory of this program")
             print("\nFor more information about a command run command <command name>")
         return 0
     elif command == "docs" :
