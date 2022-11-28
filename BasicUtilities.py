@@ -74,6 +74,8 @@ import platform
 import threading
 import termcolor
 import libread
+import subprocess
+from glob import glob
 from shlex import split as parse_args
 try:
     urllib.request.urlretrieve("https://www.pastebin.com")
@@ -137,13 +139,17 @@ def interpret(cmd: str) -> int:
             libread.read(appdatadir+f"\\docs\\{_cd}.book")
         else:
             print("Commands Reference:")
-            print("     NAME      |          Description")
-            print("help           | Prints concise Help Menu")
-            print("docs           | Shows documentation")
-            print("stop           | Stops Basic Utilities")
-            print("setdir         | Set the working directory of this program.")
-            print("dir            | Print the working directory of this program")
+            print("      NAME      |      DESCRIPTION      ")
+            if os.path.isfile(appdatadir+"\\docs\\help.txt"):
+                with open(appdatadir+"\\docs\\help.txt") as f:
+                    for ln in f.read().splitlines():
+                        lt = ln.split(",")[0]
+                        ld = ",".join(ln.split(",")[1:])
+                        print(f"{lt}{' '*(16-len(lt))}|{ld}")
+            else:
+                print("ERROR: Help file not found :(")
             print("\nFor more information about a command run command <command name>")
+            print("End a command with \" &\" to run in a new process")
         return 0
     elif command == "docs" :
         libread.read(appdatadir+"\\docs\\fullmanual.book")
@@ -178,6 +184,23 @@ def interpret(cmd: str) -> int:
     elif command == "dir":
         print(os.getcwd())
         return 0
+    else:
+        PITEMS = []
+        for pval in os.environ["PATH"].split(";"):
+            if pval != "":
+                for fl in glob(pval+"\\*.exe"):
+                    PITEMS.append(os.path.splitext(os.path.split(fl)[1])[0])
+        PITEMS = list(dict.fromkeys(PITEMS))
+        #print(PITEMS)
+        if command.replace("&","") in PITEMS:
+            if cmd[-1] == "&":
+                del commanddata[-1]
+                p = subprocess.Popen(commanddata)
+                print(f"Retcode: {p.returncode}")
+            else:
+                os.system(cmd)
+        else:
+            print("Command not found")
     return 0
 if len(args) > 0:
     #Args
