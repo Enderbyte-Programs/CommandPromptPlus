@@ -46,4 +46,28 @@ $register Docs Command
 +
 +The docs command accepts no arguments. It opens a teleread system for the Main fullmanual.book. This effect can also be done with help fullmanual.
 %pagebreak
+$register dir
+--The Dir Command
++
++name: dir
++aliases: None
++First appeared: v3.0.2
++
++Description: Prints out the current working directory
++Usage: docs
++
++The dir command does not accept any arguments. The dir command invokes getcwd() and prints it to the STDOUT.
+%pagebreak
+$register setdir Command
+--The setdir Command
++
++name: setdir
++aliases: cd
++First appeared: v3.0.2
++
++Description: Change the working directory of Basic Utilities
++Usage: setdir <path>
++
++The setdir command functions like the "cd" command on Windows and Linux. It changes the working directory of Basic Utilities. Unlike cd, running it with no args will produce an error. To print the working directory, run "dir" command.
+%pagebreak
 %enddata
