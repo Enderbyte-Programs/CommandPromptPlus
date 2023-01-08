@@ -245,3 +245,4 @@
    3.0.2 (VID 245): Added cd and dir commands
    3.0.3 (VID 246): Fix bug
 3.0.7 (VID 248): Add core in C#, but better
+3.0.8 (VID 249): Add exception handling, about, help, and crash commands
