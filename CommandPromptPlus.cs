@@ -9,18 +9,44 @@ namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
+        public static bool isbeta = true;
         static void Main(string[] args)
         {
             Console.WriteLine("Better Command Prompt (Basic Utilities Extension)");
-            Console.WriteLine("*************Version 3.0.7  BETA*****************");
+            Console.WriteLine("***************** Version 3.0.8 *****************");
             if (Utilities.sutils.IsAdministrator())
             {
-                Console.BackgroundColor= ConsoleColor.Green;
+                Console.BackgroundColor= ConsoleColor.DarkRed;
                 Console.WriteLine("Currently running as Administrator, be careful");
                 Console.ResetColor();
             }
+            if (isbeta)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Caution: You are running beta software. Be sure to report any bug.");
+                Console.ResetColor();
+            }
             Console.WriteLine("\n");
-            mainloop(args);
+            try
+            { mainloop(args); }
+            catch (Exception e) {
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                for (int i = 0; i < Console.WindowHeight;i++)
+                {
+                    Console.Write(new string(' ', Console.WindowWidth));
+                }
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine(":(\nWe're sorry, but a fatal error occured in Command Prompt Plus.");
+                Console.WriteLine("\n" +
+                    "\n" +
+                    $"Type: {e.GetType().Name}\n" +
+                    $"Message: {e.Message}\n" +
+                    $"Stack Trace: {e.StackTrace}");
+                Console.WriteLine("\n\nPlease report this full message to Enderbyte Programs");
+                Console.Write("Press enter to quit.");
+                Console.ReadLine();
+            }
         }
         static void mainloop(string[] args)
         {
@@ -89,7 +115,7 @@ namespace CommandPromptPlus
                     
                 }
                 hindex = 0;
-                if (mcommand.Length > 0)
+                if (mcommand.Length > 2)
                 { Commands.shared.history.Add(mcommand.Replace("\n","").Replace("\r","")); }
                 Console.WriteLine("");
                 DateTime start = DateTime.Now;
@@ -136,7 +162,28 @@ namespace CommandPromptPlus
             if (croot.Equals("exit"))
             {
                 Commands.StaticCommands.Exit(largs);
-            } else
+            } 
+            else if (croot.Equals("about"))
+            {
+                Commands.StaticCommands.About(largs);
+            }
+            else if (croot.Equals("help"))
+            {
+                Commands.StaticCommands.Help(largs);
+            } else if (croot.Equals("amiadmin"))
+            {
+                bool isadmin = Utilities.sutils.IsAdministrator();
+                if (isadmin)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("You are an administrator!");
+                    Console.ResetColor();
+                }
+            } else if (croot.Equals("crash"))
+            {
+                throw new SystemException("Manual Crash");
+            }
+            else
             {
                 Console.WriteLine("Command not found");
                 return 9009;
@@ -165,6 +212,19 @@ namespace CommandPromptPlus
                     }
                 }
                 Environment.Exit(Environment.ExitCode);
+            }
+            public static void About(string[] args)
+            {
+                Console.WriteLine("=====Command Prompt Plus=====\n" + "The Better Command Prompt\n" + "(Basic Utilities fork)\n" + "\n" + "Version 3.0.8 (c) 2021-2023 Enderbyte Programs. All rights reserved\n" + "\n" + "Credits : \n" + "Developer: Jordan Rahim\n" + "That is all\n\n" + "Information: \n" + "Coded in .NET Framework 4.8 for Microsoft Windows\n" + "C# (of course)" + "\n" + "255 Lines of code\n\n" + "If you find a bug or have an issue, please report it to Enderbyte Programs immediatly." + "");
+            }
+            public static void Help(string[] args)
+            {
+                Console.WriteLine("Basic Utilities Help Menu\n" +
+                    "Version 3.0.8\n" +
+                    "Commands List:\n" +
+                    "help: Show this menu\n" +
+                    "exit [code]: Exit with optional exit code\n" +
+                    "about: View some info about this program");
             }
         }
 
