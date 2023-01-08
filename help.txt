@@ -1,0 +1,22 @@
+Command Prompt Plus
+The Better Command Prompt
+
+This is an extension to the Basic Utilities project
+
+About
+
+(c) 2021-2023 Enderbyte Programs. All rights reserved
+Coded in C# for .NET 4.8
+Thank you to Microsoft for making .NET
+Coded by Jordan Rahim
+
+352 Lines of Code
+
+What's New?
+
+Version 3.0.9
+VID 250
+
+-Added new installer
+-Added cd, time, amiadmin commands
+-

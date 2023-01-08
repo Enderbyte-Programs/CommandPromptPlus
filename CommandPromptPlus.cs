@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
+        public static int VID = 250;
         public static bool isbeta = true;
         static void Main(string[] args)
         {
             Console.WriteLine("Better Command Prompt (Basic Utilities Extension)");
-            Console.WriteLine("***************** Version 3.0.8 *****************");
+           Console.WriteLine($"*********** Version 3.0.9 (VID {VID}) ***********");
             if (Utilities.sutils.IsAdministrator())
             {
                 Console.BackgroundColor= ConsoleColor.DarkRed;
@@ -118,36 +121,19 @@ namespace CommandPromptPlus
                 if (mcommand.Length > 2)
                 { Commands.shared.history.Add(mcommand.Replace("\n","").Replace("\r","")); }
                 Console.WriteLine("");
-                DateTime start = DateTime.Now;
                 int retcode = Master.interpret(mcommand.Replace("\n", "").Replace("\r", ""));
-                DateTime end = DateTime.Now;
-                TimeSpan diff = (end - start);
                 
-                if (retcode != -10000)
-                {
-                    Console.Write($"{diff.ToString("G")} ");
-                    if (retcode != 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write(":( ");
-                        Console.Write(retcode.ToString());
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(":)");
-                        Console.ResetColor();
-                    }
-                    
-                }
-                Console.WriteLine("");
             }
 
         }
     }
+    public static class Config {
+        public static bool fullscreen = false;
+        public static bool allowcolours = true;
+    }
     public static class Master
     {
+
         public static int interpret(string data)
         {
             if (data.Replace(" ","").Length == 0)
@@ -175,13 +161,53 @@ namespace CommandPromptPlus
                 bool isadmin = Utilities.sutils.IsAdministrator();
                 if (isadmin)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("You are an administrator!");
-                    Console.ResetColor();
+                    Utilities.sutils.WriteColour("You are an administrator!", ConsoleColor.Green, true);
+                } else
+                {
+                    Utilities.sutils.WriteColour("You are not an administrator", ConsoleColor.Red, true);
                 }
             } else if (croot.Equals("crash"))
             {
                 throw new SystemException("Manual Crash");
+            } else if (croot.Equals("cd"))
+            {
+                if (largs.Length == 0)
+                {
+                    Console.WriteLine(Environment.CurrentDirectory);
+                } else
+                {
+                    Environment.CurrentDirectory = largs[0];
+                }
+            } else if (croot.Equals("fullscreen"))
+            {
+                Config.fullscreen = !Config.fullscreen;//Invert boolean
+                SendKeys.SendWait("{F11}");
+            } else if (croot.Equals("time"))
+            {
+                //Linux time command
+                DateTime start = DateTime.Now;
+                int retcode = Master.interpret(String.Join(" ",largs).Replace("\n", "").Replace("\r", ""));
+                DateTime end = DateTime.Now;
+                TimeSpan diff = (end - start);
+
+                if (retcode != -10000)
+                {
+                    Console.Write($"{diff.ToString("G")} ");
+                    if (retcode != 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(":( ");
+                        Console.Write(retcode.ToString());
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(":)");
+                        Console.ResetColor();
+                    }
+                    Console.WriteLine("");
+                }
             }
             else
             {
@@ -215,16 +241,26 @@ namespace CommandPromptPlus
             }
             public static void About(string[] args)
             {
-                Console.WriteLine("=====Command Prompt Plus=====\n" + "The Better Command Prompt\n" + "(Basic Utilities fork)\n" + "\n" + "Version 3.0.8 (c) 2021-2023 Enderbyte Programs. All rights reserved\n" + "\n" + "Credits : \n" + "Developer: Jordan Rahim\n" + "That is all\n\n" + "Information: \n" + "Coded in .NET Framework 4.8 for Microsoft Windows\n" + "C# (of course)" + "\n" + "255 Lines of code\n\n" + "If you find a bug or have an issue, please report it to Enderbyte Programs immediatly." + "");
+                if (File.Exists("C:\\enderbyteprograms\\cmdp\\help.txt"))
+                {
+                    Console.WriteLine(File.ReadAllText("C:\\enderbyteprograms\\cmdp\\help.txt"));
+                } else
+                {
+                    Utilities.sutils.WriteColour("Could not find help file.", ConsoleColor.Red, true);
+                }
             }
             public static void Help(string[] args)
             {
                 Console.WriteLine("Basic Utilities Help Menu\n" +
-                    "Version 3.0.8\n" +
+                    "\n" +
                     "Commands List:\n" +
                     "help: Show this menu\n" +
                     "exit [code]: Exit with optional exit code\n" +
-                    "about: View some info about this program");
+                    "about: View some info about this program\n" +
+                    "crash: Crash this program\n" +
+                    "amiadmin: Check if user is administrator\n" +
+                    "cd [dir]: Get or set the current directory\n" +
+                    "time <command>: Get execution time of <command>");
             }
         }
 
@@ -250,6 +286,23 @@ namespace CommandPromptPlus
                     }
                 }
                 return result;
+            }
+            public static void WriteColour(string data,ConsoleColor fgcolour,bool inclnewline)
+            {
+                if (Config.allowcolours)
+                {
+                    Console.ForegroundColor= fgcolour;
+                    Console.Write(data);
+                    
+                    Console.ResetColor();
+                } else
+                {
+                    Console.Write(data);
+                }
+                if (inclnewline)
+                {
+                    Console.Write("\n");
+                }
             }
         }
         public static class ParseArgs
