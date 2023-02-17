@@ -248,3 +248,4 @@
 3.0.7 (VID 248): Add core in C#, but better
    3.0.8 (VID 249): Add exception handling, about, help, and crash commands
    3.0.9 (VID 250): Add some more commands
+   3.0.10 (VID 251): Add -c argument and fix bugs
