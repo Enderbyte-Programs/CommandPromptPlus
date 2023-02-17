@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,29 +12,33 @@ namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
-        public static int VID = 250;
+        public static int VID = 251;
         public static bool isbeta = true;
         static void Main(string[] args)
         {
-            Console.WriteLine("Better Command Prompt (Basic Utilities Extension)");
-           Console.WriteLine($"*********** Version 3.0.9 (VID {VID}) ***********");
-            if (Utilities.sutils.IsAdministrator())
+            if (!(args.Contains("-c") || args.Contains("-np")))
             {
-                Console.BackgroundColor= ConsoleColor.DarkRed;
-                Console.WriteLine("Currently running as Administrator, be careful");
-                Console.ResetColor();
+                Console.WriteLine("Better Command Prompt (Basic Utilities Extension)");
+                Console.WriteLine($"*********** Version 3.0.10 (VID {VID}) ***********");
+                if (Utilities.sutils.IsAdministrator())
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Currently running as Administrator, be careful");
+                    Console.ResetColor();
+                }
+                if (isbeta)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Caution: You are running beta software. Be sure to report any bug.");
+                    Console.ResetColor();
+                }
+                Console.WriteLine("\n");
             }
-            if (isbeta)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Caution: You are running beta software. Be sure to report any bug.");
-                Console.ResetColor();
-            }
-            Console.WriteLine("\n");
             try
             { mainloop(args); }
             catch (Exception e) {
                 Console.Clear();
+                new Thread(new ThreadStart(Utilities.sutils.BeepRepeatedly)).Start();
                 Console.BackgroundColor = ConsoleColor.DarkBlue;
                 for (int i = 0; i < Console.WindowHeight;i++)
                 {
@@ -47,12 +52,32 @@ namespace CommandPromptPlus
                     $"Message: {e.Message}\n" +
                     $"Stack Trace: {e.StackTrace}");
                 Console.WriteLine("\n\nPlease report this full message to Enderbyte Programs");
+   
                 Console.Write("Press enter to quit.");
+                Console.ResetColor();
                 Console.ReadLine();
             }
         }
+
         static void mainloop(string[] args)
         {
+            if (args.Length > 0)
+            {
+                //Some stuff
+                if (args[0].Equals("-c"))
+                {
+                    if (args.Length == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Please provide a command after -c");
+                        Console.ResetColor();
+                        return;
+                    } else
+                    {
+                        Environment.Exit(Master.interpret(String.Join(" ",args.ToList().GetRange(1, args.Length - 1))));
+                    }
+                }
+            }
             
             int hindex = 0;
             while (true)
@@ -199,14 +224,31 @@ namespace CommandPromptPlus
                         Console.Write(":( ");
                         Console.Write(retcode.ToString());
                         Console.ResetColor();
+                        Console.WriteLine("");
+                        return 1;
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(":)");
                         Console.ResetColor();
+                        Console.WriteLine("");
                     }
-                    Console.WriteLine("");
+                    
+                }
+            } else if (croot.Equals("beep"))
+            {
+                int beeps = 1;
+                try
+                {
+                    beeps = Convert.ToInt32(largs[0]);
+                } catch
+                {
+
+                }
+                for (int i = 0; i < beeps;i++)
+                {
+                    Console.Beep();
                 }
             }
             else
@@ -251,7 +293,7 @@ namespace CommandPromptPlus
             }
             public static void Help(string[] args)
             {
-                Console.WriteLine("Basic Utilities Help Menu\n" +
+                Console.WriteLine("Command Prompt Plus Help Menu\n" +
                     "\n" +
                     "Commands List:\n" +
                     "help: Show this menu\n" +
@@ -260,7 +302,8 @@ namespace CommandPromptPlus
                     "crash: Crash this program\n" +
                     "amiadmin: Check if user is administrator\n" +
                     "cd [dir]: Get or set the current directory\n" +
-                    "time <command>: Get execution time of <command>");
+                    "time <command>: Get execution time of <command>\n" +
+                    "beep [times=1]: Beep n amount of times. Default is 1");
             }
         }
 
@@ -269,6 +312,13 @@ namespace CommandPromptPlus
     {
         public static class sutils
         {
+            public static void BeepRepeatedly()
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Beep();
+                }
+            }
             public static bool IsAdministrator()
             {
                 var identity = WindowsIdentity.GetCurrent();
