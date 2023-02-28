@@ -249,3 +249,4 @@
    3.0.8 (VID 249): Add exception handling, about, help, and crash commands
    3.0.9 (VID 250): Add some more commands
    3.0.10 (VID 251): Add -c argument and fix bugs
+   3.0.11 (VID 252): Add run command and file argument
