@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
@@ -12,14 +13,15 @@ namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
-        public static int VID = 251;
+        public static int VID = 252;
+        public static int linus = 0;
         public static bool isbeta = true;
         static void Main(string[] args)
         {
             if (!(args.Contains("-c") || args.Contains("-np")))
             {
                 Console.WriteLine("Better Command Prompt (Basic Utilities Extension)");
-                Console.WriteLine($"*********** Version 3.0.10 (VID {VID}) ***********");
+                Console.WriteLine($"*********** Version 3.0.11 (VID {VID}) ***********");
                 if (Utilities.sutils.IsAdministrator())
                 {
                     Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -54,13 +56,16 @@ namespace CommandPromptPlus
                 Console.WriteLine("\n\nPlease report this full message to Enderbyte Programs");
    
                 Console.Write("Press enter to quit.");
-                Console.ResetColor();
+                
                 Console.ReadLine();
+                Console.ResetColor();
+                Environment.Exit(-1);
             }
         }
 
         static void mainloop(string[] args)
         {
+            
             if (args.Length > 0)
             {
                 //Some stuff
@@ -76,6 +81,22 @@ namespace CommandPromptPlus
                     {
                         Environment.Exit(Master.interpret(String.Join(" ",args.ToList().GetRange(1, args.Length - 1))));
                     }
+                } else if (File.Exists(args[0]))
+                {
+                    string[] _data = File.ReadAllLines(args[0]);
+                    foreach (string d in _data)
+                    {
+                        linus++;
+                        Master.interpret(d);
+                        
+                    }
+                    
+                } else if (!File.Exists(args[0]))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("File does not exist.");
+                    Console.ResetColor();
+                    return;
                 }
             }
             
@@ -250,6 +271,27 @@ namespace CommandPromptPlus
                 {
                     Console.Beep();
                 }
+            } else if (croot.Equals("run"))
+            {
+                if (largs.Length == 0) {
+                    Console.WriteLine("Please provide a command.");
+                    return -1;
+                }
+                try
+                {
+                    Process p = new Process();
+                    p.StartInfo.FileName = largs[0];
+                    p.StartInfo.UseShellExecute = false;
+                    if (largs.Length > 2)
+                    { p.StartInfo.Arguments = String.Join(" ", largs.ToList().GetRange(1, largs.Length - 2)); }
+                    p.Start();
+                    p.WaitForExit();
+                    return p.ExitCode;
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return -1;
+                }
             }
             else
             {
@@ -303,7 +345,8 @@ namespace CommandPromptPlus
                     "amiadmin: Check if user is administrator\n" +
                     "cd [dir]: Get or set the current directory\n" +
                     "time <command>: Get execution time of <command>\n" +
-                    "beep [times=1]: Beep n amount of times. Default is 1");
+                    "beep [times=1]: Beep n amount of times. Default is 1\n" +
+                    "run <command> [args]");
             }
         }
 
