@@ -250,3 +250,5 @@
    3.0.9 (VID 250): Add some more commands
    3.0.10 (VID 251): Add -c argument and fix bugs
    3.0.11 (VID 252): Add run command and file argument
+   3.0.12 (VID 253): Fix bug
+   3.0.13: Add stats command, new installer
