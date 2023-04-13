@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,10 +14,10 @@ namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
-        public static int VID = 253;
+        public static int VID = 254;
         public static int linus = 0;
         public static bool isbeta = true;
-        public static string versionstring = "3.0.12";
+        public static string versionstring = "3.0.13";
         static void Main(string[] args)
         {
             if (!(args.Contains("-c") || args.Contains("-np")))
@@ -37,6 +38,7 @@ namespace CommandPromptPlus
                 }
                 Console.WriteLine("\n");
             }
+            Setup.DoSetup();
             try
             { mainloop(args); }
             catch (Exception e) {
@@ -91,6 +93,7 @@ namespace CommandPromptPlus
                         Master.interpret(d);
                         
                     }
+                    Environment.Exit(0);
                     
                 } else if (!File.Exists(args[0]))
                 {
@@ -303,6 +306,17 @@ namespace CommandPromptPlus
                     return -1;
                 }
             }
+            else if (croot.Equals("stats"))
+            {
+                Console.WriteLine("Command Prompt Plus (BU 3.x) statistics and credits");
+                Console.WriteLine("Made by Enderbyte Programs");
+                Console.WriteLine("(c) 2021-2023 Enderbyte Programs, some rights reserved.");
+                Console.WriteLine("481 lines of code and counting!");
+                Console.WriteLine("Credits:");
+                Console.WriteLine("Thank you to Microsoft for creating the .NET Framework");
+                Console.WriteLine("Thank you to Github for providing hosting");
+                Console.WriteLine("Thank you to Inno Setup for allowing the creation of setup files (v2.0-v2.31&3.0.13-)");
+            }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -312,6 +326,24 @@ namespace CommandPromptPlus
             }
 
             return 0;
+        }
+    }
+    public static class Setup
+    {
+        public static void DoSetup()
+        {
+            //Does startup initialization
+            string installed = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            //Console.WriteLine(installed);
+            RegistryKey epr = Registry.CurrentUser.CreateSubKey("EnderbytePrograms");
+            epr = epr.CreateSubKey("cmdp");
+            epr.SetValue("InstalledVersion",CommandPromptPlus.VID.ToString());
+            var name = "PATH";
+            var scope = EnvironmentVariableTarget.User; // or User
+            var oldValue = Environment.GetEnvironmentVariable(name, scope);
+            if (!oldValue.Contains(installed))
+            { oldValue = oldValue + ";"+installed; }
+            Environment.SetEnvironmentVariable(name, oldValue, scope);
         }
     }
     namespace Commands
@@ -373,6 +405,22 @@ namespace CommandPromptPlus
                 for (int i = 0; i < 5; i++)
                 {
                     Console.Beep();
+                }
+            }
+            public static bool AskYesNo(string prompt)
+            {
+                while (true)
+                {
+                    Console.Write(prompt + " (yes/no): ");
+                    string s = Console.ReadLine();
+                    if (s.ToLower().StartsWith("y"))
+                    {
+                        return true;
+                    }
+                    else if (s.ToLower().StartsWith("n"))
+                    {
+                        return false;
+                    }
                 }
             }
             public static bool IsAdministrator()
