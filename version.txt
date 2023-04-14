@@ -1,1 +1,0 @@
-3.0.13;300;https://github.com/Enderbyte-Programs/CommandPromptPlus/releases/download/v3.0.13/cmdp-3.0.13-setup.exe
