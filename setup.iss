@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Command Prompt Plus"
-#define MyAppVersion "3.0.13"
+#define MyAppVersion "3.1"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyteprograms.weebly.com"
 #define MyAppExeName "cmdp.exe"
@@ -27,32 +27,34 @@ DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 LicenseFile=C:\Users\jorda\Downloads\license.rtf
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
+PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputBaseFilename=cmdp-3.0.13-setup
-SetupIconFile=C:\Users\jorda\Downloads\commandpromptplus.ico
+SetupIconFile=C:\Users\jorda\source\repos\CommandPromptPlus\commandpromptplus.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+UninstallDisplayIcon={app}\commandpromptplus.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "assoc"; Description: "Associate .csh file"; GroupDescription: "Registry"
 
 [Files]
 Source: "C:\Users\jorda\source\repos\CommandPromptPlus\bin\Debug\app.publish\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\jorda\source\repos\CommandPromptPlus\commandpromptplus.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\jorda\source\repos\CommandPromptPlus\help.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\jorda\source\repos\CommandPromptPlus\csh.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocExt}\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppAssocKey}"; ValueData: ""; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppAssocName}"; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\csh.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
-Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
+Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".csh"; ValueData: ""
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

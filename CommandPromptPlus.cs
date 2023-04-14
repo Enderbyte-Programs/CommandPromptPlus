@@ -14,16 +14,16 @@ namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
-        public static int VID = 254;
+        public static int VID = 255;
         public static int linus = 0;
         public static bool isbeta = true;
-        public static string versionstring = "3.0.13";
+        public static string versionstring = "3.1";
         static void Main(string[] args)
         {
             if (!(args.Contains("-c") || args.Contains("-np")))
             {
                 Console.WriteLine("Better Command Prompt (Basic Utilities Extension)");
-                Console.WriteLine($"*********** Version {versionstring} (VID {VID}) ***********");
+                Console.WriteLine($"************* Version {versionstring} (VID {VID}) *************");
                 if (Utilities.sutils.IsAdministrator())
                 {
                     Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -38,7 +38,7 @@ namespace CommandPromptPlus
                 }
                 Console.WriteLine("\n");
             }
-            Setup.DoSetup();
+            
             try
             { mainloop(args); }
             catch (Exception e) {
@@ -105,6 +105,7 @@ namespace CommandPromptPlus
             }
             
             int hindex = 0;
+            new Thread(new ThreadStart(Setup.DoSetup)).Start();//Run in thread
             while (true)
             {
                 string mcommand = "";
@@ -316,6 +317,9 @@ namespace CommandPromptPlus
                 Console.WriteLine("Thank you to Microsoft for creating the .NET Framework");
                 Console.WriteLine("Thank you to Github for providing hosting");
                 Console.WriteLine("Thank you to Inno Setup for allowing the creation of setup files (v2.0-v2.31&3.0.13-)");
+            } else if (croot.Equals("update"))
+            {
+                Setup.CheckUpdate();
             }
             else
             {
@@ -334,16 +338,64 @@ namespace CommandPromptPlus
         {
             //Does startup initialization
             string installed = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            //Console.WriteLine(installed);
-            RegistryKey epr = Registry.CurrentUser.CreateSubKey("EnderbytePrograms");
-            epr = epr.CreateSubKey("cmdp");
-            epr.SetValue("InstalledVersion",CommandPromptPlus.VID.ToString());
-            var name = "PATH";
-            var scope = EnvironmentVariableTarget.User; // or User
-            var oldValue = Environment.GetEnvironmentVariable(name, scope);
-            if (!oldValue.Contains(installed))
-            { oldValue = oldValue + ";"+installed; }
-            Environment.SetEnvironmentVariable(name, oldValue, scope);
+            if (!installed.ToLower().Contains("debug"))
+            {
+                //Console.WriteLine(installed);
+                RegistryKey epr = Registry.CurrentUser.CreateSubKey("EnderbytePrograms");
+                epr = epr.CreateSubKey("cmdp");
+                epr.SetValue("InstalledVersion", CommandPromptPlus.VID.ToString());
+                var name = "PATH";
+                var scope = EnvironmentVariableTarget.User; // or User
+                var oldValue = Environment.GetEnvironmentVariable(name, scope);
+                if (!oldValue.Contains(installed))
+                { oldValue = oldValue + ";" + installed; }
+                Environment.SetEnvironmentVariable(name, oldValue, scope);
+            }
+
+        }
+        public static void CheckUpdate()
+        {
+            try
+            {
+                System.Net.WebClient wc = new System.Net.WebClient();
+                byte[] raw = wc.DownloadData("https://pastebin.com/raw/JAXHD0Zg");
+
+                string data = System.Text.Encoding.UTF8.GetString(raw);
+                string[] sdata = data.Split(';');
+                //Console.Write(sdata[1]);
+                if (int.Parse(sdata[1]) > CommandPromptPlus.VID)
+                {
+                    //Update is found
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"An update is available ({sdata[0]}).");
+                    Console.ResetColor();
+                    if (Utilities.sutils.AskYesNo("Do you want to install this update?"))
+                    {
+                        Console.WriteLine("Preparing");
+                        string updatetempdir = Environment.ExpandEnvironmentVariables("%TEMP%\\cmdpupdate");
+                        if (!Directory.Exists(updatetempdir))
+                        {
+                            Directory.CreateDirectory(updatetempdir);
+                        }
+                        string updatefile = updatetempdir + "\\setup.exe";
+                        if (File.Exists(updatefile))
+                        {
+                            File.Delete(updatefile);
+                        }
+                        Console.WriteLine("Downloading update file");
+                        wc.DownloadFile(sdata[2],updatefile);
+                        Console.WriteLine("Installing update");
+                        Process p = new Process();
+                        p.StartInfo.FileName = updatefile;
+                        p.StartInfo.Arguments = "/SILENT /CLOSEAPPLICATIONS";
+                        p.StartInfo.UseShellExecute = true;
+                        p.Start();
+                        Environment.Exit(0);
+                    }
+                }
+            } catch (Exception e) {
+                Utilities.sutils.WriteColour($"Update Error: {e.Message}", ConsoleColor.Red, true);
+            }
         }
     }
     namespace Commands
