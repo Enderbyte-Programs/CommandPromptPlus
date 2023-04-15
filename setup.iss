@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Command Prompt Plus"
-#define MyAppVersion "3.1"
+#define MyAppVersion "3.1.1"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyteprograms.weebly.com"
 #define MyAppExeName "cmdp.exe"
@@ -29,7 +29,7 @@ LicenseFile=C:\Users\jorda\Downloads\license.rtf
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputBaseFilename=cmdp-3.0.13-setup
+OutputBaseFilename=cmdp-3.1.1-setup
 SetupIconFile=C:\Users\jorda\source\repos\CommandPromptPlus\commandpromptplus.ico
 Compression=lzma
 SolidCompression=yes

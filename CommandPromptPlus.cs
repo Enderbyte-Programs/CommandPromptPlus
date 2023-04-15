@@ -14,10 +14,10 @@ namespace CommandPromptPlus
 {
     internal class CommandPromptPlus
     {
-        public static int VID = 255;
+        public static int VID = 256;
         public static int linus = 0;
-        public static bool isbeta = true;
-        public static string versionstring = "3.1";
+        public static bool isbeta = false;
+        public static string versionstring = "3.1.1";
         static void Main(string[] args)
         {
             if (!(args.Contains("-c") || args.Contains("-np")))
@@ -319,7 +319,54 @@ namespace CommandPromptPlus
                 Console.WriteLine("Thank you to Inno Setup for allowing the creation of setup files (v2.0-v2.31&3.0.13-)");
             } else if (croot.Equals("update"))
             {
-                Setup.CheckUpdate();
+               
+                try
+                {
+                    Console.Write("Checking...\r");
+                    System.Net.WebClient wc = new System.Net.WebClient();
+                    byte[] raw = wc.DownloadData("https://pastebin.com/raw/JAXHD0Zg");
+
+                    string pdata = System.Text.Encoding.UTF8.GetString(raw);
+                    string[] sdata = pdata.Split(';');
+                    //Console.Write(sdata[1]);
+                    if (int.Parse(sdata[1]) > CommandPromptPlus.VID || (largs.Contains("-f") || largs.Contains("--force")))
+                    {
+                        //Update is found
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"An update is available ({sdata[0]}).");
+                        Console.ResetColor();
+                        if (Utilities.sutils.AskYesNo("Do you want to install this update?") || (largs.Contains("-f") || largs.Contains("--force")) || (largs.Contains("-y") || largs.Contains("--yes")))
+                        {
+                            Console.WriteLine("Preparing");
+                            string updatetempdir = Environment.ExpandEnvironmentVariables("%TEMP%\\cmdpupdate");
+                            if (!Directory.Exists(updatetempdir))
+                            {
+                                Directory.CreateDirectory(updatetempdir);
+                            }
+                            string updatefile = updatetempdir + "\\setup.exe";
+                            if (File.Exists(updatefile))
+                            {
+                                File.Delete(updatefile);
+                            }
+                            Console.WriteLine("Downloading update file");
+                            wc.DownloadFile(sdata[2], updatefile);
+                            Console.WriteLine("Installing update");
+                            Process p = new Process();
+                            p.StartInfo.FileName = updatefile;
+                            p.StartInfo.Arguments = "/SILENT /CLOSEAPPLICATIONS";
+                            p.StartInfo.UseShellExecute = true;
+                            p.Start();
+                            Environment.Exit(0);
+                        }
+                    } else
+                    {
+                        Console.WriteLine("No Updates are available");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Utilities.sutils.WriteColour($"Update Error: {e.Message}", ConsoleColor.Red, true);
+                }
             }
             else
             {
@@ -434,16 +481,17 @@ namespace CommandPromptPlus
                 Console.WriteLine("Command Prompt Plus Help Menu\n" +
                     "\n" +
                     "Commands List:\n" +
-                    "help: Show this menu\n" +
-                    "exit [code]: Exit with optional exit code\n" +
-                    "about: View some info about this program\n" +
-                    "crash: Crash this program\n" +
-                    "amiadmin: Check if user is administrator\n" +
-                    "cd [dir]: Get or set the current directory\n" +
-                    "time <command>: Get execution time of <command>\n" +
-                    "beep [times=1]: Beep n amount of times. Default is 1\n" +
-                    "run <command> [args]\n" +
-                    "stats: statistics and credits");
+                    "help:                  Show this menu\n" +
+                    "exit                   [code]: Exit with optional exit code\n" +
+                    "about:                 View some info about this program\n" +
+                    "crash:                 Crash this program\n" +
+                    "amiadmin:              Check if user is administrator\n" +
+                    "cd [dir]:              Get or set the current directory\n" +
+                    "time <command>:        Get execution time of <command>\n" +
+                    "beep [times=1]:        Beep n amount of times. Default is 1\n" +
+                    "run <command> [args]   Run a file\n" +
+                    "stats:                 statistics and credits\n" +
+                    "update [-f-y]          Check for an update.");
             }
         }
 
